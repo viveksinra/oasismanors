@@ -56,4 +56,22 @@ export const allRelation = [{label:"Friend",id:"friend"},{label:"Father",id:"fat
 
 export const allJobRole = [{label:"Admin"},{label:"Manager"},{label:"Caregiver"},{label:"Wellness Director"},{label:"Fitness coach"},{label:"Cook"},{label:"Outdoor Worker"},{label:"Indoor Worker"},{label:"Doctor"},{label:"Accountant"},{label:"Housekeeper"},{label:"Other"}]
 
-export const allSecurityRole = [{label:"Administrator", id:"administrator"},{label:"Care Taker", id:"careTaker"},{label:"Medical", id:"medical"},{label:"Staff", id:"staff"},{label:"Account", id:"account"},{label:"Enquiry", id:"enquiry"},{label:"Manager", id:"manager"}]
+export const allSecurityRole = [{label:"Administrator", id:"administrator"},{label:"Care Taker", id:"careTaker"},{label:"Medical", id:"medical"},{label:"Staff", id:"staff"},{label:"Account", id:"account"},{label:"Enquiry", id:"enquiry"},{label:"Manager", id:"manager"}];
+
+export const todayDate = ()=> {
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+    today = yyyy + "-" + mm + "-" + dd
+    return today;
+}
+export const timZone = ()=>{
+    let date = new Date();
+    let offsetMinutes = date.getTimezoneOffset();
+    let offsetHours = Math.floor(Math.abs(offsetMinutes) / 60);
+    let offsetMinutesFormatted = Math.abs(offsetMinutes) % 60;
+    let offsetSign = offsetMinutes > 0 ? "-" : "+";
+    let offsetString = `${offsetSign}${offsetHours.toString().padStart(2, "0")}:${offsetMinutesFormatted.toString().padStart(2, "0")}`;
+    return offsetString;
+}

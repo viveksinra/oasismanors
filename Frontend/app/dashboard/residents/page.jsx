@@ -1,6 +1,6 @@
 'use client';
 import "./residentStyle.css";
-import React, { Fragment, lazy, useEffect } from 'react'
+import React, { Fragment, lazy, useEffect, Suspense } from 'react'
 import {Grid,Typography, Fab,styled,Button,Badge,ToggleButtonGroup,ToggleButton,Tooltip, Tab, Box,MobileStepper, Avatar, List,ListItem,ListItemIcon,ListItemText, Divider} from '@mui/material/';
 import { useState,useRef} from 'react';
 import {TabContext,TabList,TabPanel } from '@mui/lab/';
@@ -76,14 +76,14 @@ export function SearchArea({handleEdit}) {
   }, [])
 
   useEffect(() => {
-    let filtArr = allRes.filter(f => {
+   let filtArr = allRes.filter(f => {
       if(f.residenceStage === "residence"){
         return f?.building?.id === residentTab
       }else if(f.residenceStage === "incoming" || f.residenceStage === "movedOut"){
         return f.residenceStage === residentTab
       }
        })
-     setFilterRes(filtArr)
+     setFilterRes(filtArr) 
   }, [residentTab,allRes])
       
 
@@ -170,7 +170,7 @@ function ResidentView({view,filterRes,setFilterRes}){
               </Button >
               </Badge>
               <Badge badgeContent={2} max={9} color="success">
-              <Button variant="outlined" onClick={()=>setOpenMeds(!openMeds)} size="small" sx={{background:"#fff"}}>
+              <Button variant="outlined" onClick={()=>{setOpenMeds(!openMeds)}} size="small" sx={{background:"#fff"}}>
                 <FaHandHoldingMedical style={{marginRight:5}}/>
                 Meds
               </Button >
@@ -184,7 +184,8 @@ function ResidentView({view,filterRes,setFilterRes}){
           <DetailedCard act={act}/>
         </Grid>
       </Grid>
-      <Meds setOpenMeds={()=>setOpenMeds(!openMeds)} openMeds={openMeds} act={act} />
+      <Suspense fallback={null}>  {act && <Meds setOpenMeds={()=>setOpenMeds(!openMeds)} openMeds={openMeds} act={act} /> }  </Suspense>
+     
     </section>
   }
 }

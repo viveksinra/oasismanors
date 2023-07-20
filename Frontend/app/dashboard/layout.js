@@ -4,7 +4,7 @@ import "./dashboardStyle.css";
 import {styled,Box,CssBaseline,Toolbar,IconButton,useTheme,List,ListItem,ListItemButton,ListItemIcon,ListItemText,Divider, SwipeableDrawer   } from '@mui/material/';
 import MuiAppBar from '@mui/material/AppBar';
 import MuiDrawer from '@mui/material/Drawer';
-import { FcMenu,FcLeft,FcHome,FcFilmReel,FcGallery,FcConferenceCall,FcComboChart,FcBusinessman } from "react-icons/fc";
+import { FcMenu,FcLeft,FcHome,FcFilmReel,FcGallery,FcConferenceCall,FcComboChart,FcBusinessman,FcRightUp } from "react-icons/fc";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation'
 import Loading from '../Components/Loading/Loading';
@@ -13,7 +13,7 @@ const drawerWidth = 240;
 
 const DrawerData = ({open}) => {
   const router = useRouter();
-  const [dashList1, setDashList] = useState([{title:"Dashboard",active: true, link:"/dashboard",icon:<FcComboChart/>},{title:"Prospect",active: false, link:"/dashboard/prospect",icon:<FcConferenceCall/>},{title:"Residents", active: false,link:"/dashboard/residents",icon:<FcHome/>},{title:"Employee", active: false,link:"/dashboard/employee",icon:<FcBusinessman/>}]) 
+  const [dashList1, setDashList] = useState([{title:"Dashboard",active: true, link:"/dashboard",icon:<FcComboChart/>},{title:"Prospect",active: false, link:"/dashboard/prospect",icon:<FcConferenceCall/>},{title:"Residents", active: false,link:"/dashboard/residents",icon:<FcHome/>},{title:"Payment", active: false,link:"/dashboard/payment",icon:<FcRightUp/>},{title:"Employee", active: false,link:"/dashboard/employee",icon:<FcBusinessman/>}]) 
  
   const handleLink = (v,n)=>{
     router.push(v.link)

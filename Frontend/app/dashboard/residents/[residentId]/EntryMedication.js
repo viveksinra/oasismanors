@@ -43,7 +43,7 @@ const EntryMedication = forwardRef((props, ref) => {
       useEffect(() => {
         async function getData() {
           try {
-            let res = await medicationService.getMedication(`api/v1/residence/resMed/getResMed/getAll/${props.prospectId}` , props.id);
+            let res = await medicationService.getMedication(`api/v1/residence/resMed/getResMed/getAll/${props.prospectId}`, props.id);
            if(res.variant === "success"){
              props.setId(res.data._id);
              setImgUrl(res.data?.image);
@@ -95,7 +95,6 @@ const EntryMedication = forwardRef((props, ref) => {
         if(mode==="add"){
           let Arr1 = [...timing]
         let newArr=[...Arr1,{time:"09:00", qty:"1"}]
-        console.log(newArr)
         setTiming(newArr);
         }else if(mode==="delete"){
           let Arr1 = [...timing]
@@ -113,11 +112,13 @@ const EntryMedication = forwardRef((props, ref) => {
     }
      
     const handleClear =()=>{
+      props.setId("");
       setImgUrl("https://onemg.gumlet.io/l_watermark_346,w_240,h_240/a_ignore,w_240,h_240,c_fit,q_auto,f_auto/hx2gxivwmeoxxxsc1hix.png");
       setLoadingImg(false);
       setPrn(false);
       setEmpty(false);
       setRx(true);
+      setDis(false);
       setTitle("");
       setBrand("");
       setDosage("");
@@ -143,7 +144,7 @@ const EntryMedication = forwardRef((props, ref) => {
       useImperativeHandle(ref, () => ({
           handleSubmit: async () => {
             try {
-              let data = {prospectId:props.prospectId,image,prn,emptyStomach,rx,title,brand,dosage,frequency,days,timing,startDate,endDate,route,storage,description,composition,barcode,ruleCategory,supplier,prescription,direction,reason,recommend,medPassNote,sideEffect  };
+              let data = {prospectId:props.prospectId,type:props.addType, image,prn,emptyStomach,rx,discontinue,title,brand,dosage,frequency,days,timing,startDate,endDate,route,storage,description,composition,barcode,ruleCategory,supplier,prescription,direction,reason,recommend,medPassNote,sideEffect  };
               let response = await medicationService.saveMedication("api/v1/residence/resMed/addResMed", props.id, data);
              if(response.variant === "success"){
                snackRef.current.handleSnack(response);
@@ -182,13 +183,13 @@ const EntryMedication = forwardRef((props, ref) => {
           </FormGroup>
           </Grid>
           <Grid item xs={12} md={4} style={{display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column"}}>
-      <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>Add New {props.addType}</Typography>
+           <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>Add new {props.addType}</Typography>
   
           {
             loadingImg ?  <CircularProgress /> :  <label htmlFor="contactImg">
             <input type="file" id="contactImg" style={{display:"none"}} onChange={(e) => imgUpload(e.target.files[0])}  accept="image/*"  />
             <Tooltip title={`Upload ${props.addType} Photo`} arrow>
-            <Avatar alt="Medication-Img" sx={{cursor: "pointer",width: 112, height: 112, border:"4px solid #d9fdd3"}} src={image}/>
+            <Avatar alt="medication-Img" sx={{cursor: "pointer",width: 112, height: 112, border:"4px solid #d9fdd3"}} src={image}/>
             </Tooltip>
             </label>
             } 
@@ -209,7 +210,6 @@ const EntryMedication = forwardRef((props, ref) => {
               <Table size="small">
           <TableHead>
             <TableRow>
-              {/* setTiming([...timing, {time:"09:00", qty:"1"}]) */}
               <TableCell sx={{width:"30px"}}> <Tooltip title="Add New Row" placement="left" arrow> <IconButton onClick={()=> handleAdd("add") }>
                   <FcAddRow/>
                   </IconButton> </Tooltip >  </TableCell>
@@ -220,7 +220,7 @@ const EntryMedication = forwardRef((props, ref) => {
           <TableBody>
             {timing.map((row,i) => (
               <TableRow
-                key={row?.time}
+                key={i}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell><Tooltip title="Remove This Row" placement="left" arrow>
@@ -236,27 +236,25 @@ const EntryMedication = forwardRef((props, ref) => {
         </Table>
               </Grid>
             </Grid>
-          
         </div>
           </> }
-          
-          
           </Grid>
         </Grid>
-   
       </Grid>
       <Grid item xs={12} md={3}>
-      <TextField fullWidth label={`${props.addType} Title`} value={title} onChange={e=>setTitle(e.target.value)} placeholder={`Name of the ${props.addType}`} variant="standard" />   
+      <TextField fullWidth label={`Title of ${props.addType}`} value={title} onChange={e=>setTitle(e.target.value)} placeholder={`Name of the ${props.addType}`} variant="standard" />   
       </Grid>
       <Grid item xs={12} md={3}>
       <TextField fullWidth label="Brand Name" value={brand} onChange={e=>setBrand(e.target.value)} placeholder='Type Brand Name' variant="standard" />   
       </Grid>
-      <Grid item xs={12} md={3}>
+      {props?.addType === "medication" && <Grid item xs={12} md={3}>
       <TextField fullWidth label="Dosage" value={dosage} onChange={e=>setDosage(e.target.value)} variant="standard" />   
-      </Grid>
-      <Grid item xs={12} md={3}>
+      </Grid>}
+      
+      {props?.addType === "medication" &&  <Grid item xs={12} md={3}>
       <TextField fullWidth label="Composition" value={composition} onChange={e=>setCompo(e.target.value)} placeholder='Type Salt Composition' variant="standard" />   
-      </Grid>
+      </Grid>}
+     
      
       <Grid item xs={12} md={3}>
       <TextField fullWidth label="Start Date" value={startDate} onChange={e=>setStartDate(e.target.value)} type="date" focused variant="standard" />   
@@ -267,19 +265,21 @@ const EntryMedication = forwardRef((props, ref) => {
       <Grid item xs={12} md={3}>
       <TextField label="Route" value={route} placeholder='By Mouth' onChange={e=>setRoute(e.target.value)} fullWidth variant="standard" />   
       </Grid>
-      <Grid item xs={12} md={3}>
+      {props?.addType === "medication" &&  <Grid item xs={12} md={3}>
       <TextField fullWidth label="Storage" value={storage} onChange={e=>setStorage(e.target.value)} placeholder='Like, Store below 30°C' variant="standard" />   
-      </Grid>
+      </Grid>}
+     
       <Grid item xs={12} md={3}>
-      <TextField fullWidth label="Med Description" value={description} onChange={e=>setDisc(e.target.value)} variant="standard" />   
+      <TextField fullWidth label="Description" value={description} onChange={e=>setDisc(e.target.value)} variant="standard" />   
   
       </Grid>
       <Grid item xs={12} md={3}>
       <TextField label="Barcode" value={barcode} onChange={e=>setBarcode(e.target.value)} fullWidth variant="standard" />   
       </Grid>
-      <Grid item xs={12} md={3}>
-      <TextField label="Med Rule Category" value={ruleCategory} onChange={e=>setRule(e.target.value)} fullWidth variant="standard" />   
-      </Grid>
+      {props?.addType === "medication" &&  <Grid item xs={12} md={3}>
+      <TextField label="Rule Category" value={ruleCategory} onChange={e=>setRule(e.target.value)} fullWidth variant="standard" />   
+      </Grid> }
+     
       <Grid item xs={12} md={3}>
         <Autocomplete
         value={supplier}
@@ -299,7 +299,6 @@ const EntryMedication = forwardRef((props, ref) => {
         }}
         filterOptions={(options, params) => {
           const filtered = filter(options, params);
-  
           const { inputValue } = params;
           // Suggest the creation of a new value
           const isExisting = options.some((option) => inputValue === option.label);
@@ -328,7 +327,7 @@ const EntryMedication = forwardRef((props, ref) => {
           // Regular option
           return option.label;
         }}
-        renderOption={(props, option) => <li {...props}>{option.label}</li>}
+        renderOption={(props, option) => <li key={option.id} {...props}>{option.label}</li>}
         // sx={{ width: 300 }}
         freeSolo
         renderInput={(params) => (
@@ -349,7 +348,7 @@ const EntryMedication = forwardRef((props, ref) => {
       <TextField label="Recommended By" value={recommend} onChange={e=>setRecom(e.target.value)} placeholder="Type Doctor's Name" fullWidth variant="standard" />   
       </Grid>
       <Grid item xs={12} md={6}>
-      <TextField label="Med Pass Notes" value={medPassNote} onChange={e=>setMedNotes(e.target.value)} multiline rows={4}  placeholder='Any Advice you want to convey before the med pass.' fullWidth variant="outlined" />   
+      <TextField label="Passing Notes" value={medPassNote} onChange={e=>setMedNotes(e.target.value)} multiline rows={4}  placeholder='Any Advice you want to convey before giving.' fullWidth variant="outlined" />   
       </Grid>
       <Grid item xs={12} md={6}>
       <TextField label="Side Effects" value={sideEffect} onChange={e=>setSideEff(e.target.value)} multiline rows={4}  placeholder='Side Effects (if any)' fullWidth variant="outlined" />   
@@ -360,7 +359,7 @@ const EntryMedication = forwardRef((props, ref) => {
     )
   });
   
-  const scheduleBox={
+ export const scheduleBox={
     width: "100%",
     borderRadius: "10px",
     maxWidth: "350px",
@@ -368,7 +367,7 @@ const EntryMedication = forwardRef((props, ref) => {
     boxShadow :"0 2px 4px #ddd"
   }
 
-  const scheduleText ={
+  export const scheduleText ={
     position: "relative",
     top:"10px",
     width: "80px",

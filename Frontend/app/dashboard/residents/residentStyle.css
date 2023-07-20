@@ -91,3 +91,15 @@
     bottom: 0px;
     padding: 5px 10px;
 }
+.mask{
+    position:absolute;
+    width: 400px;
+    height: 250px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 2;
+}
