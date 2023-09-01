@@ -6,6 +6,6 @@ function Loading() {
     <CircularProgress color="success" />
   </Box>
   )
-}
+} 
 
 export default Loading

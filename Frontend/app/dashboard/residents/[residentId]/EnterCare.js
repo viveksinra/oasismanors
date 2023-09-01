@@ -4,7 +4,7 @@ import {Grid, FormGroup,FormLabel,FormControlLabel,Switch, Checkbox,Radio, Typog
 import {FcAddRow,FcDeleteRow } from "react-icons/fc";
 import { useImgUpload } from '@/app/hooks/auth/useImgUpload';
 import MySnackbar from "../../../Components/MySnackbar/MySnackbar";
-import { medicationService } from "../../../services";
+import { careService } from "../../../services";
 import {scheduleBox, scheduleText} from "./EntryMedication";
 import Autocomplete from '@mui/material/Autocomplete';
 
@@ -18,37 +18,72 @@ const EntryCare = forwardRef((props, ref) => {
     const [fullCare, setFullCare]= useState(false);
     const [point, setPoint]= useState("");
     const [discontinue, setDis] =useState(false);
-     const [frequency, setFreq] = useState("daily");
+    const [frequency, setFreq] = useState("daily");
     const [days, setDays] =  useState("")
     const [timing, setTiming]= useState([{time:"09:00", qty:"1"}]);
     const [manpower, setManpower]= useState(1);
     const [instruction, setInst]= useState("");
     const [remark,setRemark] = useState("");
-    const [allCare] = useState([{id:"123sd",label:"Bathing",category:"General"},{id:"sdssdew454",label:"Personal Hygiene",category:"General"},{id:"dsf45",label:"Dressing",category:"General"},{id:"dsre5451f45",label:"Eating",category:"General"},{id:"er8155",label:"Oral Care",category:"General"},{id:"651545s",label:"Toileting",category:"General"},{id:"6454sdwceww",label:"Mobility & Transferring",category:"General"},{id:"631221564sd",label:"Meal Preparation",category:"IADL's"},{id:"6121sdwew",label:"Shopping",category:"IADL's"},{id:"sdwe215",label:"Medication Management",category:"Madication Administration"},{id:"sd15456454sd",label:"Diabetes Management",category:"Madication Administration"}]);
-    //   useEffect(() => {
-    //     // async function getData() {
-    //     //   try {
-    //     //     let res = await medicationService.getMedication(`api/v1/residence/resMed/getResMed/getAll/${props.prospectId}`, props.id);
-    //     //    if(res.variant === "success"){
-    //     //      props.setId(res.data._id);
-    //     //      setImgUrl(res.data?.image);
-            
-    //     //      snackRef.current.handleSnack(res);
-    //     //    }else snackRef.current.handleSnack(res);            
-    //     //   } catch (error) {
-    //     //    console.log(error);
-    //     //    snackRef.current.handleSnack({message:"Failed to fetch Data. " + error.res.data.message, variant:"error"});
-    //     //   } 
-    //     // }
-    //     // if(props.id){getData()}
-        
-    //   }, [props.id])
+    const [allCare,setAllCare] = useState([]);
+    useEffect(() => {
+      async function getData() {
+        try {
+          let res = await careService.getCare(`api/v1/residence/resCare/getResCare/getAll/${props.prospectId}`, props.id);
+          if(res.variant === "success"){
+            props.setId(res.data?._id);
+            setImgUrl(res.data?.imageUrl);
+            setCare(res.data.care);
+            setPrn(res.data?.prn);
+            setFullCare(res.data?.fullCare);
+            setPoint(res.data?.point);
+            setDis(res.data?.discontinue);
+            setFreq(res.data?.frequency);
+            setDays(res.data?.days);
+            setTiming(res.data?.timing);
+            setManpower(res.data?.manPower);
+            setInst(res.data?.instruction);
+            setRemark(res.data?.remark);
+            snackRef.current.handleSnack(res);
+          }else snackRef.current.handleSnack(res);            
+        } catch (error) {
+          console.log(error);
+          snackRef.current.handleSnack({message:"Failed to fetch Data. " + error.res.data.message, variant:"error"});
+        } 
+      }
+      if(props.id){getData()}
+      
+    }, [props.id])
+    useEffect(() => {
+     async function getAllCare() {
+          try {
+            let res = await careService.getCare(`api/v1/main/careCat/getCareCat/getAll`, "");
+           if(res.variant === "success"){
+            setAllCare(res.data);
+           }else snackRef.current.handleSnack(res);            
+          } catch (error) {
+           console.log(error);
+           snackRef.current.handleSnack({message:"Failed to fetch Data. " + error.res.data.message, variant:"error"});
+          } 
+        }
+        getAllCare()
+    }, [])
+    
     
     const handleClear =()=>{
       props.setId("");
       setImgUrl("https://onemg.gumlet.io/l_watermark_346,w_240,h_240/a_ignore,w_240,h_240,c_fit,q_auto,f_auto/hx2gxivwmeoxxxsc1hix.png");
-     
-      }
+      setCare(null);
+      setPrn(false);
+      setFullCare(false);
+      setPoint("");
+      setDis(false);
+      setFreq("daily");
+      setDays("");
+      setTiming([{time:"09:00", qty:"1"}]);
+      setManpower(1);
+      setInst("");
+      setRemark("");
+    }
     const handleObjChange=(e,i,p)=>{
         let newArr = [...timing]; // copying the old datas array
         if(p==="time"){
@@ -81,13 +116,12 @@ const EntryCare = forwardRef((props, ref) => {
       useImperativeHandle(ref, () => ({
           handleSubmit: async () => {
             try {
-              let data = {prospectId:props.prospectId,care,prn,fullCare,point,discontinue,frequency,days,timing,manpower,remark,  };
-              console.log(data)
-              // let response = await medicationService.saveMedication("api/v1/residence/resMed/addResMed", props.id, data);
-              //  if(response.variant === "success"){
-            //    snackRef.current.handleSnack(response);
-            //    handleClear();
-            //  }else snackRef.current.handleSnack(response?.response?.data);            
+              let data = {prospectId:props.prospectId,care,prn,fullCare,point,discontinue,frequency,days,timing,manpower,remark,instruction };
+              let response = await careService.saveCare("api/v1/residence/resCare/addResCare", props.id, data);
+               if(response.variant === "success"){
+               snackRef.current.handleSnack(response);
+               handleClear();
+             }else snackRef.current.handleSnack(response?.response?.data);            
             } catch (error) {
              console.log(error);
              snackRef.current.handleSnack({message:"Failed to fetch Data. " + error.response.data.message, variant:"error"});
@@ -111,7 +145,7 @@ const EntryCare = forwardRef((props, ref) => {
           <Grid item xs={12} md={4} style={{display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column"}}>
            <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>Add New Care</Typography>
   
-           <Avatar alt="medication-Img" sx={{cursor: "pointer",width: 112, height: 112, border:"4px solid #d9fdd3"}} src={image}/>
+           <Avatar alt="medication-Img" sx={{cursor: "pointer",width: 112, height: 112, border:"4px solid #d9fdd3"}} variant="square" src={image}/>
           </Grid>
           <Grid item xs={12} md={4}> 
           {!prn && <>
@@ -165,13 +199,20 @@ const EntryCare = forwardRef((props, ref) => {
             isOptionEqualToValue={(option, value) => option.id === value.id}
             options={allCare}
             onChange={(e, v) => {
-            setCare(v);
+              setCare(v);
+              if(v){
+                setPrn(v?.prn);
+                setImgUrl(v?.image);
+                setPoint(v?.point);
+                setInst(v?.instruction);
+                setManpower(v?.manPower)
+              }
             }}
             value={care}
             groupBy={(option) => option.category}
             renderOption={(props, option) => {
               return (
-                <li {...props} key={option.id}>
+                <li {...props} key={option._id}>
                   {option.label}
                 </li>
               );
@@ -195,7 +236,7 @@ const EntryCare = forwardRef((props, ref) => {
       </Grid>
       <Grid item xs={12} md={3}>
       <FormLabel component="legend">Manpower Required : {manpower}</FormLabel>
-      <Slider aria-label="Manpower Required for this Care" sx={{maxWidth:"240px"}} value={manpower} max={10} onChange={e=>setManpower(e.target.value)} valueLabelDisplay="auto" />
+      <Slider sx={{maxWidth:"240px"}} value={manpower} max={10} onChange={e=>setManpower(e.target.value)} valueLabelDisplay="auto" />
       
       </Grid>
       <Grid item xs={12} md={6}>

@@ -1,6 +1,6 @@
 'use client';
 import React,{useState,useEffect,forwardRef,useRef,useImperativeHandle} from 'react'
-import {Grid, AppBar,Toolbar,Box,Typography,TextField, Button,Tooltip,Avatar,ButtonGroup,InputAdornment,CircularProgress} from '@mui/material/';
+import {Grid, AppBar,Toolbar,Box,Typography,TextField, Button,Tooltip,Avatar,InputAdornment,CircularProgress} from '@mui/material/';
 import {FaUserPlus } from "react-icons/fa";
 import {FiFileMinus,FiCheck } from "react-icons/fi";
 import {BsTable } from "react-icons/bs";
@@ -11,6 +11,7 @@ import MySnackbar from "../../../Components/MySnackbar/MySnackbar";
 import {allStates,allRelation,allGenders} from "../../../Components/StaticData";
 import { prospectService } from "../../../services";
 import Autocomplete from '@mui/material/Autocomplete';
+import NoResult from "@/app/Components/NoResult/NoResult";
 import axios from 'axios';
 
 
@@ -47,13 +48,16 @@ function ContactTab({prospectId}) {
 
 
 function SearchContact({prospectId, handleEdit}) {
-  const [rows, setRow] = useState([])
+  const [rows, setRow] = useState([]);
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     async function fetchAllData() {
+      setLoading(true)
       let response = await prospectService.getContact(prospectId, "");
       if(response.variant === "success"){
         setRow(response?.data)
-      }else console.log(response)
+        setLoading(false)
+      }else {console.log(response);setLoading(false)}
     }
     fetchAllData()
   }, [])
@@ -123,6 +127,7 @@ function SearchContact({prospectId, handleEdit}) {
       <DataGrid
         rows={rows}
         columns={columns}
+        loading={loading}
         getRowId={(row) => row._id}
         initialState={{
           pagination: {
@@ -133,6 +138,7 @@ function SearchContact({prospectId, handleEdit}) {
         }}
         pageSizeOptions={[10]}
       />
+        {loading ? <div className="center"><CircularProgress size={30}/> </div> : loading === false && rows.length === 0 ? <NoResult label="No Contact Added"/> : null} 
     </Box>
     </main>
   )
@@ -189,28 +195,24 @@ const EntryContact = forwardRef((props, ref) => {
       
     }, [props.contactId])
     
-    useEffect(() => {
-        async function getZIPData() {
-          if(zip.length===5){
-            setLoadingCity(true)
-            await axios.get(`/api/public/zipToLocation?zipCode=${zip}`).then(res=>{
-              setCity(res.data.city)
-              let obj = allStates.find(o=>o.id ===res.data.state)
-              setState(obj)
-              setLoadingCity(false)
-            }).catch(err=>{
-              console.log(err);
-              alert("Please Enter Correct ZIP Code")
-              setZip("");
-              setCity("");
-              setState(null)
-              setLoadingCity(false)
-            })
-          }
-        }
-        getZIPData()
-      }, [zip])
-      
+    async function getZIPData() {
+      if(zip.length===5){
+        setLoadingCity(true)
+        await axios.get(`/api/public/zipToLocation?zipCode=${zip}`).then(res=>{
+          setCity(res.data.city)
+          let obj = allStates.find(o=>o.id ===res.data.state)
+          setState(obj)
+          setLoadingCity(false)
+        }).catch(err=>{
+          console.log(err);
+          alert("Please Enter Correct ZIP Code")
+          setZip("");
+          setCity("");
+          setState(null)
+          setLoadingCity(false)
+        })
+      }
+    } 
       const handleClear=()=>{
         props.setContactId("");
         setImgUrl("")
@@ -333,7 +335,7 @@ const EntryContact = forwardRef((props, ref) => {
     <TextField label="Email Id" value={email} onChange={e=>setEmail(e.target.value)} fullWidth variant="standard" />   
     </Grid>
     <Grid item xs={12} md={3}> 
-        <TextField fullWidth value={zip} onChange={e=> setZip(e.target.value)} disabled={loadingCity} InputProps= {{
+        <TextField fullWidth value={zip} onBlur={()=>getZIPData()} onChange={e=> setZip(e.target.value)} disabled={loadingCity} InputProps= {{
             endAdornment: (
             <InputAdornment position="end">
             {loadingCity && <CircularProgress size={25}/>}  

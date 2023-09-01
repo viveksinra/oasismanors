@@ -1,13 +1,16 @@
 'use client';
 import React,{useState, useEffect, forwardRef,useRef,useImperativeHandle} from 'react'
-import {Grid, AppBar,Toolbar,Box,Typography,TextField, Button,Tooltip,} from '@mui/material/';
+import {Grid, AppBar,Toolbar,Box,Typography,TextField, Button,Tooltip,Tab,ButtonGroup,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions,CircularProgress } from '@mui/material/';
 import {FaUserPlus } from "react-icons/fa";
 import {FiFileMinus,FiCheck } from "react-icons/fi";
+import NoResult from "@/app/Components/NoResult/NoResult";
+import {TabList,TabContext} from '@mui/lab/';
 import {BsTable } from "react-icons/bs";
 import {ToggleFab} from "../page"
 import { DataGrid } from '@mui/x-data-grid';
 import Autocomplete from '@mui/material/Autocomplete';
 import MySnackbar from "../../../Components/MySnackbar/MySnackbar";
+import { todayDate } from '../../../Components/StaticData';
 import { prospectService,employeeService } from "../../../services";
 
 
@@ -34,7 +37,6 @@ function TasksTab({prospectId}) {
           {!viewTabular && <Button variant="contained" onClick={() => entryRef.current.handleSubmit()} startIcon={<FiCheck />} size='small' color="success" >
             {taskId ? "Update" : "Save"}
           </Button>}
-          
       </Toolbar>         
       </AppBar>
        </main>
@@ -44,18 +46,65 @@ function TasksTab({prospectId}) {
 
 
 function SearchTask({prospectId, handleEdit}) {
+  const [loading, setLoading] = useState(true);
+  const [taskTab, setTaskTab] = useState("Active Task");
   const [rows, setRow] = useState([]);
+  const [allData, setAllData] = useState([])
+  const [completeBox, setCB]= useState({open:false});
+  const [completionDate, setDate] = useState("");
+  const [completionTime,setTime] = useState("");
+  const [remark, setRemark] = useState("");
+
   useEffect(() => {
-    async function fetchAllData() {
-      let response = await prospectService.getTask(prospectId, "");
-      if(response.variant === "success"){
-        setRow(response?.data)
-      }else console.log(response)
-    }
+    let filtArr = allData.filter(f => {
+      if(taskTab === "Active Task"){
+        return f?.taskStatus === "New"
+      }else if(taskTab === "Completed Task"){
+        return f?.taskStatus === "Completed"
+      }
+       })
+       setRow(filtArr)
+  }, [taskTab,allData])
+
+  async function fetchAllData() {
+    setLoading(true)
+    let response = await prospectService.getTask(prospectId, "");
+    if(response.variant === "success"){
+      setLoading(false)
+      setAllData(response?.data)
+    }else {setLoading(false);console.log(response)}
+  }
+
+  useEffect(() => {
     fetchAllData()
+    setDate(todayDate()) 
   }, [])
 
-
+  const handleComplete = async(goal, id)=>{
+    if(goal === "Complete"){
+      let taskData = {completionDate,completionTime,remark}
+      let response = await prospectService.saveTask("api/v1/enquiry/task/addTask/markComplete",completeBox?._id, taskData);
+      if(response.variant === "success"){
+        setCB({open:false});
+        setDate("");
+        setTime("");
+        setRemark("");
+        alert(response.message);
+        fetchAllData()
+      }else console.log(response)
+    }else if(goal ==="Delete"){
+      let y = confirm("Are you sure to delete this task ?")
+      if(y){
+        let response = await prospectService.deleteLeave(`api/v1/enquiry/task/addTask/deleteOne/${id}`);
+        if(response.variant === "success"){
+          alert(response.message);
+          fetchAllData()
+        }else console.log(response)
+      }
+    }
+  
+  }
+ 
   const columns = [
     {
       field: 'date',
@@ -73,7 +122,7 @@ function SearchTask({prospectId, handleEdit}) {
     {
       field: 'task',
       headerName: 'Task Name',
-      width: 150,
+      width: 350,
       editable: false,
     },
     {
@@ -106,9 +155,13 @@ function SearchTask({prospectId, handleEdit}) {
     {
       field: 'action',
       headerName: 'Action',
-      width: 120,
+      width: 220,
       sortable: false,
-      renderCell: props=> <Button onClick={()=>handleEdit(props?.row?._id)} variant="text">Edit</Button>,
+      renderCell: props=> <ButtonGroup variant="text" aria-label="text button group">
+      <Button color="info" disabled={props?.row?.taskStatus === "Completed"} onClick={()=>handleEdit(props?.row?._id)} variant="text">Edit</Button>
+      <Button color='success' onClick={()=>setCB({...props?.row,open:true})}>Complete</Button>
+      <Button color="error" onClick={()=>handleComplete("Delete", props?.row?._id)}>Delete</Button>
+    </ButtonGroup>,
     },
   ];
 
@@ -116,6 +169,11 @@ function SearchTask({prospectId, handleEdit}) {
     <main>
       <Box sx={{background:"#fff", borderRadius:"10px", width: '100%' }}>
       <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>All Tasks</Typography>
+          <TabContext value={taskTab} variant="scrollable" allowScrollButtonsMobile scrollButtons>
+          <TabList onChange={(e,v)=>setTaskTab(v)} aria-label="MedsTabs">
+          {["Active Task", "Completed Task"].map((t,i)=> <Tab key={i} value={t} label={t} />)}
+          </TabList>
+        </TabContext>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -129,7 +187,34 @@ function SearchTask({prospectId, handleEdit}) {
         }}
         pageSizeOptions={[10]}
       />
+      {loading ? <div className="center"><CircularProgress size={30}/> </div> : loading === false && rows.length === 0 ? <NoResult label="No Task Available. Enjoy !"/> : null} 
     </Box>
+    <Dialog maxWidth="lg" onClose={()=>setCB((d)=>({...d,open:false}))} open={completeBox?.open}>
+      <DialogTitle>Tell us about the Task.</DialogTitle>
+      <DialogContent>
+          <DialogContentText>
+         {completeBox?.task}
+          </DialogContentText>
+          <br/>
+          <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+          <TextField size="small" focused type='date' disabled={completeBox?.taskStatus ==="Completed"} value={completionDate} onChange={e=>setDate(e.target.value)} fullWidth label="Completion Date" variant="standard" />  
+          </Grid>
+          <Grid item xs={12} md={6}>
+          <TextField size="small" focused type='time' disabled={completeBox?.taskStatus ==="Completed"} value={completionTime} onChange={e=>setTime(e.target.value)} fullWidth label="Completion Time" variant="standard" />  
+          </Grid>
+          <Grid item xs={12}>
+          <TextField size="small" fullWidth label="Remark (If Any)" disabled={completeBox?.taskStatus ==="Completed"} value={remark} onChange={e=>setRemark(e.target.value)} multiline placeholder='Write us about the work.' variant="standard" />  
+          </Grid>
+          </Grid>
+        </DialogContent>
+        <DialogActions>
+          <Button color="inherit" onClick={()=>setCB((d)=>({...d,open:false}))}>Back</Button>
+          <Button variant="outlined" disabled={completeBox?.taskStatus ==="Completed"} onClick={()=>handleComplete("Complete")} autoFocus>
+            Submit
+          </Button>
+        </DialogActions>
+    </Dialog>
     </main>
   )
 }
@@ -185,7 +270,7 @@ const EntryTask = forwardRef((props, ref) => {
       handleSubmit: async () => {
          try {
           let taskData = {prospectId:props.prospectId, employee,taskType,taskDueDate,taskDueTime,task };
-          let response = await prospectService.saveTask(props.taskId, taskData);
+          let response = await prospectService.saveTask("api/v1/enquiry/task/addTask", props.taskId, taskData);
          if(response.variant === "success"){
            snackRef.current.handleSnack(response);
            handleClear();

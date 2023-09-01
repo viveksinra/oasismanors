@@ -1,10 +1,10 @@
 'use client';
 import React,{useState, Suspense} from 'react'
 import "./dashboardStyle.css";
-import {styled,Box,CssBaseline,Toolbar,IconButton,useTheme,List,ListItem,ListItemButton,ListItemIcon,ListItemText,Divider, SwipeableDrawer   } from '@mui/material/';
+import {styled,Box,CssBaseline,Toolbar,IconButton,useTheme,List,ListItem,ListItemButton,ListItemIcon,ListItemText,Divider, SwipeableDrawer,Collapse   } from '@mui/material/';
 import MuiAppBar from '@mui/material/AppBar';
 import MuiDrawer from '@mui/material/Drawer';
-import { FcMenu,FcLeft,FcHome,FcFilmReel,FcGallery,FcConferenceCall,FcComboChart,FcBusinessman,FcRightUp } from "react-icons/fc";
+import { FcMenu,FcLeft,FcHome,FcFilmReel,FcGallery,FcConferenceCall,FcComboChart,FcBusinessman,FcRightUp,FcDataRecovery,FcExpand,FcCollapse,FcPlus,FcLeftDown,FcTodoList,FcInspection,FcDocument } from "react-icons/fc";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation'
 import Loading from '../Components/Loading/Loading';
@@ -13,8 +13,9 @@ const drawerWidth = 240;
 
 const DrawerData = ({open}) => {
   const router = useRouter();
-  const [dashList1, setDashList] = useState([{title:"Dashboard",active: true, link:"/dashboard",icon:<FcComboChart/>},{title:"Prospect",active: false, link:"/dashboard/prospect",icon:<FcConferenceCall/>},{title:"Residents", active: false,link:"/dashboard/residents",icon:<FcHome/>},{title:"Payment", active: false,link:"/dashboard/payment",icon:<FcRightUp/>},{title:"Employee", active: false,link:"/dashboard/employee",icon:<FcBusinessman/>}]) 
- 
+  const [masterOpen, setMas] = useState(false);
+  const [dashList1, setDashList] = useState([{title:"Dashboard",active: true, link:"/dashboard",icon:<FcComboChart/>},{title:"Prospect",active: false, link:"/dashboard/prospect",icon:<FcConferenceCall/>},{title:"Residents", active: false,link:"/dashboard/residents",icon:<FcHome/>},{title:"Payment", active: false,link:"/dashboard/payment",icon:<FcRightUp/>},{title:"Receipt", active: false,link:"/dashboard/receipt",icon:<FcLeftDown/>},{title:"Invoice", active: false,link:"/dashboard/invoice",icon:<FcDocument/>},{title:"All Tasks", active: false,link:"/dashboard/task",icon:<FcTodoList/>},{title:"All Notes", active: false,link:"/dashboard/notes",icon:<FcInspection/>},{title:"Employee", active: false,link:"/dashboard/employee",icon:<FcBusinessman/>}]) 
+  const [masterList, setMaster] = useState([{title:"Create Ledger",active: false, link:"/dashboard/master/ledger",icon:<FcPlus/>}])
   const handleLink = (v,n)=>{
     router.push(v.link)
     let newArr =  dashList1.map((obj, j)=> {
@@ -54,7 +55,35 @@ const DrawerData = ({open}) => {
           ))}
         </List>
         <Divider />
-        <List>
+        <List disablePadding>
+        <ListItemButton onClick={()=>setMas(!masterOpen)}   sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}>
+        <ListItemIcon   sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    fontSize:24,
+                    justifyContent: 'center',
+                  }}>
+          <FcDataRecovery />
+        </ListItemIcon>
+        <ListItemText primary="Master" />
+        {masterOpen ? <FcCollapse /> : <FcExpand/>}
+      </ListItemButton>
+      <Collapse in={masterOpen} timeout="auto" unmountOnExit>
+        <List component="div" dense disablePadding>
+        {masterList.map((t,i)=> <ListItem key={i} onClick={()=>router.push(t.link)} disablePadding>
+        <ListItemButton sx={{ pl: 4}}>
+            <ListItemIcon sx={{minWidth:"40px"}} >
+             {t.icon}
+            </ListItemIcon>
+            <ListItemText primary={t.title} />
+          </ListItemButton>
+        </ListItem> )}
+        </List>
+      </Collapse>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton

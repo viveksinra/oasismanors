@@ -5,6 +5,7 @@ import {FaUserPlus } from "react-icons/fa";
 import {FiFileMinus,FiCheck } from "react-icons/fi";
 import {BsTable } from "react-icons/bs";
 import {ToggleFab} from "../page"
+import NoResult from "@/app/Components/NoResult/NoResult";
 import { DataGrid } from '@mui/x-data-grid';
 import { prospectService } from "../../../services";
 import MySnackbar from "../../../Components/MySnackbar/MySnackbar";
@@ -43,12 +44,15 @@ function NotesTab({prospectId}) {
 
 function SearchTask({prospectId, handleEdit}) {
   const [rows, setRow] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     async function fetchAllData() {
+      setLoading(true)
       let response = await prospectService.getNote(prospectId, "");
       if(response.variant === "success"){
         setRow(response?.data)
-      }else console.log(response)
+        setLoading(false)
+      }else {console.log(response);setLoading(false)}
     }
     fetchAllData()
   }, []);
@@ -100,6 +104,7 @@ const columns = [
         }}
         pageSizeOptions={[10]}
       />
+      {loading ? <div className="center"><CircularProgress size={30}/> </div> : loading === false && rows.length === 0 ? <NoResult label="No Notes Available."/> : null} 
     </Box>
     </main>
   )

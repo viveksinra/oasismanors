@@ -45,7 +45,7 @@ const EntryArea = forwardRef((props, ref) => {
     const [PAccordion, setPAccordion]=useState(true);
     
     const allSalesAgent=[{label:"Agent Vinod",id:"124sSDSD5sd1"},{label:"Raman Raghav",id:"12545SDFSDFsd1"},{label:"Vivek Oberoi", id:'asdSDFDSFSDFSDFEWER4'}];
-    const allProspectStage=[{label:"Unqualified",id:"dsfsDSFGGFNdsdadsf"}, {label:"Waiting List",id:"dsEREfadsf"},{label:"Qualified",id:"dsfsWERWdsdadsf"},{label:"Cold",id:"dssGFDDffdsddadsf"},{label:"Warm",id:"dssdsfHYFDBFDBsdsdadsf"},{label:"Hot",id:"dssdsfsdSFDNJJRTsdadsf"},{label:"Sold",id:"SEGHBHDFGD"},{label:"Dead",id:"SDEHYTYJYHGJG"},{label:"Lost to Competitor",id:"SDFSDFEHGBCBDFFG"},{label:"Deposit Received",id:"5F5DGSFGFDG"},{label:"Needs Assessment",id:"VGFDRGRG"}]
+    const allProspectStage=[{label:"Casual Inquiry",id:"casual-inquiry"},{label:"Qualified",id:"Qualified"},{label:"Cold",id:"Cold"},{label:"Warm",id:"Warm"},{label:"Hot",id:"Hot"}, {label:"Waiting List",id:"Waiting List"},{label:"Lost",id:"Lost"},{label:"Needs Assessment",id:"VGFDRGRG"}]
     const allProspectSource = [{label:"A place for Mom", id:"adsfjklVDDajsdf"},{label:"ElderLife Financial", id:"adsdVVSEssfdfdf"}];
    
     useEffect(() => {
@@ -85,28 +85,25 @@ const EntryArea = forwardRef((props, ref) => {
      
     }, [id])
     
-    useEffect(() => {
-      async function getZIPData() {
-        if(zip.length === 5){
-          setLoadingCity(true)
-          await axios.get(`/api/public/zipToLocation?zipCode=${zip}`).then(res=>{
-            setCity(res.data.city)
-            let obj = allStates.find(o=>o.id ===res.data.state)
-            setState(obj)
-            setLoadingCity(false)
-          }).catch(err=>{
-            console.log(err);
-            snackRef.current.handleSnack({message:"Plesae enter correct ZIP code.", variant:"error"});
-            setZip("");
-            setCity("");
-            setState(null)
-            setLoadingCity(false)
-          })
-        }
+    async function getZIPData() {
+      if(zip.length === 5){
+        setLoadingCity(true)
+        await axios.get(`/api/public/zipToLocation?zipCode=${zip}`).then(res=>{
+          setCity(res.data.city)
+          let obj = allStates.find(o=>o.id ===res.data.state)
+          setState(obj)
+          setLoadingCity(false)
+        }).catch(err=>{
+          console.log(err);
+          snackRef.current.handleSnack({message:"Plesae enter correct ZIP code.", variant:"error"});
+          setZip("");
+          setCity("");
+          setState(null)
+          setLoadingCity(false)
+        })
       }
-      getZIPData()
-    }, [zip])
-    
+    }
+
     const handleClear =()=>{
       setId("");
       setImp(false);
@@ -226,7 +223,7 @@ const EntryArea = forwardRef((props, ref) => {
       />
     </Grid>
     <Grid item xs={12} md={3} className='center'>
-    <FormControlLabel control={<Rating name="Prospect-Score" sx={{marginRight:"10px"}} value={prospectScore} onChange={(event, newValue) => {setProspectScore(newValue)}}/>} label="Prospect Score" />
+    <FormControlLabel control={<Rating name="Prospect-Score" sx={{marginRight:"10px"}} value={prospectScore} onChange={(event, newValue) => {setProspectScore(newValue)}}/>} label="Conversion Probability" />
     </Grid>
     <Grid item xs={12} md={3}>
     <FormControlLabel control={<Switch defaultChecked value={subscribed} onChange={e=>setSubscribe(!subscribed)}/>} label="Subscribe Marketing" />
@@ -294,7 +291,7 @@ const EntryArea = forwardRef((props, ref) => {
         <TextField fullWidth label="Email" value={email} onChange={e=>setEmail(e.target.value)} type='email' placeholder='Email' variant="standard" />
         </Grid>
         <Grid item xs={12} md={3}> 
-          <TextField fullWidth value={zip} onChange={e=> setZip(e.target.value)} disabled={loadingCity} InputProps= {{
+          <TextField fullWidth value={zip} onChange={e=> {setZip(e.target.value)}} onBlur={()=>getZIPData()} disabled={loadingCity} InputProps= {{
             endAdornment: (
             <InputAdornment position="end">
             {loadingCity && <CircularProgress size={25}/>}  

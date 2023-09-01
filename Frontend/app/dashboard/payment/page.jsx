@@ -1,30 +1,72 @@
 'use client';
 import "./paymentStyle.css";
-import React,{useEffect, useState} from 'react'
-import {Grid,TextField,Typography,InputAdornment,CircularProgress, Button,Input ,Avatar,List,ListItem,ListItemAvatar,ListItemText,ListItemButton, Divider} from '@mui/material/';
+import React,{useEffect, useState,useRef} from 'react'
+import {Grid,TextField,Typography,InputAdornment,CircularProgress, Button,Input ,Avatar,List,ListItem,ListItemAvatar,ListItemText,ListItemButton,TablePagination, Divider,Pagination} from '@mui/material/';
 import {todayDate} from "../../Components/StaticData";
 import Autocomplete from '@mui/material/Autocomplete';
 import { FcFullTrash,FcSearch } from "react-icons/fc";
 import { MdDoneAll,MdClearAll } from "react-icons/md";
 import { useImgUpload } from '@/app/hooks/auth/useImgUpload'; 
+import { payReceiveService } from "@/app/services"; 
+import NoResult from "@/app/Components/NoResult/NoResult";
+import MySnackbar from "../../Components/MySnackbar/MySnackbar";
 
-function Payment() {
+function Payment({receipt}) {
   const [_id, setId] = useState("");
-  const [date, setDate] = useState("");
-  const [voucher, setVoucher] = useState("432");
-  const [cb, setCb] = useState("450");
+  const [loading, setLoading] = useState(true);
+  const [tranDate, setDate] = useState("");
+  const [voucher, setVoucher] = useState("");
+  const [cb, setCb] = useState("");
   const [ledger, setLedger]= useState(null);
   const [amount, setAmount] = useState("");
   const [mode,setMode] = useState(null);
   const [remark, setRemark] = useState("");
-  const [reminderDate, setRemind] =useState("");
-  const [url, setDocUrl]=useState("");
-  const [loadingDoc, setLoadingDoc]= useState(false)
- 
-  const [allLedgers]= useState([{label:"Raghav Jha", id:"sdw545",category:"Employee"},{label:"Vivek", id:"15465sd",category:"Employee"},{label:"John Petter", id:"65454ewfds",category:"Residents"},{label:"Alecgender", id:"weewe",category:"Residents"},{label:"Jorg Bouse", id:"sdsdsdwe",category:"Residents"}])
-  const [allModes] = useState([{label:"Cash 1", id:"sd6551",category:"Cash"},{label:"Cash 2", id:"65484551sdsd",category:"Cash"},{label:"Canara Bank - 4547", id:"1564sds",category:"Banks"},{label:"State Bank of US - 1840", id:"sd13645",category:"Banks"},{label:"Zelle", id:"3164sdsd",category:"Online Wallet"}])
-  const [result,setResult]= useState([{_id:"sdsd545",voucher:"431", ledger:"John F Kenedey", date:"Jun-19-2023", amount:"450", mode:"Cash",userImage:"https://mui.com/static/images/avatar/3.jpg", url:"https://cdn.apollohospitals.com/dev-apollohospitals/2022/05/recruitment-disclaimer-min.jpg"},{_id:"sdswe1151",voucher:"430", ledger:"Thmos Alwa Edition", date:"Jun-25-2023", amount:"1654", mode:"Online",userImage:"https://mui.com/static/images/avatar/3.jpg", url:"https://cdn.apollohospitals.com/dev-apollohospitals/2022/05/recruitment-disclaimer-min.jpg"},{_id:"sdsd545",voucher:"431", ledger:"John F Kenedey", date:"Jun-19-2023", amount:"450", mode:"Cash",userImage:"https://mui.com/static/images/avatar/3.jpg", url:"https://cdn.apollohospitals.com/dev-apollohospitals/2022/05/recruitment-disclaimer-min.jpg"},{_id:"sdswe1151",voucher:"430", ledger:"Thmos Alwa Edition", date:"Jun-25-2023", amount:"1654", mode:"Online",userImage:"https://mui.com/static/images/avatar/3.jpg", url:"https://cdn.apollohospitals.com/dev-apollohospitals/2022/05/recruitment-disclaimer-min.jpg"}]);
+  const [reminderDate, setRemind] = useState("");
+  const [url, setDocUrl]= useState("");
+  const [loadingDoc, setLoadingDoc] = useState(false);
 
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [searchText, setSearchText] = useState("");
+  const [totalCount,setTotalCount] = useState(0);
+  const [allLedgers, setAllLed] = useState([])
+  const [allModes, setModes] = useState([])
+  const [result,setResult] = useState([]);
+  const snackRef = useRef();
+
+  const getResult = async()=>{
+    setLoading(true)
+    let baseUrl;
+    if(receipt){
+      baseUrl = `api/v1/account/receipt/getReceipt/getDataWithPage/${rowsPerPage}/${page}/${searchText}`;
+    }else baseUrl = `api/v1/account/payment/getPayment/getDataWithPage/${rowsPerPage}/${page}/${searchText}`;
+    let res = await payReceiveService.getPayRec(baseUrl);
+    if(res.variant === "success"){
+        setLoading(false)
+        setResult(res.data);
+        setTotalCount(res.totalCount);
+     }else {snackRef.current.handleSnack(res);setLoading(false); console.log(res)};   
+  }
+  useEffect(() => {
+    getResult()
+    return () => {
+      setResult([])
+    }
+  }, [searchText,page,rowsPerPage])
+
+  useEffect(() => {
+    // Getting all the Ledgers
+    async function getLedger(){
+      let res = await payReceiveService.getPayRec(`api/v1/account/payment/getPayment/dropdown/getLedger`);
+      if(res.variant === "success"){
+        setAllLed(res.data)
+        let payMode = res.data.filter(f=>f.group === "Cash in Hand" || f.group === "Bank Accounts")
+        setModes(payMode)
+      }else {snackRef.current.handleSnack(res); console.log(res)};    
+     }
+     getLedger()
+   }, [])
+  
   const imgUpload= async (e)=>{
     setLoadingDoc(true)
     let url = await useImgUpload(e);
@@ -39,46 +81,81 @@ function Payment() {
   useEffect(() => {
     setDate(todayDate()) 
   }, [])
-  const handleSubmit = ()=>{
-    console.log({_id,date,voucher,cb,ledger,amount,mode,remark,reminderDate,url})
+  const handleSubmit = async()=>{
+    let myData = {_id,tranDate,voucher,ledger,amount,mode,remark,reminderDate,url}
+    let baseUrl;
+    if(receipt){
+      baseUrl = `api/v1/account/receipt/addReceipt/${_id}`
+    }else baseUrl = `api/v1/account/payment/addPayment/${_id}`
+    let res = await payReceiveService.savePayRec(baseUrl, myData);
+    if(res.variant === "success"){
+      snackRef.current.handleSnack(res);
+      handleClear()
+     await getResult()
+    }else {snackRef.current.handleSnack(res); console.log(res)}; 
   }
-  
+  const handleClear = (d) =>{
+    setId(d ? d?._id : "");
+    setDate(d ? d?.tranDate : todayDate());
+    setVoucher(d ? d?.voucher : "");
+    setLedger(d ? d?.ledger : null);
+    setAmount(d ? d?.amount : "");
+    setMode(d ? d?.mode : null);
+    setRemark(d ? d?.remark : "");
+    setRemind(d ? d?.reminderDate : "");
+    setDocUrl(d ? d?.url : "");    
+  }
+  async function deleteData(){
+    let y = confirm(`Are you sure, you want to delete: ${ledger?.label}, Amount: $ ${amount} ?`)
+    if (y){
+      let baseUrl;
+      if(receipt){
+        baseUrl = `api/v1/account/receipt/addReceipt/deleteOne/${_id}`
+      }else baseUrl = `/api/v1/account/payment/addPayment/deleteOne/${_id}`
+      let res = await payReceiveService.deletePayRec(baseUrl);
+      if(res.variant === "success"){
+        getResult()
+        snackRef.current.handleSnack(res);
+        handleClear()
+      }else {snackRef.current.handleSnack(res); console.log(res)}; 
+    }
+  }
   return (
     <main >
     <Grid container>
         <Grid item xs={12} md={8} sx={{background:"#fff", borderRadius:"10px", padding:"10px"}}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-            <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>Payment Voucher</Typography>
+            <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>{receipt ? "Receipt" : "Payment"} Voucher</Typography>
             </Grid>
             <Grid item xs={12} md={4}>
-              <TextField fullWidth value={date} sx={{maxWidth:"130px"}} onChange={e=>setDate(e.target.value)} label="Payment Date" size='small' type="date" focused variant="standard" />   
+              <TextField fullWidth value={tranDate} sx={{maxWidth:"130px"}} onChange={e=>setDate(e.target.value)} label={receipt ? "Receipt Date" : "Payment Date"} size='small' type="date" focused variant="standard" />   
             </Grid>
             <Grid item xs={12} md={4}>
             {/* <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>Payment Voucher</Typography> */}
             </Grid>
             <Grid item xs={12} md={4}>
-            <Typography color="teal" sx={{fontFamily: 'Courgette'}} variant='body1' align='right'>Voucher No :  {voucher}</Typography>
-            <Typography color="tomato" sx={{fontFamily: 'Courgette'}} variant='body1' align='right'>Current Balance : $  {cb}</Typography>
+              {voucher && <Typography color="teal" sx={{fontFamily: 'Courgette'}} variant='body1' align='right'>Voucher No :  {voucher}</Typography>}
+              {cb &&  <Typography color="tomato" sx={{fontFamily: 'Courgette'}} variant='body1' align='right'>Current Balance : $  {cb}</Typography>}
             </Grid>
             <Grid item xs={12}><br/></Grid>
             <Grid item xs={12} md={4}>
             <Autocomplete
-            isOptionEqualToValue={(option, value) => option.id === value.id}
+            isOptionEqualToValue={(option, value) => option._id === value._id}
             options={allLedgers}
             onChange={(e, v) => {
             setLedger(v);
             }}
             value={ledger}
-            groupBy={(option) => option.category}
+            groupBy={(option) => option.group}
             renderOption={(props, option) => {
               return (
-                <li {...props} key={option.id}>
+                <li {...props} key={option._id}>
                   {option.label}
                 </li>
               );
             }}
-            renderInput={(params) => <TextField {...params} variant="standard" fullWidth label="Select Ledger for Payment"/>}
+            renderInput={(params) => <TextField {...params} variant="standard" fullWidth label={receipt ? "Select Ledger for Receipt" : "Select Ledger for Payment"}/>}
             />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -86,21 +163,21 @@ function Payment() {
             </Grid>
             <Grid item xs={12} md={4}>
             <Autocomplete
-            isOptionEqualToValue={(option, value) => option.id === value.id}
+            isOptionEqualToValue={(option, value) => option._id === value._id}
             options={allModes}
             onChange={(e, v) => {
             setMode(v);
             }}
             value={mode}
-            groupBy={(option) => option.category}
+            groupBy={(option) => option.group}
             renderOption={(props, option) => {
               return (
-                <li {...props} key={option.id}>
+                <li {...props} key={option._id}>
                   {option.label}
                 </li>
               );
             }}
-            renderInput={(params) => <TextField {...params} variant="standard" fullWidth label="Select Payment Mode"/>}
+            renderInput={(params) => <TextField {...params} variant="standard" fullWidth label={receipt ? "Select Receipt Mode" : "Select Payment Mode"}/>}
             /> 
             </Grid>
             <Grid item xs={12} md={4}>
@@ -117,9 +194,9 @@ function Payment() {
           
             <Grid item xs={12} sx={{marginTop:"100px"}}>
               <Grid container justifyContent="space-between">
-              <Button variant="outlined" startIcon={<MdClearAll />}>Clear</Button>
-              <Button variant="contained" onClick={()=>handleSubmit()} startIcon={<MdDoneAll />} sx={{color:"#fff",borderRadius:"20px",padding:"0px 30px"}}>Save</Button>
-              <Button variant="outlined" startIcon={<FcFullTrash />}>Delete</Button>
+              <Button variant="outlined" onClick={()=>handleClear()} startIcon={<MdClearAll />}>Clear</Button>
+              <Button variant="contained" onClick={()=>handleSubmit()} startIcon={<MdDoneAll />} sx={{color:"#fff",borderRadius:"20px",padding:"0px 30px"}}>{_id ? "Update" : "Save"}</Button>
+              <Button variant="outlined" onClick={()=>deleteData()} disabled={!_id} startIcon={<FcFullTrash />}>Delete</Button>
               </Grid>
             </Grid>
           </Grid>
@@ -128,30 +205,45 @@ function Payment() {
         <Divider variant="fullWidth" orientation="vertical" />
         </Grid>
        
-        <Grid item xs={12} md={3} className="boxEffect">
+        <Grid item xs={12} md={3.5} className="boxEffect">
           <Grid container>
             <Grid item xs={12} sx={{padding:"10px"}}>
-              <Input autoFocus disableUnderline sx={{padding:"10px"}} className="boxEffect" startAdornment={<FcSearch style={{fontSize:"24px", marginRight:"10px"}}/>} fullWidth  placeholder="Search By : Party Name / Voucher No." /> 
+              <Input autoFocus disableUnderline sx={{padding:"10px"}} onChange={e=>setSearchText(e.target.value)} className="boxEffect" startAdornment={<FcSearch style={{fontSize:"24px", marginRight:"10px"}}/>} fullWidth  placeholder="Search By : Party Name / Voucher No." /> 
             </Grid>
             <Grid item xs={12}>
-              <Divider sx={{margin:"10px 0px"}}>Search Result</Divider>
-            
-              <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+              <Divider sx={{margin:"10px 0px"}}>Search Result ({totalCount})</Divider>
+              {loading ? <div className="center"><CircularProgress size={30}/> </div> : loading === false && result.length === 0 ? <NoResult label="No Result Available"/> : null} 
+              <List dense sx={{ width: '100%', bgcolor: 'background.paper' }}>
               {result.map((r,i)=>
                 <ListItem key={i} divider disableGutters>
-                  <ListItemButton alignItems="flex-start"  >
+                  <ListItemButton alignItems="flex-start" onClick={()=>handleClear(r)}>
                   <ListItemAvatar>
-                <Avatar alt={r?.ledger} src={r?.userImage}/>
+                <Avatar alt={r?.ledgerLabel} src={r?.ledgerImage}/>
                 </ListItemAvatar>
-                <ListItemText primary={r?.ledger} secondary={`Amount : ${r?.amount}, Mode : ${r?.mode}`} />
+                <ListItemText primary={<div style={{display: "flex", justifyContent: "space-between"}}> <Typography color="darkgreen" variant="body2">{r?.ledgerLabel}</Typography> <Typography color="darkcyan" align="right" variant="body2">SL {(page*rowsPerPage)+(i+1)}</Typography></div>
+                  } secondary={`Amount : $ ${r?.amount}, On : ${r?.tranDate}`} />
                   </ListItemButton>
               </ListItem>
               )}
               </List>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25,50]}
+                component="div"
+                count={result.length}
+                sx={{overflowX:"hidden"}}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={(e,v)=>setPage(v)}
+                onRowsPerPageChange={e=>{
+                  setRowsPerPage(parseInt(e.target.value, 10));
+                  setPage(0)
+                }}
+              />
             </Grid>
           </Grid>
         </Grid>
     </Grid>
+    <MySnackbar ref={snackRef} />
     </main>
   )
 }

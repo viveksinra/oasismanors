@@ -32,6 +32,7 @@ function Login() {
         dispatch({ type: LOGIN_USER, payload: res});
         snackRef.current.handleSnack({message: "Login Successful! redirecting to dashboard.", variant: "success" });
         router.push('/dashboard')
+        window.location.reload();
       } else {
         snackRef.current.handleSnack({message: "Invalid Login Credentials. Please enter correct credentials.", variant: "error" });
       }

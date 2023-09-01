@@ -9,7 +9,7 @@ import {FcLike} from "react-icons/fc";
 import {BsTable } from "react-icons/bs";
 import {ToggleFab} from "../page"
 import { DataGrid } from '@mui/x-data-grid';
-import { medicationService } from "../../../services";
+import { careService } from "../../../services";
 const EntryCare = lazy(() => import("./EnterCare"));
 
 function Care({prospectId}) {
@@ -53,42 +53,41 @@ function SearchMedication({prospectId, handleEdit}) {
   const [allData, setAllData] = useState([]);
   const [medTab, setMTab]= useState("All Care");
 
-//   useEffect(() => {
-//     async function fetchAllData() {
-//       let res = await medicationService.getMedication(`api/v1/residence/resMed/getResMed/getAll`, prospectId);
-//       if(res.variant === "success"){
-//         setUser(res?.user)
-//         setAllData(res?.data)
-//       }else console.log(res)
-//     }
-//     fetchAllData() 
-//   }, [])
+  useEffect(() => {
+    async function fetchAllData() {
+      let res = await careService.getCare(`api/v1/residence/resCare/getResCare/getAll`, prospectId);
+      if(res.variant === "success"){
+        setUser(res?.user)
+        setAllData(res?.data)
+      }else console.log(res)
+    }
+    fetchAllData() 
+  }, [])
 
-//   useEffect(() => {
-//     let filtArr = allData.filter(f => {
-//       if(medTab === "Active Medications"){
-//         return f?.type === "medication" && f?.discontinue === false
-//       }else if(medTab === "Active Treatments"){
-//         return f?.type === "treatment" && f?.discontinue === false
-//       }else if(medTab === "Discontinued Medications"){
-//         return f?.type === "medication" && f?.discontinue === true
-//       }else if(medTab === "Discontinued Treatments"){
-//         return f?.type === "treatment" && f?.discontinue === true
-//       }
-//        })
-//        setRow(filtArr)
-//   }, [medTab,allData])
-  
+  useEffect(() => {
+    let filtArr = allData.filter(f => {
+      if(medTab === "All Care"){
+        return f && f?.discontinue === false;
+      }else if(medTab === "Full Care"){
+        return f?.careType === "Full Care" && f?.discontinue === false;
+      }else if(medTab === "Partial Care"){
+        return f?.careType === "Partial Care" && f?.discontinue === false;
+      }else if(medTab === "Discontinued Care"){
+        return f?.discontinue === true;
+      }
+       })
+       setRow(filtArr)
+  }, [medTab,allData])
 
   const columns = [
       {
-        field: 'image',
+        field: 'imageUrl',
         headerName: '',
         width: 80,
-        renderCell: props=> <Avatar alt={props?.row?.name} src={props?.row?.image} variant="square" />,
+        renderCell: props=> <Avatar alt={props?.row?.name} src={props?.row?.imageUrl} variant="square" />,
       },
       {
-        field: 'care',
+        field: 'careLabel',
         headerName: 'Care Title',
         width: 250,
       },
@@ -108,13 +107,13 @@ function SearchMedication({prospectId, handleEdit}) {
         width: 150,
       },
       {
-        field:"manpower",
+        field:"manPower",
         headerName:"Manpower",
         width: 150,
       },
       {
-        field:"instruction",
-        headerName:"Instruction",
+        field:"remark",
+        headerName:"Remarks",
         width: 200,
       },
       {
@@ -143,7 +142,7 @@ function SearchMedication({prospectId, handleEdit}) {
         <div className="profileBgBtm">
         <TabContext value={medTab} variant="scrollable" allowScrollButtonsMobile scrollButtons>
         <TabList onChange={(e,v)=>setMTab(v)} sx={{height:40,float:"right"}} aria-label="MedsTabs">
-        {["All Care","Full Care", "Partial Care",].map((t,i)=> <Tab key={i} value={t} label={t}  />)}
+        {["All Care","Full Care", "Partial Care", "Discontinued Care"].map((t,i)=> <Tab key={i} value={t} label={t}  />)}
         </TabList>
         </TabContext>
         </div>

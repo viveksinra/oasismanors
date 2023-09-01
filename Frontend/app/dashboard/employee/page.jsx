@@ -1,12 +1,13 @@
 'use client';
 import React, { Suspense, lazy, useEffect } from 'react'
-import {Typography, Fab,styled, Avatar, Box,ButtonGroup,AppBar,Toolbar, Button,Tooltip} from '@mui/material/';
+import {Typography, Fab,styled, Avatar, Box,CircularProgress,AppBar,Toolbar, Button,Tooltip} from '@mui/material/';
 import { useState,useRef} from 'react';
 import { employeeService } from "../../services";
 import { FiCheck,FiFileMinus } from "react-icons/fi";
 import {FaUserPlus } from "react-icons/fa";
 import {BsTable } from "react-icons/bs";
 import { DataGrid } from '@mui/x-data-grid';
+import NoResult from "@/app/Components/NoResult/NoResult";
 import Loading from "../../Components/Loading/Loading";
 const EntryArea = lazy(() => import("./EntryArea"));
 
@@ -27,7 +28,7 @@ function   Employee () {
             Clear
           </Button> }
         <span style={{flexGrow:0.3}}/>
-        <Tooltip arrow title={viewTabular ? "Add Prospect" : "Show All"}>
+        <Tooltip arrow title={viewTabular ? "Add New Employee" : "Show All"}>
         <ToggleFab onClick={()=>toggleView(!viewTabular)} color="secondary" size="medium">
         {viewTabular ?   <FaUserPlus style={{fontSize:24}}/> : <BsTable style={{fontSize:24}}/>}
         </ToggleFab>
@@ -57,14 +58,16 @@ export const ToggleFab = styled(Fab)({
 
 
 export function SearchArea({handleEdit}) {
-  const [rows, setRows] = useState([])
+  const [loading, setLoading] = useState(false);
+  const [rows, setRows] = useState([]);
   useEffect(() => {
     async function fetchAllData() {
+      setLoading(true)
       let response = await employeeService.getEmployee("api/v1/employee/basic/getEmployee/getAll", "");
       if(response.variant === "success"){
-        // console.log(response.data)
+        setLoading(false)
         setRows(response.data)
-      }else console.log(response)
+      }else {console.log(response);setLoading(false)}
     }
     fetchAllData()
   }, [])
@@ -144,6 +147,7 @@ const columns = [
         }}
         pageSizeOptions={[10]}
       />
+       {loading ? <div className="center"><CircularProgress size={30}/> </div> : loading === false && rows.length === 0 ? <NoResult label="No Employee Available."/> : null} 
     </Box>
     </main>
   )

@@ -1,10 +1,11 @@
 'use client';
 import React, { useState,lazy } from 'react'
 import {Tabs,Tab} from '@mui/material/';
-import { FcBusinessman,FcCollaboration,FcCallback,FcTodoList,FcInspection,FcSettings,FcGoodDecision } from "react-icons/fc";
+import { FcBusinessman,FcCollaboration,FcCallback,FcTodoList,FcInspection,FcSettings,FcGoodDecision,FcDebt } from "react-icons/fc";
 import ProfileTab from "../../prospect/[prospectId]/ProfileTab";
 const Medications = lazy(() => import("./Medication"));
 const CareTab = lazy(() => import("./Care"));
+const Recurring = lazy(() => import("./Recurring"));
 const ContactTab = lazy(() => import("../../prospect/[prospectId]/ContactTab"));
 const TasksTab = lazy(() => import("../../prospect/[prospectId]/TasksTab"));
 const NotesTab = lazy(() => import("../../prospect/[prospectId]/NotesTab"));
@@ -26,7 +27,9 @@ const TabPanel = ({value, residentId})=>{
         case 5:
           return <NotesTab prospectId={residentId}/>
         case 6:
-          return <Settings prospectId={residentId}/>
+        return <Recurring prospectId={residentId}/>
+        case 7:
+          return <Settings residentId={residentId}/>
         default: 
             break;
     }
@@ -43,6 +46,7 @@ const ResidentDetail = ({ params }) => {
     <Tab icon={<FcCallback style={{fontSize:24}}/>} iconPosition="start"  label="Contact"  />
     <Tab icon={<FcTodoList style={{fontSize:24}}/>} iconPosition="start"  label="Tasks" />
     <Tab icon={<FcInspection style={{fontSize:24}}/>} iconPosition="start" label="Notes"  />
+    <Tab icon={<FcDebt style={{fontSize:24}}/>} iconPosition="start" label="Charges" />
     <Tab icon={<FcSettings style={{fontSize:24}}/>} iconPosition="start" label="Settings" />
   </Tabs>
      <TabPanel value={mainTab} residentId={params?.residentId}/>

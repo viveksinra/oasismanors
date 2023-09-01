@@ -95,9 +95,9 @@ export class ProspectService {
       .then((res) => res.data)
       .catch((err) => err);
   };
-  saveTask = async (taskId, data) => {
+  saveTask = async (baseUrl,taskId, data) => {
     return this.instance
-      .post(`/api/v1/enquiry/task/addTask/${taskId}`, data, {
+      .post(`/${baseUrl}/${taskId}`, data, {
         headers: getAuthorizationHeader(),
       })
       .then((res) => res.data)
@@ -138,6 +138,30 @@ export class ProspectService {
   moveToResident = async (baseUrl, prospectId, data) => {
     return this.instance
       .post(`/${baseUrl}/${prospectId}`,data, {
+        headers: getAuthorizationHeader(),
+      })
+      .then((res) => res.data)
+      .catch((err) => err);
+  };
+  scheduleLeave = async (baseUrl, data) => {
+    return this.instance
+      .post(`/${baseUrl}`,data, {
+        headers: getAuthorizationHeader(),
+      })
+      .then((res) => res.data)
+      .catch((err) => err);
+  };
+  getScheduleLeave = async (baseUrl) => {
+    return this.instance
+      .get(`/${baseUrl}`, {
+        headers: getAuthorizationHeader(),
+      })
+      .then((res) => res.data)
+      .catch((err) => err);
+  };
+  deleteLeave = async (baseUrl) => {
+    return this.instance
+      .delete(`/${baseUrl}`, {
         headers: getAuthorizationHeader(),
       })
       .then((res) => res.data)

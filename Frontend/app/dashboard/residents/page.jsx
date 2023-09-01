@@ -1,11 +1,12 @@
 'use client';
 import "./residentStyle.css";
 import React, { Fragment, lazy, useEffect, Suspense } from 'react'
-import {Grid,Typography, Fab,styled,Button,Badge,ToggleButtonGroup,ToggleButton,Tooltip, Tab, Box,MobileStepper, Avatar, List,ListItem,ListItemIcon,ListItemText, Divider} from '@mui/material/';
+import {Grid,Skeleton,Typography, Fab,styled,Button,Badge,ToggleButtonGroup,ToggleButton,Tooltip, Tab, Box,MobileStepper, Avatar, List,ListItem,ListItemIcon,ListItemText, Divider} from '@mui/material/';
 import { useState,useRef} from 'react';
 import {TabContext,TabList,TabPanel } from '@mui/lab/';
 import { residentService } from "../../services";
 import Link from 'next/link';
+import NoResult from "@/app/Components/NoResult/NoResult";
 import {FaUsersSlash ,FaHandHoldingHeart,FaHandHoldingMedical,FaTelegramPlane } from "react-icons/fa";
 import { FcOrgUnit,FcTimeline,FcDebt,FcPhone,FcFeedback,FcHome,FcPrevious,FcNext } from "react-icons/fc";
 import {MdCake } from "react-icons/md";
@@ -63,14 +64,17 @@ export function SearchArea({handleEdit}) {
   const [view, setView] = useState('grid');
   const [residentTab, setRTab]=useState("siwa");
   const [floor] = useState([{label:"Siwa",value:"siwa"}, {label:"Mara",value:"mara"}, {label:"Ubari",value:"ubari"}, {label:"Timia",value:"timia"}]);
+  const [loading, setLoading] = useState(false);
   const [filterRes, setFilterRes] = useState([]);
   const [allRes, setAllRes]= useState([]);
   useEffect(() => {
+    setLoading(true)
     async function fetchAllResi() {
       let response = await residentService.getResident("api/v1/residence/getResidence/getAll", "");
       if(response.variant === "success"){
+        setLoading(false);
         setAllRes(response.data)
-      }else console.log(response)
+      }else {setLoading(false);console.log(response)}
     }
     fetchAllResi()
   }, [])
@@ -86,7 +90,6 @@ export function SearchArea({handleEdit}) {
      setFilterRes(filtArr) 
   }, [residentTab,allRes])
       
-
   return (
     <main>
       <Box sx={{background:"#fff", borderRadius:"10px", width: '100%',padding:"10px", minHeight: "785px" }}>
@@ -122,9 +125,9 @@ export function SearchArea({handleEdit}) {
               <Tab value="movedOut" icon={<FaUsersSlash style={{fontSize:20}} />} iconPosition="start" label="Moved Out" />
               </TabList>
             </Box>
-            {floor.map((t,i)=> <TabPanel key={i} value={t?.value}> <ResidentView view={view} filterRes={filterRes} setFilterRes={e=>setFilterRes(e)} /> </TabPanel>)}
-            <TabPanel value="incoming"> <ResidentView view={view} filterRes={filterRes} setFilterRes={e=>setFilterRes(e)}/> </TabPanel>
-            <TabPanel value="movedOut"> <ResidentView view={view} filterRes={filterRes} setFilterRes={e=>setFilterRes(e)}/> </TabPanel>
+            {floor.map((t,i)=> <TabPanel key={i} value={t?.value}> <ResidentView view={view} loading={loading} filterRes={filterRes} setFilterRes={e=>setFilterRes(e)} /> </TabPanel>)}
+            <TabPanel value="incoming"> <ResidentView view={view} loading={loading} filterRes={filterRes} setFilterRes={e=>setFilterRes(e)}/> </TabPanel>
+            <TabPanel value="movedOut"> <ResidentView view={view} loading={loading} filterRes={filterRes} setFilterRes={e=>setFilterRes(e)}/> </TabPanel>
           </TabContext>
            </Box>
           </Grid>
@@ -136,9 +139,10 @@ export function SearchArea({handleEdit}) {
   )
 }
 
-function ResidentView({view,filterRes,setFilterRes}){
+function ResidentView({view,loading,filterRes,setFilterRes}){
     const [act, setAct] = useState();
     const [openMeds, setOpenMeds] = useState(false);
+    const [popup, setPopup] = useState("");
    
     const handleCard =(i)=>{
         let newArr =  filterRes.map((obj, j)=> {
@@ -154,37 +158,41 @@ function ResidentView({view,filterRes,setFilterRes}){
 
   if(view ==="grid"){
     return <section> 
+      {loading===false && filterRes.length === 0 &&  
+          <NoResult label="No Resident Available"/>
+        }
       <Grid container spacing={2}>
         <Grid item xs={12} md={9}>
-          <Grid container spacing={2}>
-            {filterRes.map((r,i)=> <Grid key={i} item xs={12} md={4} lg={3}>
-              <div className={clsx("residentCard", r?.active && "activeCard")} onClick={()=>handleCard(i)}>
-              <div className="cross">{r.room}</div>  
-              <Avatar alt={r?.firstName} src={r?.userImage} className="residentImg" variant="square" />
-              <Typography variant="subtitle2" color="primary" sx={{ top: "-15px",position: "relative"}} align="center">{`${r?.lastName}, ${r?.firstName}`} </Typography>
-              <div style={{display:"flex", justifyContent:"space-evenly", top: "-5px",position: "relative"}}> 
-              <Badge badgeContent={4} max={9} color="success">
-              <Button  variant="outlined" size="small" sx={{background:"#fff"}}>
-              <FaHandHoldingHeart style={{marginRight:5}}/>
-                Care
-              </Button >
-              </Badge>
-              <Badge badgeContent={2} max={9} color="success">
-              <Button variant="outlined" onClick={()=>{setOpenMeds(!openMeds)}} size="small" sx={{background:"#fff"}}>
-                <FaHandHoldingMedical style={{marginRight:5}}/>
-                Meds
-              </Button >
-              </Badge>
-              </div>
-              </div>
-               </Grid>)}
-          </Grid>
+        {loading ? <Skeleton variant="rectangular" className="residentCard" /> : 
+        <Grid container spacing={2}>
+        {filterRes.map((r,i)=> <Grid key={i} item xs={12} md={4} lg={3}>
+          <div className={clsx("residentCard", r?.active && "activeCard")} onClick={()=>handleCard(i)}>
+          <div className="cross">{r.room}</div>  
+          <Avatar alt={r?.firstName} src={r?.userImage} className="residentImg" variant="square" />
+          <Typography variant="subtitle2" color="primary" sx={{ top: "-15px",position: "relative"}} align="center">{`${r?.lastName}, ${r?.firstName}`} </Typography>
+          <div style={{display:"flex", justifyContent:"space-evenly", top: "-5px",position: "relative"}}> 
+          <Badge badgeContent={r?.pendingCare} max={9} color="success">
+          <Button  variant="outlined" size="small" onClick={()=>{setOpenMeds(!openMeds);setPopup("Care")}} sx={{background:"#fff"}}>
+          <FaHandHoldingHeart style={{marginRight:5}}/>
+            Care
+          </Button >
+          </Badge>
+          <Badge badgeContent={r?.pendingMed} max={9} color="success">
+          <Button variant="outlined" onClick={()=>{setOpenMeds(!openMeds);setPopup("Medication")}} size="small" sx={{background:"#fff"}}>
+            <FaHandHoldingMedical style={{marginRight:5}}/>
+            Meds
+          </Button >
+          </Badge>
+          </div>
+          </div>
+           </Grid>)}
+        </Grid>}
         </Grid>
         <Grid item xs={12} md={3}>
           <DetailedCard act={act}/>
         </Grid>
       </Grid>
-      <Suspense fallback={null}>  {act && <Meds setOpenMeds={()=>setOpenMeds(!openMeds)} openMeds={openMeds} act={act} /> }  </Suspense>
+      <Suspense fallback={null}>  {act && <Meds setOpenMeds={()=>setOpenMeds(!openMeds)} popup={popup} openMeds={openMeds} act={act} /> }  </Suspense>
      
     </section>
   }

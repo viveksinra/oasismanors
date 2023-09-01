@@ -40,13 +40,17 @@
     font-weight: lighter;
 }
 
-/* .scheduleBox{
+.recurringBox{
+    position: absolute;
+    left: 65%;
+    top: 19%;
     width: 100%;
     border-radius: 10px;
-    max-width: 350px;
-    background: linear-gradient(313deg, rgba(134,237,182,0.25) 0%, rgba(0,212,255,0.20) 100%);
+    max-width: 600px;
+    padding: 10px;
+    background: linear-gradient(313deg, rgba(218, 243, 230, 0.65) 0%, rgba(198, 221, 226, 0.6) 100%);
     box-shadow :0 2px 4px #ddd
-} */
+}
 /* #scheduleText{
     position: relative;
     top:10px;
