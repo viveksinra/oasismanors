@@ -2,7 +2,7 @@
 
 import React from 'react';
 import LayoutWrapper from './LayoutWrapper'; // Import the wrapper component
-import { metadata } from './globals.css';
+import  './globals.css';
 
 export const metadata = {
   title: 'Oasis Manors, Inc - Assisted Living Facility at 15116 Roxford St, Sylmar, CA 91342',
