@@ -1,6 +1,6 @@
 
 'use client';
-import "./prospectStyle.css";
+import "../prospectStyle.css";
 import React, { useState,useEffect,useRef } from 'react'
 import { prospectService } from "../../../services";
 import {Tabs,Tab,Avatar,Grid,Tooltip,Rating, Typography,Divider,AppBar,Toolbar,Badge,Alert,TextField,FormLabel,Switch,FormControlLabel,Button,ButtonGroup,InputAdornment,CircularProgress} from '@mui/material/';

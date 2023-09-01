@@ -1,5 +1,5 @@
 'use client';
-import "../../prospect/[prospectId]/prospectStyle.css"
+import "../../prospect/prospectStyle.css"
 import React,{lazy, useState,useEffect,useRef} from 'react'
 import {AppBar,Toolbar,Badge,Box,Tab,Grid,Typography, Button,Tooltip,Avatar,List,ListItem,ListItemText,Chip, Divider, IconButton} from '@mui/material/';
 import {TabList,TabContext} from '@mui/lab/';

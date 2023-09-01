@@ -1,6 +1,6 @@
 'use client';
 import React, { lazy,Suspense, useState } from 'react'
-import "./prospectStyle.css";
+import "../prospectStyle.css";
 import {Tabs,Tab} from '@mui/material/'; 
 import { FcBusinessman,FcCallback,FcTodoList,FcInspection,FcSettings } from "react-icons/fc";
 import ProfileTab from "./ProfileTab";
