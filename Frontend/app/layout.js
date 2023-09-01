@@ -1,4 +1,3 @@
-"use client";
 import './globals.css';
 import { MainProvider } from "./Components/Context/MainContext";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
