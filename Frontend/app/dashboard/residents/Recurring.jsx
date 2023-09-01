@@ -1,5 +1,5 @@
 'use client';
-import "../../prospect/prospectStyle.css"
+import "../prospect/prospectStyle.css"
 import React,{lazy, useState,useEffect,useRef} from 'react'
 import {AppBar,Toolbar,Badge,Box,Tab,Grid,Typography, Button,Tooltip,Avatar,List,ListItem,ListItemText,Chip, Divider, IconButton} from '@mui/material/';
 import {TabList,TabContext} from '@mui/lab/';
@@ -7,9 +7,9 @@ import {FaUserPlus } from "react-icons/fa";
 import {FiFileMinus,FiCheck,FiPauseCircle,FiPlayCircle } from "react-icons/fi";
 import {FcLike} from "react-icons/fc";
 import {BsTable } from "react-icons/bs";
-import {ToggleFab} from "../page"
+import {ToggleFab} from "./page"
 import { DataGrid } from '@mui/x-data-grid';
-import { careService } from "../../../services";
+import { careService } from "../../services";
 const EntryRecurring = lazy(() => import("./EntryRecurring"));
 
 function Recurring({prospectId}) {

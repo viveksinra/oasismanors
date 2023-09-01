@@ -4,11 +4,11 @@ import {Grid, AppBar,Toolbar,Box,Typography,TextField, Button,Tooltip,ButtonGrou
 import {FaUserPlus } from "react-icons/fa";
 import {FiFileMinus,FiCheck } from "react-icons/fi";
 import {BsTable } from "react-icons/bs";
-import {ToggleFab} from "../page"
+import {ToggleFab} from "./page"
 import NoResult from "@/app/Components/NoResult/NoResult";
 import { DataGrid } from '@mui/x-data-grid';
-import { prospectService } from "../../../services";
-import MySnackbar from "../../../Components/MySnackbar/MySnackbar";
+import { prospectService } from "../../services";
+import MySnackbar from "../../Components/MySnackbar/MySnackbar";
 
 
 function NotesTab({prospectId}) {

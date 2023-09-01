@@ -4,12 +4,12 @@ import {Grid, AppBar,Toolbar,Box,Typography,TextField, Button,Tooltip,Avatar,Inp
 import {FaUserPlus } from "react-icons/fa";
 import {FiFileMinus,FiCheck } from "react-icons/fi";
 import {BsTable } from "react-icons/bs";
-import {ToggleFab} from "../page"
+import {ToggleFab} from "./page"
 import { DataGrid } from '@mui/x-data-grid';
 import { useImgUpload } from '@/app/hooks/auth/useImgUpload';
-import MySnackbar from "../../../Components/MySnackbar/MySnackbar";
-import {allStates,allRelation,allGenders} from "../../../Components/StaticData";
-import { prospectService } from "../../../services";
+import MySnackbar from "../../Components/MySnackbar/MySnackbar";
+import {allStates,allRelation,allGenders} from "../../Components/StaticData";
+import { prospectService } from "../../services";
 import Autocomplete from '@mui/material/Autocomplete';
 import NoResult from "@/app/Components/NoResult/NoResult";
 import axios from 'axios';

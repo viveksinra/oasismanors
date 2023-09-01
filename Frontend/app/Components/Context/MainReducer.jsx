@@ -1,3 +1,4 @@
+'use client';
 import {RESET, LOGIN_USER, SETSELECTED} from "./types";
 // import setAuthToken from "../../../utils/setAuthToken";
 

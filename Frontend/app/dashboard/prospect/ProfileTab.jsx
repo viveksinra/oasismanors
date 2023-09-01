@@ -1,8 +1,8 @@
 
 'use client';
-import "../prospectStyle.css";
+import "./prospectStyle.css";
 import React, { useState,useEffect,useRef } from 'react'
-import { prospectService } from "../../../services";
+import { prospectService } from "../../services";
 import {Tabs,Tab,Avatar,Grid,Tooltip,Rating, Typography,Divider,AppBar,Toolbar,Badge,Alert,TextField,FormLabel,Switch,FormControlLabel,Button,ButtonGroup,InputAdornment,CircularProgress} from '@mui/material/';
 import { FcViewDetails,FcDiploma1,FcClock,FcLike,FcExternal } from "react-icons/fc";
 import { FaStethoscope,FaEdit} from "react-icons/fa";
@@ -11,7 +11,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { DataGrid } from '@mui/x-data-grid';
 import Link from 'next/link';
 import { useImgUpload } from '@/app/hooks/auth/useImgUpload'; 
-import MySnackbar from "../../../Components/MySnackbar/MySnackbar";
+import MySnackbar from "../../Components/MySnackbar/MySnackbar";
 
 
 const ProTabPanel = ({value, prospectId,setProData})=>{

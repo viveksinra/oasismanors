@@ -2,14 +2,14 @@
 import React, { useState,lazy } from 'react'
 import {Tabs,Tab} from '@mui/material/';
 import { FcBusinessman,FcCollaboration,FcCallback,FcTodoList,FcInspection,FcSettings,FcGoodDecision,FcDebt } from "react-icons/fc";
-import ProfileTab from "../../prospect/[prospectId]/ProfileTab";
-const Medications = lazy(() => import("./Medication"));
-const CareTab = lazy(() => import("./Care"));
-const Recurring = lazy(() => import("./Recurring"));
-const ContactTab = lazy(() => import("../../prospect/[prospectId]/ContactTab"));
-const TasksTab = lazy(() => import("../../prospect/[prospectId]/TasksTab"));
-const NotesTab = lazy(() => import("../../prospect/[prospectId]/NotesTab"));
-const Settings = lazy(() => import("../../prospect/[prospectId]/SettingsTab"));
+import ProfileTab from "../../prospect/ProfileTab";
+const Medications = lazy(() => import("../Medication"));
+const CareTab = lazy(() => import("../Care"));
+const Recurring = lazy(() => import("../Recurring"));
+const ContactTab = lazy(() => import("../../prospect/ContactTab"));
+const TasksTab = lazy(() => import("../../prospect/TasksTab"));
+const NotesTab = lazy(() => import("../../prospect/NotesTab"));
+const Settings = lazy(() => import("../../prospect/SettingsTab"));
 
 
 const TabPanel = ({value, residentId})=>{

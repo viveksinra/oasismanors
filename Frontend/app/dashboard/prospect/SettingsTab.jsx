@@ -3,11 +3,11 @@ import React,{useState,useRef,useEffect} from 'react'
 import {Grid, Divider, Typography,TextField, InputAdornment, Button,Alert,AlertTitle,Accordion,AccordionSummary,AccordionDetails,Dialog,DialogContent,ButtonGroup} from '@mui/material/';
 import {MdVisibility, MdVisibilityOff, MdSend } from "react-icons/md";
 import Autocomplete from '@mui/material/Autocomplete';
-import { prospectService } from "../../../services";
+import { prospectService } from "../../services";
 import { useRouter } from 'next/navigation'
 import { FcExpand } from "react-icons/fc";
 import { DataGrid } from '@mui/x-data-grid';
-import MySnackbar from "../../../Components/MySnackbar/MySnackbar";
+import MySnackbar from "../../Components/MySnackbar/MySnackbar";
 
 
 function SettingsTab({prospectId,residentId}) {

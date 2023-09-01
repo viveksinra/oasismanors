@@ -3,11 +3,11 @@ import React, { lazy,Suspense, useState } from 'react'
 import "../prospectStyle.css";
 import {Tabs,Tab} from '@mui/material/'; 
 import { FcBusinessman,FcCallback,FcTodoList,FcInspection,FcSettings } from "react-icons/fc";
-import ProfileTab from "./ProfileTab";
-const ContactTab = lazy(() => import("./ContactTab"));
-const TasksTab = lazy(() => import("./TasksTab"));
-const NotesTab = lazy(() => import("./NotesTab"));
-const Settings = lazy(() => import("./SettingsTab"));
+import ProfileTab from "../ProfileTab";
+const ContactTab = lazy(() => import("../ContactTab"));
+const TasksTab = lazy(() => import("../TasksTab"));
+const NotesTab = lazy(() => import("../NotesTab"));
+const Settings = lazy(() => import("../SettingsTab"));
 
 const TabPanel = ({value, prospectId})=>{
     switch (value) {

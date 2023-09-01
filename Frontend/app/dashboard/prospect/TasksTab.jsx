@@ -6,12 +6,12 @@ import {FiFileMinus,FiCheck } from "react-icons/fi";
 import NoResult from "@/app/Components/NoResult/NoResult";
 import {TabList,TabContext} from '@mui/lab/';
 import {BsTable } from "react-icons/bs";
-import {ToggleFab} from "../page"
+import {ToggleFab} from "./page"
 import { DataGrid } from '@mui/x-data-grid';
 import Autocomplete from '@mui/material/Autocomplete';
-import MySnackbar from "../../../Components/MySnackbar/MySnackbar";
-import { todayDate } from '../../../Components/StaticData';
-import { prospectService,employeeService } from "../../../services";
+import MySnackbar from "../../Components/MySnackbar/MySnackbar";
+import { todayDate } from '../../Components/StaticData';
+import { prospectService,employeeService } from "../../services";
 
 
 function TasksTab({prospectId}) {

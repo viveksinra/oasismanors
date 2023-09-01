@@ -3,8 +3,8 @@ import React,{ useState,useEffect,forwardRef,useRef,useImperativeHandle} from 'r
 import {Grid, FormGroup,FormControlLabel, Checkbox,Radio, Typography,TextField,Input,Tooltip,Avatar,RadioGroup,CircularProgress,Table,TableHead,TableRow,TableCell,TableBody, IconButton} from '@mui/material/';
 import {FcAddRow,FcDeleteRow } from "react-icons/fc";
 import { useImgUpload } from '@/app/hooks/auth/useImgUpload';
-import MySnackbar from "../../../Components/MySnackbar/MySnackbar";
-import { medicationService } from "../../../services";
+import MySnackbar from "../../Components/MySnackbar/MySnackbar";
+import { medicationService } from "../../services";
 import Autocomplete,{createFilterOptions } from '@mui/material/Autocomplete';
 
 const filter = createFilterOptions();

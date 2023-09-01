@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import MainReducer from "./MainReducer";
 import {RESET} from "./types"
 

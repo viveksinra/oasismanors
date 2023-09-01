@@ -1,5 +1,5 @@
 'use client';
-import "../../prospect/prospectStyle.css"
+import "../prospect/prospectStyle.css"
 import React,{lazy, useState,useEffect,useRef} from 'react'
 import {AppBar,Toolbar,Badge,Box,Tab, Button,Tooltip,Avatar,Menu,MenuItem} from '@mui/material/';
 import {TabList,TabContext} from '@mui/lab/';
@@ -7,20 +7,27 @@ import {FaUserPlus } from "react-icons/fa";
 import {FiFileMinus,FiCheck } from "react-icons/fi";
 import {FcLike} from "react-icons/fc";
 import {BsTable } from "react-icons/bs";
-import {ToggleFab} from "../page"
+import {ToggleFab} from "./page"
 import { DataGrid } from '@mui/x-data-grid';
-import { careService } from "../../../services";
-const EntryCare = lazy(() => import("./EnterCare"));
+import { medicationService } from "../../services";
+const EntryMedication = lazy(() => import("./EntryMedication"));
 
-function Care({prospectId}) {
+function Medications({prospectId}) {
   const [viewTabular,toggleView] = useState(true);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const openAddMenu = Boolean(anchorEl);
+  const [addType, setAddType] = useState("");
   const [id, setId] =useState("");
   const entryRef = useRef();
-
+  useEffect(() => {
+    if(viewTabular === false){
+      setAnchorEl(null)
+    }
+  }, [viewTabular])
   
   return (
     <main style={{marginTop:20}}> 
-      {viewTabular ? <SearchMedication prospectId={prospectId}  handleEdit={(id)=>{toggleView(false); setId(id);}} />  : <EntryCare id={id} setId={e=>setId(e)} prospectId={prospectId} ref={entryRef} />}
+      {viewTabular ? <SearchMedication prospectId={prospectId}  handleEdit={(id, type)=>{toggleView(false); setId(id); setAddType(type)}} />  : <EntryMedication id={id} setId={e=>setId(e)} addType={addType} prospectId={prospectId} ref={entryRef} />}
       <AppBar position="fixed" sx={{ top: 'auto', bottom: 0,background:"#d6f9f7"}}>
       <Toolbar variant="dense">
         <span style={{flexGrow:0.2}}/>
@@ -29,10 +36,22 @@ function Care({prospectId}) {
           </Button> }
         <span style={{flexGrow:0.3}}/>
         <Tooltip arrow title={viewTabular ? "Add Medication/Treatment" : "Show All"}>
-        <ToggleFab onClick={()=> toggleView(!viewTabular)} color="secondary" size="medium">
+        <ToggleFab id="basic-menu" aria-controls={openAddMenu ? 'add-menu' : undefined} aria-haspopup="true" aria-expanded={openAddMenu ? 'true' : undefined} onClick={(e)=> viewTabular ? setAnchorEl(e.currentTarget)  : toggleView(!viewTabular)} color="secondary" size="medium">
         {viewTabular ?   <FaUserPlus style={{fontSize:24}}/> : <BsTable style={{fontSize:24}}/>}
         </ToggleFab>
         </Tooltip>
+        <Menu
+          id="add-menu"
+          anchorEl={anchorEl}
+          open={openAddMenu}
+          onClose={()=>setAnchorEl(null)}
+          MenuListProps={{
+            'aria-labelledby': 'basic-menu',
+          }}
+        >
+          <MenuItem onClick={()=> {setAddType("medication"); toggleView(false);}}>Add Medication</MenuItem>
+          <MenuItem onClick={()=>{setAddType("treatment"); toggleView(false); }}>Add Treatment</MenuItem>
+        </Menu>
           <span style={{flexGrow:0.3}}/>
           {!viewTabular && <Button variant="contained" onClick={() => entryRef.current.handleSubmit()} startIcon={<FiCheck />} size='small' color="success" >
             {id ? "Update" : "Save"}
@@ -51,11 +70,11 @@ function SearchMedication({prospectId, handleEdit}) {
   const [user, setUser] = useState({firstName:"Name Loading...", lastName:"", room:"Loading...", seat:"",important: true,userImage:""})
   const [rows, setRow] = useState([]);
   const [allData, setAllData] = useState([]);
-  const [medTab, setMTab]= useState("All Care");
+  const [medTab, setMTab]= useState("Active Medications");
 
   useEffect(() => {
     async function fetchAllData() {
-      let res = await careService.getCare(`api/v1/residence/resCare/getResCare/getAll`, prospectId);
+      let res = await medicationService.getMedication(`api/v1/residence/resMed/getResMed/getAll`, prospectId);
       if(res.variant === "success"){
         setUser(res?.user)
         setAllData(res?.data)
@@ -66,39 +85,35 @@ function SearchMedication({prospectId, handleEdit}) {
 
   useEffect(() => {
     let filtArr = allData.filter(f => {
-      if(medTab === "All Care"){
-        return f && f?.discontinue === false;
-      }else if(medTab === "Full Care"){
-        return f?.careType === "Full Care" && f?.discontinue === false;
-      }else if(medTab === "Partial Care"){
-        return f?.careType === "Partial Care" && f?.discontinue === false;
-      }else if(medTab === "Discontinued Care"){
-        return f?.discontinue === true;
+      if(medTab === "Active Medications"){
+        return f?.type === "medication" && f?.discontinue === false
+      }else if(medTab === "Active Treatments"){
+        return f?.type === "treatment" && f?.discontinue === false
+      }else if(medTab === "Discontinued Medications"){
+        return f?.type === "medication" && f?.discontinue === true
+      }else if(medTab === "Discontinued Treatments"){
+        return f?.type === "treatment" && f?.discontinue === true
       }
        })
        setRow(filtArr)
   }, [medTab,allData])
+  
 
   const columns = [
       {
-        field: 'imageUrl',
+        field: 'image',
         headerName: '',
         width: 80,
-        renderCell: props=> <Avatar alt={props?.row?.name} src={props?.row?.imageUrl} variant="square" />,
+        renderCell: props=> <Avatar alt={props?.row?.name} src={props?.row?.image} variant="square" />,
       },
       {
-        field: 'careLabel',
-        headerName: 'Care Title',
+        field: 'title',
+        headerName: 'Medication Name',
         width: 250,
       },
       {
-        field: 'careType',
-        headerName: 'Care Type',
-        width: 150,
-      },
-      {
-        field:"point",
-        headerName:"Care Points",
+        field: 'brand',
+        headerName: 'Brand Name',
         width: 150,
       },
       {
@@ -107,21 +122,33 @@ function SearchMedication({prospectId, handleEdit}) {
         width: 150,
       },
       {
-        field:"manPower",
-        headerName:"Manpower",
+        field:"dosage",
+        headerName:"Dosage",
         width: 150,
       },
       {
-        field:"remark",
-        headerName:"Remarks",
-        width: 200,
+        field: 'startDate',
+        headerName: 'Start Date',
+        type: 'text',
+        width: 150
+      },
+      {
+        field: 'endDate',
+        headerName: 'Discontinue Date',
+        type: 'text',
+        width: 150
+      },
+      {
+        field: 'direction',
+        headerName: 'Direction',
+        width: 150
       },
       {
         field: 'action',
         headerName: 'Action',
         width: 120,
         sortable: false,
-        renderCell: props=> <Button onClick={()=>handleEdit(props?.row?._id)} variant="text">Edit</Button>,
+        renderCell: props=> <Button onClick={()=>handleEdit(props?.row?._id, props?.row?.type)} variant="text">Edit</Button>,
       },
     ];
   return (
@@ -142,7 +169,7 @@ function SearchMedication({prospectId, handleEdit}) {
         <div className="profileBgBtm">
         <TabContext value={medTab} variant="scrollable" allowScrollButtonsMobile scrollButtons>
         <TabList onChange={(e,v)=>setMTab(v)} sx={{height:40,float:"right"}} aria-label="MedsTabs">
-        {["All Care","Full Care", "Partial Care", "Discontinued Care"].map((t,i)=> <Tab key={i} value={t} label={t}  />)}
+        {["Active Medications", "Active Treatments", "Discontinued Medications", "Discontinued Treatments"].map((t,i)=> <Tab key={i} value={t} label={t}  />)}
         </TabList>
         </TabContext>
         </div>
@@ -169,4 +196,4 @@ function SearchMedication({prospectId, handleEdit}) {
 
 
 
-export default Care
+export default Medications

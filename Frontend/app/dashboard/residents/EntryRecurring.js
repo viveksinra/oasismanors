@@ -1,9 +1,9 @@
 'use client';
 import React,{ useState,useEffect,forwardRef,useRef,useImperativeHandle} from 'react'
 import {Grid,FormControlLabel,Checkbox,Typography,TextField,Avatar} from '@mui/material/';
-import MySnackbar from "../../../Components/MySnackbar/MySnackbar";
-import { careService } from "../../../services";
-import {todayDate} from "../../../Components/StaticData";
+import MySnackbar from "../../Components/MySnackbar/MySnackbar";
+import { careService } from "../../services";
+import {todayDate} from "../../Components/StaticData";
 import Autocomplete from '@mui/material/Autocomplete';
 
 

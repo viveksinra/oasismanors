@@ -3,8 +3,8 @@ import React,{ useState,useEffect,forwardRef,useRef,useImperativeHandle} from 'r
 import {Grid, FormGroup,FormLabel,FormControlLabel,Switch, Checkbox,Radio, Typography,TextField,Input,Tooltip,Avatar,RadioGroup,Slider,Table,TableHead,TableRow,TableCell,TableBody, IconButton} from '@mui/material/';
 import {FcAddRow,FcDeleteRow } from "react-icons/fc";
 import { useImgUpload } from '@/app/hooks/auth/useImgUpload';
-import MySnackbar from "../../../Components/MySnackbar/MySnackbar";
-import { careService } from "../../../services";
+import MySnackbar from "../../Components/MySnackbar/MySnackbar";
+import { careService } from "../../services";
 import {scheduleBox, scheduleText} from "./EntryMedication";
 import Autocomplete from '@mui/material/Autocomplete';
 
