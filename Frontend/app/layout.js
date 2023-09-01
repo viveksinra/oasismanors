@@ -1,8 +1,12 @@
 // layout.js
 
 import React from 'react';
-import { metadata } from './globals.css'; // Make sure to import metadata properly
 import LayoutWrapper from './LayoutWrapper'; // Import the wrapper component
+ 
+export const metadata = {
+  title: 'Oasis Manors, Inc - Assisted Living Facility at 15116 Roxford St, Sylmar, CA 91342',
+  description: 'Best Assisted Living Facility for Elderly. Get Nutritious homestyle meals and furnished rooms. Emergency call system and 24-hour supervision. Low-impact wellness program in pool and spa. Games, walks, local visits, shopping and regular yoga activities. Grab all facilities at one place - Oasis Manors. Call 310-995-4859',
+}
 
 export default function RootLayout({ children }) {
   return (
