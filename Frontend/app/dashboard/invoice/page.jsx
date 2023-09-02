@@ -39,9 +39,7 @@ function Invoice({prospectId}) {
             {id ? "Update" : "Save"}
           </Button>}
       </Toolbar>
-     
       </AppBar>
-      
        </main>
   )
 }

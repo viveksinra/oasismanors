@@ -47,9 +47,9 @@ const ProfileTab =({prospectId,residentId})=>{
         <main>
             <div className="profileBg">
                 <label htmlFor="image">
-                <input type="file" id="image" style={{display:"none",}} onChange={(e) => imgUpload(e.target.files[0])}  accept="image/*"  />
+                <input type="file" id="image" style={{display:"none"}} onChange={(e) => imgUpload(e.target.files[0])}  accept="image/*"  />
                 <Tooltip title="Upload Your Photo" arrow>
-                <Avatar alt="Remy Sharp" sx={{cursor: "pointer"}} src={proData?.userImage} className="userAvatar"/>
+                <Avatar alt="User Image" sx={{cursor: "pointer"}} src={proData?.userImage} className="userAvatar"/>
                 </Tooltip>
                </label>
             <div className="userName">

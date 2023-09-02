@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
-import ReactApexChart from 'react-apexcharts';
 import { dashboardService } from '../../services/index';
+import dynamic from 'next/dynamic';
+const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 function CareChart() {
   const [series, setSeries] = useState([{
@@ -66,7 +67,7 @@ function CareChart() {
    }, [])
   return (
     <div id="chart">
-    <ReactApexChart options={options} series={series} type="bar" height={350} />
+    <ApexCharts options={options} series={series} type="bar" height={350} />
     </div> 
   )
 }

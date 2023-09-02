@@ -266,7 +266,7 @@ const EntryInvoice = forwardRef((props, ref) => {
     return (
       <main >
       <Grid container>
-          <Grid item xs={12} md={8} sx={{background:"#fff", borderRadius:"10px", padding:"10px"}}>
+          <Grid item xs={12} md={8} sx={{background:"#fff",boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px", borderRadius:"10px", padding:"10px"}}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
               <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>Create Invoice</Typography>

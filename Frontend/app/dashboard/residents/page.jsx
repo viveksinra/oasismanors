@@ -92,7 +92,7 @@ export function SearchArea({handleEdit}) {
       
   return (
     <main>
-      <Box sx={{background:"#fff", borderRadius:"10px", width: '100%',padding:"10px", minHeight: "785px" }}>
+      <Box sx={{background:"#fff",boxShadow:"box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;", borderRadius:"10px", width: '100%',padding:"10px", minHeight: "785px" }}>
         <Grid container>
           <Grid item xs={0} md={4}/>
           <Grid item xs={12} md={4}>
@@ -168,9 +168,9 @@ function ResidentView({view,loading,filterRes,setFilterRes}){
         {filterRes.map((r,i)=> <Grid key={i} item xs={12} md={4} lg={3}>
           <div className={clsx("residentCard", r?.active && "activeCard")} onClick={()=>handleCard(i)}>
           <div className="cross">{r.room}</div>  
-          <Avatar alt={r?.firstName} src={r?.userImage} className="residentImg" variant="square" />
+          <img alt={r?.firstName} src={r?.userImage} className="residentImg" variant="square" />
           <Typography variant="subtitle2" color="primary" sx={{ top: "-15px",position: "relative"}} align="center">{`${r?.lastName}, ${r?.firstName}`} </Typography>
-          <div style={{display:"flex", justifyContent:"space-evenly", top: "-5px",position: "relative"}}> 
+          <div style={{display:"flex", justifyContent:"space-evenly", top: "-15px",position: "relative"}}> 
           <Badge badgeContent={r?.pendingCare} max={9} color="success">
           <Button  variant="outlined" size="small" onClick={()=>{setOpenMeds(!openMeds);setPopup("Care")}} sx={{background:"#fff"}}>
           <FaHandHoldingHeart style={{marginRight:5}}/>

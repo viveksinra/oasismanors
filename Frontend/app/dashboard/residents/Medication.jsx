@@ -1,13 +1,14 @@
 'use client';
 import "../prospect/prospectStyle.css"
 import React,{lazy, useState,useEffect,useRef} from 'react'
-import {AppBar,Toolbar,Badge,Box,Tab, Button,Tooltip,Avatar,Menu,MenuItem} from '@mui/material/';
+import {AppBar,Toolbar,Badge,Box,Tab, Button,Tooltip,Avatar,Menu,MenuItem,CircularProgress} from '@mui/material/';
 import {TabList,TabContext} from '@mui/lab/';
 import {FaUserPlus } from "react-icons/fa";
 import {FiFileMinus,FiCheck } from "react-icons/fi";
 import {FcLike} from "react-icons/fc";
 import {BsTable } from "react-icons/bs";
 import {ToggleFab} from "./page"
+import NoResult from "@/app/Components/NoResult/NoResult";
 import { DataGrid } from '@mui/x-data-grid';
 import { medicationService } from "../../services";
 const EntryMedication = lazy(() => import("./EntryMedication"));
@@ -68,17 +69,20 @@ function Medications({prospectId}) {
 
 function SearchMedication({prospectId, handleEdit}) {
   const [user, setUser] = useState({firstName:"Name Loading...", lastName:"", room:"Loading...", seat:"",important: true,userImage:""})
+  const [loading, setLoading ] = useState(false);
   const [rows, setRow] = useState([]);
   const [allData, setAllData] = useState([]);
   const [medTab, setMTab]= useState("Active Medications");
 
   useEffect(() => {
     async function fetchAllData() {
+      setLoading(true)
       let res = await medicationService.getMedication(`api/v1/residence/resMed/getResMed/getAll`, prospectId);
       if(res.variant === "success"){
+        setLoading(false)
         setUser(res?.user)
         setAllData(res?.data)
-      }else console.log(res)
+      }else {console.log(res); setLoading(false)}
     }
     fetchAllData() 
   }, [])
@@ -189,6 +193,7 @@ function SearchMedication({prospectId, handleEdit}) {
         pageSizeOptions={[10]}
         disableRowSelectionOnClick
       />
+         {loading ? <div className="center"><CircularProgress size={30}/> </div> : loading === false && rows.length === 0 ? <NoResult label="No Medication / Treatment Available"/> : null} 
     </Box>
     </main>
   )

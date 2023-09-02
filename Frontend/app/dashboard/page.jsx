@@ -7,9 +7,9 @@ import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import Link from 'next/link';
-// const ProspectChart = lazy(() => import("../Components/Charts/ProspectChart"));
-// const CareChart = lazy(() => import("../Components/Charts/CareChart"));
-// const MedsChart = lazy(() => import("../Components/Charts/MedChart"));
+const ProspectChart = lazy(() => import("../Components/Charts/ProspectChart"));
+const CareChart = lazy(() => import("../Components/Charts/CareChart"));
+const MedsChart = lazy(() => import("../Components/Charts/MedChart"));
 
 
 function   Dashboard () {
@@ -122,25 +122,25 @@ function   Dashboard () {
         <Grid item xs={12} md={4}>
           <div style={{height:"410px",padding:"20px", boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", borderRadius:"10px", overflow:"hidden"}}>
           <Typography variant="caption" color="teal" className='headingText'>Prospect Stage</Typography> <br/><br/>
-          {/* <Suspense fallback={<div className='center'><CircularProgress /></div>}>
+          <Suspense fallback={<div className='center'><CircularProgress /></div>}>
           <ProspectChart/>
-          </Suspense> */}
+          </Suspense>
           </div>
       </Grid>
       <Grid item xs={12} md={4}>
       <div style={{height:"410px",padding:"20px", boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", borderRadius:"10px", overflow:"hidden"}}>
       <Typography variant="caption" color="teal" className='headingText'>Meds (weekly)</Typography> <br/>
-      {/* <Suspense fallback={<div className='center'><CircularProgress /></div>}>
+      <Suspense fallback={<div className='center'><CircularProgress /></div>}>
       <MedsChart/>
-      </Suspense> */}
+      </Suspense>
       </div>
       </Grid>
       <Grid item xs={12} md={4}>
       <div style={{height:"410px",padding:"20px", boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", borderRadius:"10px", overflow:"hidden"}}>
       <Typography variant="caption" color="teal" className='headingText'>Care (weekly)</Typography> <br/>
-      {/* <Suspense fallback={<div className='center'><CircularProgress /></div> }>
+      <Suspense fallback={<div className='center'><CircularProgress /></div> }>
         <CareChart/>
-        </Suspense> */}
+        </Suspense>
       </div>
       </Grid>
       <Grid item xs={12} md={4}>

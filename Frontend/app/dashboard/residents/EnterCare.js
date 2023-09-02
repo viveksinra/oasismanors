@@ -131,7 +131,7 @@ const EntryCare = forwardRef((props, ref) => {
       }));
       
     return (
-     <main style={{backgroundColor:"#fff", borderRadius:8,marginBottom:2, padding:"10px"}}>
+     <main style={{backgroundColor:"#fff",boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px", borderRadius:8,marginBottom:2, padding:"10px"}}>
       <Grid container spacing={2}>
       <Grid item xs={12}>
         <Grid container>

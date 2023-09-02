@@ -150,7 +150,7 @@ const EntryArea = forwardRef((props, ref) => {
     }));
 
 
-    return <main style={{background:"#fff", borderRadius:"10px",padding:20}}> 
+    return <main style={{background:"#fff",boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px", borderRadius:"10px",padding:20}}> 
     <Grid sx={{display:"flex",flexDirection:"row", justifyContent:"space-between"}}>
     <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6'>Create Prospect</Typography>
       <FormControlLabel control={<Checkbox icon={<FcLikePlaceholder style={{fontSize:24}}/>} checkedIcon={<FcLike style={{fontSize:24}}/>} checked={important} onChange={()=>setImp(!important)} />} label={important ? "Important" : "General"} />

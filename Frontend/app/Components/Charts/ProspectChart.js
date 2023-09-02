@@ -1,7 +1,8 @@
 
 import React, { useState,useEffect } from 'react'
-import ReactApexChart from 'react-apexcharts';
 import { dashboardService } from '../../services/index';
+import dynamic from 'next/dynamic';
+const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 function ProspectChart() {
   const [series, setSeries] = useState([14, 23, 21, 17, 15, 10, 12, 17, 21])
@@ -41,7 +42,7 @@ function ProspectChart() {
    }, [])
   return (
     <div id="chart">
-    <ReactApexChart options={options} series={series} height="320px" type="polarArea" />
+    <ApexCharts options={options} series={series} height="320px" type="polarArea" />
     </div>
   )
 }

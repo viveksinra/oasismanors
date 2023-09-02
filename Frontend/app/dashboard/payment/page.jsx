@@ -123,10 +123,11 @@ function Payment({receipt}) {
   return (
     <main >
     <Grid container>
-        <Grid item xs={12} md={8} sx={{background:"#fff", borderRadius:"10px", padding:"10px"}}>
+        <Grid item xs={12} md={8} sx={{background:"#fff", borderRadius:"10px", padding:"10px", boxShadow:"rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px"}}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
             <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>{receipt ? "Receipt" : "Payment"} Voucher</Typography>
+            <Typography color="darkslateblue" style={{fontFamily: 'Courgette'}} variant="subtitle2" align='center'>{receipt ? "Someone is Giving Money to the Company" : "Company is Giving Money to Someone"}</Typography>
             </Grid>
             <Grid item xs={12} md={4}>
               <TextField fullWidth value={tranDate} sx={{maxWidth:"130px"}} onChange={e=>setDate(e.target.value)} label={receipt ? "Receipt Date" : "Payment Date"} size='small' type="date" focused variant="standard" />   

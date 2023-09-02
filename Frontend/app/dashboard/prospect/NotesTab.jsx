@@ -89,7 +89,7 @@ const columns = [
 ];
   return (
     <main>
-      <Box sx={{background:"#fff", borderRadius:"10px", width: '100%' }}>
+      <Box sx={{background:"#fff",boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px", borderRadius:"10px", width: '100%' }}>
       <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>All Notes</Typography>
       <DataGrid
         rows={rows}
@@ -159,7 +159,7 @@ const EntryNotes = forwardRef((props, ref) => {
  }));
  
 return (
-<main style={{backgroundColor:"#fff", borderRadius:8,marginBottom:2, padding:"10px"}}>
+<main style={{backgroundColor:"#fff",boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px", borderRadius:8,marginBottom:2, padding:"10px"}}>
 <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>Add New Notes</Typography>
         <Grid container spacing={2}>
         <Grid item xs={12} md={12}>
