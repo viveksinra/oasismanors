@@ -4,6 +4,7 @@ import {
   getAuthorizationHeader,
   getHeaderUrlEncoded,
 } from "../utils/getAuthorizationHeader";
+import Cookies from "js-cookie";
 
 export class AuthService {
   instance;
@@ -31,6 +32,8 @@ export class AuthService {
         return {
           id: res.data.id,
           name: res.data.name,
+          firstName:res.data.firstName,
+          lastName:res.data.lastName,
           accessToken: res.data.token,
           success: res.data.success,
           message:res.data.message,
@@ -43,4 +46,21 @@ export class AuthService {
         return err;
       });
   };
+
+  post = async (url, data) => {
+    return this.instance
+      .post(`/${url}`,data,
+        {
+          headers: getHeaderUrlEncoded(),
+        }
+      )
+      .then((res) => res.data)
+      .catch((err) => err);
+  };
+
+  getLoggedInUser = () => {
+    const currentUser = Cookies.get("currentUser");
+    return currentUser ? JSON.parse(currentUser) : {};
+  };
+  
 }

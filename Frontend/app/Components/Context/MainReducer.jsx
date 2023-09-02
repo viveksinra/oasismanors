@@ -17,7 +17,8 @@ const MainReducer = (state, action)=>{
 				id: action.payload.id,
 				userImage: action.payload.userImage,
 				designation: action.payload.designation,
-				name: action.payload.name,
+				firstName: action.payload.firstName,
+                lastName:action.payload.lastName
             };
         case SETSELECTED:
             return {

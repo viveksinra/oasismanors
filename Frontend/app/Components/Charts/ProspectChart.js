@@ -42,7 +42,7 @@ function ProspectChart() {
    }, [])
   return (
     <div id="chart">
-    <ApexCharts options={options} series={series} height="320px" type="polarArea" />
+    <ApexCharts options={options} series={series} height={350} type="polarArea" />
     </div>
   )
 }

@@ -10,6 +10,7 @@ import Enquiry from "./Components/Enquiry/Enquiry";
 import Footer from "./Components/Footer/Footer";
 import {Grid, TextField, Typography,Box,Button,IconButton,InputAdornment} from '@mui/material';
 import { FcBusinessman,FcBusinesswoman } from "react-icons/fc";
+import {authService} from "./services/index"
 import Loading from "./Components/Loading/Loading";
 
 function MyApp() {  
@@ -17,9 +18,19 @@ function MyApp() {
     const [male, setSex] = useState(true);
     const [name, setName]=useState("");
     const [mobile, setMobile] =useState("")
-    const handleAvailability = ()=>{
-      // console.log({name,mobile,male});
-      console.log(state)
+    const handleAvailability = async ()=>{
+      if(name && mobile) {
+        try {
+          let res = await authService.post(`api/v1/public/enquiry`,{male,name,mobile});
+          if(res.variant ==="success"){
+            setName("");
+            setMobile("");
+            alert(res.message)
+          }  
+        } catch (error) {
+          console.log(error);
+        }
+      }else alert("Kindly Enter your Name and Contact Number.")
     }
     return (
       <Fragment>
@@ -29,7 +40,7 @@ function MyApp() {
         <div id="heroBack">
         <Suspense fallback={<Loading />}>
         <div id="availability">
-          <Typography align="center" variant="h6" color="primary" style={{fontFamily: 'Courgette', fontWeight:600}}>Grab the Early Bird Discount</Typography>
+          <Typography align="center" variant="h6" color="darkcyan" style={{fontFamily: 'Courgette', fontWeight:500}}>Grab the Early Bird Discount</Typography>
           <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
           <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>

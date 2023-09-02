@@ -1,18 +1,19 @@
 #topAbstract{
-  age: url("https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/11/abstract_gradient.jpg");
+  background : url("https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/11/abstract_gradient.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   height: 10px;  
 }
 #heroBack{
-    background-image: url("https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/hero_confidence-3-1536x672.jpg");
+    /* background-image: url("https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/hero_confidence-3-1536x672.jpg"); */
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("https://oldagehome.co.in/img/banner.jpg");
     width: 100%;
     height: 800px;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     display: flex;
     justify-content: center;
     align-items: center;

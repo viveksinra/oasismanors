@@ -4,16 +4,17 @@ import {Typography,Avatar,List,ListSubheader,ListItemButton,ListItemIcon,ListIte
 import { useState } from "react";
 import Link from 'next/link';
 import { FcPicture,FcHome, FcKindle,FcStackOfPhotos,FcCurrencyExchange,FcInvite} from "react-icons/fc";
-
+import { authService } from "../../services";
 
 const MyDrawer = ({handleDrawer}) => {
+
 const list1 = [{title:"Home",icon:<FcHome/>, link:"/"},{title:"About Us",icon:<FcKindle/>, link:"/about"},{title:"Our Amenities",icon:<FcStackOfPhotos/>, link:"/amenities"},{title:"Gallery",icon:<FcPicture/>, link:"/gallery"},{title:"Pricing",icon:<FcCurrencyExchange/>, link:"/pricing"},{title:"Contact",icon:<FcInvite/>, link:"/contact"}]
   return (
     <div>
       <div id="topDrawer" style={{width:260}}>
-       <span className="center"><Typography variant="caption" style={{paddingTop:10}} color="primary">Welcome Raghav</Typography></span>
+       <span className="center"><Typography variant="caption" style={{paddingTop:10}} color="primary">   Welcome {authService.getLoggedInUser()?.firstName ?? "User"} !</Typography></span>
        <div id="DrawerAvatar">
-       <Avatar alt="Travis Howard" sx={{ width: 60, height: 60,border:"3px solid #fff" }} style={{marginLeft:"auto",marginRight:"auto"}} src="https://mui.com/static/images/avatar/2.jpg" />
+       <Avatar alt="Travis Howard" sx={{ width: 60, height: 60,border:"3px solid #fff" }} style={{marginLeft:"auto",marginRight:"auto"}} src={authService.getLoggedInUser()?.userImage ?? "https://res.cloudinary.com/oasismanors/image/upload/v1687519053/user_myqgmv.png"} />
        </div>
       </div>
       <List
@@ -42,7 +43,7 @@ const list1 = [{title:"Home",icon:<FcHome/>, link:"/"},{title:"About Us",icon:<F
     </List>
      
 <br/>
-<button onClick={()=>handleDrawer()}>Close Me</button>
+<center><button onClick={()=>handleDrawer()}>Close Drawer</button></center>
    </div>
   )
 }

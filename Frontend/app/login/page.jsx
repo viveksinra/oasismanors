@@ -48,7 +48,7 @@ function Login() {
     <main>
       <Header/>
       <TopAbstract/>
-      <div id="loginBg">
+      <div id="loginBg" style={{backgroundColor:"#fff"}}>
       <Grid container>
         <Grid item xs={12} md={6} className="center" style={{flexDirection:"column"}}>
           <Typography color="primary" gutterBottom variant="h6">Login</Typography>

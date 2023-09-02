@@ -1,18 +1,21 @@
 'use client';
 import React,{useState, Suspense} from 'react'
 import "./dashboardStyle.css";
-import {styled,Box,CssBaseline,Toolbar,IconButton,useTheme,List,ListItem,ListItemButton,ListItemIcon,ListItemText,Divider, SwipeableDrawer,Collapse   } from '@mui/material/';
+import {styled,Box,CssBaseline,Toolbar,IconButton,useTheme,List,ListItem,ListItemButton,ListItemIcon,ListItemText,Divider, SwipeableDrawer,Collapse,Menu,Avatar,MenuItem   } from '@mui/material/';
 import MuiAppBar from '@mui/material/AppBar';
 import MuiDrawer from '@mui/material/Drawer';
-import { FcMenu,FcLeft,FcHome,FcFilmReel,FcGallery,FcConferenceCall,FcComboChart,FcBusinessman,FcRightUp,FcDataRecovery,FcExpand,FcCollapse,FcPlus,FcLeftDown,FcTodoList,FcInspection,FcDocument } from "react-icons/fc";
+import { FcMenu,FcLeft,FcHome,FcImport,FcGallery,FcConferenceCall,FcComboChart,FcBusinessman,FcRightUp,FcDataRecovery,FcExpand,FcCollapse,FcPlus,FcLeftDown,FcTodoList,FcInspection,FcDocument } from "react-icons/fc";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation'
 import Loading from '../Components/Loading/Loading';
+import { useLogout } from "../hooks/auth/uselogout";
+import { authService } from "../services";
 
 const drawerWidth = 240;
 
 const DrawerData = ({open}) => {
   const router = useRouter();
+  const { logout } = useLogout();
   const [masterOpen, setMas] = useState(false);
   const [dashList1, setDashList] = useState([{title:"Dashboard",active: true, link:"/dashboard",icon:<FcComboChart/>},{title:"Prospect",active: false, link:"/dashboard/prospect",icon:<FcConferenceCall/>},{title:"Residents", active: false,link:"/dashboard/residents",icon:<FcHome/>},{title:"Payment", active: false,link:"/dashboard/payment",icon:<FcRightUp/>},{title:"Receipt", active: false,link:"/dashboard/receipt",icon:<FcLeftDown/>},{title:"Invoice", active: false,link:"/dashboard/invoice",icon:<FcDocument/>},{title:"All Tasks", active: false,link:"/dashboard/task",icon:<FcTodoList/>},{title:"All Notes", active: false,link:"/dashboard/notes",icon:<FcInspection/>},{title:"Employee", active: false,link:"/dashboard/employee",icon:<FcBusinessman/>}]) 
   const [masterList, setMaster] = useState([{title:"Create Ledger",active: false, link:"/dashboard/master/ledger",icon:<FcPlus/>}])
@@ -69,7 +72,7 @@ const DrawerData = ({open}) => {
                   }}>
           <FcDataRecovery />
         </ListItemIcon>
-        <ListItemText primary="Master" />
+        <ListItemText primary="Master" sx={{ opacity: open ? 1 : 0 }} />
         {masterOpen ? <FcCollapse /> : <FcExpand/>}
       </ListItemButton>
       <Collapse in={masterOpen} timeout="auto" unmountOnExit>
@@ -82,30 +85,24 @@ const DrawerData = ({open}) => {
             <ListItemText primary={t.title} />
           </ListItemButton>
         </ListItem> )}
+  
         </List>
       </Collapse>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
+        </List>
+        <List sx={{position:"absolute", bottom:0, width:"100%"}}>
+        <ListItem onClick={()=>{logout(); router.push("/login")} } disablePadding>
+        <ListItemButton sx={{  minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
+                  px: 2.5}}>
+            <ListItemIcon sx={{minWidth: 0,
                     mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {index % 2 === 0 ? <FcFilmReel /> : <FcGallery />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+                    fontSize:24,
+                    justifyContent: 'center',}} >
+             <FcImport/>
+            </ListItemIcon>
+            <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 }} />
+          </ListItemButton>
+        </ListItem>
         </List>
   </div>
   )
@@ -135,6 +132,9 @@ const closedMixin = (theme) => ({
 function DashboardLayout({children}) {
   const theme = useTheme();
   const [open, setOpen] = useState(true);
+  const [anchorElProfile, setAnchorElProfile] = useState(null);
+  const { logout } = useLogout();
+  const openProfile = Boolean(anchorElProfile);
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleDrawer = () => {
     setOpen(!open);
@@ -172,6 +172,36 @@ function DashboardLayout({children}) {
             <FcMenu />
           </IconButton>
           <Image priority width={140} height={60} src="https://res.cloudinary.com/oasismanors/image/upload/v1685029880/Logo_hmwkcj.svg" alt="Oasis Manor"/>
+          <span style={{flexGrow:1}}/>
+          <Menu
+            id="profile-menu"
+            anchorEl={anchorElProfile}
+            open={openProfile}
+            onClose={() => setAnchorElProfile(null)}
+            MenuListProps={{
+              "aria-labelledby": "basic-button-profile",
+            }}
+          >
+            <MenuItem disabled>
+              Hi {authService.getLoggedInUser()?.lastName ?? "User"} !
+            </MenuItem>
+            <MenuItem onClick={() => {logout(); router.push("/login")} }>Logout</MenuItem>
+          </Menu>
+          <Avatar
+            sx={{
+              height: 40,
+              width: 40,
+              ml: 1,
+              cursor: "pointer",
+            }}
+            id="basic-button-profile"
+            aria-controls={openProfile ? "profile-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={openProfile ? "true" : undefined}
+            alt="User"
+            src={authService.getLoggedInUser()?.userImage}
+            onClick={(e) => setAnchorElProfile(e.currentTarget) }
+          />
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}  sx={{

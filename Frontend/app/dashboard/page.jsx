@@ -3,6 +3,7 @@ import React,{useState,useEffect,lazy,Suspense} from 'react'
 import "./dashboardStyle.css"
 import {Button, Chip, Grid,DialogActions,CircularProgress, Typography,Dialog,Table,TableBody,TableRow,TableCell, Tooltip, Divider, Avatar} from '@mui/material/';
 import { dashboardService } from '../services';
+import { subDays } from 'date-fns';
 import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
@@ -22,14 +23,29 @@ function   Dashboard () {
                                             {label:"Tasks", number:"05", bgColor:"#FFB400",link:"/dashboard/task", icon: ""},
                                           ]) 
   const [date, setDate] = useState([{
-      startDate: "",
-      endDate: new Date() ,
+      startDate: subDays(new Date(), 365),
+      endDate: new Date(),
       key: 'selection'
     }]);
+  const [heading, setHeading] = useState({msg: "Welcome",taskCount: 0,subMsg: "Congratulation, You have 0 pending task",
+    "firstName": "Vivek Admin",
+    "lastName": "Singh"
+})
   const [task, setTask]= useState([{task:"Ask the Principal for turning...",taskType:"Email",taskDueDate:"Aug-31-2023" },{task:"See the fooding Court for transfer",taskType:"Call",taskDueDate:"Aug-30-2023" },{task:"Ask the Principal for turning...",taskType:"Email",taskDueDate:"Aug-31-2023" },{task:"See the fooding Court for transfer",taskType:"Call",taskDueDate:"Aug-30-2023" },{task:"Lorem is think of God and...",taskType:"Visit",taskDueDate:"Aug-26-2023" }])
   const [receipt,setReceipt]= useState([{ledger:"Raghav John Michu", mode:"Cash", ledgerImage:"https://mui.com/static/images/avatar/1.jpg", amount:"514"},{ledger:"Vivek Solanki Wazwa", mode:"Zelle", ledgerImage:"https://mui.com/static/images/avatar/2.jpg", amount:"1640"},{ledger:"Raghav John Michu", mode:"Cash", ledgerImage:"https://mui.com/static/images/avatar/1.jpg", amount:"514"},{ledger:"Vivek Solanki Wazwa", mode:"Zelle", ledgerImage:"https://mui.com/static/images/avatar/2.jpg", amount:"1640"}])
   const [payment,setPayment]= useState([{ledger:"Raghav John Michu", mode:"Cash", ledgerImage:"https://mui.com/static/images/avatar/1.jpg", amount:"514"},{ledger:"Vivek Solanki Wazwa", mode:"Zelle", ledgerImage:"https://mui.com/static/images/avatar/2.jpg", amount:"1640"},{ledger:"Raghav John Michu", mode:"Cash", ledgerImage:"https://mui.com/static/images/avatar/1.jpg", amount:"514"},{ledger:"Vivek Solanki Wazwa", mode:"Zelle", ledgerImage:"https://mui.com/static/images/avatar/2.jpg", amount:"1640"}])
   
+  useEffect(() => {
+     // Getting Heading Data
+     async function getHeading(){
+      let res = await dashboardService.getData(`api/v1/dashboard/getDashboard/welcomeMsg`);
+      if(res.variant === "success"){
+        setHeading(res.data)
+      }else {console.log(res)};    
+     }
+     getHeading()
+   }, [])
+
   useEffect(() => {
     // Getting all summary Data
     async function getSummary(){
@@ -71,9 +87,9 @@ function   Dashboard () {
           <div style={{height:"190px",boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", borderRadius:"10px", overflow:"hidden"}}>
             <Grid container>
               <Grid item xs={8} sx={{padding:"20px"}}>
-                <Typography variant="h6" color="teal" className='headingText'>Congratulations, John !</Typography> <br/>
-                <Typography variant="caption" gutterBottom color="grey">Best seller of the month. </Typography><br/>
-                <Typography variant="h5" gutterBottom color="darkviolet">$42.8k </Typography>
+                <Typography variant="h6" color="teal" className='headingText'>{`Welcome, ${heading?.firstName}!`}</Typography>
+                <Typography variant="caption" gutterBottom color="grey">{heading?.subMsg}</Typography><br/>
+                <Typography variant="h5" gutterBottom color="darkviolet">{heading?.taskCount} </Typography>
                 <Button size='small' variant="outlined">View Invoices</Button>
               </Grid>
               <Grid item xs={4} id="topBoxBg" className='center'>
@@ -88,15 +104,7 @@ function   Dashboard () {
             <Grid item xs={12} sx={{display:"flex", justifyContent:"space-between"}}>
               <div>
               <Typography variant="caption" color="teal" className='headingText'>Summary Data</Typography> <br/>
-              {/* <Typography variant="caption" gutterBottom color="grey">Total data from <b>{date[0]?.startDate === "" ? "Starting" : date[0]?.startDate?.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-    })} </b> to <b> {date[0]?.endDate?.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-    })}</b></Typography> */}<br/><br/>
+              <Typography variant="caption" gutterBottom color="grey">You can Filter <b>Payment</b> and <b>Receipt</b> data by Date Range.</Typography><br/><br/>
               </div>
               <Chip label="Filter By Date" size="small" onClick={()=>setShowData(!showDate)} color="primary" variant="outlined" sx={{cursor:"pointer"}}/>
             </Grid>
@@ -238,8 +246,9 @@ function   Dashboard () {
       </Grid>
       </Grid>
      
-      {/* <br/> 
+      <br/> 
         <Dialog onClose={()=>setShowData(false)} maxWidth="md" open={showDate}>
+        <Suspense fallback={<div className='center'><CircularProgress /></div>}>
           <DateRangePicker
           onChange={item => {setDate([item.selection])}}
           showSelectionPreview={true}
@@ -254,7 +263,8 @@ function   Dashboard () {
           <Button variant="contained" color="success" onClick={()=>setShowData(false)}>Filter Now</Button>
           <span style={{flexGrow:0.1}}/>
           </DialogActions>
-        </Dialog> */}
+          </Suspense>
+        </Dialog>
     </main>
   )
 }

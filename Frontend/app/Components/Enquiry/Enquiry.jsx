@@ -4,8 +4,8 @@ import "./enquiryStyle.css";
 import {Container, Grid, Typography,TextField,RadioGroup,FormControlLabel,Radio,Autocomplete ,Fab,MenuItem,InputAdornment,CircularProgress,Alert } from '@mui/material/';
 import { allStates } from "../StaticData";
 import MySnackbar from "../MySnackbar/MySnackbar";
-
 import { FcFeedback,FcApproval } from "react-icons/fc";
+import {authService} from "../../services/index"
 import axios from "axios";
 
 
@@ -48,11 +48,9 @@ const Enquiry = () => {
     e.preventDefault();
     let user = {enquiryFor,name,email,mobile,address,zip,city,state,marketing,message};
     try {
-      await axios
-			.post("http://localhost:2040/api/v1/public/enquiry", user)
-			.then((res) => {
-        snackRef.current.handleSnack(res.data);
-       if(res.data.variant ==="success"){
+      let res = await authService.post(`api/v1/public/enquiry`,user);
+      if(res.variant ==="success"){
+        snackRef.current.handleSnack(res);
         setEnquiryFor("self");
         setName("");
         setEmail("");
@@ -63,14 +61,10 @@ const Enquiry = () => {
         setStateName(null);
         setMarketing("");
         setMsg("");
-       }
-			})
-			.catch((err) => {
-         console.log(err);
-         snackRef.current.handleSnack({message: "Something went wrong. Please try again.", variant: "error" });
-      }); 
+      }  
     } catch (error) {
-      snackRef.current.handleSnack({message: "Something went wrong. Please try again.", variant: "error" });
+      console.log(error);
+      snackRef.current.handleSnack({message:"Something went wrong. Please try again.", variant: "error" });
     }
   }
 

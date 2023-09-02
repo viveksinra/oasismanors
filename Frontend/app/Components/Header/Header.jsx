@@ -10,6 +10,7 @@ import { FaUserCircle } from 'react-icons/fa';
 import { MdLocationOn } from 'react-icons/md';
 import MyDrawer from "../Drawer/MyDrawer";
 import Loading from "../Loading/Loading";
+import { authService } from "../../services";
 
 const Header = () => {
   const [openDrawer, setDrawer]=useState(false);
@@ -58,7 +59,7 @@ const Header = () => {
             <li id="callBackBtn"><Link href="/#enquiry">Get a Call Back</Link></li>
         </ul>
         </Hidden>
-        {state?.isAuthenticated ?  <Link href="/dashboard"> <Avatar alt={state.name} src={state.userImage}/></Link> :  <Link href="/login"> <Button startIcon={<FaUserCircle />}>Login</Button></Link>  }
+        {state?.isAuthenticated ?  <Link href="/dashboard"> <Avatar alt={state.name}  src={authService.getLoggedInUser()?.userImage ?? "https://res.cloudinary.com/oasismanors/image/upload/v1687519053/user_myqgmv.png"}/></Link> :  <Link href="/login"> <Button startIcon={<FaUserCircle />}>Login</Button></Link>  }
         
     </Container>    
     </header>
