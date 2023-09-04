@@ -143,7 +143,7 @@ function ResidentView({view,loading,filterRes,setFilterRes}){
     const [act, setAct] = useState();
     const [openMeds, setOpenMeds] = useState(false);
     const [popup, setPopup] = useState("");
-   
+    {console.log(act)}
     const handleCard =(i)=>{
         let newArr =  filterRes.map((obj, j)=> {
           if(i === j){

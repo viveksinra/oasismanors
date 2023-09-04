@@ -27,10 +27,7 @@ function   Dashboard () {
       endDate: new Date(),
       key: 'selection'
     }]);
-  const [heading, setHeading] = useState({msg: "Welcome",taskCount: 0,subMsg: "Congratulation, You have 0 pending task",
-    "firstName": "Vivek Admin",
-    "lastName": "Singh"
-})
+  const [heading, setHeading] = useState({msg: "Welcome",taskCount: 0,subMsg: "Congratulation, You have 0 pending task",firstName: "Guest",lastName: ""})
   const [task, setTask]= useState([{task:"Ask the Principal for turning...",taskType:"Email",taskDueDate:"Aug-31-2023" },{task:"See the fooding Court for transfer",taskType:"Call",taskDueDate:"Aug-30-2023" },{task:"Ask the Principal for turning...",taskType:"Email",taskDueDate:"Aug-31-2023" },{task:"See the fooding Court for transfer",taskType:"Call",taskDueDate:"Aug-30-2023" },{task:"Lorem is think of God and...",taskType:"Visit",taskDueDate:"Aug-26-2023" }])
   const [receipt,setReceipt]= useState([{ledger:"Raghav John Michu", mode:"Cash", ledgerImage:"https://mui.com/static/images/avatar/1.jpg", amount:"514"},{ledger:"Vivek Solanki Wazwa", mode:"Zelle", ledgerImage:"https://mui.com/static/images/avatar/2.jpg", amount:"1640"},{ledger:"Raghav John Michu", mode:"Cash", ledgerImage:"https://mui.com/static/images/avatar/1.jpg", amount:"514"},{ledger:"Vivek Solanki Wazwa", mode:"Zelle", ledgerImage:"https://mui.com/static/images/avatar/2.jpg", amount:"1640"}])
   const [payment,setPayment]= useState([{ledger:"Raghav John Michu", mode:"Cash", ledgerImage:"https://mui.com/static/images/avatar/1.jpg", amount:"514"},{ledger:"Vivek Solanki Wazwa", mode:"Zelle", ledgerImage:"https://mui.com/static/images/avatar/2.jpg", amount:"1640"},{ledger:"Raghav John Michu", mode:"Cash", ledgerImage:"https://mui.com/static/images/avatar/1.jpg", amount:"514"},{ledger:"Vivek Solanki Wazwa", mode:"Zelle", ledgerImage:"https://mui.com/static/images/avatar/2.jpg", amount:"1640"}])

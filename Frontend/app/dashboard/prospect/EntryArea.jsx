@@ -4,10 +4,10 @@ import { useState,useEffect,useRef} from 'react';
 import MySnackbar from "../../Components/MySnackbar/MySnackbar";
 import {Typography, Grid,TextField,FormControlLabel,Switch,Checkbox,Accordion,AccordionSummary,Rating, AccordionDetails,InputAdornment,CircularProgress,IconButton} from '@mui/material/';
 import Autocomplete from '@mui/material/Autocomplete';
-import {allStates,allGenders} from "../../Components/StaticData";
-import { FcLikePlaceholder, FcLike,FcExpand } from "react-icons/fc";
-import { prospectService } from "../../services";
-
+import {allStates,allGenders, todayDate} from "../../Components/StaticData";
+import { FcLikePlaceholder, FcLike,FcExpand,FcPlus } from "react-icons/fc";
+import { prospectService,invoiceService } from "../../services";
+import Link from 'next/link';
 import axios from 'axios';
 
 
@@ -43,10 +43,10 @@ const EntryArea = forwardRef((props, ref) => {
     const [state, setState]=useState(null);
   
     const [PAccordion, setPAccordion]=useState(true);
-    
-    const allSalesAgent=[{label:"Agent Vinod",id:"124sSDSD5sd1"},{label:"Raman Raghav",id:"12545SDFSDFsd1"},{label:"Vivek Oberoi", id:'asdSDFDSFSDFSDFEWER4'}];
+    const [allSalesAgent, setAllAgents] = useState([]);
+
     const allProspectStage=[{label:"Casual Inquiry",id:"casual-inquiry"},{label:"Qualified",id:"Qualified"},{label:"Cold",id:"Cold"},{label:"Warm",id:"Warm"},{label:"Hot",id:"Hot"}, {label:"Waiting List",id:"Waiting List"},{label:"Lost",id:"Lost"},{label:"Needs Assessment",id:"VGFDRGRG"}]
-    const allProspectSource = [{label:"A place for Mom", id:"adsfjklVDDajsdf"},{label:"ElderLife Financial", id:"adsdVVSEssfdfdf"}];
+    const [allProspectSource, setAllPSource] = useState([]);
    
     useEffect(() => {
       async function getOneData(){
@@ -84,6 +84,10 @@ const EntryArea = forwardRef((props, ref) => {
      if(id){getOneData()}
      
     }, [id])
+    useEffect(() => {
+      setInquiryDate(todayDate())
+    }, [])
+    
     
     async function getZIPData() {
       if(zip.length === 5){
@@ -148,14 +152,34 @@ const EntryArea = forwardRef((props, ref) => {
         },
         handleClear: () => handleClear() 
     }));
+    useEffect(() => {
+      // Getting all Sales Agent
+      async function getLedger(){
+        let res = await invoiceService.getLedger(`api/v1/account/ledger/getLedger/agentLedger/dropDown/getAll`);
+        if(res.variant === "success"){
+          setAllAgents(res.data)
+        }else {snackRef.current.handleSnack(res); console.log(res)};    
+       }
+       getLedger()
+     }, [])
 
-
+     useEffect(() => {
+      // Getting all Prospect Source
+      async function getPSource(){
+        let res = await invoiceService.getLedger(`api/v1/enquiry/prospectSource/getProspectSource/dropDown/getAll`);
+        if(res.variant === "success"){
+          setAllPSource(res.data)
+        }else {snackRef.current.handleSnack(res); console.log(res)};    
+       }
+       getPSource()
+     }, [])
+    
     return <main style={{background:"#fff",boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px", borderRadius:"10px",padding:20}}> 
     <Grid sx={{display:"flex",flexDirection:"row", justifyContent:"space-between"}}>
     <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6'>Create Prospect</Typography>
       <FormControlLabel control={<Checkbox icon={<FcLikePlaceholder style={{fontSize:24}}/>} checkedIcon={<FcLike style={{fontSize:24}}/>} checked={important} onChange={()=>setImp(!important)} />} label={important ? "Important" : "General"} />
     </Grid>
-    <Grid container spacing={2} >
+    <Grid container spacing={2}>
     <Grid item xs={12} md={3}>
     <TextField disabled fullWidth label="Assisted Living Retirement Homes" variant="standard" />
     </Grid>
@@ -170,20 +194,20 @@ const EntryArea = forwardRef((props, ref) => {
     </Grid>
     <Grid item xs={12} md={3}>
     <Autocomplete
-        isOptionEqualToValue={(option, value) => option?.id === value?.id}
+        isOptionEqualToValue={(option, value) => option?._id === value?._id}
         options={allSalesAgent}
         value={salesAgent}
         onChange={(e, v) => {
-          setSalesAgent(v);
+          setSalesAgent(v); 
         }}
         renderOption={(props, option) => {
           return (
-            <li {...props} key={option.id}>
+            <li {...props} key={option?._id}>
               {option.label}
             </li>
           );
         }}
-        renderInput={(params) => <TextField {...params} label="Sales Agent" variant="standard" />}
+        renderInput={(params) => <TextField {...params} helperText="Master > Ledger > Under Group Agent." label="Sales Agent" variant="standard" />}
       />
     </Grid>
     <Grid item xs={12} md={3}>
@@ -206,30 +230,31 @@ const EntryArea = forwardRef((props, ref) => {
     </Grid>
     <Grid item xs={12} md={3}>
     <Autocomplete
-       isOptionEqualToValue={(option, value) => option?.id === value?.id}
+       isOptionEqualToValue={(option, value) => option?._id === value?._id}
       value={prospectSource}
       onChange={(e, v) => {
         setProspectSource(v);
       }}
         options={allProspectSource}
+        groupBy={(option) => option?.locationType}
         renderOption={(props, option) => {
           return (
-            <li {...props} key={option.id}>
+            <li {...props} key={option._id}>
               {option.label}
             </li>
           );
         }}
-        renderInput={(params) => <TextField {...params} label="Prospect Source" variant="standard" />}
+        renderInput={(params) => <TextField {...params} label="Prospect Source" helperText="Master > Create Prospect Source" variant="standard" />}
       />
     </Grid>
     <Grid item xs={12} md={3} className='center'>
-    <FormControlLabel control={<Rating name="Prospect-Score" sx={{marginRight:"10px"}} value={prospectScore} onChange={(event, newValue) => {setProspectScore(newValue)}}/>} label="Conversion Probability" />
+    <FormControlLabel control={<Rating name="Prospect-Score" precision={0.5} sx={{marginRight:"10px"}} value={prospectScore} onChange={(event, newValue) => {setProspectScore(newValue)}}/>} label="Conversion Probability" />
     </Grid>
     <Grid item xs={12} md={3}>
     <FormControlLabel control={<Switch defaultChecked value={subscribed} onChange={e=>setSubscribe(!subscribed)}/>} label="Subscribe Marketing" />
     </Grid>
     <Grid item xs={12}>
-    <TextField label="Story" value={message} onChange={e=>setMsg(e.target.value)} placeholder="Type something about the prospect. (If you wish)" fullWidth multiline rows={4} variant="outlined"  />
+    <TextField label="Story" value={message} inputProps={{maxLength: "4000"}} onChange={e=>setMsg(e.target.value)} placeholder="Type something about the prospect. (If you wish)" fullWidth multiline rows={4} variant="outlined"  />
     </Grid>
   </Grid>
   <Accordion expanded={PAccordion}>
@@ -244,10 +269,10 @@ const EntryArea = forwardRef((props, ref) => {
     <AccordionDetails>
     <Grid container spacing={2}>
       <Grid item xs={12} md={3}>
-      <TextField fullWidth label="First Name" value={firstName} onChange={e=>setFN(e.target.value)} placeholder='First Name' variant="standard" />
+      <TextField fullWidth label="First Name" value={firstName} onChange={e=>setFN(e.target.value)} inputProps={{ minLength: "2", maxLength: "30" }} placeholder='First Name' variant="standard" />
       </Grid>
       <Grid item xs={12} md={3}>
-      <TextField fullWidth label="Last Name" value={lastName} onChange={e=>setLN(e.target.value)} placeholder='Last Name' variant="standard" />
+      <TextField fullWidth label="Last Name" value={lastName} onChange={e=>setLN(e.target.value)}  inputProps={{ minLength: "2", maxLength: "30" }} placeholder='Last Name' variant="standard" />
       </Grid>
       <Grid item xs={12} md={3}>
       <Autocomplete
@@ -272,26 +297,25 @@ const EntryArea = forwardRef((props, ref) => {
       <TextField fullWidth focused label="Date of Birth" value={DOB} onChange={e=>setDOB(e.target.value)} type='date' placeholder='DOB' variant="standard" />
       </Grid>
       <Grid item xs={12} md={3}>
-        <TextField fullWidth label="Street Address" value={street} onChange={e=>setStreet(e.target.value)} placeholder='Type Street Address' variant="standard" />
+        <TextField fullWidth label="Street Address" inputProps={{maxLength: "250"}} value={street} onChange={e=>setStreet(e.target.value)} placeholder='Type Street Address' variant="standard" />
       </Grid>
       <Grid item xs={12} md={3}>
-        <TextField fullWidth label="Unit" value={unit} onChange={e=>setUnit(e.target.value)} placeholder='Unit' variant="standard" />
+        <TextField fullWidth label="Unit" inputProps={{maxLength: "150"}} value={unit} onChange={e=>setUnit(e.target.value)} placeholder='Unit' variant="standard" />
       </Grid>
-      
         <Grid item xs={12} md={3}>
-            <TextField fullWidth value={home} onChange={e=>setHome(e.target.value)} label="Home #" placeholder='Home' variant="standard" />
+            <TextField fullWidth value={home} inputProps={{maxLength: "150"}} onChange={e=>setHome(e.target.value)} label="Home #" placeholder='Home' variant="standard" />
         </Grid>
         <Grid item xs={12} md={3}> 
-        <TextField fullWidth label="Office #" value={office} onChange={e=>setOffice(e.target.value)} placeholder='Office' variant="standard" />
+        <TextField fullWidth label="Office #" inputProps={{maxLength: "150"}} value={office} onChange={e=>setOffice(e.target.value)} placeholder='Office' variant="standard" />
         </Grid>
         <Grid item xs={12} md={3}> 
-        <TextField fullWidth label="Mobile No." value={mobile} onChange={e=>setMobile(e.target.value)} type='number' placeholder='Phone Number' variant="standard" />
+        <TextField fullWidth label="Mobile No." inputProps={{maxLength: "15"}} value={mobile} onChange={e=>setMobile(e.target.value)} type='number' placeholder='Phone Number' variant="standard" />
         </Grid>
         <Grid item xs={12} md={3}> 
-        <TextField fullWidth label="Email" value={email} onChange={e=>setEmail(e.target.value)} type='email' placeholder='Email' variant="standard" />
+        <TextField fullWidth label="Email" inputProps={{maxLength: "60"}} value={email} onChange={e=>setEmail(e.target.value)} type='email' placeholder='Email' variant="standard" />
         </Grid>
         <Grid item xs={12} md={3}> 
-          <TextField fullWidth value={zip} onChange={e=> {setZip(e.target.value)}} onBlur={()=>getZIPData()} disabled={loadingCity} InputProps= {{
+          <TextField fullWidth value={zip} inputProps={{maxLength: "10"}} onChange={e=> {setZip(e.target.value)}} onBlur={()=>getZIPData()} disabled={loadingCity} InputProps= {{
             endAdornment: (
             <InputAdornment position="end">
             {loadingCity && <CircularProgress size={25}/>}  

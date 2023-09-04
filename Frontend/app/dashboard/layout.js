@@ -4,7 +4,7 @@ import "./dashboardStyle.css";
 import {styled,Box,CssBaseline,Toolbar,IconButton,useTheme,List,ListItem,ListItemButton,ListItemIcon,ListItemText,Divider, SwipeableDrawer,Collapse,Menu,Avatar,MenuItem   } from '@mui/material/';
 import MuiAppBar from '@mui/material/AppBar';
 import MuiDrawer from '@mui/material/Drawer';
-import { FcMenu,FcLeft,FcHome,FcImport,FcGallery,FcConferenceCall,FcComboChart,FcBusinessman,FcRightUp,FcDataRecovery,FcExpand,FcCollapse,FcPlus,FcLeftDown,FcTodoList,FcInspection,FcDocument } from "react-icons/fc";
+import { FcMenu,FcLeft,FcHome,FcImport,FcAdvertising,FcConferenceCall,FcComboChart,FcBusinessman,FcRightUp,FcDataRecovery,FcExpand,FcCollapse,FcPlus,FcLeftDown,FcTodoList,FcInspection,FcDocument } from "react-icons/fc";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation'
 import Loading from '../Components/Loading/Loading';
@@ -18,7 +18,7 @@ const DrawerData = ({open}) => {
   const { logout } = useLogout();
   const [masterOpen, setMas] = useState(false);
   const [dashList1, setDashList] = useState([{title:"Dashboard",active: true, link:"/dashboard",icon:<FcComboChart/>},{title:"Prospect",active: false, link:"/dashboard/prospect",icon:<FcConferenceCall/>},{title:"Residents", active: false,link:"/dashboard/residents",icon:<FcHome/>},{title:"Payment", active: false,link:"/dashboard/payment",icon:<FcRightUp/>},{title:"Receipt", active: false,link:"/dashboard/receipt",icon:<FcLeftDown/>},{title:"Invoice", active: false,link:"/dashboard/invoice",icon:<FcDocument/>},{title:"All Tasks", active: false,link:"/dashboard/task",icon:<FcTodoList/>},{title:"All Notes", active: false,link:"/dashboard/notes",icon:<FcInspection/>},{title:"Employee", active: false,link:"/dashboard/employee",icon:<FcBusinessman/>}]) 
-  const [masterList, setMaster] = useState([{title:"Create Ledger",active: false, link:"/dashboard/master/ledger",icon:<FcPlus/>}])
+  const [masterList, setMaster] = useState([{title:"Create Ledger",active: false, link:"/dashboard/master/ledger",icon:<FcPlus/>},{title:"Create Group",active: false, link:"/dashboard/master/group",icon:<FcPlus/>},{title:"Create Prospect Source",active: false, link:"/dashboard/master/prospectsource",icon:<FcAdvertising/>}])
   const handleLink = (v,n)=>{
     router.push(v.link)
     let newArr =  dashList1.map((obj, j)=> {

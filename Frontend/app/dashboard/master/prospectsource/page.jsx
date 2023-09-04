@@ -1,8 +1,8 @@
 'use client';
 import "../../payment/paymentStyle.css";
 import React,{useEffect, useState, useRef} from 'react';
-import {allStates,allGenders} from "../../../Components/StaticData";
-import {Grid,TextField,Typography,InputAdornment,CircularProgress, Button,Input ,Avatar,List,ListItem,ListItemAvatar,ListItemText,ListItemButton,TablePagination, Divider,Tooltip, Chip,Collapse} from '@mui/material/';
+import {allStates} from "../../../Components/StaticData";
+import {Grid,TextField,Typography,InputAdornment,CircularProgress, Button,Input ,Avatar,List,ListItem,ListItemAvatar,ListItemText,ListItemButton,TablePagination, Divider,Tooltip, } from '@mui/material/';
 import {todayDate} from "../../../Components/StaticData";
 import Autocomplete from '@mui/material/Autocomplete';
 import { FcFullTrash,FcSearch } from "react-icons/fc";
@@ -11,21 +11,19 @@ import { useImgUpload } from '@/app/hooks/auth/useImgUpload';
 import { ledgerService } from "../../../services/";
 import NoResult from "@/app/Components/NoResult/NoResult";
 import MySnackbar from "../../../Components/MySnackbar/MySnackbar";
+import axios from "axios";
 
 
-function Ledger() {
+function ProspectSource() {
   const [_id, setId] = useState("");
   const [createDate, setDate] = useState("");
   const [loading, setLoading] = useState(false);
   const [loadingImg, setLoadingImg]= useState(false);
-  const [ledgerImage, setImgUrl] = useState("");
-  const [voucher, setVoucher] = useState("");
-  const [cb, setCb] = useState("");
-  const [ledger, setLedger]= useState("");
-  const [group, setGroup] = useState(null);
-  const [openingBal, setOB] = useState("");
-  const [isDr,setIsDr]= useState(true);
-  const [gender, setGender] = useState(null);
+  const [locationImg, setImgUrl] = useState("https://cdn-icons-png.flaticon.com/512/991/991014.png");
+  const [prospectSource, setPSource]= useState("");
+  const [contactPerson, setPerson] = useState(null);
+  const [commission, setCom] = useState("");
+  const [locationType,setType]= useState(null);
   const [street, setStreet] = useState("");
   const [unit, setUnit] = useState("");
   const [mobile, setMobile] = useState("");
@@ -35,27 +33,20 @@ function Ledger() {
   const [city, setCity] = useState("");
   const [state, setState] = useState(null);
   const [remark, setRemark] = useState("");
-  const [more, setMore] = useState(true);
-  const [url, setDocUrl]= useState("");
   const [loadingDoc, setLoadingDoc] = useState(false);
-  const [bankName, setBankName] = useState("");
-  const [holderName,setHN] = useState("");
-  const [accountNo,setAcNo]= useState("");
-  const [Aba, setAba] = useState("");
-  const [swift, setSwift] = useState("");
-  const [branch, setBranch] = useState("");
 
   const snackRef = useRef();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchText, setSearchText] = useState("");
   const [totalCount,setTotalCount] = useState(0);
-  const [allGroups, setAllGroups] = useState([]);
+  const [allPerson, setAllPerson] = useState([]);
+  const [allLocationType] = useState([{label:"Walk In",id:"Walk-In"},{label:"Hospital / Clinic",id:"hospital"},{label:"Medical Store",id:"MedicalStore"},{label:"Mall / Shopping Center",id:"mall"},{label:"Online / Internet Campaign",id:"online"},{label:"Calling / SMS",id:"Calling"},{label:"News / Magazines", id:"News/Magazine"},{label:"Others",id:"Others"}]);
   const [result,setResult] = useState([]);
  
   const getResult = async()=>{
     setLoading(true)
-    let baseUrl = `api/v1/account/ledger/getLedger/getDataWithPage/${rowsPerPage}/${page}/${searchText}`;
+    let baseUrl = `api/v1/enquiry/prospectSource/getProspectSource/getDataWithPage/${rowsPerPage}/${page}/${searchText}`;
     let res = await ledgerService.getLedger(baseUrl);
     if(res.variant === "success"){
         setLoading(false);
@@ -74,9 +65,9 @@ function Ledger() {
   useEffect(() => {
     // Getting all the Groups
     async function getData(){ 
-      let res = await ledgerService.getLedger("api/v1/account/group/getGroup/getAll");
+      let res = await ledgerService.getLedger("api/v1/account/ledger/getLedger/agentLedger/dropDown/getAll");
       if(res.variant === "success"){
-        setAllGroups(res.data)
+        setAllPerson(res.data)
       }else {snackRef.current.handleSnack(res); console.log(res)};    
      }
      getData()
@@ -98,35 +89,23 @@ function Ledger() {
   const handleClear = (d) =>{
     setId(d ? d?._id : "");
     setDate(d ? d?.createDate : todayDate());
-    setLoadingImg(false);
-    setImgUrl(d? d?.ledgerImage : "");
-    setVoucher(d? d?.voucher : "");
-    setCb("");
-    setLedger(d ? d?.ledger : "");
-    setGroup(d ? d?.group : null);
-    setOB(d ? d?.openingBal : "");
-    setIsDr(d ? d?.isDr : true);
-    setGender(d ? d?.gender : null);
-    setStreet(d ? d?.street :"");
+    setImgUrl(d ? d?.locationImg : "https://cdn-icons-png.flaticon.com/512/991/991014.png");
+    setPSource(d ? d.prospectSource : "");
+    setPerson(d ? d?.contactPerson : null);
+    setCom(d ? d?.commission : "");
+    setType(d ? d?.locationType : null);
+    setStreet(d ? d?.street : "");
     setUnit(d ? d?.unit : "");
     setMobile(d ? d?.mobile : "");
     setEmail(d ? d?.email : "");
     setZip(d ? d?.zip : "");
-    setLoadingCity(false);
-    setCity(d ? d?.city :"");
+    setCity(d ? d?.city : "");
     setState(d ? d?.state : null);
     setRemark(d ? d?.remark : "");
-    setDocUrl(d ? d?.url : "");
-    setBankName(d ? d?.bankName : "");
-    setHN(d ? d?.holderName : "");
-    setAcNo(d ? d?.accountNo : "");
-    setAba(d ? d?.Aba : "");
-    setSwift(d ? d?.swift : "");
-    setBranch(d ? d?.branch : "");
   }
   const handleSubmit = async ()=>{
-    let ledgerData = {_id,createDate,ledgerImage,voucher,cb,ledger,group,openingBal,isDr,gender,street,unit,mobile,email,zip,city,state,remark,remark,url,bankName,holderName,accountNo,Aba,swift,branch};
-    let res = await ledgerService.saveLedger(`api/v1/account/ledger/addLedger`, _id,ledgerData);
+    let sourceData = {_id,createDate,locationImg,prospectSource,contactPerson,commission,remark,locationType,street,unit,mobile,email,zip,city,state};
+    let res = await ledgerService.saveLedger(`api/v1/enquiry/prospectSource/addProspectSource/${_id}`, "",sourceData);
     if(res.variant === "success"){
       getResult()
       snackRef.current.handleSnack(res);
@@ -153,9 +132,9 @@ function Ledger() {
     }
     }
     async function deleteData(){
-      let y = confirm(`Are you sure, you want to delete - ${ledger} ?`)
+      let y = confirm(`Are you sure, you want to delete - ${prospectSource} ?`)
       if (y){
-        let res = await ledgerService.deleteLedger(`/api/v1/account/ledger/addLedger/deleteOne/${_id}`);
+        let res = await ledgerService.deleteLedger(`api/v1/enquiry/prospectSource/addProspectSource/deleteOne/${_id}`);
         if(res.variant === "success"){
           getResult()
           snackRef.current.handleSnack(res);
@@ -170,7 +149,7 @@ function Ledger() {
         <Grid item xs={12} md={8} sx={{background:"#fff", boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px", borderRadius:"10px", padding:"10px"}}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-            <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>{_id ? "Update Ledger" : "Create Ledger"}</Typography>
+            <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>{_id ? "Update Prospect Source" : "Create Prospect Source"}</Typography>
             </Grid>
             <Grid item xs={12} md={4}>
               <TextField fullWidth value={createDate} sx={{maxWidth:"130px"}} onChange={e=>setDate(e.target.value)} label="Create Date" size='small' type="date" focused variant="standard" />   
@@ -179,29 +158,26 @@ function Ledger() {
             {
             loadingImg ?  <CircularProgress /> :  <label htmlFor="LedgerImg">
             <input type="file" id="LedgerImg" style={{display:"none"}} onChange={(e) => imgUpload(e.target.files[0])}  accept="image/*"  />
-            <Tooltip title="Upload Contact Photo" arrow>
-            <Avatar alt="LedgerImage" sx={{cursor: "pointer",width: 112, height: 112, border:"4px solid #d9fdd3"}} src={ledgerImage}/>
+            <Tooltip title="Upload Location Image" arrow>
+            <Avatar alt="Location Img" variant="square" sx={{cursor: "pointer",width: 112, height: 112, borderRadius:"10px", border:"4px solid #d9fdd3"}} src={locationImg}/>
             </Tooltip>
             </label>
             } 
             </Grid>
-            <Grid item xs={12} md={4}>
-            {voucher && <Typography color="teal" sx={{fontFamily: 'Courgette'}} variant='body1' align='right'>Voucher No :  {voucher}</Typography>}
-            {cb && <Typography color="tomato" sx={{fontFamily: 'Courgette'}} variant='body1' align='right'>Current Balance : $  {cb}</Typography>}
-            </Grid>
+            <Grid item xs={12} md={4} />
             <Grid item xs={12}><br/></Grid>
             <Grid item xs={12} md={4}>
-            <TextField fullWidth value={ledger} placeholder="Enter Ledger Name..." onChange={e=>setLedger(e.target.value)} label="Ledger Name" size='small'  variant="standard" />   
+            <TextField fullWidth value={prospectSource} placeholder="Enter Source Name..." onChange={e=>setPSource(e.target.value)} label="Prospect Source Name" size='small'  variant="standard" />   
             </Grid>
             <Grid item xs={12} md={4}>
             <Autocomplete
             isOptionEqualToValue={(option, value) => option._id === value._id}
-            options={allGroups}
+            options={allPerson}
             onChange={(e, v) => {
-            setGroup(v);
+            setPerson(v);
             }}
-            value={group}
-            groupBy={(option) => option?.natureOfGroup?.label}
+            value={contactPerson}
+            groupBy={(option) => option.natureOfGroup}
             renderOption={(props, option) => {
               return (
                 <li {...props} key={option._id}>
@@ -209,13 +185,11 @@ function Ledger() {
                 </li>
               );
             }}
-            renderInput={(params) => <TextField {...params} variant="standard" fullWidth label="Under Group"/>}
+            renderInput={(params) => <TextField {...params} variant="standard" fullWidth label="Contact Person" helperText="All Ledgers under Group Agent"/>}
             /> 
             </Grid>
             <Grid item xs={12} md={4}>
-            <TextField fullWidth value={openingBal} onChange={e=>setOB(e.target.value)} label="Opening Balance ($)" placeholder="Type Opening Balance" type="number" size='small' variant="standard" InputProps={{
-            endAdornment: <InputAdornment position="start"><Chip color="info" onClick={()=>setIsDr(!isDr)} size="small" label={isDr ? "DR" : "CR"} /> </InputAdornment>,
-          }} />   
+            <TextField fullWidth value={commission} onChange={e=>setCom(e.target.value)} label="Commission on Every Conversion ($)" placeholder="Amount" helperText="Amount per Resident conversion" type="number" size='small' variant="standard" />   
             </Grid>
             <Grid item xs={12} md={8}>
             <TextField fullWidth value={remark} onChange={e=>setRemark(e.target.value)} label="Narration / Remark" placeholder="Type any Remark here..."  size='small' variant="standard" />   
@@ -225,13 +199,10 @@ function Ledger() {
             endAdornment: <InputAdornment position="start">{loadingDoc && <CircularProgress size={25}/>} </InputAdornment>,
           }} onChange={(e) => imgUpload(e.target.files[0])}  type="file" focused fullWidth/>
             </Grid>
-            <Grid item xs={12}>
-            <Collapse in={more} timeout="auto" unmountOnExit>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4}>
                     <Autocomplete
                         isOptionEqualToValue={(option, value) => option.id === value.id}
-                        options={allGenders}
+                        options={allLocationType}
                         renderOption={(props, option) => {
                             return (
                             <li {...props} key={option.id}>
@@ -240,14 +211,14 @@ function Ledger() {
                             );
                         }}
                         onChange={(e, v) => {
-                        setGender(v);
+                        setType(v);
                         }}
-                        value={gender}
-                        renderInput={(params) => <TextField {...params} variant="standard"  fullWidth label="Gender"/>}
+                        value={locationType}
+                        renderInput={(params) => <TextField {...params} variant="standard"  fullWidth label="Location Type"/>}
                         /> 
                     </Grid>
                     <Grid item xs={12} md={4}>
-                    <TextField fullWidth value={mobile} type='number' onChange={e=>setMobile(e.target.value)} label="Mobile Number" placeholder='Type Mobile Number' variant="standard" /> 
+                    <TextField fullWidth value={mobile} type='number' onChange={e=>setMobile(e.target.value)} label="Contact Number" placeholder='Type Mobile / Phone Number' variant="standard" /> 
                     </Grid>
                     <Grid item xs={12} md={4}>
                     <TextField fullWidth value={email} type='email' onChange={e=>setEmail(e.target.value)} label="Email Id" placeholder='Email Id' variant="standard" /> 
@@ -291,37 +262,11 @@ function Ledger() {
                         renderInput={(params) => <TextField {...params} variant="standard" helperText="Just type ZIP Code"  fullWidth label="State"/>}
                         />
                     </Grid>
-                </Grid>
-            </Collapse>
-            </Grid>
-            <Grid item xs={12}>
-            <Collapse in={more} timeout="auto" unmountOnExit>
-            <Grid container spacing={2}>
-            <Grid item xs={12} md={4}>
-            <TextField fullWidth value={bankName} onChange={e=>setBankName(e.target.value)} label="Bank Name" helperText="Bank / Financial Company" placeholder="Bank Name" variant="standard" />
-            </Grid>
-            <Grid item xs={12} md={4}>
-            <TextField fullWidth value={holderName} onChange={e=>setHN(e.target.value)} label="A/c Holder Name" variant="standard" />
-            </Grid>
-            <Grid item xs={12} md={4}>
-            <TextField fullWidth value={accountNo} onChange={e=>setAcNo(e.target.value)} label="Account Number" type='number' placeholder="A/c No." variant="standard" />
-            </Grid>
-            <Grid item xs={12} md={4}>
-            <TextField fullWidth value={Aba} onChange={e=>setAba(e.target.value)} label="ABA - ACH No."  placeholder="ABA - ACH No." variant="standard" />
-            </Grid>
-            <Grid item xs={12} md={4}>
-            <TextField fullWidth value={swift} onChange={e=>setSwift(e.target.value)} label="Swift"  placeholder="Swift" variant="standard" />
-            </Grid>
-            <Grid item xs={12} md={4}>
-            <TextField fullWidth value={branch} onChange={e=>setBranch(e.target.value)} label="Branch Address"  placeholder="Bank Branch" variant="standard" />
-            </Grid>
-            </Grid>
-            </Collapse>
-            </Grid>
+        
             <Grid item xs={12} sx={{marginTop:"20px"}}>
               <Grid container justifyContent="space-between">
               <Button variant="outlined" onClick={()=>handleClear()} startIcon={<MdClearAll />}>Clear</Button>
-              <Button variant="contained" onClick={()=>handleSubmit()} startIcon={<MdDoneAll />} sx={{color:"#fff",borderRadius:"20px",padding:"0px 30px"}}>Save</Button>
+              <Button variant="contained" onClick={()=>handleSubmit()} startIcon={<MdDoneAll />} sx={{color:"#fff",borderRadius:"20px",padding:"0px 30px"}}>{_id ? "Update" : "Save"}</Button>
               <Button variant="outlined" onClick={()=>deleteData()} disabled={!_id} startIcon={<FcFullTrash />}>Delete</Button>
               </Grid>
             </Grid>
@@ -334,7 +279,7 @@ function Ledger() {
         <Grid item xs={12} md={3.5} className="boxEffect">
           <Grid container>
             <Grid item xs={12} sx={{padding:"10px"}}>
-              <Input autoFocus disableUnderline onChange={e=>setSearchText(e.target.value)} sx={{padding:"10px", fontSize:"14px"}} className="boxEffect" startAdornment={<FcSearch style={{fontSize:"24px", marginRight:"10px"}}/>} fullWidth  placeholder="Search By : Party Name / Group Name" /> 
+              <Input autoFocus disableUnderline onChange={e=>setSearchText(e.target.value)} sx={{padding:"10px", fontSize:"14px"}} className="boxEffect" startAdornment={<FcSearch style={{fontSize:"24px", marginRight:"10px"}}/>} fullWidth  placeholder="Search By : Source Name / Contact Person" /> 
             </Grid>
             <Grid item xs={12}>
               <Divider sx={{margin:"10px 0px"}}>Search Result ({totalCount})</Divider>
@@ -344,10 +289,10 @@ function Ledger() {
                 <ListItem key={i} divider disableGutters>
                   <ListItemButton alignItems="flex-start" onClick={()=>handleClear(r)} >
                   <ListItemAvatar>
-                <Avatar alt={r?.ledger} src={r?.ledgerImage}/> 
+                <Avatar alt={r?.ledger} src={r?.locationImg}/> 
                 </ListItemAvatar>
-                <ListItemText primary={<div style={{display: "flex", justifyContent: "space-between"}}> <Typography color="darkgreen" variant="body2">{r?.ledger}</Typography> <Typography color="darkcyan" align="right" variant="body2">SL {(page*rowsPerPage)+(i+1)}</Typography></div>
-                  } secondary={`Group : ${r?.group?.label}, Since : ${r?.createDate}`} />
+                <ListItemText primary={<div style={{display: "flex", justifyContent: "space-between"}}> <Typography color="darkgreen" variant="body2">{r?.prospectSource}</Typography> <Typography color="darkcyan" align="right" variant="body2">SL {(page*rowsPerPage)+(i+1)}</Typography></div>
+                  } secondary={`Location Type : ${r?.locationType?.label}`} />
                   </ListItemButton>
               </ListItem>
               )}
@@ -375,4 +320,4 @@ function Ledger() {
   )
 }
 
-export default Ledger
+export default ProspectSource

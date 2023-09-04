@@ -26,9 +26,9 @@ export class LedgerService {
       .then((res) => res.data)
       .catch((err) => err);
   };
-  deleteLedger = async (id) => {
+  deleteLedger = async (url) => {
     return this.instance
-      .delete(`/api/v1/account/ledger/addLedger/deleteOne/${id}`, {
+      .delete(url, {
         headers: getAuthorizationHeader(),
       })
       .then((res) => res.data)

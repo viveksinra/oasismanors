@@ -178,7 +178,7 @@ function Payment({receipt}) {
                 </li>
               );
             }}
-            renderInput={(params) => <TextField {...params} variant="standard" fullWidth label={receipt ? "Select Receipt Mode" : "Select Payment Mode"}/>}
+            renderInput={(params) => <TextField {...params} variant="standard" helperText="Ledger Under Group Cash-in-Hand or Bank" fullWidth label={receipt ? "Select Receipt Mode" : "Select Payment Mode"}/>}
             /> 
             </Grid>
             <Grid item xs={12} md={4}>
