@@ -6,7 +6,10 @@ const bcrypt = require("bcryptjs");
 // Load AddEmployee Model
 const AddEmployee = require("../../../../Models/User");
 
-
+router.get("/check",(req,res)=>{
+console.log("i am ")
+  res.send("I am working")
+})
 // @type    POST
 // @route   /api/v1/addition/addemployee
 // @desc    Create a new employee
