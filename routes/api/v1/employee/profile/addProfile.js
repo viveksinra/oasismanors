@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 
 // Load Profile Model
-const Profile = require("../../../../../Models/Private/employee/Profile");
+const Profile = require("../../../../../Models/Private/Employee/Profile");
 const {
   validateOnCreate,
   validateOnUpdate,
