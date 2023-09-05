@@ -1,2 +1,2 @@
-// export const API_ENDPOINT = "http://cashnowapi.softechinfra.com";
-export const API_ENDPOINT = "http://localhost:2040";
+export const API_ENDPOINT = "http://api.oasismanors.com";
+// export const API_ENDPOINT = "http://localhost:2040";
