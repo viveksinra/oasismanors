@@ -50,7 +50,6 @@ async function updateMe(req, res, updateNote) {
       { $set: updateNote },
       { new: true }
     );
-console.log(updateNote)
     if (!note) {
       return res
         .status(406)
@@ -132,9 +131,15 @@ async function getNoteObj(req,type) {
   if (req.body.notes) {
     newNote.notes = req.body.notes;
   }
+  newNote.type = "general"
+
   if (req.body.prospectId) {
+    if(req.body.prospectId == "general"){
+      newNote.type = "general"
+    }else{
     newNote.prospectId = req.body.prospectId;
-  }
+    newNote.type = "prospect";
+  }}
   newNote.lastModified = new Date();
  
   return newNote;

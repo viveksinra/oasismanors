@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 const CompanySchema = new Schema({
   
-
   // comman data required in every Modal
   companyName:{
     type: String,

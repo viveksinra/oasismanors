@@ -26,11 +26,13 @@ const TaskSchema = new Schema({
   taskStatus: {
     label: {
       type: String,
-      default: "new"
+      default: "New",
+      enum:["New","Completed"]
     },
     id: {
       type: String,
-      default: "new"
+      default: "new",
+      enum:["new","completed"]
     }
   },
   taskDueDate: {
@@ -45,11 +47,11 @@ const TaskSchema = new Schema({
     type: String,
     default: ""
   },
-  taskCompletionDate: {
+  completionDate: {
     type: Date,
     default: ""
   },
-  taskCompletionTime: {
+  completionTime: {
     type: String,
     default: ""
   },
@@ -57,10 +59,19 @@ const TaskSchema = new Schema({
     type: String,
     default: ""
   },
-  prospectId:{
+  completedBy: {
+    type: Schema.Types.ObjectId,
+    ref: "myUser",
+    required: true
+  },
+  completedBy:{
     type: Schema.Types.ObjectId,
    ref: "myProspect",
-   required:true
+  },
+  type: {
+    type: String,
+    required:true,
+    enum:["prospect","general"]
   },
   // Default for all
  community: {

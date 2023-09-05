@@ -53,8 +53,12 @@ res.status(200).json({ variant: "success", message: "Note Loaded", data: note })
   
           return formattedDate;
         }
+        let myMatch = {prospectId: req.params.prospectId}
+        if(req.params.prospectId == "general"){
+          myMatch = {type: "general"}
+        }
 
-        const myData = await Note.find({prospectId: req.params.prospectId})
+        const myData = await Note.find(myMatch)
         const modifiedData = myData.map((note) => {
           const formattedNoteDate = changeFormat(note.date);
           const formatedLastModified = changeFormat(note.lastModified);

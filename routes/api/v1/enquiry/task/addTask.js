@@ -7,6 +7,7 @@ const Task = require("../../../../../Models/Private/Enquiry/Task");
 const {
   validateOnCreate,
   validateOnUpdate,
+  validateOnComplete,
 } = require("../../../../../validation/taskValidation");
 
 // @type    POST
@@ -50,7 +51,6 @@ async function updateMe(req, res, updateTask) {
       { $set: updateTask },
       { new: true }
     );
-console.log(updateTask)
     if (!task) {
       return res
         .status(406)
@@ -88,7 +88,7 @@ console.log(error)
 
 
 // @type    DELETE
-// @route   /api/v1/task/addTask/:id
+// @route   /api/v1/enquiry/task/addTask/deleteOne/:id
 // @desc    Delete a task by ID
 // @access  Public
 router.delete(
@@ -120,11 +120,30 @@ async function getTaskObj(req,type) {
 
   };
   if(type == "create"){
+  newTask.user=  req.user.id;
    
+  } 
+  if(type == "markComplete"){
+    if (req.body.completionDate) {
+      newTask.completionDate = req.body.completionDate;
+    }
+    if (req.body.completionTime) {
+      newTask.completionTime = req.body.completionTime;
+    }
+    if (req.body.completionNote) {
+      newTask.completionNote = req.body.completionNote;
+    }
+    if (req.body.completedBy) {
+      newTask.completedBy = req.user.id;
+    }
+    newTask.taskStatus = {
+      label:"Completed",
+      id:"completed"
+    }
+
   } 
 
 
-  newTask.user=  req.user.id;
 
 // Check and assign values for each parameter based on their type
 if (req.body.task) {
@@ -166,26 +185,54 @@ if (req.body.employee) {
     newTask.dueNote = req.body.dueNote;
   }
   
-  if (req.body.taskCompletionDate) {
-    newTask.taskCompletionDate = req.body.taskCompletionDate;
+  if (req.body.completionDate) {
+    newTask.completionDate = req.body.completionDate;
   }
   
-  if (req.body.taskCompletionTime) {
-    newTask.taskCompletionTime = req.body.taskCompletionTime;
+  if (req.body.completionTime) {
+    newTask.completionTime = req.body.completionTime;
   }
   
   if (req.body.completionNote) {
     newTask.completionNote = req.body.completionNote;
   }
+  newTask.type = "general"
+
   if (req.body.prospectId) {
-    newTask.prospectId = req.body.prospectId;
-  }
+    if(req.body.prospectId == "general"){
+      newTask.type = "general"
+    }else{
+      newTask.prospectId = req.body.prospectId;
+      newTask.type = "prospect";
+  }}
 
  
   return newTask;
 }
 
+// mark task COmplete
+// @type    PUT
+// @route   /api/v1/enquiry/task/addTask/markComplete/:id
+// @desc    Update a task by ID
+// @access  Public
+// @type    POST
+router.post(
+  "/markComplete/:id",
+  passport.authenticate("jwt", { session: false }),
+  validateOnComplete,
+  async (req, res) => {
+    try {
+      const taskObj = await getTaskObj(req,"markComplete");
 
-
+      updateMe(req, res, taskObj);
+    } catch (error) {
+console.log(error)
+      res.status(500).json({
+        variant: "error",
+        message: "Internal server error" + error.message,
+      });
+    }
+  }
+);
 
 module.exports = router;

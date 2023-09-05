@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const Contact = require("../../../../../Models/Private/Enquiry/Contact");
+const Prospect = require("../../../../../Models/Private/Enquiry/Prospect");
 
 // @type    GET
 // @route   /api/v1/enquiry/contact/getContact/getAll/:prospectId/:id
@@ -144,6 +145,58 @@ router.get(
             });
           }
       
+    }
+  );
+
+
+  // @type    GET
+  // @route   /api/v1/enquiry/contact/getContact/dropDown/getAll/:prospectId
+  // @desc    Get all contacts
+  // @access  Public
+  router.get(
+    "/dropDown/getAll/:prospectId",
+    passport.authenticate("jwt", { session: false }),
+    async (req, res) => {
+  
+      try {
+  
+        const myData = await Contact.find({ prospectId: req.params.prospectId })
+  
+        const modifiedData = myData.map(contact => ({
+          _id:contact._id,
+          label:contact.lastName + " "+ contact.firstName,
+          mobile:contact.mobile,
+          email:contact.emailAddress,
+          billingAddress:contact.unit,
+          billingAddress:contact.streetAddress,
+          zipCode:contact.zipCode,
+          state:contact.state.label,
+          city:contact.city,
+          image:contact.contactImage,
+          relation:contact.relation.label       
+        }));
+        let self = await Prospect.findById(req.params.prospectId)
+        const selfData = {
+          _id:self._id,
+          label:"Self ("+ self.lastName+ " " + self.firstName+ ")",
+          mobile:self.phone,
+          email:self.email,
+          billingAddress:self.unit,
+          billingAddress:self.streetAddress,
+          zipCode:self.zipCode,
+          state:self.state?.label,
+          city:self.city,
+          image:self.userImage,
+          relation:"Self" 
+        }
+        const dataOne = [selfData,...modifiedData];
+        res
+          .status(200)
+          .json({ variant: "success", message: "Contact Loaded", data: dataOne });
+      } catch (error) {
+        console.log(error),
+        res.status(500).json({ variant: "error", message: "Internal Server Error" });
+      }
     }
   );
 

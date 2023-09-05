@@ -10,6 +10,11 @@ const ResMedSchema = new Schema({
     type: String,
     default: ""
   },
+  type:{
+    type: String,
+    default: "",
+    enum:["medication","treatment"]
+  },
   discontinue: {
     type: Boolean,
     default: false
@@ -59,11 +64,9 @@ const ResMedSchema = new Schema({
   },
   startDate: {
     type: Date,
-    default: ""
   },
   endDate: {
     type: Date,
-    default: ""
   },
   route: {
     type: String,

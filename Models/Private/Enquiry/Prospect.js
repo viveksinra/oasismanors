@@ -13,24 +13,23 @@ const ProspectSchema = new Schema({
     type: Date
   },
   salesAgent: {  
-      label: {
+    label: {
         type: String,
-        required: true
+        default: ""
       },
-      id: {
-        type: String,
-        required: true
-      }
-    
+      _id: {
+        type: Schema.Types.ObjectId,
+        default: ""
+      }    
   },
   prospectStage: {  
       label: {
         type: String,
-        required: true
+        default: ""
       },
       id: {
         type: String,
-        required: true
+        default: ""
       }    
   },
   residenceStage:{
@@ -40,20 +39,19 @@ const ProspectSchema = new Schema({
   },
   prospectScore: {
     type: Number,
-    default:null
+    default:0
   
   },
   marketingStatus: {
     type: Boolean,
-    default: false
   },
   prospectSource: {    
       label: {
         type: String,
         default: ""
       },
-      id: {
-        type: String,
+      _id: {
+        type: Schema.Types.ObjectId,
         default: ""
       }   
   },
@@ -84,6 +82,10 @@ const ProspectSchema = new Schema({
   },
   email: {
     type: String
+  },
+  openingBal: {
+    type: Number,
+    default: 0,
   },
   message: {
     type: String
@@ -183,7 +185,6 @@ const ProspectSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: "myUser",
-    required: true
   },
   company: {
     type: Schema.Types.ObjectId,

@@ -38,7 +38,10 @@ const UserSchema = new Schema({
   hireDate: {
     type: Date,
   },
-
+  openingBal: {
+    type: Number,
+    default: 0,
+  },
   gender: {
     label:{
       type: String,

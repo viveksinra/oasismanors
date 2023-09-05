@@ -2,6 +2,17 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const ResMed = require("../../../../../Models/Private/Residence/ResMed");
+const Prospect = require("../../../../../Models/Private/Enquiry/Prospect");
+const { verifyMongoId } = require("../../../../../validation/verifyId");
+const ProvideMed = require("../../../../../Models/Private/Residence/ProvideMed");
+var mongoose = require('mongoose');
+const {
+  formatDateToLong,formatDateToISO,convertTimeTo12HourFormat,convertTimeTo24HourFormat,formatTimeWithTimeZone
+} = require("../../../../../utils/dateFormat");
+const { medProData } = require("./getMedPro");
+
+
+
 
 // @type    GET
 // @route   /api/v1/residence/resMed/getResMed/getAll/:prospectId/:id
@@ -21,10 +32,10 @@ if (!resMed) {
       variant: "error", 
       message: "Data not found" });
 }
-const formattedResMedDate = changeFormat(resMed.date);
-const formatedLastModified = changeFormat(resMed.lastModified);
-const formatedStartDate = changeFormat2(resMed.startDate);
-const formatedEndDate = changeFormat2(resMed.endDate);
+const formattedResMedDate = formatDateToLong(resMed.date);
+const formatedLastModified = formatDateToLong(resMed.lastModified);
+const formatedStartDate = resMed.startDate?formatDateToISO(resMed.startDate): resMed.startDate;
+const formatedEndDate = resMed.endDate?formatDateToISO(resMed.endDate):resMed.endDate;
 const formatedImage = resMed.image || "https://onemg.gumlet.io/l_watermark_346,w_240,h_240/a_ignore,w_240,h_240,c_fit,q_auto,f_auto/hx2gxivwmeoxxxsc1hix.png";
 
 let formattedData = {
@@ -33,7 +44,7 @@ let formattedData = {
   lastModified:formatedLastModified,
   startDate:formatedStartDate,
   endDate:formatedEndDate,
-  image:formatedImage
+  image:formatedImage,
 
 };
 res.status(200).json({ variant: "success", message: "Data Loaded", data: formattedData });
@@ -62,48 +73,33 @@ res.status(200).json({ variant: "success", message: "Data Loaded", data: formatt
 
         const myData = await ResMed.find({prospectId: req.params.prospectId})
         const modifiedData = myData.map((resMed) => {
-          const formattedResMedDate = changeFormat(resMed.date);
-          const formatedLastModified = changeFormat(resMed.lastModified);
-          const formatedStartDate = changeFormat(resMed.startDate);
-          const formatedEndDate = changeFormat(resMed.endDate);
+          const formattedResMedDate = formatDateToLong(resMed.date);
+          const formatedLastModified = formatDateToLong(resMed.lastModified);
+          const formatedStartDate = resMed.startDate?formatDateToLong(resMed.startDate): "Not Given";
+          const formatedEndDate = resMed.endDate?formatDateToLong(resMed.endDate):"Not Given";
           const formatedImage = resMed.image || "https://onemg.gumlet.io/l_watermark_346,w_240,h_240/a_ignore,w_240,h_240,c_fit,q_auto,f_auto/hx2gxivwmeoxxxsc1hix.png";
+    
           return {
             ...resMed.toObject(),     
             date:formattedResMedDate,
             lastModified:formatedLastModified,
             startDate:formatedStartDate,
             endDate:formatedEndDate,
-            image:formatedImage
+            image:formatedImage,
           };
         });
-
+        let myUser = await Prospect.findById(req.params.prospectId)
+        let ourUser = {firstName:myUser.firstName, lastName:myUser.lastName, room:myUser.room.label, seat:myUser.seat.label,important: myUser.important,userImage:myUser.userImage}
         res
           .status(200)
-          .json({ variant: "success", message: "Data Loaded", data: modifiedData });
+          .json({ variant: "success", message: "Data Loaded",user:ourUser, data: modifiedData });
       } catch (error) {
         res.status(500).json({ variant: "error", message: "Internal Server Error" });
       }
     }
   );
   
-  function changeFormat(dateStr) {
-    const date = new Date(dateStr);
-    const formattedDate = date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
 
-    return formattedDate;
-  }
-  function changeFormat2(dateStr) {
-    const date = new Date(dateStr);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const formattedDate = `${year}-${month}-${day}`;
-    return formattedDate;
-  }
   
   // @type    GET
   // @route   /api/v1/resMed/getDataWithPage
@@ -187,4 +183,30 @@ router.get(
     }
   );
 
+
+
+    // @type    GET
+  // @route   /api/v1/residence/resMed/getResMed/byDate/:prospectId
+  // @desc    Get all resMeds
+  // @access  Public
+  router.post(
+    "/byDate/:prospectId",
+    verifyMongoId,
+    passport.authenticate("jwt", { session: false }),
+    async (req, res) => 
+  {
+    let timeZone = req.body.timeZone || "+5.30"
+
+   let dataToSend = await medProData(req.body.date,req.params.prospectId,timeZone)
+    res
+    .status(200)
+    // .json({pData,updatedSecondFilter});
+    .json(dataToSend);
+  }
+  );
+
+
+  
+
   module.exports = router;
+ 

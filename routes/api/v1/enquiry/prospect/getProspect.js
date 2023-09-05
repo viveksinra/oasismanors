@@ -25,10 +25,16 @@ if (!prospect) {
 }
 const totalCount = await totalCountCTN(req.params.id)
 const formatDate = (date) => {
+  if(date)
+ { 
   const day = date.getDate().toString().padStart(2, '0');
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
   const year = date.getFullYear().toString();
   return `${year}-${month}-${day}`;
+
+}else {
+  return ""
+}
 };
 
 const formattedProspect = {
@@ -113,6 +119,7 @@ const formattedProspect = {
               _id: 1,
               firstName: 1,
               lastName: 1,
+              prospectScore:1,
               phone: 1,
               city: 1,
               userImage:1,
@@ -141,6 +148,7 @@ const formattedProspect = {
             item.firstName = item.firstName || ""
             item.lastName = item.lastName || "";
             item.phone = item.phone || "";
+            item.prospectScore = +item.prospectScore || 0;
             item.city = item.city || "";
             item.inquiryDate = item.inquiryDate || "";
             item.important = item.important || "";
@@ -157,7 +165,7 @@ const formattedProspect = {
         });
 
 
-        res.status(200).json({ variant: "success",message:"Prospect Loaded", data:mydata });
+        res.status(200).json({ variant: "success",message:"Prospect Loaded", data:mydata.reverse() });
       } catch (error) {
         console.log(error);
         res.status(500).json({

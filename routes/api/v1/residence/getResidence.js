@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const Prospect = require("../../../../Models/Private/Enquiry/Prospect");
+const { medProData } = require("./resMed/getMedPro");
+const { careProData } = require("./resCare/getCarePro");
+
 
 // @type    GET
 // @route   /api/v1/residence/getResidence/getOne/:id
@@ -119,26 +122,32 @@ const formattedProspect = {
       
       
         
-        mydata.forEach((item) => {
-            item.email = item.email || ""
-            item.streetAddress = item.streetAddress || ""
-            item.dateOfBirth = formatDate(item.dateOfBirth) || ""
-            item.userImage = item.userImage || ""
-            item.firstName = item.firstName || ""
-            item.lastName = item.lastName || "";
-            item.phone = item.phone || "";
-            item.city = item.city || "";
-            item.important = item.important || "";
-            item.prospectStage = item.prospectStage || "";
-            item.state = item.state || "";       
-            item.room = item.room.label || "";       
-            item.seat = item.seat.label || "";       
-            item.physicalMoveInDate = formatDate(item.physicalMoveInDate) || "";       
-          
-        });
+        for (const item of mydata) {
+          item.email = item.email || "";
+          item.streetAddress = item.streetAddress || "";
+          item.dateOfBirth = formatDate(item.dateOfBirth) || "";
+          item.userImage = item.userImage || "";
+          item.firstName = item.firstName || "";
+          item.lastName = item.lastName || "";
+          item.phone = item.phone || "";
+          item.city = item.city || "";
+          item.important = item.important || "";
+          item.prospectStage = item.prospectStage || "";
+          item.state = item.state || "";
+          item.room = item.room.label || "";
+          item.seat = item.seat.label || "";
+          item.physicalMoveInDate = formatDate(item.physicalMoveInDate) || "";
+          // let pendingCare = await getCareCount(req, item._id);
+          // let pendingMed = await getMedCount(req, item._id);
+          // item.pendingCare = pendingCare.count;
+          // item.pendingMed = pendingMed.count;
+          item.pendingCare = 0;
+          item.pendingMed = 0;
+          // item.pendingCareArr = pendingCare.dataArray;
+          // item.pendingMedArr = pendingMed.dataArray;
+        }
 
-
-        res.status(200).json({ variant: "success",message:"Residence Loaded", data:mydata });
+        res.status(200).json({ variant: "success",message:"Residence Loaded", data:mydata.reverse() });
       } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -278,5 +287,73 @@ router.get(
       
     }
   );
+const getCareCount = async(req,prospectId) => {
+  let timeZone = req.body.timeZone || "+5.30"
+  let date = req.body.date
+  let rData = await careProData(date,prospectId,timeZone)
+let count = 0
+let dataArray = rData.data
+if(dataArray.length > 0){
+  
+  for (const obj of dataArray) {
+    if (obj.isClicked === false) {
+      count++;
+    }
+  }
+}
+  return {count,dataArray}
+  }
+const getMedCount = async(req,prospectId) => {
+  let timeZone = req.body.timeZone || "+5.30"
+  let date = req.body.date
+  let rData = await medProData(date,prospectId,timeZone)
+let count = 0
+let dataArray = rData.data
+if(dataArray.length > 0){
+  
+  for (const obj of dataArray) {
+    if (obj.isClicked === false) {
+      count++;
+    }
+  }
+}
+  return {count,dataArray}
+  }
+
+  // @type    GET
+// @route   /api/v1/residence/getResidence/dropdown/allResidence
+// @desc    Get a prospect by ID
+// @access  Public
+router.get(
+  "/dropdown/allResidence",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    try {
+      const prospect = await Prospect.find({isResidence:true});
+      const modifiedData = prospect.map((pro) => {
+                 
+        return {
+          // ...pro.toObject(),   
+          label: pro.lastName + " " + pro.firstName, 
+          _id: pro._id, 
+          floor:pro.floor.label,
+          room:pro.room.label,
+          building:pro.building.label,
+          userImage:pro.userImage,
+        };
+      });
+
+      res.status(200).json({ variant: "success",message:"Residence Loaded", data: modifiedData });
+
+
+
+} catch(error){
+  console.log(error);
+  res.status(500).json({
+    variant: "error",
+    message: "Internal server error" + error.message,
+  });
+}
+})
 
   module.exports = router;

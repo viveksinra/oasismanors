@@ -95,7 +95,7 @@ router.get(
 
         res
           .status(200)
-          .json({ variant: "success", message: "User Loaded", data: modifiedData });
+          .json({ variant: "success", message: "User Loaded", data: modifiedData.reverse() });
       } catch (error) {
         console.log(error)
         res.status(500).json({ variant: "error", message: "Internal Server Error" });

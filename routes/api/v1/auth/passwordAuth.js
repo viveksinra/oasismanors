@@ -93,12 +93,12 @@ async function sendLoginData(req,res,user){
       let obj = {
         success: true,
         token: "Bearer " + token,
-        id: user._id,
-     
+        id: user._id,     
         message: "login success",
         variant: "success",
-       
-        userImage: "https://mui.com/static/images/avatar/2.jpg",
+        firstName:user.firstName,
+        lastName:user.lastName,
+        userImage: user.userImage || "https://mui.com/static/images/avatar/2.jpg",
         designation: user.designation ,
         name: user.name
       }

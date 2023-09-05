@@ -7,7 +7,9 @@ const ResMed = require("../../../../../Models/Private/Residence/ResMed");
 const {
   validateOnCreate,
   validateOnUpdate,
+  validateOnProvideMed,
 } = require("../../../../../validation/residence/resMedValidation");
+const ProvideMed = require("../../../../../Models/Private/Residence/ProvideMed");
 
 // @type    POST
 // @route   /api/v1/residence/resMed/addResMed
@@ -131,7 +133,11 @@ if (req.body.title) {
 if (req.body.image) {
     newResMed.image = req.body.image;
   }
-if (req.body.discontinue == true || req.body.discontinue == false) {
+if (req.body.type) {
+
+    newResMed.type = req.body.type
+  }
+if (req.body.discontinue != undefined) {
     newResMed.discontinue = req.body.discontinue;
   }
   
@@ -146,15 +152,15 @@ if (req.body.discontinue == true || req.body.discontinue == false) {
     newResMed.dosage = req.body.dosage;
   }
   
-  if (req.body.prn == true || req.body.prn == false) {
+  if (req.body.prn != undefined) {
     newResMed.prn = req.body.prn;
   }
   
-  if (req.body.emptyStomach == true || req.body.emptyStomach == false) {
+  if (req.body.emptyStomach != undefined) {
     newResMed.emptyStomach = req.body.emptyStomach;
   }
   
-  if (req.body.rx == true || req.body.rx == false) {
+  if (req.body.rx != undefined) {
     newResMed.rx = req.body.rx;
   }
   
@@ -257,6 +263,59 @@ if (req.body.discontinue == true || req.body.discontinue == false) {
  
   return newResMed;
 }
+
+// @type    POST
+// @route   /api/v1/residence/resMed/addResMed/save/passMed
+// @desc    Create a new resMed
+// @access  Public
+router.post(
+  "/save/passMed",
+  passport.authenticate("jwt", { session: false }),
+  validateOnProvideMed,
+  async (req, res) => {
+    try {
+      const resMedObj = {}
+      resMedObj.user = req.user.id
+      resMedObj.lastModified = new Date();
+
+      if (req.body.rejectionReason) {
+        resMedObj.rejectionReason = req.body.rejectionReason
+      }
+      if (req.body.time) {
+        resMedObj.time = req.body.time
+      }
+      if (req.body.qty) {
+        resMedObj.qty = req.body.qty
+      }
+      if (req.body._id) {
+        resMedObj.resMedId = req.body._id
+      }
+      if (req.body.prospectId) {
+        resMedObj.prospectId = req.body.prospectId
+      }
+
+    if (req.body.isProvided != undefined) {
+      resMedObj.isProvided = req.body.isProvided;
+      }
+    if (req.body.prn != undefined) {
+      resMedObj.prn = req.body.prn;
+      }
+
+
+      await new ProvideMed(resMedObj)
+      .save();
+      res.status(201).json({
+        message: "ProvideMed Successfully saved",
+        variant: "success",
+      });
+    } catch (error) {
+console.log(error)
+      res
+        .status(500)
+        .json({ variant: "error", message: "Internal server error1" });
+    }
+  }
+);
 
 
 

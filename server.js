@@ -24,6 +24,8 @@ const company = require("./routes/api/v1/company");
 const community = require("./routes/api/v1/main/community");
 const addSeat = require("./routes/api/v1/main/seat/addSeat");
 const getSeat = require("./routes/api/v1/main/seat/getSeat");
+  const addCareCat = require("./routes/api/v1/main/careCat/addCareCat");
+  const getCareCat = require("./routes/api/v1/main/careCat/getCareCat");
 // Addition
 const addUser = require("./routes/api/v1/auth/addUser");
 const enquiry = require("./routes/api/v1/public/enquiry");
@@ -31,8 +33,12 @@ const enquiry = require("./routes/api/v1/public/enquiry");
 const addProspect = require("./routes/api/v1/enquiry/prospect/addProspect");
 const getProspect = require("./routes/api/v1/enquiry/prospect/getProspect");
 const moveToResidence = require("./routes/api/v1/enquiry/prospect/moveToResidence");
+// ProspectSource
+const addProspectSource = require("./routes/api/v1/enquiry/prospectSource/addProspectSource");
+const getProspectSource = require("./routes/api/v1/enquiry/prospectSource/getProspectSource");
 // Residence
 const getResidence = require("./routes/api/v1/residence/getResidence");
+
 
 // Health
 const addHealth = require("./routes/api/v1/enquiry/health/addHealth");
@@ -52,6 +58,8 @@ const getCompliance = require("./routes/api/v1/enquiry/compliance/getCompliance"
 // Employee
 const addEmployee = require("./routes/api/v1/employee/basic/addEmployee");
 const getEmployee = require("./routes/api/v1/employee/basic/getEmployee");
+// Dashboard
+const getDashboard = require("./routes/api/v1/dashboard/getDashboard");
 
 // Document validation
 const addDocument = require("./routes/api/v1/employee/document/addDocument");
@@ -60,9 +68,29 @@ const getDocument = require("./routes/api/v1/employee/document/getDocument");
 const addProfile = require("./routes/api/v1/employee/profile/addProfile");
 const getProfile = require("./routes/api/v1/employee/profile/getProfile");
 //Residence 
-
 const addResMed = require("./routes/api/v1/residence/resMed/addResMed");
 const getResMed = require("./routes/api/v1/residence/resMed/getResMed");
+const addResCare = require("./routes/api/v1/residence/resCare/addResCare");
+const getResCare = require("./routes/api/v1/residence/resCare/getResCare");
+const addLeave = require("./routes/api/v1/residence/leave/addLeave");
+const getLeave = require("./routes/api/v1/residence/leave/getLeave");
+const getPayerType = require("./routes/api/v1/residence/payerType/getPayerType");
+const addRecPayment = require("./routes/api/v1/residence/recPayment/addRecPayment");
+const getRecPayment = require("./routes/api/v1/residence/recPayment/getRecPayment");
+const addInvoice = require("./routes/api/v1/residence/invoice/addInvoice");
+const getInvoice = require("./routes/api/v1/residence/invoice/getInvoice");
+
+
+// Account
+const addGroup = require("./routes/api/v1/account/group/addGroup");
+const getGroup = require("./routes/api/v1/account/group/getGroup");
+const addLedger = require("./routes/api/v1/account/ledger/addLedger");
+const getLedger = require("./routes/api/v1/account/ledger/getLedger");
+const addPayment = require("./routes/api/v1/account/payment/addPayment");
+const getPayment = require("./routes/api/v1/account/payment/getPayment");
+const addReceipt = require("./routes/api/v1/account/receipt/addReceipt");
+const getReceipt = require("./routes/api/v1/account/receipt/getReceipt");
+
 
 //passport 
 // const passport = require("./services/passport")
@@ -124,8 +152,18 @@ app.use("/api/v1/enquiry/prospect/moveToResidence", moveToResidence);
 // Enquiry
 app.use("/api/v1/enquiry/prospect/addProspect", addProspect);
 app.use("/api/v1/enquiry/prospect/getProspect", getProspect);
+// ProspectSource
+app.use("/api/v1/enquiry/prospectSource/addProspectSource", addProspectSource);
+app.use("/api/v1/enquiry/prospectSource/getProspectSource", getProspectSource);
+
+//Dashboard
+app.use("/api/v1/dashboard/getDashboard", getDashboard);
 // Residence
 app.use("/api/v1/residence/getResidence", getResidence);
+app.use("/api/v1/residence/leave/addLeave", addLeave);
+app.use("/api/v1/residence/leave/getLeave", getLeave);
+app.use("/api/v1/residence/payerType/getPayerType", getPayerType);
+
 // Health
 app.use("/api/v1/enquiry/health/addHealth", addHealth);
 app.use("/api/v1/enquiry/health/getHealth", getHealth);
@@ -154,6 +192,27 @@ app.use("/api/v1/employee/profile/getProfile", getProfile);
 app.use("/api/v1/residence/resMed/addResMed", addResMed);
 app.use("/api/v1/residence/resMed/getResMed", getResMed);
 
+app.use("/api/v1/residence/invoice/addInvoice", addInvoice);
+app.use("/api/v1/residence/invoice/getInvoice", getInvoice);
+
+app.use("/api/v1/residence/recPayment/addRecPayment", addRecPayment);
+app.use("/api/v1/residence/recPayment/getRecPayment", getRecPayment);
+
+app.use("/api/v1/residence/resCare/addResCare", addResCare);
+app.use("/api/v1/residence/resCare/getResCare", getResCare);
+  // care cat
+app.use("/api/v1/main/careCat/addCareCat", addCareCat);
+app.use("/api/v1/main/careCat/getCareCat", getCareCat);
+
+// Account
+app.use("/api/v1/account/group/addGroup", addGroup);
+app.use("/api/v1/account/group/getGroup", getGroup);
+app.use("/api/v1/account/ledger/addLedger", addLedger);
+app.use("/api/v1/account/ledger/getLedger", getLedger);
+app.use("/api/v1/account/payment/addPayment", addPayment);
+app.use("/api/v1/account/payment/getPayment", getPayment);
+app.use("/api/v1/account/receipt/addReceipt", addReceipt);
+app.use("/api/v1/account/receipt/getReceipt", getReceipt);
 
 app.get("/*", function(req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"), function(

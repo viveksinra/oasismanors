@@ -45,7 +45,7 @@ router.get(
 
       res.status(200).json({ 
         variant: "success", 
-        message: "Contact Loaded", 
+        message: "Tasks Loaded", 
         data: modifiedData 
       });
     } catch (error) {
@@ -69,7 +69,11 @@ router.get(
     passport.authenticate("jwt", { session: false }),
     async (req, res) => {
       try {
-        const myData = await Task.find({ prospectId: req.params.prospectId })
+        let myMatch = {prospectId: req.params.prospectId}
+        if(req.params.prospectId == "general"){
+          myMatch = {type: "general"}
+        }
+        const myData = await Task.find(myMatch)
           .populate({
             path: "employee._id",
             select: "_id firstName lastName userImage",

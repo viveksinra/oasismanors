@@ -3,13 +3,14 @@ const router = express.Router();
 
 // Load Enquiry Model
 const Enquiry = require("../../../../Models/Public/Enquiry");
+const Prospect = require("../../../../Models/Private/Enquiry/Prospect");
 
 // @type    POST
 // @route   /api/v1/public/enquiry/
 // @desc    Route for creating a new enquiry
 // @access  Public
 router.post("/", (req, res) => {
-    if(!req.body.name || !req.body.email || !req.body.mobile){
+    if(!req.body.name || !(req.body.email || req.body.mobile)){
         res.json({
             message: "Name/Email and Mobile Number is Mandatory",
             variant: "success"
@@ -17,23 +18,34 @@ router.post("/", (req, res) => {
     } 
     else {
 // console.log(req.body)
-  const newEnquiry = new Enquiry({
-    name: req.body.name,
+  const newEnquiry = {
+    firstName: req.body.name,
     email: req.body.email,
-    mobile: req.body.mobile,
-    address: req.body.address,
+    phone: req.body.mobile,
+    streetAddress: req.body.address,
     city: req.body.city,
     state: {},
-    zip: req.body.zip,
+    zipCode: req.body.zip,
     enquiryFor: req.body.enquiryFor,
-    marketing: req.body.marketing,
-    message: req.body.message
-  });
-  newEnquiry.state.id = req.body.state.id;
+    message: req.body.message,
+    prospectSource:{
+      label:"Website Form",
+      id:"websiteForm"
+    },
+    prospectStage:{
+      label:"Needs Assessment",
+      id:"needsAssessment"
+    },
+  };
+  if(req.body.state){
+    if(req.body.state.id){
+  newEnquiry.state.id = req.body.state.id;}
+  if(req.body.state.label){
   newEnquiry.state.label = req.body.state.label;
+}}
 
 Enquiry.findOne({
-  name: req.body.name,
+  firstName: req.body.name,
   email: req.body.email,
   mobile: req.body.mobile,
   address: req.body.address,
@@ -45,11 +57,11 @@ Enquiry.findOne({
 })
 .then(data => {
   if(!data){
-  newEnquiry
-    .save()
+  new Prospect(newEnquiry)
+  .save()
     .then(() =>  res.json({
-        message: "Saved Successfully",
-        variant: "success"
+      message:"Your request has received. We will get back to you, Shortly.", 
+      variant: "success" 
       }))
     .catch(err => console.log(err));
 }else{

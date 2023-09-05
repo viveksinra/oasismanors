@@ -176,8 +176,8 @@ if (req.body.salesAgent) {
   if (req.body.salesAgent.label) {
     newProspect.salesAgent.label = req.body.salesAgent.label;
   }
-  if (req.body.salesAgent.id) {
-    newProspect.salesAgent.id = req.body.salesAgent.id;
+  if (req.body.salesAgent._id) {
+    newProspect.salesAgent._id = req.body.salesAgent._id;
   }
 }
 
@@ -205,8 +205,8 @@ if (req.body.prospectSource) {
   if (req.body.prospectSource.label) {
     newProspect.prospectSource.label = req.body.prospectSource.label;
   }
-  if (req.body.prospectSource.id) {
-    newProspect.prospectSource.id = req.body.prospectSource.id;
+  if (req.body.prospectSource._id) {
+    newProspect.prospectSource._id = req.body.prospectSource._id;
   }
 }
 

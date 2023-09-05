@@ -3,10 +3,11 @@ const validateOnCreate = async (req, res, next) => {
 
     //   Check if the required fields are present
       if (!req.body.prospectId ) {
+        if(req.body.prospectId != "general"){
         return res.status(406).json({
           message: "Prospect Id is required fields.",
           variant: "error",
-        });  
+        });  }
       }
     //   Check if the required fields are present
       if (!req.body.notes ) {
@@ -22,7 +23,7 @@ const validateOnCreate = async (req, res, next) => {
     const validateOnUpdate = async (req, res, next) => {
     
       // Check if the required fields are present
-      // if (!req.body.salesAgent || !req.body.salesAgent.label || !req.body.salesAgent.id) {
+      // if (!req.body.salesAgent || !req.body.salesAgent.label || !req.body.salesAgent._id) {
       //   return res.status(406).json({
       //     message: "Sales Agent are required fields.",
       //     variant: "error",

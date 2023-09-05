@@ -7,10 +7,15 @@ const NoteSchema = new Schema({
     type: String,
     default: ""
   },
+  type: {
+    type: String,
+    required:true,
+    enum:["prospect","general"]
+  },
+
   prospectId:{
     type: Schema.Types.ObjectId,
    ref: "myProspect",
-   required:true
   },
   // Default for all
  community: {

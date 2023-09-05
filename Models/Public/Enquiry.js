@@ -8,11 +8,11 @@ const EnquirySchema = new Schema({
   },
   email: {
     type: String,
-    required: true
+    default:""
   },
   mobile: {
     type: String,
-    required: true
+    default:""
   },
   address: {
     type: String,
