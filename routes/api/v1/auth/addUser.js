@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 
 // Load AddEmployee Model
 const AddEmployee = require("../../../../Models/User");
-
+// /api/v1/auth/addUser/check
 router.get("/check",(req,res)=>{
 console.log("i am ")
   res.send("I am working")
