@@ -240,7 +240,7 @@ router.get(
     async (req, res) => {
      
       try {
-
+console.log("i got called")
         const myData = await Ledger.aggregate([
           {$project:{
             ledger:1,group:1,date:1
