@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 
-const Profile = require("../../../../../Models/Private/employee/Profile");
+const Profile = require("../../../../../Models/Private/Employee/Profile");
+
 
 // @isApproved    GET
 // @route   /api/v1/employee/profile/getProfile/getOne/:id
