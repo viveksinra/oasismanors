@@ -111,7 +111,7 @@ app.use(cors());
 //Middleware for bodyparser
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyparser.json({limit: "50mb"}));
-app.use(express.static(path.join(__dirname, "client/build")))
+// app.use(express.static(path.join(__dirname, "client/build")))
 
 
 //mongoDB configuration
@@ -214,15 +214,15 @@ app.use("/api/v1/account/payment/getPayment", getPayment);
 app.use("/api/v1/account/receipt/addReceipt", addReceipt);
 app.use("/api/v1/account/receipt/getReceipt", getReceipt);
 
-app.get("/*", function(req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"), function(
-    err
-  ) {
-    if (err) {
-      res.status(500).send(err);
-    }
-  });
-});
+// app.get("/*", function(req, res) {
+//   res.sendFile(path.join(__dirname, "./client/build/index.html"), function(
+//     err
+//   ) {
+//     if (err) {
+//       res.status(500).send(err);
+//     }
+//   });
+// });
 
 const port = process.env.PORT || 2040;
 

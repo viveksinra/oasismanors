@@ -1,7 +1,7 @@
 {
-  "name": "insurancecrm",
+  "name": "oasismanors",
   "version": "1.0.0",
-  "description": "A Call center CRM dashboard for Insurance Company dfeveloped by Softechinfra",
+  "description": "developed by Softechinfra",
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefix client",
@@ -11,7 +11,6 @@
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [
-    "insurance",
     "softechinfra"
   ],
   "author": "vivek",
