@@ -1,10 +1,10 @@
 'use client';
 import "./paymentStyle.css";
 import React,{useEffect, useState,useRef} from 'react'
-import {Grid,TextField,Typography,InputAdornment,CircularProgress, Button,Input ,Avatar,List,ListItem,ListItemAvatar,ListItemText,ListItemButton,TablePagination, Divider,Pagination} from '@mui/material/';
+import {Grid,TextField,Typography,InputAdornment,CircularProgress, Button,Input ,Avatar,List,ListItem,ListItemAvatar,ListItemText,ListItemButton,TablePagination, Divider,IconButton, Tooltip} from '@mui/material/';
 import {todayDate} from "../../Components/StaticData";
 import Autocomplete from '@mui/material/Autocomplete';
-import { FcFullTrash,FcSearch } from "react-icons/fc";
+import { FcFullTrash,FcSearch,FcPrint } from "react-icons/fc";
 import { MdDoneAll,MdClearAll } from "react-icons/md";
 import { useImgUpload } from '@/app/hooks/auth/useImgUpload'; 
 import { payReceiveService } from "@/app/services"; 
@@ -125,9 +125,19 @@ function Payment({receipt}) {
     <Grid container>
         <Grid item xs={12} md={8} sx={{background:"#fff", borderRadius:"10px", padding:"10px", boxShadow:"rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px"}}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid item xs={1}/>
+            <Grid item xs={10}>
             <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>{receipt ? "Receipt" : "Payment"} Voucher</Typography>
             <Typography color="darkslateblue" style={{fontFamily: 'Courgette'}} variant="subtitle2" align='center'>{receipt ? "Someone is Giving Money to the Company" : "Company is Giving Money to Someone"}</Typography>
+            </Grid>
+            <Grid item xs={1}>
+            {voucher &&  <a target="_blank" href={`/print/${receipt ? "receipt" : "payment"}/${voucher}`} rel="noopener noreferrer">
+              <Tooltip title="Print" arrow>
+              <IconButton color="secondary" aria-label="Print-Out">
+              <FcPrint />
+            </IconButton>
+              </Tooltip>
+              </a> }
             </Grid>
             <Grid item xs={12} md={4}>
               <TextField fullWidth value={tranDate} sx={{maxWidth:"130px"}} onChange={e=>setDate(e.target.value)} label={receipt ? "Receipt Date" : "Payment Date"} size='small' type="date" focused variant="standard" />   

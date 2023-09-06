@@ -5,7 +5,7 @@ export function getAuthorizationHeader() {
 
   return {
     "Content-Type": "application/x-www-form-urlencoded",
-    Authorization: `${JSON.parse(currentUser || "")?.accessToken || ""}`,
+    Authorization: `${JSON.parse(currentUser || "")?.token || ""}`,
   };
 }
 

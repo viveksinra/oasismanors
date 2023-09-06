@@ -1,7 +1,6 @@
 'use client';
 import React, {useState,useEffect} from 'react'
-import {Grid, Typography,Container,Table,TableHead,TableRow,TableCell,TableBody, Divider, colors,} from '@mui/material/';
-import "./invoiceStyle.css";
+import {Grid, Typography,Container,Table,TableHead,TableRow,TableCell,TableBody, Divider,} from '@mui/material/';
 import {invoiceService} from "../../../services/index"
 
 const textDesign = {backgroundColor:"#f2faf6",borderLeft:"2px solid green",padding:"4px 6px",borderTopRightRadius:"5px",borderBottomRightRadius:"5px" };

@@ -28,7 +28,7 @@ function Login() {
     e.preventDefault();
     try {
       const res = await login(email, password);
-      if (res.success && res.accessToken) {
+      if (res.success && res.token) {
         dispatch({ type: LOGIN_USER, payload: res});
         snackRef.current.handleSnack({message: "Login Successful! redirecting to dashboard.", variant: "success" });
         router.push('/dashboard')

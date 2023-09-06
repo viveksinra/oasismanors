@@ -7,6 +7,32 @@ const User = require("../../../../../Models/User");
 const Receipt = require("../../../../../Models/Private/Account/Receipt");
 const { formatDateToLong, formatDateToISO } = require("../../../../../utils/dateFormat");
 
+// @type    GET by voucher number
+// @route   /api/v1/account/receipt/getReceipt/getByVoucher/:voucher
+// @desc    Get a payment by ID
+// @access  Public
+
+router.get(
+  "/getByVoucher/:voucher",
+  async (req, res) => {
+    try {
+      let myReceipt = await Receipt.findOne({voucher:req.params.voucher});
+      res.status(200).json({
+        variant: "success",
+        message: "Receipt Loaded",
+        data: myReceipt,
+        isReceipt:true
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        variant: "error",
+        message: "Internal server error",
+      });
+    }
+  }
+);
+
 // @type    GET
 // @route   /api/v1/receipt/getReceipt/getAll/:id
 // @desc    Get a receipt by ID

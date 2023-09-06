@@ -34,7 +34,7 @@ export class AuthService {
           name: res.data.name,
           firstName:res.data.firstName,
           lastName:res.data.lastName,
-          accessToken: res.data.token,
+          token: res.data.token,
           success: res.data.success,
           message:res.data.message,
           userImage:res.data.userImage,
@@ -45,6 +45,16 @@ export class AuthService {
       .catch((err) => {
         return err;
       });
+  };
+  get = async (url) => {
+    return this.instance
+      .get(`/${url}`,
+        {
+          headers: getHeaderUrlEncoded(),
+        }
+      )
+      .then((res) => res.data)
+      .catch((err) => err);
   };
 
   post = async (url, data) => {

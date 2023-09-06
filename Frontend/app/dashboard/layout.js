@@ -131,6 +131,7 @@ const closedMixin = (theme) => ({
 
 function DashboardLayout({children}) {
   const theme = useTheme();
+  const router = useRouter();
   const [open, setOpen] = useState(true);
   const [anchorElProfile, setAnchorElProfile] = useState(null);
   const { logout } = useLogout();
