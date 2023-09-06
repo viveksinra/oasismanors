@@ -140,7 +140,6 @@ function DashboardLayout({children}) {
   const handleDrawer = () => {
     setOpen(!open);
   };
-
   return (
       <Box sx={{ display: 'flex' }}>
       <CssBaseline />

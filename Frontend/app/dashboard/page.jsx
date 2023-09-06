@@ -81,7 +81,7 @@ function   Dashboard () {
     <main>
       <Grid container spacing={2}>
         <Grid item xs={12} md={4}>
-          <div style={{height:"190px",boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", borderRadius:"10px", overflow:"hidden"}}>
+          <div style={{height:"170px",boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", borderRadius:"10px", overflow:"hidden"}}>
             <Grid container>
               <Grid item xs={8} sx={{padding:"20px"}}>
                 <Typography variant="h6" color="teal" className='headingText'>{`Welcome, ${heading?.firstName}!`}</Typography>
@@ -96,7 +96,7 @@ function   Dashboard () {
           </div>
         </Grid>
         <Grid item xs={12} md={8}>
-        <div style={{height:"190px", boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", padding:"20px", borderRadius:"10px"}}>
+        <div style={{height:"170px", boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", padding:"20px", borderRadius:"10px"}}>
           <Grid container>
             <Grid item xs={12} sx={{display:"flex", justifyContent:"space-between"}}>
               <div>
