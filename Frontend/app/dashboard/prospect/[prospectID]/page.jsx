@@ -35,7 +35,7 @@ const ProspectDetail = ({ params }) => {
       setProspectId(params?.prospectId)
       console.log("iam called" + prospectId)
       console.log(params)
-    }, [params?.prospectId])
+    }, [params?.prospectID])
     
   return ( 
     <main> 
