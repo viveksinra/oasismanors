@@ -29,8 +29,12 @@ const TabPanel = ({value, prospectId})=>{
 const ProspectDetail = ({ params }) => {
     const [mainTab, setMainTab]=useState(0)
     const [prospectId, setProspectId] = useState("");
+    console.log("alled" + prospectId)
+    console.log(params)
     useEffect(() => {
       setProspectId(params?.prospectId)
+      console.log("iam called" + prospectId)
+      console.log(params)
     }, [params?.prospectId])
     
   return ( 
