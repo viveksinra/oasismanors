@@ -26,7 +26,7 @@ const ProTabPanel = ({value, prospectId,setProData})=>{
             break;
     }
   }
-const ProfileTab =({prospectId,residentId})=>{
+const ProfileTab =({prospectId})=>{
     const [profileTab, setPTab]=useState(0);
     const [proData, setProData] = useState(null);
    
@@ -58,9 +58,7 @@ const ProfileTab =({prospectId,residentId})=>{
             </Badge>
             <p>{proData?.subTitle}</p>
             </div>
-
             <div className="profileBgBtm">
-           
             <Tabs value={profileTab} onChange={(e,v)=>setPTab(v)} aria-label="main_Tabs" sx={{height:55,float:"right"}}>
               <Tab icon={<FcViewDetails style={{fontSize:20}}/>} iconPosition="start" label="Summary"  />
               <Tab icon={<FaStethoscope style={{fontSize:20}}/>} iconPosition="start"  label="Health & Details"  />
