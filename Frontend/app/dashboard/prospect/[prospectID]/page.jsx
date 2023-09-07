@@ -1,5 +1,5 @@
 'use client';
-import React, { lazy,Suspense, useState } from 'react'
+import React, { lazy,Suspense, useEffect, useState } from 'react'
 import "../prospectStyle.css";
 import {Tabs,Tab} from '@mui/material/'; 
 import { FcBusinessman,FcCallback,FcTodoList,FcInspection,FcSettings } from "react-icons/fc";
@@ -28,7 +28,12 @@ const TabPanel = ({value, prospectId})=>{
 
 const ProspectDetail = ({ params }) => {
     const [mainTab, setMainTab]=useState(0)
-  return (
+    const [prospectId, setProspectId] = useState("");
+    useEffect(() => {
+      setProspectId(params?.prospectId)
+    }, [params?.prospectId])
+    
+  return ( 
     <main> 
     <Tabs value={mainTab} onChange={(e,v)=>setMainTab(v)} aria-label="main_Tabs" sx={{height:60}}>
     <Tab icon={<FcBusinessman style={{fontSize:24}}/>} iconPosition="start" label="Profile"  />
@@ -37,7 +42,7 @@ const ProspectDetail = ({ params }) => {
     <Tab icon={<FcInspection style={{fontSize:24}}/>} iconPosition="start" label="Notes"  />
     <Tab icon={<FcSettings style={{fontSize:24}}/>} iconPosition="start" label="Settings" />
   </Tabs>
-     <TabPanel value={mainTab} prospectId={params?.prospectId}/>
+     <TabPanel value={mainTab} prospectId={prospectId}/>
     </main>
   )
 }

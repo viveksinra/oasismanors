@@ -36,7 +36,7 @@ const TabPanel = ({value, residentId})=>{
   }
 
 const ResidentDetail = ({ params }) => {
-    const [mainTab, setMainTab]=useState(0)
+    const [mainTab, setMainTab]=useState(0) 
   return (
     <main> 
     <Tabs value={mainTab} onChange={(e,v)=>setMainTab(v)} aria-label="main_Tabs" sx={{height:60}}>
