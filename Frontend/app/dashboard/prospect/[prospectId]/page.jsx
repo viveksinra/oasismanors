@@ -28,12 +28,6 @@ const TabPanel = ({value, prospectId})=>{
 
 const ProspectDetail = ({ params }) => {
     const [mainTab, setMainTab]=useState(0)
-    const [prospectId, setProspectId] = useState("");
-    useEffect(() => {
-      setProspectId(params?.prospectId)
-
-    }, [params?.prospectId])
-    
   return ( 
     <main> 
     <Tabs value={mainTab} onChange={(e,v)=>setMainTab(v)} aria-label="main_Tabs" sx={{height:60}}>
@@ -43,7 +37,7 @@ const ProspectDetail = ({ params }) => {
     <Tab icon={<FcInspection style={{fontSize:24}}/>} iconPosition="start" label="Notes"  />
     <Tab icon={<FcSettings style={{fontSize:24}}/>} iconPosition="start" label="Settings" />
   </Tabs>
-     <TabPanel value={mainTab} prospectId={prospectId}/>
+     <TabPanel value={mainTab} prospectId={params?.prospectId}/>
     </main>
   )
 }
