@@ -31,7 +31,7 @@ router.post(
 console.log(error)
       res
         .status(500)
-        .json({ variant: "error", message: "Internal server error1" });
+        .json({ variant: "error", message: "Internal server error1" + error.message });
     }
   }
 );
@@ -63,7 +63,7 @@ async function updateMe(req, res, updateProspect) {
 console.log(error)
     res
       .status(500)
-      .json({ variant: "error", message: "Internal server error" });
+      .json({ variant: "error", message: "Internal server error" + error.message });
   }
 }
 

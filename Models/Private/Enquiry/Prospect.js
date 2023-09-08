@@ -15,21 +15,17 @@ const ProspectSchema = new Schema({
   salesAgent: {  
     label: {
         type: String,
-        default: ""
       },
       _id: {
         type: Schema.Types.ObjectId,
-        default: ""
       }    
   },
   prospectStage: {  
       label: {
         type: String,
-        default: ""
       },
       id: {
         type: String,
-        default: ""
       }    
   },
   residenceStage:{
@@ -52,7 +48,6 @@ const ProspectSchema = new Schema({
       },
       _id: {
         type: Schema.Types.ObjectId,
-        default: ""
       }   
   },
   userImage: {
