@@ -28,7 +28,7 @@ res.status(200).json({ variant: "success", message: "Compliance Loaded", data: c
           .status(500)
           .json({ 
             variant: "error", 
-            message: "Internal server error" });
+            message: "Internal server error" + error.message});
       }
     }
   );
@@ -71,7 +71,7 @@ res.status(200).json({ variant: "success", message: "Compliance Loaded", data: c
           .status(200)
           .json({ variant: "success", message: "Compliance Loaded", data: modifiedData });
       } catch (error) {
-        res.status(500).json({ variant: "error", message: "Internal Server Error" });
+        res.status(500).json({ variant: "error", message: "Internal server error" + error.message});
       }
     }
   );

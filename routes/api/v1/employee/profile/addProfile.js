@@ -74,7 +74,7 @@ async function updateMe(req, res, updateProfile) {
 console.log(error)
     res
       .status(500)
-      .json({ variant: "error", message: "Internal server error" });
+      .json({ variant: "error", message: "Internal server error" + error.message});
   }
 }
 
@@ -190,9 +190,9 @@ async function getProfileObj(req,type) {
   if (req.body.eCity) {
     newProfile.eCity = req.body.eCity;
   }
+  newProfile.eState = {};
   
   if (req.body.eState) {
-    newProfile.eState = {};
     if (req.body.eState.label) {
       newProfile.eState.label = req.body.eState.label;
     }

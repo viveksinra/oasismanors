@@ -63,7 +63,7 @@ console.log(updateContact)
 console.log(error)
     res
       .status(500)
-      .json({ variant: "error", message: "Internal server error" });
+      .json({ variant: "error", message: "Internal server error" + error.message});
   }
 }
 
@@ -138,9 +138,9 @@ if (req.body.lastName) {
 if (req.body.contactImage) {
   newContact.contactImage = req.body.contactImage;
 }
+newContact.relation = {};
 
 if (req.body.relation) {
-  newContact.relation = {};
 if (req.body.relation.label) {
   newContact.relation.label = req.body.relation.label;
 }
@@ -152,9 +152,9 @@ if (req.body.relation.id) {
 if (req.body.organization) {
   newContact.organization = req.body.organization;
 }
+newContact.gender = {};
 
 if (req.body.gender) {
-  newContact.gender = {};
 if (req.body.gender.label) {
   newContact.gender.label = req.body.gender.label;
 }
@@ -186,9 +186,9 @@ if (req.body.zipCode) {
 if (req.body.city) {
   newContact.city = req.body.city;
 }
+newContact.state = {};
 
 if (req.body.state) {
-  newContact.state = {};
 if (req.body.state.label) {
   newContact.state.label = req.body.state.label;
 }

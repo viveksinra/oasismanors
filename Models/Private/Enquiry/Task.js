@@ -64,7 +64,7 @@ const TaskSchema = new Schema({
     ref: "myUser",
     required: true
   },
-  completedBy:{
+  prospectId:{
     type: Schema.Types.ObjectId,
    ref: "myProspect",
   },

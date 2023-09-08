@@ -44,7 +44,7 @@ res.status(200).json({ variant: "success", message: "Care Data Loaded", data: mo
           .status(500)
           .json({ 
             variant: "error", 
-            message: "Internal server error" });
+            message: "Internal server error" + error.message});
       }
     }
   );
@@ -189,7 +189,7 @@ router.post(
      .json(dataToSend);
     } catch (error) {
       console.log(error);
-      res.status(500).json({ variant: "error", message: "Internal Server Error" });
+      res.status(500).json({ variant: "error", message: "Internal server error" + error.message});
     }
   }
 );

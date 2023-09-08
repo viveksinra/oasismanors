@@ -63,7 +63,7 @@ console.log(updateCareCat)
 console.log(error)
     res
       .status(500)
-      .json({ variant: "error", message: "Internal server error" });
+      .json({ variant: "error", message: "Internal server error" + error.message});
   }
 }
 

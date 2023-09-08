@@ -65,7 +65,7 @@ console.log(updateResMed)
 console.log(error)
     res
       .status(500)
-      .json({ variant: "error", message: "Internal server error" });
+      .json({ variant: "error", message: "Internal server error" + error.message});
   }
 }
 
@@ -203,9 +203,9 @@ if (req.body.discontinue != undefined) {
   if (req.body.ruleCategory) {
     newResMed.ruleCategory = req.body.ruleCategory;
   }
+  newResMed.supplier = {};
   
   if (req.body.supplier) {
-    newResMed.supplier = {};
     if (req.body.supplier.label) {
         newResMed.supplier.label = req.body.supplier.label;
       }

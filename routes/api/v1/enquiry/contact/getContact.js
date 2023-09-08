@@ -29,7 +29,7 @@ res.status(200).json({ variant: "success", message: "Contact Loaded", data: cont
           .status(500)
           .json({ 
             variant: "error", 
-            message: "Internal server error" });
+            message: "Internal server error" + error.message});
       }
     }
   );
@@ -58,7 +58,7 @@ res.status(200).json({ variant: "success", message: "Contact Loaded", data: cont
           .status(200)
           .json({ variant: "success", message: "Contact Loaded", data: modifiedData });
       } catch (error) {
-        res.status(500).json({ variant: "error", message: "Internal Server Error" });
+        res.status(500).json({ variant: "error", message: "Internal server error" + error.message});
       }
     }
   );
@@ -195,7 +195,7 @@ router.get(
           .json({ variant: "success", message: "Contact Loaded", data: dataOne });
       } catch (error) {
         console.log(error),
-        res.status(500).json({ variant: "error", message: "Internal Server Error" });
+        res.status(500).json({ variant: "error", message: "Internal server error" + error.message});
       }
     }
   );

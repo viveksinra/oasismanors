@@ -54,7 +54,7 @@ router.get(
           .json({ variant: "success", message: "Group Loaded", data: arrGrp.reverse() });
       } catch (error) {
         console.log(error)
-        res.status(500).json({ variant: "error", message: "Internal Server Error" });
+        res.status(500).json({ variant: "error", message: "Internal server error" + error.message});
       }
     }
   );
@@ -219,7 +219,7 @@ router.get(
           .json({ variant: "success", message: "Group Loaded", data: modifiedData });
       } catch (error) {
         console.log(error)
-        res.status(500).json({ variant: "error", message: "Internal Server Error" });
+        res.status(500).json({ variant: "error", message: "Internal server error" + error.message});
       }
     }
   );

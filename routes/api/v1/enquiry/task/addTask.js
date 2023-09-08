@@ -63,7 +63,7 @@ async function updateMe(req, res, updateTask) {
 console.log(error)
     res
       .status(500)
-      .json({ variant: "error", message: "Internal server error" });
+      .json({ variant: "error", message: "Internal server error" + error.message});
   }
 }
 
@@ -149,13 +149,14 @@ async function getTaskObj(req,type) {
 if (req.body.task) {
   newTask.task = req.body.task;
 }
+newTask.employee = {};
+
 if (req.body.employee) {
-  newTask.employee = {};
     newTask.employee._id = req.body.employee._id
   }
+  newTask.taskType = {};
   
   if (req.body.taskType) {
-    newTask.taskType = {};
     if (req.body.taskType.label) {
       newTask.taskType.label = req.body.taskType.label;
     }
@@ -163,8 +164,9 @@ if (req.body.employee) {
       newTask.taskType.id = req.body.taskType.id;
     }
   }
+  newTask.taskStatus = {};
+
   if (req.body.taskStatus) {
-    newTask.taskStatus = {};
     if (req.body.taskStatus.label) {
       newTask.taskStatus.label = req.body.taskStatus.label;
     }

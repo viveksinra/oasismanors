@@ -64,7 +64,7 @@ async function updateMe(req, res, updatePayment) {
 console.log(error)
     res
       .status(500)
-      .json({ variant: "error", message: "Internal server error" });
+      .json({ variant: "error", message: "Internal server error" + error.message});
   }
 }
 
@@ -126,9 +126,9 @@ async function getPaymentObj(req,type) {
     newPayment.user=  req.user.id;
 
 // Check and assign values for each parameter based on their type
+newPayment.ledger = {};
   
 if (req.body.ledger && req.body.ledger._id && req.body.ledger.type) {
-    newPayment.ledger = {};
     if (req.body.ledger.label) {
       newPayment.ledger.label = req.body.ledger.label;
     }
@@ -151,9 +151,9 @@ if (req.body.ledger && req.body.ledger._id && req.body.ledger.type) {
   if (req.body.amount) {
     newPayment.amount = req.body.amount;
   }
+  newPayment.mode = {};
 
   if (req.body.mode && req.body.mode._id ) {
-    newPayment.mode = {};
     if (req.body.mode.label) {
       newPayment.mode.label = req.body.mode.label;
     }

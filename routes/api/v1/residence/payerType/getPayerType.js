@@ -26,7 +26,7 @@ router.get(
           .status(500)
           .json({ 
             variant: "error", 
-            message: "Internal server error" });
+            message: "Internal server error" + error.message});
       }
     }
   );
@@ -65,7 +65,7 @@ router.get(
         }
       } catch (error) {
         console.log(error);
-        res.status(500).json({ variant: "error", message: "Internal Server Error" });
+        res.status(500).json({ variant: "error", message: "Internal server error" + error.message});
       }
     }
   );
@@ -112,7 +112,7 @@ router.get(
         .status(500)
         .json({ 
           variant: "error", 
-          message: "Internal server error" });
+          message: "Internal server error" + error.message});
     }
   }
 );

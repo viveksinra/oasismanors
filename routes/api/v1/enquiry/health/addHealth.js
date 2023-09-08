@@ -71,7 +71,7 @@ async function updateMe(req, res, updateHealth) {
 console.log(error)
     res
       .status(500)
-      .json({ variant: "error", message: "Internal server error" });
+      .json({ variant: "error", message: "Internal server error" + error.message});
   }
 }
 
@@ -119,9 +119,9 @@ async function getHealthObj(req,type) {
       id: lang.id || ""
     }));
   }
+  newHealth.ethnicity = {};
   
   if (req.body.ethnicity) {
-    newHealth.ethnicity = {};
     if (req.body.ethnicity.label) {
       newHealth.ethnicity.label = req.body.ethnicity.label;
     }
@@ -129,9 +129,9 @@ async function getHealthObj(req,type) {
       newHealth.ethnicity.id = req.body.ethnicity.id;
     }
   }
+  newHealth.marital = {};
   
   if (req.body.marital) {
-    newHealth.marital = {};
     if (req.body.marital.label) {
       newHealth.marital.label = req.body.marital.label;
     }
@@ -139,9 +139,9 @@ async function getHealthObj(req,type) {
       newHealth.marital.id = req.body.marital.id;
     }
   }
+  newHealth.races = {};
   
   if (req.body.races) {
-    newHealth.races = {};
     if (req.body.races.label) {
       newHealth.races.label = req.body.races.label;
     }
@@ -149,9 +149,9 @@ async function getHealthObj(req,type) {
       newHealth.races.id = req.body.races.id;
     }
   }
+  newHealth.religion = {};
   
   if (req.body.religion) {
-    newHealth.religion = {};
     if (req.body.religion.label) {
       newHealth.religion.label = req.body.religion.label;
     }
@@ -191,9 +191,9 @@ async function getHealthObj(req,type) {
   if (req.body.allergies) {
     newHealth.allergies = req.body.allergies;
   }
+  newHealth.vision = {};
   
   if (req.body.vision) {
-    newHealth.vision = {};
     if (req.body.vision.label) {
       newHealth.vision.label = req.body.vision.label;
     }
@@ -201,9 +201,9 @@ async function getHealthObj(req,type) {
       newHealth.vision.id = req.body.vision.id;
     }
   }
+  newHealth.ambulation = {};
   
   if (req.body.ambulation) {
-    newHealth.ambulation = {};
     if (req.body.ambulation.label) {
       newHealth.ambulation.label = req.body.ambulation.label;
     }
@@ -227,9 +227,9 @@ async function getHealthObj(req,type) {
   if (req.body.smellNotes) {
     newHealth.smellNotes = req.body.smellNotes;
   }
+  newHealth.hearingAid = {};
   
   if (req.body.hearingAid) {
-    newHealth.hearingAid = {};
     if (req.body.hearingAid.label) {
       newHealth.hearingAid.label = req.body.hearingAid.label;
     }
@@ -237,9 +237,9 @@ async function getHealthObj(req,type) {
       newHealth.hearingAid.id = req.body.hearingAid.id;
     }
   }
+  newHealth.dentures = {};
   
   if (req.body.dentures) {
-    newHealth.dentures = {};
     if (req.body.dentures.label) {
       newHealth.dentures.label = req.body.dentures.label;
     }

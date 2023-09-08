@@ -70,7 +70,7 @@ async function updateMe(req, res, updateUser) {
 console.log(error)
     res
       .status(500)
-      .json({ variant: "error", message: "Internal server error" });
+      .json({ variant: "error", message: "Internal server error" + error.message});
   }
 }
 
@@ -188,9 +188,9 @@ if(uniqueUserName(req,newUser.userName)){
   if (req.body.hireDate) {
     newUser.hireDate = req.body.hireDate;
   }
+  newUser.gender = {};
 
   if (req.body.gender) {
-    newUser.gender = {};
     if (req.body.gender.label) {
       newUser.gender.label = req.body.gender.label;
     }
@@ -198,9 +198,9 @@ if(uniqueUserName(req,newUser.userName)){
       newUser.gender.id = req.body.gender.id;
     }
   }
+  newUser.jobRole = {};
 
   if (req.body.jobRole) {
-    newUser.jobRole = {};
     if (req.body.jobRole.label) {
       newUser.jobRole.label = req.body.jobRole.label;
     }
@@ -208,8 +208,9 @@ if(uniqueUserName(req,newUser.userName)){
       newUser.jobRole.id = req.body.jobRole.id;
     }
   }
+  newUser.status = {};
+
   if (req.body.status) {
-    newUser.status = {};
     if (req.body.status.label) {
       newUser.status.label = req.body.status.label;
     }
@@ -248,9 +249,9 @@ if(uniqueUserName(req,newUser.userName)){
   if (req.body.city) {
     newUser.city = req.body.city;
   }
+  newUser.state = {};
 
   if (req.body.state) {
-    newUser.state = {};
     if (req.body.state.label) {
       newUser.state.label = req.body.state.label;
     }

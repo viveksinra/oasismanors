@@ -53,7 +53,7 @@ router.get(
           .json({ variant: "success", message: "Invoice Loaded", data: myData.reverse() });
       } catch (error) {
         console.log(error)
-        res.status(500).json({ variant: "error", message: "Internal Server Error" });
+        res.status(500).json({ variant: "error", message: "Internal server error" + error.message});
       }
     }
   );

@@ -83,7 +83,7 @@ const formattedProspect = {
           .status(500)
           .json({ 
             variant: "error", 
-            message: "Internal server error" });
+            message: "Internal server error" + error.message});
       }
     }
   );

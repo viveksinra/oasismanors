@@ -62,7 +62,7 @@ async function updateMe(req, res, updateReceipt) {
 console.log(error)
     res
       .status(500)
-      .json({ variant: "error", message: "Internal server error" });
+      .json({ variant: "error", message: "Internal server error" + error.message});
   }
 }
 
@@ -124,9 +124,9 @@ async function getReceiptObj(req,type) {
     newReceipt.user=  req.user.id;
 
 // Check and assign values for each parameter based on their type
+newReceipt.ledger = {};
   
 if (req.body.ledger && req.body.ledger._id && req.body.ledger.type) {
-    newReceipt.ledger = {};
     if (req.body.ledger.label) {
       newReceipt.ledger.label = req.body.ledger.label;
     }
@@ -149,9 +149,9 @@ if (req.body.ledger && req.body.ledger._id && req.body.ledger.type) {
   if (req.body.amount) {
     newReceipt.amount = req.body.amount;
   }
+  newReceipt.mode = {};
 
   if (req.body.mode && req.body.mode._id ) {
-    newReceipt.mode = {};
     if (req.body.mode.label) {
       newReceipt.mode.label = req.body.mode.label;
     }

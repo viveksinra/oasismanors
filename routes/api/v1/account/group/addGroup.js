@@ -63,7 +63,7 @@ async function updateMe(req, res, updateGroup) {
 console.log(error)
     res
       .status(500)
-      .json({ variant: "error", message: "Internal server error" });
+      .json({ variant: "error", message: "Internal server error" + error.message});
   }
 }
 
@@ -144,9 +144,9 @@ async function getGroupObj(req, type) {
       _id: req.body.under._id,
     };
   }
+  newGroup.natureOfGroup = {};
 
   if (req.body.natureOfGroup) {
-    newGroup.natureOfGroup = {};
 
     if (req.body.natureOfGroup.label) {
       newGroup.natureOfGroup.label = req.body.natureOfGroup.label;
@@ -177,9 +177,9 @@ async function getGroupObj(req, type) {
     newGroup.forCalculation = req.body.forCalculation;
   }
 
+  newGroup.forPurInvoice = {};
 
   if (req.body.forPurInvoice) {
-    newGroup.forPurInvoice = {};
 
     if (req.body.forPurInvoice.label) {
       newGroup.forPurInvoice.label = req.body.forPurInvoice.label;

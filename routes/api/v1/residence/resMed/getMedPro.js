@@ -97,7 +97,7 @@ let dataToSend = { variant: "success", message: "Data Loaded",data: mergedArray 
       return dataToSend
       } catch (error) {
         console.log(error)
-        res.status(500).json({ variant: "error", message: "Internal Server Error" });
+        res.status(500).json({ variant: "error", message: "Internal server error" + error.message});
       }
     }
   }

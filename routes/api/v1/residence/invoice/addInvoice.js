@@ -67,7 +67,7 @@ async function updateMe(req, res, updateInvoice) {
 console.log(error)
     res
       .status(500)
-      .json({ variant: "error", message: "Internal server error" });
+      .json({ variant: "error", message: "Internal server error" + error.message});
   }
 }
 
@@ -132,8 +132,9 @@ async function getInvoiceObj(req,type) {
   if (req.body.tranDate) {
     newInvoice.tranDate = req.body.tranDate;
 }
+newInvoice.ledger = {};
+
 if (req.body.ledger) {
-    newInvoice.ledger = {};
     if (req.body.ledger.label) {
         newInvoice.ledger.label = req.body.ledger.label;
     }
@@ -141,8 +142,9 @@ if (req.body.ledger) {
         newInvoice.ledger._id = req.body.ledger._id;
     }
 }
+newInvoice.payer = {};
+
 if (req.body.payer) {
-    newInvoice.payer = {};
     if (req.body.payer.relation) {
         newInvoice.payer.relation = req.body.payer.relation;
     }

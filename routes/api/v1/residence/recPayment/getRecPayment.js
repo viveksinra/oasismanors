@@ -49,7 +49,7 @@ res
     res
       .json({ 
         variant: "error", 
-        message: "Internal server error" });
+        message: "Internal server error" + error.message});
   }
     }
   );
@@ -148,7 +148,7 @@ res
           .json({ variant: "success", message: "Charges Loaded",recInfo,user:ourUser, data: modifiedData });
       } catch (error) {
         console.log(error),
-        res.status(500).json({ variant: "error", message: "Internal Server Error" });
+        res.status(500).json({ variant: "error", message: "Internal server error" + error.message});
       }
     }
   );

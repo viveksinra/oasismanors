@@ -63,7 +63,7 @@ async function updateMe(req, res, updateProspectSource) {
 console.log(error)
     res
       .status(500)
-      .json({ variant: "error", message: "Internal server error" });
+      .json({ variant: "error", message: "Internal server error" + error.message});
   }
 }
 
@@ -130,8 +130,9 @@ async function getProspectSourceObj(req, type) {
   if (req.body.prospectSource) {
     newProspectSource.prospectSource = req.body.prospectSource;
   }
+  newProspectSource.contactPerson = {}; // Initialize as an empty object
+
   if (req.body.contactPerson) {
-    newProspectSource.contactPerson = {}; // Initialize as an empty object
     if (req.body.contactPerson._id) {
       newProspectSource.contactPerson._id = req.body.contactPerson._id;
     }
@@ -145,8 +146,9 @@ async function getProspectSourceObj(req, type) {
   if (req.body.remark) {
     newProspectSource.remark = req.body.remark;
   }
+  newProspectSource.locationType = {};
+
   if (req.body.locationType) {
-    newProspectSource.locationType = {};
     if (req.body.locationType.label) {
       newProspectSource.locationType.label = req.body.locationType.label;
     }
@@ -172,8 +174,9 @@ async function getProspectSourceObj(req, type) {
   if (req.body.city) {
     newProspectSource.city = req.body.city;
   }
+  newProspectSource.state = {};
+
   if (req.body.state) {
-    newProspectSource.state = {};
     if (req.body.state.label) {
       newProspectSource.state.label = req.body.state?.label;
     }

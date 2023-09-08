@@ -170,9 +170,9 @@ if (req.body.financialMoveInDate) {
 if (req.body.physicalMoveInDate) {
   newProspect.physicalMoveInDate = new Date(req.body.physicalMoveInDate);
 }
+newProspect.salesAgent = {};
 
 if (req.body.salesAgent) {
-  newProspect.salesAgent = {};
   if (req.body.salesAgent.label) {
     newProspect.salesAgent.label = req.body.salesAgent.label;
   }
@@ -180,9 +180,9 @@ if (req.body.salesAgent) {
     newProspect.salesAgent._id = req.body.salesAgent._id;
   }
 }
+newProspect.prospectStage = {};
 
 if (req.body.prospectStage) {
-  newProspect.prospectStage = {};
   if (req.body.prospectStage.label) {
     newProspect.prospectStage.label = req.body.prospectStage.label;
   }
@@ -199,9 +199,9 @@ if (req.body.prospectScore) {
 if (req.body.marketingStatus !== undefined) {
   newProspect.marketingStatus = req.body.marketingStatus;
 }
+newProspect.prospectSource = {};
 
 if (req.body.prospectSource) {
-  newProspect.prospectSource = {};
   if (req.body.prospectSource.label) {
     newProspect.prospectSource.label = req.body.prospectSource.label;
   }
@@ -224,9 +224,9 @@ if (req.body.lastName) {
 if (req.body.dateOfBirth) {
   newProspect.dateOfBirth = new Date(req.body.dateOfBirth);
 }
+newProspect.gender = {};
 
 if (req.body.gender) {
-  newProspect.gender = {};
   if (req.body.gender.label) {
     newProspect.gender.label = req.body.gender.label;
   }
@@ -263,9 +263,9 @@ if (req.body.home) {
 if (req.body.office) {
   newProspect.office = req.body.office;
 }
+newProspect.state = {};
 
 if (req.body.state) {
-  newProspect.state = {};
   if (req.body.state.label) {
     newProspect.state.label = req.body.state.label;
   }

@@ -30,7 +30,7 @@ if (!document) {
           .status(500)
           .json({ 
             variant: "error", 
-            message: "Internal server error" });
+            message: "Internal server error" + error.message});
       }
     }
   );
@@ -73,7 +73,7 @@ if (!document) {
           .status(200)
           .json({ variant: "success", message: "Document Loaded", data: modifiedData });
       } catch (error) {
-        res.status(500).json({ variant: "error", message: "Internal Server Error" });
+        res.status(500).json({ variant: "error", message: "Internal server error" + error.message});
       }
     }
   );
