@@ -1,9 +1,113 @@
+var mongoose = require('mongoose');
 const Seat = require("../../Models/Private/Main/Seat");
 
 const validateOnCreate = async (req, res, next) => {
     //   Check if the required fields are present
+
+      // Check for duplicate
+      const seatObj = await getCreateSeatObj(req,"create");
+      console.log(seatObj)
+    let mySeat = await Seat.findOne(seatObj)
+    if(mySeat){
+      console.log(" seat - duplicate")
+      return res.json({
+        message: "Duplicate data",
+        variant: "error",
+      });  
+    }
+    next();
+
+    };
+
+
+const validateOnUpdate = async (req, res, next) => {
+  if((!mongoose.Types.ObjectId.isValid(req.params.id)) 
+  ){
+    return res.status(400).json({
+      message:"Invalid id",
+      variant: "error",
+    });
+  }
+      // Check for duplicate
+      const seatObj = await getSeatObj(req,"update");
+      console.log(seatObj)
+    let theSeat = await Seat.findOne(seatObj)
+
+        if(theSeat && theSeat._id !== req.params.id){
+      return res.json({
+        message: "Duplicate data 1",
+        variant: "error",
+      });  
+    }
+    let mySeat = await Seat.findById(req.params.id)
+
+    if(!mySeat){
+      return res.json({
+        message: "Data not Found",
+        variant: "error",
+      });  
+    }
+
+    if(req.body.changeType && (req.body.changeType !== mySeat.changeType)){
+      return res.json({
+        message: "Change type issue",
+        variant: "error",
+      });  
+    }
+    if(req.params.changeType !== mySeat.changeType){
+      return res.json({
+        message: "can't update change type",
+        variant: "error",
+      });  
+    }
+
+
+
+      next();
+  
+    };
+
+  
+
+    
+    const validateOnDelete = async (req, res, next) => {
+      try {
+        const data = await Seat.findById(req.params.id);
+    
+        if (!data) {
+          return res.json({
+            message: "Invalid Id or Already Deleted",
+            variant: "error",
+          });
+        }
+    
+        const changeType = data.changeType;
+        const query = { [`${changeType}._id`]: req.params.id };
+        const newD = await Seat.findOne(query);
+    
+        if (newD) {
+          return res.json({
+            message: `Please Delete the dependent ${changeType === "building" ? "Floor" : changeType === "floor" ? "Room" : "Seat"} first`,
+            variant: "error",
+          });
+        }
+    
+        next();
+      } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+          message: "Internal Server Error",
+          variant: "error",
+        });
+      }
+    };
+    
+    
+
+const generalValidation = async (req, res, next) => {
+    //   Check if the required fields are present
       if (!req.params.changeType ) {
-        return res.status(406).json({
+        return res.json({
           message: "changeType is required fields.",
           variant: "error",
         });  
@@ -11,8 +115,8 @@ const validateOnCreate = async (req, res, next) => {
       req.params.changeType != "floor" && 
       req.params.changeType != "room" &&
       req.params.changeType != "seat" ){
-        return res.status(406).json({
-            message: "changeType is incorrect.",
+        return res.json({
+            message: "Change Type is incorrect.",
             variant: "error",
           });  
       }
@@ -21,9 +125,9 @@ const validateOnCreate = async (req, res, next) => {
       req.params.changeType == "floor" || 
       req.params.changeType == "room" ||
       req.params.changeType == "seat"      
-      ) && !req.body.building ) {
-        return res.status(406).json({
-          message: "building is required fields.",
+      ) && (!req.body.building || !req.body.building.label) ) {
+        return res.json({
+          message: "Building is required fields.",
           variant: "error",
         });  
       }
@@ -31,131 +135,158 @@ const validateOnCreate = async (req, res, next) => {
       req.params.changeType == "floor" || 
       req.params.changeType == "room" ||
       req.params.changeType == "seat"      
-      ) && !req.body.floor ) {
-        return res.status(406).json({
-          message: "floor is required fields.",
+      ) && (!req.body.floor || !req.body.floor.label || !req.body.building._id) ) {
+        return res.json({
+          message: "Floor and Building is required fields.",
           variant: "error",
         });  
       }
       if ((
       req.params.changeType == "room" ||
       req.params.changeType == "seat"      
-      ) && !req.body.room ) {
-        return res.status(406).json({
-          message: "room is required fields.",
+      ) && (!req.body.room || !req.body.room.label || !req.body.floor._id) ) {
+        return res.json({
+          message: "Room and Floor is required fields.",
           variant: "error",
         });  
       }
       if ((
       req.params.changeType == "seat"      
-      ) && !req.body.seat ) {
-        return res.status(406).json({
-          message: "seat is required fields.",
+      ) && (!req.body.seat || !req.body.seat.label || !req.body.room._id) ) {
+        return res.json({
+          message: "Seat and Room is required fields.",
           variant: "error",
         });  
       }
-      // Check for duplicate
-      const seatObj = await getSeatObj(req,"create");
-      console.log(seatObj)
-    let mySeat = await Seat.findOne(seatObj)
-    if(mySeat){
-      return res.status(406).json({
-        message: "Duplicate data",
-        variant: "error",
-      });  
-    }
+     
     next();
 
     };
+
+
     
 
-    const validateOnUpdate = async (req, res, next) => {
-    
-      // Check if the required fields are present
-      // if (!req.body.salesAgent || !req.body.salesAgent.label || !req.body.salesAgent._id) {
-      //   return res.status(406).json({
-      //     message: "Sales Agent are required fields.",
-      //     variant: "error",
-      //   });
-      // }
-        
-      next();
-    };
-    
-    module.exports = { validateOnCreate, validateOnUpdate };
 
-    async function getSeatObj(req,type) {
+    
+    module.exports = { validateOnCreate,generalValidation, validateOnUpdate, validateOnDelete };
+
+async function getCreateSeatObj(req) {
       let changeType = req.params.changeType
-      let newSeat = {  
-      };
+      let newSeat = {}
+    newSeat.changeType = req.params.changeType  
+    // Check and assign values for each parameter based on their type
+    if(changeType == "building" && req.body.building){
+        if (req.body.building.label) {
+          newSeat["building.label"] = req.body.building.label;  
+      }
+    }
+    if(changeType == "floor")
+{        
+        if (req.body.building?._id) {
+          newSeat["building._id"] = mongoose.Types.ObjectId(req.body.building._id);  
+      }
+      if (req.body.floor?.label) {
+        newSeat["floor.label"] = req.body.floor.label;  
+    }
+ }
+    if(changeType == "room")
+{        
+        if (req.body.building?._id) {
+          newSeat["building._id"] = mongoose.Types.ObjectId(req.body.building._id);  
+      }
+      if (req.body.floor?._id) {
+        newSeat["floor._id"] = req.body.floor._id;  
+    }
+      if (req.body.room?.label) {
+        newSeat["room.label"] = req.body.room.label;  
+    }
+ }
+    if(changeType == "seat")
+{        
+        if (req.body.building?._id) {
+          newSeat["building._id"] = mongoose.Types.ObjectId(req.body.building._id);  
+      }
+      if (req.body.floor?._id) {
+        newSeat["floor._id"] = req.body.floor._id;  
+    }
+      if (req.body.room?._id) {
+        newSeat["room._id"] = req.body.room._id;  
+    }
+      if (req.body.seat?.label) {
+        newSeat["seat.label"] = req.body.seat.label;  
+    }
+ }
+
+ 
+      return newSeat;
+    }
+async function getSeatObj(req,type) {
+      let changeType = req.params.changeType
+  let newSeat = {  
+  };
       if(type == "create"){
-       
-      } 
-      
-    newSeat.changeType = req.params.changeType
-    
+    newSeat.changeType = req.params.changeType  
+    }
     // Check and assign values for each parameter based on their type
     
         if (req.body.building) {
         newSeat.building = {}
         if (req.body.building.label) {
-          newSeat.building.label = req.body.building.label;
-          newSeat.building.id = removeSpacesAndLowerCase(req.body.building.label);
-    
+          newSeat.building.label = req.body.building.label;  
         } 
-         if (req.body.building.id) {
-          newSeat.building.id = removeSpacesAndLowerCase(req.body.building.id);
-     
-        }
       }
       if(changeType == "floor" || changeType == "room" || changeType == "seat")
-      {if (req.body.floor) {
+      {
+        if (req.body.building) {
+       
+           if (req.body.building._id && (type == "update" || req.body.changeType !== "building")) {
+            newSeat.building._id = mongoose.Types.ObjectId(req.body.building._id);
+       
+          }
+        }
+        if (req.body.floor && (type == "update" || req.body.changeType !== "floor")) {
         newSeat.floor = {}
         if (req.body.floor.label) {
           newSeat.floor.label = req.body.floor.label;
-          newSeat.floor.id = removeSpacesAndLowerCase(req.body.floor.label);
-        } 
-         if (req.body.floor.id) {
-          newSeat.floor.id = removeSpacesAndLowerCase(req.body.floor.id);
-     
         }
+       
       }
-      if(changeType == "room" || changeType == "seat")
-      {if (req.body.room) {
+    }
+      if( changeType == "room" || changeType == "seat")
+      {
+        if (req.body.floor) {
+       
+          if (req.body.floor._id) {
+            newSeat.floor._id = mongoose.Types.ObjectId(req.body.floor._id);     
+          }
+        }
+        if (req.body.room ) {
         newSeat.room = {}
         if (req.body.room.label) {
           newSeat.room.label = req.body.room.label;
-          newSeat.room.id = removeSpacesAndLowerCase(req.body.room.label);
-        } 
-         if (req.body.room.id) {
-          newSeat.room.id = removeSpacesAndLowerCase(req.body.room.id);
-     
         }
+      
       }
-      if(changeType == "seat")
-     { if (req.body.seat) {
-      newSeat.seat = {}
+    }
+      if( changeType == "seat")
+      {
+        if (req.body.room) {
+       
+          if (req.body.room._id) {
+            newSeat.room._id = mongoose.Types.ObjectId(req.body.room._id);     
+          }
+        }
+        if (req.body.seat ) {
+        newSeat.seat = {}
         if (req.body.seat.label) {
           newSeat.seat.label = req.body.seat.label;
-          newSeat.seat.id = removeSpacesAndLowerCase(req.body.seat.label);
-        } 
-         if (req.body.seat.id) {
-          newSeat.seat.id = removeSpacesAndLowerCase(req.body.seat.id);
-     
         }
-      }}}}
-    
-     
+      
+      }
+      if(type == "update"){
+        newSeat.seat._id = mongoose.Types.ObjectId(req.body.seat._id);
+      }
+    }
+ 
       return newSeat;
     }
-    
-    function removeSpacesAndLowerCase(str) {
-      // Remove spaces
-      let stringWithoutSpaces = str.replace(/\s/g, '');
-      
-      // Convert to lowercase
-      let lowercaseString = stringWithoutSpaces.toLowerCase();
-      
-      return lowercaseString;
-    }
-    

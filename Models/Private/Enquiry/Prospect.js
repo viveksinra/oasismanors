@@ -23,11 +23,16 @@ const ProspectSchema = new Schema({
   prospectStage: {  
       label: {
         type: String,
+        enum:["Casual Inquiry","Qualified","Cold","Warm","Hot","Waiting List","Lost","Needs Assessment"],
+        default:"Casual Inquiry"
       },
       id: {
         type: String,
+        enum:["casualInquiry","qualified","cold","warm","hot","waitingList","lost","needsAssessment"],
+        default:"casualInquiry"
       }    
   },
+
   residenceStage:{
     type:String,
     enum:["prospect","residence","incoming","movedOut"],
@@ -44,7 +49,6 @@ const ProspectSchema = new Schema({
   prospectSource: {    
       label: {
         type: String,
-        default: ""
       },
       _id: {
         type: Schema.Types.ObjectId,
@@ -137,7 +141,7 @@ const ProspectSchema = new Schema({
     label: {
      type: String,
  },
-    id: {
+    _id: {
      type: String,
  },
  
@@ -147,7 +151,7 @@ const ProspectSchema = new Schema({
          type: String,
          default: ""
      },
-        id: {
+        _id: {
          type: String,
          default: ""
      },
@@ -157,7 +161,7 @@ const ProspectSchema = new Schema({
          type: String,
          default: ""
      },
-        id: {
+        _id: {
          type: String,
          default: ""
      },
@@ -167,7 +171,7 @@ const ProspectSchema = new Schema({
          type: String,
          default: ""
      },
-        id: {
+        _id: {
          type: String,
          default: ""
      },

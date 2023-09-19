@@ -15,12 +15,12 @@ const MedsChart = lazy(() => import("../Components/Charts/MedChart"));
 
 function   Dashboard () {
   const [showDate, setShowData] = useState(false)
-  const [totalCount, setTCount] = useState([{label:"Payment", number:"$156", bgColor:"#f08ff7",link:"/dashboard/payment", icon: ""},
-                                            {label:"Receipt", number:"$1324", bgColor:"#a9fcc0",link:"/dashboard/receipt", icon: ""},
-                                            {label:"Prospect", number:"451", bgColor:"#9155FD",link:"/dashboard/prospect", icon: "" }, 
-                                            {label:"Residents", number:"18", bgColor:"#56CA00",link:"/dashboard/residents",icon: "" },
-                                            {label:"Employee", number:"05", bgColor:"#b5eeff",link:"/dashboard/employee",icon: ""},
-                                            {label:"Tasks", number:"05", bgColor:"#FFB400",link:"/dashboard/task", icon: ""},
+  const [totalCount, setTCount] = useState([{label:"Payment", number:"$0", bgColor:"#f08ff7",link:"/dashboard/payment", icon: "https://res.cloudinary.com/oasismanors/image/upload/v1693075190/paymentSVG_enp0ca.svg"},
+                                            {label:"Receipt", number:"$0", bgColor:"#a9fcc0",link:"/dashboard/receipt", icon: "https://res.cloudinary.com/oasismanors/image/upload/v1693075277/receiptSVG_wtg3b7.svg"},
+                                            {label:"Prospect", number:"0", bgColor:"#9155FD",link:"/dashboard/prospect", icon: "https://res.cloudinary.com/oasismanors/image/upload/v1693075342/prospectSVG_u807w7.svg" }, 
+                                            {label:"Residents", number:"0", bgColor:"#56CA00",link:"/dashboard/residents",icon: "https://res.cloudinary.com/oasismanors/image/upload/v1693075437/ResidentSVG_zefqhd.svg" },
+                                            {label:"Employee", number:"0", bgColor:"#b5eeff",link:"/dashboard/employee",icon: "https://res.cloudinary.com/oasismanors/image/upload/v1693075501/EmpSVG_r8xfre.svg"},
+                                            {label:"Tasks", number:"0", bgColor:"#FFB400",link:"/dashboard/task", icon: "https://res.cloudinary.com/oasismanors/image/upload/v1693075578/TaskSVG_x8zgef.svg"},
                                           ]) 
   const [date, setDate] = useState([{
       startDate: subDays(new Date(), 365),
@@ -28,9 +28,9 @@ function   Dashboard () {
       key: 'selection'
     }]);
   const [heading, setHeading] = useState({msg: "Welcome",taskCount: 0,subMsg: "Congratulation, You have 0 pending task",firstName: "Guest",lastName: ""})
-  const [task, setTask]= useState([{task:"Ask the Principal for turning...",taskType:"Email",taskDueDate:"Aug-31-2023" },{task:"See the fooding Court for transfer",taskType:"Call",taskDueDate:"Aug-30-2023" },{task:"Ask the Principal for turning...",taskType:"Email",taskDueDate:"Aug-31-2023" },{task:"See the fooding Court for transfer",taskType:"Call",taskDueDate:"Aug-30-2023" },{task:"Lorem is think of God and...",taskType:"Visit",taskDueDate:"Aug-26-2023" }])
-  const [receipt,setReceipt]= useState([{ledger:"Raghav John Michu", mode:"Cash", ledgerImage:"https://mui.com/static/images/avatar/1.jpg", amount:"514"},{ledger:"Vivek Solanki Wazwa", mode:"Zelle", ledgerImage:"https://mui.com/static/images/avatar/2.jpg", amount:"1640"},{ledger:"Raghav John Michu", mode:"Cash", ledgerImage:"https://mui.com/static/images/avatar/1.jpg", amount:"514"},{ledger:"Vivek Solanki Wazwa", mode:"Zelle", ledgerImage:"https://mui.com/static/images/avatar/2.jpg", amount:"1640"}])
-  const [payment,setPayment]= useState([{ledger:"Raghav John Michu", mode:"Cash", ledgerImage:"https://mui.com/static/images/avatar/1.jpg", amount:"514"},{ledger:"Vivek Solanki Wazwa", mode:"Zelle", ledgerImage:"https://mui.com/static/images/avatar/2.jpg", amount:"1640"},{ledger:"Raghav John Michu", mode:"Cash", ledgerImage:"https://mui.com/static/images/avatar/1.jpg", amount:"514"},{ledger:"Vivek Solanki Wazwa", mode:"Zelle", ledgerImage:"https://mui.com/static/images/avatar/2.jpg", amount:"1640"}])
+  const [task, setTask]= useState([])
+  const [receipt,setReceipt]= useState([])
+  const [payment,setPayment]= useState([])
   
   useEffect(() => {
      // Getting Heading Data
@@ -154,26 +154,25 @@ function   Dashboard () {
           <Typography variant="caption" color="teal" className='headingText'>Task (Pending)</Typography>
           <Link href="/dashboard/task"><Typography variant="body2" color="teal">View All</Typography></Link>
           </div>
-         <Table size="small" aria-label="task Table">
+          {task.length === 0 ? <div className="center"> <img src="https://res.cloudinary.com/oasismanors/image/upload/v1694205596/Zero_Task_hmvwcm.svg" style={{maxHeight:"175px"}} alt="Zero Task"/> <Typography color="teal">No Pending Task!</Typography> </div> : <Table size="small" aria-label="task Table">
          <TableBody>
           {task.map((t,i)=> <TableRow
               key={i}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-               <TableCell component="th" scope="row">
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+               <TableCell component="th" scope="row" >
                <Typography variant='caption'>{t?.task}</Typography> 
                 </TableCell>
-                <TableCell component="th" scope="row">
+                <TableCell component="th" scope="row" padding="none">
                 <Typography variant='caption'>{t?.taskType}</Typography>
                 </TableCell>
-                <TableCell component="th" scope="row">
+                <TableCell component="th" scope="row" padding="none" >
                   <Tooltip title="Task Due Date" arrow>
-                  <Typography variant='caption' color="blueviolet">{t?.taskDueDate}</Typography>
+                  <Typography variant='caption' color="blueviolet" sx={{marginLeft:"10px"}}>{t?.taskDueDate}</Typography>
                   </Tooltip>
                 </TableCell>
             </TableRow> )}
           </TableBody>
-         </Table>
+         </Table>}
         </div>
       </Grid>
       <Grid item xs={12} md={8}>
@@ -184,7 +183,7 @@ function   Dashboard () {
               <Typography variant="caption" color="teal" className='headingText'>Receipt</Typography> <br/> 
               <Link href="/dashboard/receipt"><Typography variant="body2" color="teal">View All</Typography></Link>
               </div>
-               <Table size="small" aria-label="Receipt Table">
+              {receipt.length === 0 ? <div className='center'><img src="https://res.cloudinary.com/oasismanors/image/upload/v1694206857/Zero_Receipt_mply4b.svg" alt="Zero Receipt" style={{maxHeight:"190px"}} /><Typography color="teal">No Receipt!</Typography></div> : <Table size="small" aria-label="Receipt Table">
                 <TableBody>
                   {receipt.map((t,i)=> <TableRow
                       key={i}
@@ -206,7 +205,7 @@ function   Dashboard () {
                         </TableCell>
                     </TableRow> )}
                   </TableBody>
-                </Table>
+                </Table> }
             </Grid>
             <Grid item xs={12} md={1} className='center'><Divider orientation="vertical" light/></Grid>
             <Grid item xs={12} md={5.5}>
@@ -214,7 +213,7 @@ function   Dashboard () {
               <Typography variant="caption" color="tomato" className='headingText'>Payment</Typography> <br/> 
               <Link href="/dashboard/payment"><Typography variant="body2" color="teal">View All</Typography></Link>
             </div>
-            <Table size="small" aria-label="Payment Table">
+            {payment.length === 0 ? <div className='center'><img src="https://res.cloudinary.com/oasismanors/image/upload/v1694207392/Payment_qfkhmv.svg" alt="Zero Payment" style={{maxHeight:"180px"}} /><Typography color="teal">No Payment</Typography></div> : <Table size="small" aria-label="Payment Table">
                 <TableBody>
                   {payment.map((t,i)=> <TableRow
                       key={i}
@@ -236,7 +235,7 @@ function   Dashboard () {
                         </TableCell>
                     </TableRow> )}
                   </TableBody>
-                </Table>
+                </Table> }
             </Grid>
           </Grid>
         </div>

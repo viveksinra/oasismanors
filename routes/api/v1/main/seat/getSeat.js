@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const Seat = require("../../../../../Models/Private/Main/Seat");
-  
+var mongoose = require('mongoose');
   
 // @type    GET
 //@route    /api/v1/main/seat/getSeat/get/:changeType
@@ -15,30 +15,30 @@ router.post(
           const changeType = req.params.changeType; 
           let myMatch = {}
           myMatch.changeType = changeType
-          if(changeType == "floor" || changeType == "room" || changeType == "seat"){
-            if(req.body.building.id){
-              myMatch.building = req.body.building
-
+          if(changeType == "floor"){
+            if(req.body.building?._id){
+           
+              myMatch["building._id"] = mongoose.Types.ObjectId(req.body.building?._id)
             }else{
-              res.status(406).json({ variant: "error",message:"building Required", data:[] });
+             return res         
+              .json({ variant: "error",message:"building Required", data:[] });
             }
           }
-          if(changeType == "room" || changeType == "seat"){
-            if(req.body.floor.id){
-              myMatch.floor = req.body.floor
+          if(changeType == "room" ){
+            if(req.body.floor?._id){
+              myMatch["floor._id"] = mongoose.Types.ObjectId(req.body.floor._id)
 
             }else{
-              res.status(406).json({ variant: "error",message:"floor Required", data:[] });
+            return  res.json({ variant: "error",message:"floor Required", data:[] });
             }
           }
           if(changeType == "seat"){
-            if(req.body.room.id){
-              myMatch.room = req.body.room
+            if(req.body.room?._id){
+              myMatch["room._id"] = mongoose.Types.ObjectId(req.body.room._id)
             }else{
-              res.status(406).json({ variant: "error",message:"room Required", data:[] });
+             return res.json({ variant: "error",message:"room Required", data:[] });
             }
           }
-        
           try {
             const mydata = await Seat.aggregate([
               { $match: myMatch },
@@ -59,10 +59,13 @@ router.post(
                 }
               }
             ]);
-            const extractedData = mydata.map(item => item.data);
+            const transformedData = mydata.map(item => ({
+              label: item.data.label,
+              _id: item._id
+            }));
             
            
-            res.status(200).json({ variant: "success",message:"Seat Loaded", data:extractedData });
+            res.status(200).json({ variant: "success",message:"Data Loaded", data:transformedData });
           } catch (error) {
             console.log(error);
             res.status(500).json({

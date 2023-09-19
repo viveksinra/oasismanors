@@ -72,8 +72,8 @@ async function getProspectObj(req,type) {
       if (req.body.building.label) {
         newProspect.building.label = req.body.building.label;
       } 
-       if (req.body.building.id) {
-        newProspect.building.id = req.body.building.id;
+       if (req.body.building._id) {
+        newProspect.building._id = req.body.building._id;
    
       }
     }
@@ -82,8 +82,8 @@ async function getProspectObj(req,type) {
       if (req.body.floor.label) {
         newProspect.floor.label = req.body.floor.label;
       } 
-       if (req.body.floor.id) {
-        newProspect.floor.id = req.body.floor.id;
+       if (req.body.floor._id) {
+        newProspect.floor._id = req.body.floor._id;
    
       }
     }
@@ -92,8 +92,8 @@ async function getProspectObj(req,type) {
       if (req.body.room.label) {
         newProspect.room.label = req.body.room.label;
       } 
-       if (req.body.room.id) {
-        newProspect.room.id = req.body.room.id;
+       if (req.body.room._id) {
+        newProspect.room._id = req.body.room._id;
    
       }
     }
@@ -102,8 +102,8 @@ async function getProspectObj(req,type) {
       if (req.body.seat.label) {
         newProspect.seat.label = req.body.seat.label;
       } 
-       if (req.body.seat.id) {
-        newProspect.seat.id = req.body.seat.id;
+       if (req.body.seat._id) {
+        newProspect.seat._id = req.body.seat._id;
    
       }
     }

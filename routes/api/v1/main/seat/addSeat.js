@@ -6,7 +6,9 @@ const passport = require("passport");
 const Seat = require("../../../../../Models/Private/Main/Seat");
 const {
   validateOnCreate,
+  generalValidation,
   validateOnUpdate,
+  validateOnDelete,
 } = require("../../../../../validation/main/seatValidation");
 
 // @type    POST
@@ -16,15 +18,17 @@ const {
 router.post(
   "/save/:changeType",
   passport.authenticate("jwt", { session: false }),
+  generalValidation,
   validateOnCreate,
   async (req, res) => {
+    console.log("Started")
     try {
       const seatObj = await getSeatObj(req,"create");
       
       await new Seat(seatObj)
       .save();
       res.status(201).json({
-        message: "Seat Successfully added",
+        message: "Successfully Added",
         variant: "success",
       });
     } catch (error) {
@@ -56,20 +60,21 @@ async function updateMe(req, res, updateSeat) {
         .status(406)
         .json({ message: "Id not found", variant: "error" });
     }
-    res
+   return res
       .status(200)
       .json({ message: "Updated successfully!!", variant: "success" });
   } catch (error) {
 console.log(error)
-    res
+   return res
       .status(500)
       .json({ variant: "error", message: "Internal server error" + error.message});
   }
 }
 
 router.post(
-  "/:id",
+  "/save/:changeType/:id",
   passport.authenticate("jwt", { session: false }),
+  generalValidation,
   validateOnUpdate,
   async (req, res) => {
     try {
@@ -78,7 +83,7 @@ router.post(
       updateMe(req, res, seatObj);
     } catch (error) {
 console.log(error)
-      res.status(500).json({
+      return res.status(500).json({
         variant: "error",
         message: "Internal server error" + error.message,
       });
@@ -88,23 +93,23 @@ console.log(error)
 
 
 // @type    DELETE
-// @route   /api/v1/seat/addSeat/:id
+// @route   /api/v1/main/seat/addSeat/deleteOne/:id
 // @desc    Delete a seat by ID
 // @access  Public
 router.delete(
   "/deleteOne/:id",
   passport.authenticate("jwt", { session: false }),
+  validateOnDelete,
   async (req, res) => {
     try {
       const seat = await Seat.findByIdAndRemove(req.params.id);
       if (!seat) {
-        return res
-          .status(404)
-          .json({ variant: "error", message: "Seat not found" });
+        return res        
+          .json({ variant: "error", message: " not found" });
       }
       res
         .status(200)
-        .json({ variant: "success", message: "Seat deleted successfully" });
+        .json({ variant: "success", message: " deleted successfully" });
     } catch (error) {
 console.log(error)
       res.status(500).json({
@@ -120,10 +125,9 @@ async function getSeatObj(req,type) {
   let newSeat = {  
   };
   if(type == "create"){
-   
-  } 
+    newSeat.changeType = req.params.changeType  
+    }
   
-newSeat.changeType = req.params.changeType
   newSeat.user=  req.user.id;
 
 // Check and assign values for each parameter based on their type
@@ -131,24 +135,22 @@ newSeat.changeType = req.params.changeType
     if (req.body.building) {
     newSeat.building = {}
     if (req.body.building.label) {
-      newSeat.building.label = req.body.building.label;
-      newSeat.building.id = removeSpacesAndLowerCase(req.body.building.label);
-
+      newSeat.building.label = req.body.building.label;  
     } 
-     if (req.body.building.id) {
-      newSeat.building.id = removeSpacesAndLowerCase(req.body.building.id);
+     if (req.body.building._id) {
+      newSeat.building._id = req.body.building._id;
  
     }
   }
   if(changeType == "floor" || changeType == "room" || changeType == "seat")
-  {if (req.body.floor) {
+  {
+    if (req.body.floor) {
     newSeat.floor = {}
     if (req.body.floor.label) {
       newSeat.floor.label = req.body.floor.label;
-      newSeat.floor.id = removeSpacesAndLowerCase(req.body.floor.label);
-    } 
-     if (req.body.floor.id) {
-      newSeat.floor.id = removeSpacesAndLowerCase(req.body.floor.id);
+    }
+     if (req.body.floor._id) {
+      newSeat.floor._id = req.body.floor._id;
  
     }
   }
@@ -156,11 +158,10 @@ newSeat.changeType = req.params.changeType
   {if (req.body.room) {
     newSeat.room = {}
     if (req.body.room.label) {
-      newSeat.room.label = req.body.room.label;
-      newSeat.room.id = removeSpacesAndLowerCase(req.body.room.label);
+      newSeat.room.label = req.body.room.label;      
     } 
-     if (req.body.room.id) {
-      newSeat.room.id = removeSpacesAndLowerCase(req.body.room.id);
+     if (req.body.room._id) {
+      newSeat.room._id = req.body.room._id;
  
     }
   }
@@ -169,10 +170,10 @@ newSeat.changeType = req.params.changeType
   newSeat.seat = {}
     if (req.body.seat.label) {
       newSeat.seat.label = req.body.seat.label;
-      newSeat.seat.id = removeSpacesAndLowerCase(req.body.seat.label);
+   
     } 
-     if (req.body.seat.id) {
-      newSeat.seat.id = removeSpacesAndLowerCase(req.body.seat.id);
+     if (req.body.seat._id) {
+      newSeat.seat._id = req.body.seat._id;
  
     }
   }}}}
@@ -182,15 +183,7 @@ newSeat.changeType = req.params.changeType
   return newSeat;
 }
 
-function removeSpacesAndLowerCase(str) {
-  // Remove spaces
-  let stringWithoutSpaces = str.replace(/\s/g, '');
-  
-  // Convert to lowercase
-  let lowercaseString = stringWithoutSpaces.toLowerCase();
-  
-  return lowercaseString;
-}
+
 
 
 

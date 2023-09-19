@@ -1,9 +1,18 @@
 const Prospect = require("../Models/Private/Enquiry/Prospect");
 
 const validateOnCreate = async (req, res, next) => {
-
- 
   
+  if(!req.body.prospectStage){
+    return res.status(406).json({
+      message: "Prospect stage is required fields.",
+      variant: "error",
+    });  } else 
+      if(!req.body.prospectStage.id){
+        return res.status(406).json({
+          message: "Prospect stage id is required fields.",
+          variant: "error",
+        });  }
+    
   // // Check if it is duplicate entry
 
     const existingProspect = await Prospect.findOne({
@@ -32,13 +41,16 @@ const validateOnCreate = async (req, res, next) => {
 
 const validateOnUpdate = async (req, res, next) => {
 
-  // Check if the required fields are present
-  // if (!req.body.salesAgent || !req.body.salesAgent.label || !req.body.salesAgent._id) {
-  //   return res.status(406).json({
-  //     message: "Sales Agent are required fields.",
-  //     variant: "error",
-  //   });
-  // }
+  if(!req.body.prospectStage){
+    return res.status(406).json({
+      message: "Prospect stage is required fields.",
+      variant: "error",
+    });  } else 
+      if(!req.body.prospectStage.id){
+        return res.status(406).json({
+          message: "Prospect stage id is required fields.",
+          variant: "error",
+        });  }
     
   next();
 };

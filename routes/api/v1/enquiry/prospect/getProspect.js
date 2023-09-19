@@ -42,9 +42,9 @@ const formattedProspect = {
   message: 'Prospect Loaded',
   data: {
     totalCount:totalCount,
-    salesAgent: prospect.salesAgent,
-    prospectStage: prospect.prospectStage,
-    prospectSource: prospect.prospectSource,
+    salesAgent: prospect.salesAgent._id ? prospect.salesAgent : null, 
+    prospectStage: prospect.prospectStage.id ? prospect.prospectStage : null, // Check if _id exists
+    prospectSource: prospect.prospectSource._id ? prospect.prospectSource : null, // Check if _id exists
     gender: prospect.gender,
     state: prospect.state,
     inquiryDate: formatDate(prospect.inquiryDate),
@@ -74,7 +74,6 @@ const formattedProspect = {
     __v: prospect.__v
   }
 };
-  
    
         res.status(200).json(formattedProspect);
       } catch (error) {

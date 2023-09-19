@@ -2,20 +2,16 @@
 import React, { forwardRef,useImperativeHandle } from 'react'
 import { useState,useEffect,useRef} from 'react';
 import MySnackbar from "../../Components/MySnackbar/MySnackbar";
-import {Typography, Grid,TextField,FormControlLabel,Switch,Checkbox,Accordion,AccordionSummary,Rating, AccordionDetails,InputAdornment,CircularProgress,IconButton} from '@mui/material/';
+import {Typography, Grid,TextField,FormControlLabel,Switch,ButtonGroup,Button,Accordion,AccordionSummary,Rating, AccordionDetails,InputAdornment,CircularProgress,IconButton} from '@mui/material/';
 import Autocomplete from '@mui/material/Autocomplete';
 import {allStates,allGenders, todayDate} from "../../Components/StaticData";
-import { FcLikePlaceholder, FcLike,FcExpand,FcPlus } from "react-icons/fc";
+import { FcLikePlaceholder, FcLike,FcExpand } from "react-icons/fc";
+import {MdDeleteForever} from "react-icons/md";
 import { prospectService,invoiceService } from "../../services";
-import Link from 'next/link';
 import axios from 'axios';
 
 
 const EntryArea = forwardRef((props, ref) => {
-    // The component instance will be extended
-    // with whatever you return from the callback passed
-    // as the second argument
-    const [id, setId] = useState(props?.id);
     const snackRef = useRef();
     const [important, setImp] = useState(false);
     const [inquiryDate, setInquiryDate] = useState("");
@@ -45,14 +41,14 @@ const EntryArea = forwardRef((props, ref) => {
     const [PAccordion, setPAccordion]=useState(true);
     const [allSalesAgent, setAllAgents] = useState([]);
 
-    const allProspectStage=[{label:"Casual Inquiry",id:"casual-inquiry"},{label:"Qualified",id:"Qualified"},{label:"Cold",id:"Cold"},{label:"Warm",id:"Warm"},{label:"Hot",id:"Hot"}, {label:"Waiting List",id:"Waiting List"},{label:"Lost",id:"Lost"},{label:"Needs Assessment",id:"VGFDRGRG"}]
+    const allProspectStage=[{label:"Casual Inquiry",id:"casualInquiry"},{label:"Qualified",id:"qualified"},{label:"Cold",id:"cold"},{label:"Warm",id:"warm"},{label:"Hot",id:"hot"}, {label:"Waiting List",id:"waitingList"},{label:"Lost",id:"lost"},{label:"Needs Assessment",id:"needsAssessment"}]
     const [allProspectSource, setAllPSource] = useState([]);
    
     useEffect(() => {
       async function getOneData(){
-      let res = await prospectService.getOne(id);
+      let res = await prospectService.getOne(props.id);
       if(res.variant === "success"){
-      setId(res.data._id);
+      props.setId(res.data._id);
       setImp(res.data.important);
       setInquiryDate(res.data.inquiryDate);
       setFinancialDate(res.data.financialMoveInDate);
@@ -80,10 +76,9 @@ const EntryArea = forwardRef((props, ref) => {
       snackRef.current.handleSnack(res);
       }else snackRef.current.handleSnack(res);    
      }
-
-     if(id){getOneData()}
-     
-    }, [id])
+     if(props.id){getOneData()}
+    }, [props.id])
+    
     useEffect(() => {
       setInquiryDate(todayDate())
     }, [])
@@ -109,7 +104,7 @@ const EntryArea = forwardRef((props, ref) => {
     }
 
     const handleClear =()=>{
-      setId("");
+      props.setId("");
       setImp(false);
       setInquiryDate("");
       setFinancialDate("");
@@ -138,9 +133,9 @@ const EntryArea = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => ({
          handleSubmit: async () => {
            try {
-          let prospectData = { _id: id,inquiryDate, financialMoveInDate,physicalMoveInDate,salesAgent,prospectStage,prospectScore, marketingStatus:subscribed,prospectSource,message,firstName,lastName,dateOfBirth:DOB,gender,phone:mobile,email,streetAddress:street,unit,home, office, city,state,zipCode:zip,important };
+          let prospectData = { _id: props.id,inquiryDate, financialMoveInDate,physicalMoveInDate,salesAgent,prospectStage,prospectScore, marketingStatus:subscribed,prospectSource,message,firstName,lastName,dateOfBirth:DOB,gender,phone:mobile,email,streetAddress:street,unit,home, office, city,state,zipCode:zip,important };
           let response;
-            response = await prospectService.add(id, prospectData);
+            response = await prospectService.add(props.id, prospectData);
             if(response.variant === "success"){
               snackRef.current.handleSnack(response);
               handleClear();
@@ -173,11 +168,30 @@ const EntryArea = forwardRef((props, ref) => {
        }
        getPSource()
      }, [])
+
+     const handleDelete = async ()=>{
+      try {
+        let yes = confirm(`Do you really want to Permanently Delete - ${firstName} ${lastName} ?`)
+        if(yes){
+          let response = await prospectService.deleteLeave(`api/v1/enquiry/prospect/addProspect/deleteOne/${props.id}`);
+          if(response.variant === "success"){
+            snackRef.current.handleSnack(response);
+            handleClear();
+          } else snackRef.current.handleSnack(response?.response?.data); 
+        }
+         } catch (error) {
+          console.log(error);
+          snackRef.current.handleSnack({message:"Failed to fetch Data. " + error.response.data.message, variant:"error"});
+         } 
+    }
     
     return <main style={{background:"#fff",boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px", borderRadius:"10px",padding:20}}> 
     <Grid sx={{display:"flex",flexDirection:"row", justifyContent:"space-between"}}>
-    <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6'>Create Prospect</Typography>
-      <FormControlLabel control={<Checkbox icon={<FcLikePlaceholder style={{fontSize:24}}/>} checkedIcon={<FcLike style={{fontSize:24}}/>} checked={important} onChange={()=>setImp(!important)} />} label={important ? "Important" : "General"} />
+    <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6'>Create Prospect</Typography> 
+      <ButtonGroup variant="text" aria-label="text button group">
+      <Button startIcon={important ? <FcLike /> : <FcLikePlaceholder/>} onClick={()=>setImp(!important)}>{important ? "Important" : "General"}</Button>
+      <Button endIcon={<MdDeleteForever />} onClick={()=>handleDelete()} disabled={!props.id} color="error">Delete</Button>
+      </ButtonGroup>
     </Grid>
     <Grid container spacing={2}>
     <Grid item xs={12} md={3}>

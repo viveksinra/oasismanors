@@ -62,11 +62,24 @@ export const ToggleFab = styled(Fab)({
 
 export function SearchArea({handleEdit}) {
   const [view, setView] = useState('grid');
-  const [residentTab, setRTab]=useState("siwa");
-  const [floor] = useState([{label:"Siwa",value:"siwa"}, {label:"Mara",value:"mara"}, {label:"Ubari",value:"ubari"}, {label:"Timia",value:"timia"}]);
+  const [floor,setFloor] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filterRes, setFilterRes] = useState([]);
   const [allRes, setAllRes]= useState([]);
+  const [residentTab, setRTab]=useState("incoming");
+  
+  useEffect(() => {
+    async function fetchBuilding() {
+      let response = await residentService.saveResident("api/v1/main/seat/getSeat/get/building", "");
+      if(response.variant === "success"){
+        setFloor(response.data)
+        setRTab(response.data[0].label)
+      }else {console.log(response)}
+    }
+    fetchBuilding()
+  }, [])
+  
+
   useEffect(() => {
     setLoading(true)
     async function fetchAllResi() {
@@ -120,12 +133,12 @@ export function SearchArea({handleEdit}) {
           <TabContext value={residentTab} variant="scrollable" allowScrollButtonsMobile scrollButtons>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <TabList onChange={(e,v)=>setRTab(v)}  sx={{height:50}} aria-label="Resident Tabs">
-              {floor.map((t,i)=> <Tab key={i} value={t?.value} label={t?.label}  />)}
+              {floor.map((t,i)=> <Tab key={i} value={t?.label} label={t?.label}  />)}
               <Tab value="incoming" icon={<FcDebt style={{fontSize:20}}/>} iconPosition="start" label="Incoming" />
               <Tab value="movedOut" icon={<FaUsersSlash style={{fontSize:20}} />} iconPosition="start" label="Moved Out" />
               </TabList>
             </Box>
-            {floor.map((t,i)=> <TabPanel key={i} value={t?.value}> <ResidentView view={view} loading={loading} filterRes={filterRes} setFilterRes={e=>setFilterRes(e)} /> </TabPanel>)}
+            {floor.map((t,i)=> <TabPanel key={i} value={t?.label}> <ResidentView view={view} loading={loading} filterRes={filterRes} setFilterRes={e=>setFilterRes(e)} /> </TabPanel>)}
             <TabPanel value="incoming"> <ResidentView view={view} loading={loading} filterRes={filterRes} setFilterRes={e=>setFilterRes(e)}/> </TabPanel>
             <TabPanel value="movedOut"> <ResidentView view={view} loading={loading} filterRes={filterRes} setFilterRes={e=>setFilterRes(e)}/> </TabPanel>
           </TabContext>

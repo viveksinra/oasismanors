@@ -18,7 +18,7 @@ async function getLastFiveIncompleteTasks() {
       .limit(5); // Limit the results to the last five tasks
   
       const formattedTasks = incompleteTasks.map(task => ({
-        task: task.task.length > 50 ? `${task.task.slice(0, 50)}...` : task.task,
+        task: task.task.length > 40 ? `${task.task.slice(0, 40)}...` : task.task,
         fullTask:task.task,
         taskType: task.taskType.label,
         taskDueDate: formatDateToShortMonth(task.taskDueDate) // Format the due date as desired

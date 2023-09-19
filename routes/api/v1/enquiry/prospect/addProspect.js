@@ -21,6 +21,7 @@ router.post(
   async (req, res) => {
     try {
       const prospectObj = await getProspectObj(req,"create");
+  
       await new Prospect(prospectObj)
       .save();
       res.status(201).json({
@@ -48,7 +49,7 @@ async function updateMe(req, res, updateProspect) {
   try {
     const prospect = await Prospect.findOneAndUpdate(
       { _id: req.params.id },
-      { $set: updateProspect },
+      { $set: updateProspect }, // Make sure this object contains the updated values
       { new: true }
     );
     if (!prospect) {
@@ -74,7 +75,6 @@ router.post(
   async (req, res) => {
     try {
       const prospectObj = await getProspectObj(req,"update");
-
       updateMe(req, res, prospectObj);
     } catch (error) {
 console.log(error)
@@ -118,7 +118,7 @@ console.log(error)
 
 
 // @type    DELETE
-// @route   /api/v1/prospect/addProspect/:id
+// @route   /api/v1/enquiry/prospect/addProspect/deleteOne/:id
 // @desc    Delete a prospect by ID
 // @access  Public
 router.delete(
@@ -171,7 +171,6 @@ if (req.body.physicalMoveInDate) {
   newProspect.physicalMoveInDate = new Date(req.body.physicalMoveInDate);
 }
 newProspect.salesAgent = {};
-
 if (req.body.salesAgent) {
   if (req.body.salesAgent.label) {
     newProspect.salesAgent.label = req.body.salesAgent.label;
@@ -180,8 +179,8 @@ if (req.body.salesAgent) {
     newProspect.salesAgent._id = req.body.salesAgent._id;
   }
 }
+console.log(req.body.prospectStage)
 newProspect.prospectStage = {};
-
 if (req.body.prospectStage) {
   if (req.body.prospectStage.label) {
     newProspect.prospectStage.label = req.body.prospectStage.label;

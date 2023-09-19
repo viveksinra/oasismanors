@@ -14,44 +14,42 @@ const SeatSchema = new mongoose.Schema({
     type: String,
     required: true
 },
-   id: {
-    type: String,
-    required: true
+   _id: {
+    type: Schema.Types.ObjectId,
+    ref: "Seat",
 },
 
   },
   floor: {
     label: {
         type: String,
-        default: ""
     },
-       id: {
-        type: String,
-        default: ""
-    },
+    _id: {
+      type: Schema.Types.ObjectId,
+      ref: "Seat",
+  },
   },
   room: {
     label: {
         type: String,
-        default: ""
     },
-       id: {
-        type: String,
-        default: ""
-    },
+    _id: {
+      type: Schema.Types.ObjectId,
+      ref: "Seat",
+  },
   },
   seat: {
     label: {
         type: String,
-        default: ""
     },
-       id: {
-        type: String,
-        default: ""
-    },
+    _id: {
+      type: Schema.Types.ObjectId,
+      ref: "Seat",
+  },
   },
     // Default for all
  community: {
+  type: Schema.Types.ObjectId,
     type: String,
     default: "647654545893b52b5c8bbc61"
   },

@@ -54,7 +54,7 @@ function Login() {
           <Typography color="primary" gutterBottom variant="h6">Login</Typography>
           <div className="center">
           <Typography style={{color:"#000", marginRight:20}} variant="subtitle1">Don't have an account? </Typography>
-          <Link href="/register"> <Typography color="secondary" variant="subtitle1">Register</Typography></Link>
+          <Link href="/#enquiry"> <Typography color="secondary" variant="subtitle1">Register</Typography></Link>
           </div>
         <Tabs value={tabVal} onChange={(e,v)=>setTabs(v)} aria-label="tabs">
           <Tab label="Email Based" />
@@ -98,7 +98,7 @@ function Login() {
             <TextField id="OTP" fullWidth label="Enter OTP" variant="outlined" />
             </Grid>
             <Grid item xs={12} className="center">
-            <Fab variant="extended" color="primary" aria-label="loginBtn">
+            <Fab variant="extended" color="primary" onClick={()=>alert("Phone Based Login is under maintenance. We will fix it very soon. Meanwhile, Please Login with your Email id and Password.")} aria-label="loginBtn">
               <FcKey style={{fontSize:25, marginRight:10}} />
               Login
             </Fab>
