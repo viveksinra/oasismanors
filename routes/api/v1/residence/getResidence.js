@@ -339,6 +339,7 @@ router.get(
           floor:pro.floor.label,
           room:pro.room.label,
           building:pro.building.label,
+          building:pro.building.houseNo,
           userImage:pro.userImage,
         };
       });

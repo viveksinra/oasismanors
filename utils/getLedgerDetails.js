@@ -1,47 +1,81 @@
 const Ledger = require("../Models/Private/Account/Ledger")
 const Prospect = require("../Models/Private/Enquiry/Prospect")
+var mongoose = require('mongoose');
 
-async function GetLedgerDetails(type,id){
+async function getLedgerDetails(type,myId){
+let id = mongoose.Types.ObjectId(myId)
     let data = {}
-
-    if (type == "prospect" || type == "employee"){
+    if (type == "prospect" ){
      data = await getProspectDetails(id)
+} else if ( type == "employee"){
+    data = await getUserDetails(id)
 } else if (type == "ledger"){
-     data = await getLedgerDetails(id)
+     data = await myLedgerDetails(id)
+}else{
+    data = await checkInEach(id)
 }
 
 return data
 }
 
+const getUserDetails= async(id) => {
+    let data = await User.findById(id)
+if(data){
+    let myData = {
+    label:data.lastName + " " + data.firstName,
+address:data.street || "",
+ city:data.city || "", 
+ state:data.state.label || "", 
+ zip:data.zip || "", 
+ mobile:data.mobile || "", 
+email:data.email || ""
+}
+return myData
+}
+}
 const getProspectDetails= async(id) => {
     let data = await Prospect.findById(id)
 if(data){
     let myData = {
     label:data.lastName + " " + data.firstName,
-address:data.streetAddress,
- city:data.city, 
- state:data.state.label, 
- zip:data.zipCode, 
- mobile:data.phone, 
-email:data.email
+address:data.streetAddress || "",
+ city:data.city || "", 
+ state:data.state.label || "", 
+ zip:data.zipCode || "", 
+ mobile:data.phone || "", 
+email:data.email || ""
 }
 return myData
 }
 }
 
-const getLedgerDetails= async(id) => {
+const myLedgerDetails= async(id) => {
     let data = await Ledger.findById(id)
-if(data){let myData = {
-    label:data.ledger,
-address:data.street ,
- city:data.city, 
- state:data.state.label, 
- zip:data.zip, 
- mobile:data.mobile, 
-email:data.email
+if(data){
+    let myData = {
+    label:data.ledger || "",
+address:data.street || "" ,
+ city:data.city || "", 
+ state:data.state.label || "", 
+ zip:data.zip || "", 
+ mobile:data.mobile || "", 
+email:data.email || ""
 }
 
-return myData}
+return myData
+}
 }
 
-module.exports = GetLedgerDetails
+const checkInEach = async(id) => {
+    let data = {}
+  
+        data = await getProspectDetails(id)
+  if ( !data ){
+       data = await getUserDetails(id)
+   } else if ( !data ){
+        data = await myLedgerDetails(id)
+   }
+   return data
+}
+
+module.exports = getLedgerDetails

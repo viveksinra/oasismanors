@@ -9,7 +9,7 @@ function PaymentInvoice({params}) {
   const [loading, setLoading] = useState(false);
   const [ledger, setLedger] = useState({label:"John Patter", address:"305, 3rd Floor Orion Mail, Bengaluru", city:"Karnataka", state:"Tamilnadu", zip:"56005", mobile:"+1 1654 5415 5451", email:"studio412.sk@gmail.com"})
   const [tranDate,setDate] = useState("Aug-22-2023");
-  const [reminderDate,setReminder] = useState("Sep-28-2023")
+  const [reminderDate,setReminder] = useState("Sep-28-2023");
   const [mode, setMode] = useState("Cash")
   const [amount,setAmount]=useState("");
   const [remark, setRemark] = useState("");
@@ -31,9 +31,9 @@ function PaymentInvoice({params}) {
       let res = await authService.get(baseUrl);
       if(res.variant === "success"){
         setLoading(false);
-        setLedger(res.data?.ledger);
-        setDate(res.data?.tranDate);
-        setReminder(res.data?.reminderDate);
+        setLedger(res.data?.ledgerP);
+        setDate(res.data?.tranDateP);
+        setReminder(res.data?.reminderDateP);
         setMode(res.data?.mode?.label);
         setAmount(res.data?.amount);
         setInWords(res.data?.inWords);

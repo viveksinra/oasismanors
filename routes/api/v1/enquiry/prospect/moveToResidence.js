@@ -72,6 +72,9 @@ async function getProspectObj(req,type) {
       if (req.body.building.label) {
         newProspect.building.label = req.body.building.label;
       } 
+      if (req.body.building.houseNo) {
+        newProspect.building.houseNo = req.body.building.houseNo;
+      } 
        if (req.body.building._id) {
         newProspect.building._id = req.body.building._id;
    

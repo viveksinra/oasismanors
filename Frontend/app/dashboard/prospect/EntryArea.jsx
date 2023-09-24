@@ -186,7 +186,7 @@ const EntryArea = forwardRef((props, ref) => {
     }
     
     return <main style={{background:"#fff",boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px", borderRadius:"10px",padding:20}}> 
-    <Grid sx={{display:"flex",flexDirection:"row", justifyContent:"space-between"}}>
+    <Grid sx={{display:"flex",flexDirection:{xs:"column",md:"row"}, justifyContent:"space-between"}}>
     <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6'>Create Prospect</Typography> 
       <ButtonGroup variant="text" aria-label="text button group">
       <Button startIcon={important ? <FcLike /> : <FcLikePlaceholder/>} onClick={()=>setImp(!important)}>{important ? "Important" : "General"}</Button>

@@ -131,6 +131,12 @@ const generalValidation = async (req, res, next) => {
           variant: "error",
         });  
       }
+      if (!req.body.building ||  !req.body.building.houseNo ) {
+        return res.json({
+          message: "House No is required fields.",
+          variant: "error",
+        });  
+      }
       if ((
       req.params.changeType == "floor" || 
       req.params.changeType == "room" ||

@@ -4,7 +4,7 @@ import "./dashboardStyle.css";
 import {styled,Box,CssBaseline,Toolbar,IconButton,useTheme,List,ListItem,ListItemButton,ListItemIcon,ListItemText,Divider, SwipeableDrawer,Collapse,Menu,Avatar,MenuItem   } from '@mui/material/';
 import MuiAppBar from '@mui/material/AppBar';
 import MuiDrawer from '@mui/material/Drawer';
-import { FcMenu,FcLeft,FcHome,FcImport,FcAdvertising,FcConferenceCall,FcComboChart,FcBusinessman,FcRightUp,FcDataRecovery,FcExpand,FcCollapse,FcPlus,FcLeftDown,FcTodoList,FcInspection,FcDocument,FcFlowChart } from "react-icons/fc";
+import { FcMenu,FcLeft,FcHome,FcImport,FcStatistics,FcAdvertising,FcPlanner,FcConferenceCall,FcComboChart,FcBusinessman,FcRightUp,FcDataRecovery,FcExpand,FcCollapse,FcPlus,FcLeftDown,FcTodoList,FcInspection,FcDocument,FcFlowChart,FcContacts,FcCalculator } from "react-icons/fc";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation'
 import Loading from '../Components/Loading/Loading';
@@ -13,28 +13,62 @@ import { authService } from "../services";
 
 const drawerWidth = 240;
 
-const DrawerData = ({open}) => {
+const DrawerData = ({open,setMobileOpen}) => {
   const router = useRouter();
   const { logout } = useLogout();
   const [masterOpen, setMas] = useState(false);
+  const [reportOpen, setRO] = useState(false);
   const [dashList1, setDashList] = useState([{title:"Dashboard",active: true, link:"/dashboard",icon:<FcComboChart/>},{title:"Prospect",active: false, link:"/dashboard/prospect",icon:<FcConferenceCall/>},{title:"Residents", active: false,link:"/dashboard/residents",icon:<FcHome/>},{title:"Payment", active: false,link:"/dashboard/payment",icon:<FcRightUp/>},{title:"Receipt", active: false,link:"/dashboard/receipt",icon:<FcLeftDown/>},{title:"Invoice", active: false,link:"/dashboard/invoice",icon:<FcDocument/>},{title:"All Tasks", active: false,link:"/dashboard/task",icon:<FcTodoList/>},{title:"All Notes", active: false,link:"/dashboard/notes",icon:<FcInspection/>},{title:"Employee", active: false,link:"/dashboard/employee",icon:<FcBusinessman/>}]) 
-  const [masterList, setMaster] = useState([{title:"Create Ledger",active: false, link:"/dashboard/master/ledger",icon:<FcPlus/>},{title:"Create Group",active: false, link:"/dashboard/master/group",icon:<FcPlus/>},{title:"Create Prospect Source",active: false, link:"/dashboard/master/prospectsource",icon:<FcAdvertising/>},{title:"Create Building Layout",active: false, link:"/dashboard/master/buildinglayout",icon:<FcFlowChart/>}])
-  const handleLink = (v,n)=>{
+  const [reports, setReports] = useState([{title:"Day Book",active:false, link:"/dashboard/reports/daybook", icon:<FcPlanner/>},{title:"Ledger Book",active:false, link:"/dashboard/reports/ledgerbook", icon:<FcContacts/>},{title:"Trial Balance",active:false, link:"/dashboard/reports/trialbalance", icon:<FcCalculator/>}]) 
+  const [masterList, setMasterList] = useState([{title:"Create Ledger",active: false, link:"/dashboard/master/ledger",icon:<FcPlus/>},{title:"Create Group",active: false, link:"/dashboard/master/group",icon:<FcPlus/>},{title:"Create Prospect Source",active: false, link:"/dashboard/master/prospectsource",icon:<FcAdvertising/>},{title:"Create Building Layout",active: false, link:"/dashboard/master/buildinglayout",icon:<FcFlowChart/>}])
+  const handleLink = (v,n,Ar)=>{
+    if(Ar === "Ar1"){
+      let newArr =  dashList1.map((obj, j)=> {
+        if(n === j){
+          return { ...obj, active:true}
+        } else {
+          return {...obj,active:false}
+        }
+      })
+      setDashList(newArr)
+      setReports(reports.map(r=>{ return {...r,active:false}}))
+      setRO(false)
+      setMasterList(masterList.map(m=>{return {...m, active:false}}))
+      setMas(false)
+    }else if(Ar === "Ar2"){
+      let newArr =  reports.map((obj, j)=> {
+        if(n === j){
+          return { ...obj, active:true}
+        } else {
+          return {...obj,active:false}
+        }
+      })
+      setReports(newArr)
+      setDashList(dashList1.map(r=>{ return {...r,active:false}}))
+      setMasterList(masterList.map(m=>{return {...m, active:false}}))
+      setMas(false)
+    }else if(Ar === "Ar3"){
+      let newArr =  masterList.map((obj, j)=> {
+        if(n === j){
+          return { ...obj, active:true}
+        } else {
+          return {...obj,active:false}
+        }
+      })
+      setMasterList(newArr)
+      setDashList(dashList1.map(r=>{ return {...r,active:false}}))
+      setReports(reports.map(r=>{ return {...r,active:false}}))
+      setRO(false)
+    }
+    
     router.push(v.link)
-    let newArr =  dashList1.map((obj, j)=> {
-      if(n === j){
-        return { ...obj, active:true}
-      } else {
-        return {...obj,active:false}
-      }
-    })
-    setDashList(newArr)
+    if(setMobileOpen){setMobileOpen()}
   }
   return (
     <div>
     <List>
           {dashList1.map((v,n) => (
-            <ListItem key={n} onClick={()=>handleLink(v,n)} disablePadding className={v?.active ? "activeLink" : ""}>
+            <ListItem key={n} onClick={()=>handleLink(v,n,"Ar1")} disablePadding className={v?.active ? "activeLink" : ""}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -58,13 +92,46 @@ const DrawerData = ({open}) => {
           ))}
         </List>
         <Divider />
+
+        <List disablePadding>
+        <ListItemButton onClick={()=>setRO(!reportOpen)}   sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}>
+        <ListItemIcon sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    fontSize:24,
+                    justifyContent: 'center',
+                  }}>
+          <FcStatistics />
+        </ListItemIcon>
+        <ListItemText primary="Reports" sx={{ opacity: open ? 1 : 0 }} />
+        {reportOpen ? <FcCollapse /> : <FcExpand/>}
+      </ListItemButton>
+      <Collapse in={reportOpen} timeout="auto" unmountOnExit>
+        <List component="div" dense disablePadding>
+        {reports.map((t,i)=> <ListItem key={i} onClick={()=>handleLink(t,i,"Ar2")} disablePadding className={t.active ? "activeLink" : ""}>
+        <ListItemButton sx={{ pl: 3}}>
+            <ListItemIcon sx={{minWidth:"40px",fontSize:20}}>
+             {t.icon}
+            </ListItemIcon>
+            <ListItemText primary={t.title} sx={{opacity: open ? 1 : 0}}/>
+          </ListItemButton>
+        </ListItem> )}
+        </List>
+      </Collapse>
+        </List>
+        <Divider />
+     
         <List disablePadding>
         <ListItemButton onClick={()=>setMas(!masterOpen)}   sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
                   px: 2.5,
                 }}>
-        <ListItemIcon   sx={{
+        <ListItemIcon sx={{
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
                     fontSize:24,
@@ -77,9 +144,9 @@ const DrawerData = ({open}) => {
       </ListItemButton>
       <Collapse in={masterOpen} timeout="auto" unmountOnExit>
         <List component="div" dense disablePadding>
-        {masterList.map((t,i)=> <ListItem key={i} onClick={()=>router.push(t.link)} disablePadding>
+        {masterList.map((t,i)=> <ListItem key={i} onClick={()=>handleLink(t,i,"Ar3")} disablePadding className={t?.active ? "activeLink" : ""}>
         <ListItemButton sx={{ pl: 3}}>
-            <ListItemIcon sx={{minWidth:"40px"}}>
+            <ListItemIcon sx={{minWidth:"40px",fontSize:20}}>
              {t.icon}
             </ListItemIcon>
             <ListItemText primary={t.title} sx={{opacity: open ? 1 : 0}}/>
@@ -96,7 +163,7 @@ const DrawerData = ({open}) => {
             <ListItemIcon sx={{minWidth: 0,
                     mr: open ? 3 : 'auto',
                     fontSize:24,
-                    justifyContent: 'center',}} >
+                    justifyContent: 'center'}} >
              <FcImport/>
             </ListItemIcon>
             <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 }} />
@@ -217,7 +284,6 @@ function DashboardLayout({children}) {
         <DrawerData open={open} />
         <Divider />
       </Drawer>
-  
         <SwipeableDrawer open={mobileOpen} onOpen={()=>setMobileOpen(true)} onClose={()=>setMobileOpen(false)}
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
@@ -228,7 +294,7 @@ function DashboardLayout({children}) {
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >
-        <DrawerData open={mobileOpen} />
+        <DrawerData open={mobileOpen} setMobileOpen={()=>setMobileOpen(!mobileOpen)} />
         </SwipeableDrawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />

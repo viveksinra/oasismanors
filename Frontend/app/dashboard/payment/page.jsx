@@ -11,7 +11,7 @@ import { payReceiveService } from "@/app/services";
 import NoResult from "@/app/Components/NoResult/NoResult";
 import MySnackbar from "../../Components/MySnackbar/MySnackbar";
 
-function Payment({receipt}) {
+function Payment({receipt,paymentVoucher,receiptVoucher}) {
   const [_id, setId] = useState("");
   const [loading, setLoading] = useState(true);
   const [tranDate, setDate] = useState("");
@@ -33,6 +33,25 @@ function Payment({receipt}) {
   const [allModes, setModes] = useState([])
   const [result,setResult] = useState([]);
   const snackRef = useRef();
+
+  useEffect(() => {
+     // Getting date from Voucher in URL
+     async function getVoucher(){
+      let voucherUrl = ""
+      if(paymentVoucher){
+        voucherUrl = `api/v1/account/payment/getPayment/getByVoucher/payment/${paymentVoucher}`
+      }else if (receiptVoucher){
+        voucherUrl = `api/v1/account/payment/getPayment/getByVoucher/receipt/${receiptVoucher}`
+      }
+      let res = await payReceiveService.getPayRec(voucherUrl);
+      if(res.variant === "success"){
+        handleClear(res.data);
+        snackRef.current.handleSnack(res)
+      }else {snackRef.current.handleSnack(res); console.log(res)};    
+     }
+    if(paymentVoucher || receiptVoucher){getVoucher()}
+  }, [paymentVoucher,receiptVoucher])
+  
 
   const getResult = async()=>{
     setLoading(true)

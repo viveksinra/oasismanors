@@ -40,7 +40,6 @@ function   Residents () {
           {!viewTabular && <Button variant="contained" onClick={() => entryRef.current.handleSubmit()} startIcon={<FiCheck />} size='small' color="success" >
             { id ? "Update" : "Save"}
           </Button>}
-          
       </Toolbar>         
       </AppBar> */}
        </main>
@@ -95,7 +94,7 @@ export function SearchArea({handleEdit}) {
   useEffect(() => {
    let filtArr = allRes.filter(f => {
       if(f.residenceStage === "residence"){
-        return f?.building?.id === residentTab
+        return f?.building?.label === residentTab
       }else if(f.residenceStage === "incoming" || f.residenceStage === "movedOut"){
         return f.residenceStage === residentTab
       }
@@ -131,14 +130,15 @@ export function SearchArea({handleEdit}) {
           <Grid item xs={12}>
             <Box sx={{ width: '100%', typography: 'body1' }}>
           <TabContext value={residentTab} variant="scrollable" allowScrollButtonsMobile scrollButtons>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <TabList onChange={(e,v)=>setRTab(v)}  sx={{height:50}} aria-label="Resident Tabs">
-              {floor.map((t,i)=> <Tab key={i} value={t?.label} label={t?.label}  />)}
-              <Tab value="incoming" icon={<FcDebt style={{fontSize:20}}/>} iconPosition="start" label="Incoming" />
-              <Tab value="movedOut" icon={<FaUsersSlash style={{fontSize:20}} />} iconPosition="start" label="Moved Out" />
+            <Box sx={{  maxWidth: { xs: 340, sm: 480,md:700 }, bgcolor: 'background.paper', borderBottom: 1, borderColor: 'divider' }}>
+              <TabList onChange={(e,v)=>setRTab(v)} sx={{height:60}} aria-label="Resident Tabs" variant="scrollable" scrollButtons="auto" allowScrollButtonsMobile>
+              {floor.map((t,i)=> <Tab key={i} iconPosition="bottom" icon={<Typography variant="caption">{t?.houseNo}</Typography>} value={t?.label} label={t?.label}  />)}
+              <Tab value="incoming" icon={<FcDebt style={{fontSize:20}}/>} iconPosition="bottom" label="Incoming"/>
+              <Tab value="movedOut" icon={<FaUsersSlash style={{fontSize:20}} />} iconPosition="bottom" label="Moved Out" />
               </TabList>
             </Box>
-            {floor.map((t,i)=> <TabPanel key={i} value={t?.label}> <ResidentView view={view} loading={loading} filterRes={filterRes} setFilterRes={e=>setFilterRes(e)} /> </TabPanel>)}
+            {floor.map((t,i)=> <TabPanel key={i} value={t?.label}> <ResidentView view={view} loading={loading} filterRes={filterRes} setFilterRes={e=>setFilterRes(e)} />
+             </TabPanel>)}
             <TabPanel value="incoming"> <ResidentView view={view} loading={loading} filterRes={filterRes} setFilterRes={e=>setFilterRes(e)}/> </TabPanel>
             <TabPanel value="movedOut"> <ResidentView view={view} loading={loading} filterRes={filterRes} setFilterRes={e=>setFilterRes(e)}/> </TabPanel>
           </TabContext>
@@ -211,16 +211,17 @@ function ResidentView({view,loading,filterRes,setFilterRes}){
 }
 
 function DetailedCard({act}){
-  const [cardStep, setCardStep] = useState(0)
+  // const [cardStep, setCardStep] = useState(0)
   return(
   <Fragment>
     {act && 
-      <Grid container id="moreCard">
+      <Grid container id="moreCard" sx={{marginTop:{xs:"20px", md:"0px"}}}>
       <Grid item xs={12} sx={{display:"flex", flexDirection:"column", position: "relative", top:"-65px"}}>
       <Avatar alt={act?.firstName} src={act?.userImage} id="moreImg" />
       <Typography variant="subtitle1" color="primary" align="center">{`${act?.lastName}, ${act?.firstName}`} </Typography>
       <Typography variant="body2" align="center"> {`Resident Since ~ ${act?.physicalMoveInDate}`}</Typography>
       <Typography variant="body2" align="center"> {`Room No. ~ ${act?.room} ${act?.seat}` }</Typography>
+      <Typography variant="body2" align="center"> {`${act?.building?.label}, ${act?.floor?.label}` }</Typography>
       <br />
        <center> <Link href={`/dashboard/residents/${act?._id}`}> <Fab size="small" variant="extended" color="success" sx={{padding:"0px 20px"}}>View Profile <FaTelegramPlane style={{marginLeft:5}}/></Fab></Link></center>  
       </Grid> 
@@ -255,7 +256,7 @@ function DetailedCard({act}){
         </ListItem>}
         </List>
       </Grid>
-      <MobileStepper
+      {/* <MobileStepper
         variant="dots"
         steps={4}
         position="static"
@@ -273,7 +274,7 @@ function DetailedCard({act}){
             Back
           </Button>
         }
-      />
+      /> */}
     </Grid>
    } 
   </Fragment>

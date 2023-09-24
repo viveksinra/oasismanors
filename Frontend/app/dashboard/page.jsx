@@ -1,7 +1,7 @@
 'use client';
 import React,{useState,useEffect,lazy,Suspense} from 'react'
 import "./dashboardStyle.css"
-import {Button, Chip, Grid,DialogActions,CircularProgress, Typography,Dialog,Table,TableBody,TableRow,TableCell, Tooltip, Divider, Avatar} from '@mui/material/';
+import {Button, Chip, Grid,DialogActions,CircularProgress,Typography,Dialog,Table,TableBody,TableRow,TableCell, Tooltip, Divider, Avatar,List,ListItem,ListItemText,ListItemAvatar} from '@mui/material/';
 import { dashboardService } from '../services';
 import { subDays } from 'date-fns';
 import { DateRangePicker } from 'react-date-range';
@@ -79,34 +79,29 @@ function   Dashboard () {
  
   return (
     <main>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={4}>
-          <div style={{height:"170px",boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", borderRadius:"10px", overflow:"hidden"}}>
-            <Grid container>
-              <Grid item xs={8} sx={{padding:"20px"}}>
-                <Typography variant="h6" color="teal" className='headingText'>{`Welcome, ${heading?.firstName}!`}</Typography>
-                <Typography variant="caption" gutterBottom color="grey">{heading?.subMsg}</Typography><br/>
-                <Typography variant="h5" gutterBottom color="darkviolet">{heading?.taskCount} </Typography>
-                <Button size='small' variant="outlined">View Invoices</Button>
-              </Grid>
-              <Grid item xs={4} id="topBoxBg" className='center'>
-              <img src="https://res.cloudinary.com/oasismanors/image/upload/v1692978494/trophy_nnngau.png" alt="trophy" style={{height:"100px"}} />
-              </Grid>
-            </Grid>
+      <Grid container spacing={2} sx={{marginTop:{xs:"8px",md:"-20px"}}}>
+        <Grid item xs={12} md={4} sx={{marginLeft:{xs:"8px",md:"0px"},marginRight:{xs:"8px", md:"0px"}}}>
+          <div style={{height:"170px", padding:"20px", boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px", width:"100%",backgroundColor:"#fff",borderRadius:"10px",overflow:"hidden"}} id="topBoxBg">
+            <Typography variant="h6" color="teal" className='headingText'>{`Welcome, ${heading?.firstName}!`}</Typography>
+            <div id="trophy"/>
+            <Typography variant="caption" gutterBottom color="grey">{heading?.subMsg}</Typography><br/>
+            <Typography variant="h5" gutterBottom color="darkviolet">{heading?.taskCount} </Typography>
+            <Link href="/dashboard/invoice"> <Button size='small' variant="outlined">View Invoices</Button></Link> 
           </div>
         </Grid>
-        <Grid item xs={12} md={8}>
-        <div style={{height:"170px", boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", padding:"20px", borderRadius:"10px"}}>
+        <Grid item xs={12} md={8} sx={{marginLeft:{xs:"8px",md:"0px"},marginRight:{xs:"8px", md:"0px"}}}>
+        <div style={{minHeight:"170px",boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", padding:"20px", borderRadius:"10px"}}>
           <Grid container>
             <Grid item xs={12} sx={{display:"flex", justifyContent:"space-between"}}>
-              <div>
-              <Typography variant="caption" color="teal" className='headingText'>Summary Data</Typography> <br/>
-              <Typography variant="caption" gutterBottom color="grey">You can Filter <b>Payment</b> and <b>Receipt</b> data by Date Range.</Typography><br/><br/>
-              </div>
-              <Chip label="Filter By Date" size="small" onClick={()=>setShowData(!showDate)} color="primary" variant="outlined" sx={{cursor:"pointer"}}/>
+             <Typography variant="caption" color="teal" className='headingText'>Summary Data</Typography> <br/>
+             <Chip label="Filter By Date" size="small" onClick={()=>setShowData(!showDate)} color="primary" variant="outlined" sx={{cursor:"pointer"}}/>
             </Grid>
-            <Grid item xs={12} sx={{display:"flex", justifyContent:"space-between"}}>
-            {totalCount.map((t,i)=> <div key={i} style={{minWidth:"120px"}}>
+            <Grid item xs={12}>
+            <Typography variant="caption" gutterBottom color="grey">You can Filter <b>Payment</b> and <b>Receipt</b> by Date Range.</Typography> 
+            </Grid>
+            <Grid item xs={12}>
+              <Grid container sx={{display:"flex", justifyContent:"space-evenly", marginTop:{xs:"0px",lg:"20px"}}}>
+              {totalCount.map((t,i)=> <Grid key={i} style={{minWidth:"120px"}}>
               <Link href={t.link}>
                 <Grid container>
                 <Grid item xs={5} className='center'>
@@ -118,43 +113,46 @@ function   Dashboard () {
                 </Grid>
                 </Grid> 
               </Link> 
-            
-          </div> )}
+               </Grid> )}
+              </Grid>
             </Grid>
           </Grid>
         </div>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <div style={{height:"410px",padding:"20px", boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", borderRadius:"10px", overflow:"hidden"}}>
-          <Typography variant="caption" color="teal" className='headingText'>Prospect Stage</Typography> <br/><br/>
-          <Suspense fallback={<div className='center'><CircularProgress /></div>}>
-          <ProspectChart/>
-          </Suspense>
-          </div>
+
+      <Grid item xs={12} md={4} sx={{marginLeft:{xs:"8px",md:"0px"}, marginRight:{xs:"8px", md:"0px"}}}>
+        <Grid sx={{padding:"20px", boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", borderRadius:"10px", overflow:"hidden",height:{xs:"100%", md:"430px"}}}>
+        <Typography variant="caption" color="teal" className='headingText'>Prospect Stage</Typography> <br/><br/>
+        <Suspense fallback={<div className='center'><CircularProgress /></div>}>
+        <center><ProspectChart/></center>
+        </Suspense>
+        </Grid>
       </Grid>
-      <Grid item xs={12} md={4}>
-      <div style={{height:"410px",padding:"20px", boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", borderRadius:"10px", overflow:"hidden"}}>
+      <Grid item xs={12} md={4} sx={{marginLeft:{xs:"8px",md:"0px"},marginRight:{xs:"8px", md:"0px"},height:{xs:"100%", md:"410px"}}}>
+      <div style={{padding:"20px", boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", borderRadius:"10px", overflow:"hidden"}}>
       <Typography variant="caption" color="teal" className='headingText'>Meds (weekly)</Typography> <br/>
       <Suspense fallback={<div className='center'><CircularProgress /></div>}>
-      <MedsChart/>
+       <MedsChart/>
       </Suspense>
       </div>
       </Grid>
-      <Grid item xs={12} md={4}>
-      <div style={{height:"410px",padding:"20px", boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", borderRadius:"10px", overflow:"hidden"}}>
+      <Grid item xs={12} md={4} sx={{marginLeft:{xs:"8px",md:"0px"},marginRight:{xs:"8px", md:"0px"}, height:{xs:"100%", md:"410px"}}}>
+      <div style={{padding:"20px", boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", borderRadius:"10px", overflow:"hidden"}}>
       <Typography variant="caption" color="teal" className='headingText'>Care (weekly)</Typography> <br/>
       <Suspense fallback={<div className='center'><CircularProgress /></div> }>
         <CareChart/>
         </Suspense>
       </div>
       </Grid>
-      <Grid item xs={12} md={4}>
-         <div style={{height:"220px",padding:"20px", boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", borderRadius:"10px", overflow:"hidden"}}>
+      <Grid item xs={12} md={4} sx={{marginLeft:{xs:"8px",md:"0px"}, marginRight:{xs:"8px", md:"0px"}, height:{xs:"100%", md:"220px"}}}>
+         <div style={{padding:"20px", boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", borderRadius:"10px", overflow:"hidden"}}>
           <div style={{display:"flex",justifyContent:"space-between"}}>
           <Typography variant="caption" color="teal" className='headingText'>Task (Pending)</Typography>
           <Link href="/dashboard/task"><Typography variant="body2" color="teal">View All</Typography></Link>
           </div>
-          {task.length === 0 ? <div className="center"> <img src="https://res.cloudinary.com/oasismanors/image/upload/v1694205596/Zero_Task_hmvwcm.svg" style={{maxHeight:"175px"}} alt="Zero Task"/> <Typography color="teal">No Pending Task!</Typography> </div> : <Table size="small" aria-label="task Table">
+          {task.length === 0 ? <div className="center"> <img src="https://res.cloudinary.com/oasismanors/image/upload/v1694205596/Zero_Task_hmvwcm.svg" style={{maxHeight:"175px"}} alt="Zero Task"/> <Typography color="teal">No Pending Task!</Typography> </div> : 
+        <>
+        <Table size="small" aria-label="task Table" sx={{display:{xs:"none", md:"inline-table"}}}>
          <TableBody>
           {task.map((t,i)=> <TableRow
               key={i}
@@ -172,18 +170,25 @@ function   Dashboard () {
                 </TableCell>
             </TableRow> )}
           </TableBody>
-         </Table>}
-        </div>
+         </Table>
+        <List sx={{width:'100%',bgcolor:'background.paper',display:{xs:"block", md:"none"}}} component="nav" aria-labelledby="Nested List Items">
+          {task.map((t,i)=><ListItemText sx={{borderBottom:"1px solid lightgrey"}} key={i} primary={<Typography variant="subtitle2">{t.task}</Typography> } secondary={`${t.taskType}, Due Date: ${t.taskDueDate}`}/>)}
+        </List>
+        </>
+        }
+          </div>
       </Grid>
-      <Grid item xs={12} md={8}>
-         <div style={{height:"220px",padding:"20px", boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", borderRadius:"10px", overflow:"hidden"}}>
+      <Grid item xs={12} md={8} sx={{marginLeft:{xs:"8px",md:"0px"},marginRight:{xs:"8px", md:"0px"},height:{xs:"100%", md:"220px"}}}>
+         <div style={{padding:"20px", boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px",backgroundColor:"#fff", borderRadius:"10px", overflow:"hidden"}}>
           <Grid container>
             <Grid item xs={12} md={5.5}>
               <div style={{display:"flex",justifyContent:"space-between"}}>
               <Typography variant="caption" color="teal" className='headingText'>Receipt</Typography> <br/> 
               <Link href="/dashboard/receipt"><Typography variant="body2" color="teal">View All</Typography></Link>
               </div>
-              {receipt.length === 0 ? <div className='center'><img src="https://res.cloudinary.com/oasismanors/image/upload/v1694206857/Zero_Receipt_mply4b.svg" alt="Zero Receipt" style={{maxHeight:"190px"}} /><Typography color="teal">No Receipt!</Typography></div> : <Table size="small" aria-label="Receipt Table">
+              {receipt.length === 0 ? <div className='center'><img src="https://res.cloudinary.com/oasismanors/image/upload/v1694206857/Zero_Receipt_mply4b.svg" alt="Zero Receipt" style={{maxHeight:"190px"}} /><Typography color="teal">No Receipt!</Typography></div> : 
+              <>
+              <Table size="small" aria-label="Receipt Table" sx={{display:{xs:"none", md:"inline-table"}}}>
                 <TableBody>
                   {receipt.map((t,i)=> <TableRow
                       key={i}
@@ -199,13 +204,27 @@ function   Dashboard () {
                         <Typography variant='caption'>{t.mode}</Typography>
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          <Tooltip title="Task Due Date" arrow>
+                          <Tooltip title="Amount" arrow>
                           <Typography variant="subtitle1" color="green">$ {t.amount}</Typography>
                           </Tooltip>
                         </TableCell>
                     </TableRow> )}
                   </TableBody>
-                </Table> }
+                </Table> 
+              <List sx={{width:'100%',bgcolor:'background.paper',display:{xs:"block", md:"none"}}} component="nav" aria-labelledby="Nested Receipt Items">
+                {receipt.map((t,i)=><ListItem key={i} disableGutters>
+                <Avatar
+                  alt={t.ledger}
+                  sx={{width: 32, height: 32, marginRight:"10px" }}
+                  src={t.ledgerImage}
+                />
+                  <ListItemText sx={{borderBottom:"1px solid lightgrey"}} primary={<Typography variant="subtitle2">{t.ledger}</Typography> } secondary={`Mode : ${t.mode}`}/>
+                  <Typography color="teal">$ {t.amount}</Typography>
+                   </ListItem>)
+                  }
+              </List>
+              </>
+              }
             </Grid>
             <Grid item xs={12} md={1} className='center'><Divider orientation="vertical" light/></Grid>
             <Grid item xs={12} md={5.5}>
@@ -213,7 +232,9 @@ function   Dashboard () {
               <Typography variant="caption" color="tomato" className='headingText'>Payment</Typography> <br/> 
               <Link href="/dashboard/payment"><Typography variant="body2" color="teal">View All</Typography></Link>
             </div>
-            {payment.length === 0 ? <div className='center'><img src="https://res.cloudinary.com/oasismanors/image/upload/v1694207392/Payment_qfkhmv.svg" alt="Zero Payment" style={{maxHeight:"180px"}} /><Typography color="teal">No Payment</Typography></div> : <Table size="small" aria-label="Payment Table">
+            {payment.length === 0 ? <div className='center'><img src="https://res.cloudinary.com/oasismanors/image/upload/v1694207392/Payment_qfkhmv.svg" alt="Zero Payment" style={{maxHeight:"180px"}} /><Typography color="teal">No Payment</Typography></div> : 
+            <>
+            <Table size="small" aria-label="Payment Table" sx={{display:{xs:"none", md:"inline-table"}}}>
                 <TableBody>
                   {payment.map((t,i)=> <TableRow
                       key={i}
@@ -235,7 +256,21 @@ function   Dashboard () {
                         </TableCell>
                     </TableRow> )}
                   </TableBody>
-                </Table> }
+                </Table> 
+                <List sx={{width:'100%',bgcolor:'background.paper', display:{xs:"block", md:"none"}}} component="nav" aria-labelledby="Nested Payment Items">
+                {payment.map((t,i)=><ListItem key={i} disableGutters>
+                <Avatar
+                  alt={t.ledger}
+                  sx={{width: 32, height: 32, marginRight:"10px" }}
+                  src={t.ledgerImage}
+                />
+                  <ListItemText sx={{borderBottom:"1px solid lightgrey"}} primary={<Typography variant="subtitle2">{t.ledger}</Typography> } secondary={`Mode : ${t.mode}`}/>
+                  <Typography color="tomato">$ {t.amount}</Typography>
+                   </ListItem>)
+                  }
+              </List>
+            </>
+            }
             </Grid>
           </Grid>
         </div>

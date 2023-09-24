@@ -20,9 +20,9 @@ export class ProspectService {
       .then((res) => res.data);
   };
 
-  getAll = async () => {
+  getAll = async (searchUrl) => {
     return this.instance
-      .get(`/api/v1/enquiry/prospect/getProspect/getAll`, {
+      .get(`/${searchUrl}`, {
         headers: getAuthorizationHeader(),
       })
       .then((res) => res.data);

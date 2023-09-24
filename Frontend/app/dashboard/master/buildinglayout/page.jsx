@@ -1,8 +1,8 @@
 'use client';
 import "./buildingStyle.css";
 import React, { useState,useEffect,useRef } from 'react'
-import {Grid,Typography,IconButton,TextField,Button,Breadcrumbs,Dialog,DialogTitle,DialogContent,ButtonGroup,DialogActions,Tooltip,Table,TableHead,TableRow,TableBody,TableCell,Input, Divider, List,ListSubheader,ListItemButton,ListItemText, CircularProgress } from '@mui/material/';
-import { FcCheckmark,FcHome,FcFullTrash,FcNext,FcFlowChart,FcAddRow,FcDeleteRow,FcTemplate } from "react-icons/fc";
+import {Grid,Typography,IconButton,TextField,Button,Breadcrumbs,ButtonGroup, Input, List,ListSubheader,ListItemButton,ListItemText, CircularProgress } from '@mui/material/';
+import { FcCheckmark,FcHome,FcFullTrash,FcNext, FcTemplate } from "react-icons/fc";
 import {MdEditNote} from "react-icons/md";
 import MySnackbar from "../../../Components/MySnackbar/MySnackbar";
 import { prospectService } from "../../../services";
@@ -85,7 +85,6 @@ function BuildingLayout() {
     const getSeat = async () => {
       setLoadingSeat(true)
       let res = await prospectService.moveToResident("api/v1/main/seat/getSeat/get/seat", "",{building:actBuilding,floor:actFloor,room:actRoom});
-     console.log(res)
       if(res.variant ==="success"){
         setLoadingSeat(false)
         setSeat(res.data)
@@ -167,7 +166,11 @@ function BuildingLayout() {
         let newArr = [...building]; // copying the old building array
         newArr[i].label = e
         setBuilding(newArr)
-      }else if(p === "floor"){
+      }else if(p === "houseNo"){
+        let newArr = [...building]; // copying the old building array
+        newArr[i].houseNo = e
+        setBuilding(newArr)
+      } else if(p === "floor"){
         let newArr = [...floor]; // copying the old floor array
         newArr[i].label = e
         setFloor(newArr)
@@ -186,7 +189,7 @@ function BuildingLayout() {
           let Arr1 = [...building]
           if(Arr1.length === 0 || Arr1[Arr1.length -1].label){
             Arr1.map(a=> {a.active = false; a.edit = false} )
-            let newArr=[...Arr1,{label:"", _id:"", active:true, edit:true}]
+            let newArr=[...Arr1,{label:"", houseNo:"", _id:"", active:true, edit:true}]
             setBuilding(newArr);
           }else  snackRef.current.handleSnack({message:"Provide name to the current Building, First.", variant:"warning"});
         }else if(place ==="floor"){
@@ -295,13 +298,13 @@ function BuildingLayout() {
     }
     const handleDelete = async (name, i, b)=>{
       let Arr1 = [...seat]
-if(name === "building"){
-  Arr1 = [...building]
-} else if(name === "floor"){
-  Arr1 = [...floor]
-} else if(name === "room"){
-  Arr1 = [...room]
-} 
+        if(name === "building"){
+          Arr1 = [...building]
+        } else if(name === "floor"){
+          Arr1 = [...floor]
+        } else if(name === "room"){
+          Arr1 = [...room]
+        } 
         if(b.label){
           if (Arr1.length > 0) {
             let y = confirm(`Are you sure to Permanently Delete : ${b.label} ?`)
@@ -370,7 +373,7 @@ if(name === "building"){
       {building && building.map((b,i)=><Grid item xs={12} md={3} lg={2} key={i} className="center">
         <div className={clsx("buildingBox", "center", b?.active && "activeCard")} onClick={()=>handleBuilding(i)}>
         <IconButton className="deleteBtn" size="small" onClick={()=>handleDelete("building",i,b)}> <FcFullTrash/> </IconButton>
-        {b.edit ? <TextField autoFocus id="standard-basic" size="small"  sx={{width:"90%"}} inputProps={{maxLength: "20"}} onChange={e=>handleObjChange(e.target.value, i, "building")} label="Building Name" variant="standard" value={b.label} /> : b.label}
+        {b.edit ? <div style={{width:"90%"}}> <TextField autoFocus id="standard-basic" size="small"  inputProps={{maxLength: "20"}} onChange={e=>handleObjChange(e.target.value, i, "building")} label="Building Name" variant="standard" value={b.label} /> <TextField autoFocus id="houseNo" size="small" inputProps={{maxLength: "20"}} onChange={e=>handleObjChange(e.target.value, i, "houseNo")} label="House No." variant="standard" value={b.houseNo} /> </div> :  <div> <Typography align="center">{b.label}</Typography><Typography align="center">{b.houseNo}</Typography> </div> }
         {b.edit ?  <IconButton className="editBtn" onClick={()=>handleSave("building",i,b)}><FcCheckmark/></IconButton> :  <IconButton className="editBtn" onClick={()=>handleBuilding(i,"edit")}><MdEditNote/></IconButton> }
         </div>
         </Grid>)}

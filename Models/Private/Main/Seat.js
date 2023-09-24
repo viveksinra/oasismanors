@@ -14,6 +14,10 @@ const SeatSchema = new mongoose.Schema({
     type: String,
     required: true
 },
+houseNo: {
+    type: String,
+    required: true
+},
    _id: {
     type: Schema.Types.ObjectId,
     ref: "Seat",

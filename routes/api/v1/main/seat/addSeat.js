@@ -137,6 +137,9 @@ async function getSeatObj(req,type) {
     if (req.body.building.label) {
       newSeat.building.label = req.body.building.label;  
     } 
+    if (req.body.building.houseNo) {
+      newSeat.building.houseNo = req.body.building.houseNo;  
+    } 
      if (req.body.building._id) {
       newSeat.building._id = req.body.building._id;
  

@@ -132,6 +132,9 @@ const formattedProspect = {
                 ]
               },
               important: 1,
+              email:1,
+              streetAddress:1,
+              unit:1,
               prospectStage: "$prospectStage.label",
               state: "$state.label"
             }
@@ -154,6 +157,9 @@ const formattedProspect = {
             item.prospectStage = item.prospectStage || "";
             item.state = item.state || "";   
             item.userImage = item.userImage || "";   
+            item.email = item.email || "";   
+            item.streetAddress = item.streetAddress || "";   
+            item.unit = item.unit || "";   
 
           if (item.inquiryDate) {
             const [month, day, year] = item.inquiryDate.split('-');
@@ -165,6 +171,7 @@ const formattedProspect = {
 
 
         res.status(200).json({ variant: "success",message:"Prospect Loaded", data:mydata.reverse() });
+      
       } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -180,40 +187,20 @@ const formattedProspect = {
   // @route   /api/v1/prospect/getDataWithPage
   // @desc    Get prospects with pagination
   // @access  Public
+
+
   router.get(
-    "/getDataWithPage/:PageNumber",
+    "/getDataWithPage/:limit/:PageNumber",
     passport.authenticate("jwt", { session: false }),
-    (req, res) => {
+    async(req, res) => {
       try {
-        const page = parseInt(req.params.PageNumber) || 1; // Get the page number from the route parameters (default to 1)
-        const limit = 10; // Number of records to retrieve per page
-  
-        // Retrieve prospects with pagination
-        Prospect.find()
-          .skip((page - 1) * limit) // Skip the appropriate number of records based on the page number
-          .limit(limit) // Limit the number of records to retrieve
-          .then((prospects) => {
-            // Calculate total count if it's the first page
-            const totalCountPromise =
-              page === 1 ? Prospect.countDocuments() : Promise.resolve(0);
-  
-            // Respond with prospects and total count
-            Promise.all([totalCountPromise, prospects])
-              .then(([totalCount, prospects]) => {
-                const response = {
-                  page,
-                  totalCount: totalCount || prospects.length, // Use totalCount if available, otherwise use the length of prospects
-                  prospects,
-                };
-                res.status(200).json({ variant: "success",message:"Prospect Loaded", data: response });
-              })
-              .catch((err) => {
-                throw new Error("An error occurred while retrieving prospects.");
-              });
-          })
-          .catch((err) => {
-            throw new Error("An error occurred while retrieving prospects.");
-          });
+        // Calculate total count if it's the first page
+      
+
+        let data = await getSearchFun(req)
+        res.status(200).json(data);
+
+
       } catch (error) {
   console.log(error)
         res.status(500).json({
@@ -223,88 +210,132 @@ const formattedProspect = {
       }
     }
   );
-
-  
+ 
 // @type    GET
-//@route    /api/v1/enquiry/prospect/getProspect/getall/:searchProspect
+//@route    /api/v1/enquiry/prospect/getProspect/getDataWithPage/:limit/:PageNumber/:search
 // @desc    route for searching of user from searchbox using any text
 // @access  PRIVATE
 router.get(
-    "/getAll/:searchProspect",
-    passport.authenticate("jwt", { session: false }),
-    async (req, res) => {
-          const search = req.params.searchProspect; 
-          let myMatch = {}
-          if(search){
-            myMatch = [              
-                { firstName: new RegExp(search, "i") },
-                { lastName: new RegExp(search, "i") },
-                { phone: new RegExp(search, "i") },        
-              
-            ]
-          }
-          try {
-            const mydata = await Prospect.aggregate([
-              {$match:{$or: myMatch}},
-              {
-                $project: {
-                  _id: 1,
-                  firstName: 1,
-                  lastName: 1,
-                  phone: 1,
-                  city: 1,
-                  inquiryDate: {
-                    $concat: [
-                      { $substr: [{ $month: "$inquiryDate" }, 0, -1] },
-                      "-",
-                      { $substr: [{ $dayOfMonth: "$inquiryDate" }, 0, -1] },
-                      "-",
-                      { $substr: [{ $year: "$inquiryDate" }, 0, -1] }
-                    ]
-                  },
-                  important: 1,
-                  userImage: 1,
-                  prospectStage: "$prospectStage.label",
-                  state: "$state.label"
-                }
-              }
-            ]);
-          
-            const monthNames = [
-              'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-              'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-            ];
-            
-            mydata.forEach((item) => {
-                item.firstName = item.firstName || ""
-                item.lastName = item.lastName || "";
-                item.phone = item.phone || "";
-                item.city = item.city || "";
-                item.inquiryDate = item.inquiryDate || "";
-                item.important = item.important || "";
-                item.prospectStage = item.prospectStage || "";
-                item.state = item.state || "";   
-                item.userImage = item.userImage || "";   
-    
-              if (item.inquiryDate) {
-                const [month, day, year] = item.inquiryDate.split('-');
-                const formattedDate = `${monthNames[parseInt(month) - 1]}-${day}-${year}`;
-                item.inquiryDate = formattedDate;
-              }
-              
-            });
-    
-    
-            res.status(200).json({ variant: "success",message:"Prospect Loaded", data:mydata });
-          } catch (error) {
-            console.log(error);
-            res.status(500).json({
-              variant: "error",
-              message: "Internal server error" + error.message,
-            });
-          }
-      
+  "/getDataWithPage/:limit/:PageNumber/:search",
+  passport.authenticate("jwt", { session: false }),
+  async(req, res) => {
+    try {
+  
+
+
+     let data = await getSearchFun(req)
+      res.status(200).json(data);
+
+    } catch (error) {
+console.log(error)
+      res.status(500).json({
+        variant: "error",
+        message: "Internal server error" + error.message,
+      });
     }
-  );
+  }
+);
+
+const getSearchFun = async (req) => {
+  try {
+    const page = parseInt(req.params.PageNumber) || 1; // Get the page number from the route parameters (default to 1)
+    const limit = parseInt(req.params.limit) || 10; // Number of records to retrieve per page
+    let myMatch = {
+      isResidence:false
+     }
+    if(req.params.search){
+  const searchQuery = req.params.search
+  // Calculate total count if it's the first page
+   myMatch = {
+    isResidence:false,
+    $or: [
+      { firstName: { $regex: new RegExp(searchQuery, "i") } },
+      { lastName: { $regex: new RegExp(searchQuery, "i") } },
+      { phone: { $regex: new RegExp(searchQuery, "i") } },
+      { email: { $regex: new RegExp(searchQuery, "i") } },
+      { "prospectStage.label": { $regex: new RegExp(searchQuery, "i") } },
+      // Add more fields as needed for searching
+    ],
+  }
+}
+    const totalCount = await Prospect.countDocuments(myMatch);
+
+    // Retrieve ledgers with pagination, populating the 'under' property
+    const mydata = await Prospect.aggregate([
+      { $match: myMatch },
+      { $sort: { date: -1 } }, // Sort by date in descending order
+      { $skip: (page - 1) * limit }, // Skip the appropriate number of records based on the page number
+      { $limit: limit }, // Limit the number of records to retrieve
+        {
+          $project: {
+            _id: 1,
+            firstName: 1,
+            lastName: 1,
+            prospectScore:1,
+            phone: 1,
+            city: 1,
+            userImage:1,
+            inquiryDate: {
+              $concat: [
+                { $substr: [{ $month: "$inquiryDate" }, 0, -1] },
+                "-",
+                { $substr: [{ $dayOfMonth: "$inquiryDate" }, 0, -1] },
+                "-",
+                { $substr: [{ $year: "$inquiryDate" }, 0, -1] }
+              ]
+            },
+            important: 1,
+            email:1,
+            streetAddress:1,
+            unit:1,
+            prospectStage: "$prospectStage.label",
+            state: "$state.label"
+          }
+        }
+      ]);
+    
+      const monthNames = [
+        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+      ];
+      
+      mydata.forEach((item) => {
+          item.firstName = item.firstName || ""
+          item.lastName = item.lastName || "";
+          item.phone = item.phone || "";
+          item.prospectScore = +item.prospectScore || 0;
+          item.city = item.city || "";
+          item.inquiryDate = item.inquiryDate || "";
+          item.important = item.important || "";
+          item.prospectStage = item.prospectStage || "";
+          item.state = item.state || "";   
+          item.userImage = item.userImage || "";   
+          item.email = item.email || "";   
+          item.streetAddress = item.streetAddress || "";   
+          item.unit = item.unit || "";   
+
+        if (item.inquiryDate) {
+          const [month, day, year] = item.inquiryDate.split('-');
+          const formattedDate = `${monthNames[parseInt(month) - 1]}-${day}-${year}`;
+          item.inquiryDate = formattedDate;
+        }
+        
+      });
+
+
+      const dataToSend = {
+        variant: "success",
+        message: "Prospect Loaded",
+        data: mydata,
+        page: page,
+        totalCount: totalCount,
+      };
+  
+      return dataToSend;
+  } catch (err) {
+    console.error("An error occurred while retrieving ledgers:", err);
+    throw err; // Re-throw the error so it can be caught in the route handler
+  }
+};
 
   module.exports = router;

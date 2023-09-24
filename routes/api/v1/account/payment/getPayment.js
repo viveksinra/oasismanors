@@ -6,8 +6,8 @@ const Prospect = require("../../../../../Models/Private/Enquiry/Prospect");
 const User = require("../../../../../Models/User");
 const Payment = require("../../../../../Models/Private/Account/Payment");
 const { formatDateToLong, formatDateToISO } = require("../../../../../utils/dateFormat");
-const GetLedgerDetails = require("../../../../../utils/getLedgerDetails");
 const numberToWords = require("../../../../../utils/numToWord");
+const getLedgerDetails = require("../../../../../utils/getLedgerDetails");
 const Receipt = require("../../../../../Models/Private/Account/Receipt");
 
 // @type    GET by voucher number
@@ -32,16 +32,17 @@ router.get(
         });
       }
 
-      let ledgerData = await GetLedgerDetails(myPayment.ledger?.type, myPayment.ledger?._id);
 
       // Convert myPayment to a plain JavaScript object
       myPayment = myPayment.toObject();
-
+      let ledgerData = await getLedgerDetails(myPayment.ledger?.type, myPayment.ledger?._id);
       let myObj = {
         ...myPayment,
-        "ledger": ledgerData,
-        "tranDate": formatDateToLong(myPayment.tranDate),
-        "reminderDate": formatDateToLong(myPayment.reminderDate),
+        "ledgerP": ledgerData,
+        "tranDateP": formatDateToLong(myPayment.tranDate),
+        "tranDate": formatDateToISO(myPayment.tranDate),
+        "reminderDate": formatDateToISO(myPayment.reminderDate),
+        "reminderDateP": formatDateToLong(myPayment.reminderDate),
         "dollar": numberToWords(Math.floor(myPayment.amount)),
         "cent": numberToWords(Math.round((myPayment.amount % 1) * 100)),
         "qr": "https://s3.shunyafoundation.com/s3/939a16e3ccadc3d88066e0ae47410d8ef9db9cb8/upi-qr-code.png",

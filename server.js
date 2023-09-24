@@ -90,6 +90,7 @@ const addPayment = require("./routes/api/v1/account/payment/addPayment");
 const getPayment = require("./routes/api/v1/account/payment/getPayment");
 const addReceipt = require("./routes/api/v1/account/receipt/addReceipt");
 const getReceipt = require("./routes/api/v1/account/receipt/getReceipt");
+const getReport = require("./routes/api/v1/account/report/getReport");
 
 
 //passport 
@@ -213,6 +214,7 @@ app.use("/api/v1/account/payment/addPayment", addPayment);
 app.use("/api/v1/account/payment/getPayment", getPayment);
 app.use("/api/v1/account/receipt/addReceipt", addReceipt);
 app.use("/api/v1/account/receipt/getReceipt", getReceipt);
+app.use("/api/v1/account/report/getReport", getReport);
 
 app.get("/*", function(req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"), function(

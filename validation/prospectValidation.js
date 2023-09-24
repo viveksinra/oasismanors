@@ -41,16 +41,7 @@ const validateOnCreate = async (req, res, next) => {
 
 const validateOnUpdate = async (req, res, next) => {
 
-  if(!req.body.prospectStage){
-    return res.status(406).json({
-      message: "Prospect stage is required fields.",
-      variant: "error",
-    });  } else 
-      if(!req.body.prospectStage.id){
-        return res.status(406).json({
-          message: "Prospect stage id is required fields.",
-          variant: "error",
-        });  }
+
     
   next();
 };

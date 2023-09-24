@@ -75,3 +75,13 @@ export const timZone = ()=>{
     let offsetString = `${offsetSign}${offsetHours.toString().padStart(2, "0")}:${offsetMinutesFormatted.toString().padStart(2, "0")}`;
     return offsetString;
 }
+export const  getTodayDateRangeWithTime = (today)=> {
+    const startDate = new Date(today);
+    startDate.setHours(0, 0, 0, 0);
+    const endDate = new Date(today);
+    endDate.setHours(23, 59, 59, 999); 
+    return {
+      startDate: startDate,
+      endDate: endDate
+    }
+  }

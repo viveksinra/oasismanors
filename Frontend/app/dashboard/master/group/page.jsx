@@ -18,7 +18,7 @@ function Group() {
   const [label, setLabel]= useState("");
   const [under, setUnder] = useState(null);
   const [natureOfGroup, setNature] = useState(null);
-   const [remark, setRemark] = useState("");
+  const [remark, setRemark] = useState("");
   const [forPurInvoice, setPurInvoice] = useState(null);
   const [isSubLedger, setIsSubLedger]= useState(false);
   const [netBalance, setNetBalance] = useState(false);
@@ -63,7 +63,7 @@ function Group() {
     return () => {
       setResult([])
     }
-  }, [searchText,page,rowsPerPage,_id])
+  },[searchText,page,rowsPerPage,_id])
 
   const handleClear = (d) =>{
     setId(d ? d?._id : "");

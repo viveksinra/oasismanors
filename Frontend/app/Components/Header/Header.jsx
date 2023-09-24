@@ -66,7 +66,7 @@ const Header = () => {
     <Suspense fallback={<Loading />}>
     <SwipeableDrawer open={openDrawer} onClose={handleDrawer} onOpen={handleDrawer} variant="temporary" ModalProps={{
       keepMounted: true, // Better open performance on mobile.
-    }}>
+    }}> 
       <MyDrawer handleDrawer={()=>handleDrawer()}/>
     </SwipeableDrawer>
     </Suspense>

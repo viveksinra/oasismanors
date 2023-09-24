@@ -48,6 +48,7 @@ function SettingsTab({prospectId,residentId}) {
                 let res = await prospectService.setPassword((residentId ? residentId : prospectId), {password});
                  if(res.variant === "success"){
                    snackRef.current.handleSnack(res);
+                   setDeactMoveBtn(false)
                  }else {
                   setDeactMoveBtn(true)
                   snackRef.current.handleSnack(res);
@@ -148,14 +149,15 @@ function SettingsTab({prospectId,residentId}) {
               </Grid>
               <Grid item xs={12} md={3}>
               <Autocomplete
-                  isOptionEqualToValue={(option, value) => option?.id === value?.id}
+                  isOptionEqualToValue={(option, value) => option?._id === value?._id}
                   renderOption={(props, option) => {
                     return (
-                      <li {...props} key={option.id}>
+                      <li {...props} key={option._id}>
                         {option.label}
                       </li>
                     );
                   }}
+                  groupBy={(option) => option.houseNo}
                   options={allBuildings}
                   onChange={(e, v) => {
                     setBuilding(v);
@@ -172,10 +174,10 @@ function SettingsTab({prospectId,residentId}) {
               </Grid>
               <Grid item xs={12} md={3}>
               <Autocomplete
-                  isOptionEqualToValue={(option, value) => option?.id === value?.id}
+                  isOptionEqualToValue={(option, value) => option?._id === value?._id}
                   renderOption={(props, option) => {
                     return (
-                      <li {...props} key={option.id}>
+                      <li {...props} key={option._id}>
                         {option.label}
                       </li>
                     );
@@ -195,10 +197,10 @@ function SettingsTab({prospectId,residentId}) {
               </Grid>
               <Grid item xs={12} md={3}>
               <Autocomplete
-                  isOptionEqualToValue={(option, value) => option?.id === value?.id}
+                  isOptionEqualToValue={(option, value) => option?._id === value?._id}
                   renderOption={(props, option) => {
                     return (
-                      <li {...props} key={option.id}>
+                      <li {...props} key={option._id}>
                         {option.label}
                       </li>
                     );
@@ -216,10 +218,10 @@ function SettingsTab({prospectId,residentId}) {
               </Grid>
               <Grid item xs={12} md={3}>
               <Autocomplete
-                  isOptionEqualToValue={(option, value) => option?.id === value?.id}
+                  isOptionEqualToValue={(option, value) => option?._id === value?._id}
                   renderOption={(props, option) => {
                     return (
-                      <li {...props} key={option.id}>
+                      <li {...props} key={option._id}>
                         {option.label}
                       </li>
                     );
