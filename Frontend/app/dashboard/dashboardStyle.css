@@ -46,7 +46,7 @@
 
 @media only screen and (max-width: 700px) {
     .css-zxdg2z{
-        padding: 0px;
+        padding: 0px !important;
     }
     #trophy{
         max-width: 60px;

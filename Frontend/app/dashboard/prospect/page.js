@@ -132,7 +132,7 @@ export function SearchArea({handleEdit}) {
       </Table> : <Grid container spacing={2}>
       {rows && rows.map((c,i)=> <Grid item key={i} xs={12} md={4} className="center">
           <div className="prospectCard">
-          <Avatar alt={c.firstName} src={c.userImage} className="prosAvtar"/>
+          <Avatar alt={c.firstName} src={c.userImage} sx={{width: "100px", height: "100px", position: "absolute", boxShadow: "rgba(0, 0, 0, 0.3) 0px 4px 12px", marginTop: "-20px"}}/>
           <Typography color="teal" variant="h6" sx={{paddingLeft:"120px"}}>{`${c.lastName} ${c.firstName}`}</Typography>
           <Grid container sx={{paddingLeft:"120px"}}>
             <Grid item xs={10}> 
