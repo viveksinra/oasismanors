@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const Task = require("../../../../../Models/Private/Enquiry/Task");
+const { formatDateToShortMonth } = require("../../../../../utils/dateFormat");
 
 // @type    GET
 // @route   /api/v1/enquiry/task/getTask/getAll/:prospectId/:id
@@ -95,11 +96,11 @@ router.get(
           const formattedTaskDate = changeFormat(task.date);
           return {
             ...task,
-            employeeId: task.employee._id._id,
-            employeeFirstName: task.employee._id.firstName,
-            employeeLastName: task.employee._id.lastName,
-            employeeFullName: task.employee._id.lastName + " " + task.employee._id.firstName,
-            employeeUserImage: task.employee._id.userImage,
+            employeeId: task.employee._id,
+            employeeFirstName: task.employee.firstName,
+            employeeLastName: task.employee.lastName,
+            employeeFullName: task.employee.lastName + " " + task.employee.firstName,
+            employeeUserImage: task.employee.userImage,
             taskType: task.taskType.label,
             taskStatus: task.taskStatus.label,
             taskDueDate: formattedTaskDueDate,
@@ -113,6 +114,7 @@ router.get(
           data: modifiedData,
         });
       } catch (error) {
+        console.log(error)
         res.status(500).json({
           variant: "error",
           message: "Internal Server Error",
@@ -123,43 +125,47 @@ router.get(
   
   
   // @type    GET
-  // @route   /api/v1/task/getDataWithPage
+  // @route   /api/v1/enquiry/task/getTask/getDataWithPage/:prospectId/:limit/:PageNumber
   // @desc    Get tasks with pagination
   // @access  Public
-  router.post(
-    "/getDataWithPage/:PageNumber",
+
+
+  router.get(
+    "/getDataWithPage/:prospectId/:limit/:PageNumber",
     passport.authenticate("jwt", { session: false }),
-    (req, res) => {
+    async(req, res) => {
       try {
-        const page = parseInt(req.params.PageNumber) || 1; // Get the page number from the route parameters (default to 1)
-        const limit = 10; // Number of records to retrieve per page
-  
-        // Retrieve tasks with pagination
-        Task.find()
-          .skip((page - 1) * limit) // Skip the appropriate number of records based on the page number
-          .limit(limit) // Limit the number of records to retrieve
-          .then((tasks) => {
-            // Calculate total count if it's the first page
-            const totalCountPromise =
-              page === 1 ? Task.countDocuments() : Promise.resolve(0);
-  
-            // Respond with tasks and total count
-            Promise.all([totalCountPromise, tasks])
-              .then(([totalCount, tasks]) => {
-                const response = {
-                  page,
-                  totalCount: totalCount || tasks.length, // Use totalCount if available, otherwise use the length of tasks
-                  tasks,
-                };
-                res.status(200).json({ variant: "success",message:"Task Loaded", data: response });
-              })
-              .catch((err) => {
-                throw new Error("An error occurred while retrieving tasks.");
-              });
-          })
-          .catch((err) => {
-            throw new Error("An error occurred while retrieving tasks.");
-          });
+        // Calculate total count if it's the first page
+      
+
+        let data = await getSearchFun(req,res,"get")
+        res.status(200).json(data);
+
+
+      } catch (error) {
+  console.log(error)
+        res.status(500).json({
+          variant: "error",
+          message: "Internal server error" + error.message,
+        });
+      }
+    }
+  );
+  // @type    GET
+  // @route   /api/v1/enquiry/task/getTask/getDataWithPage/:prospectId/:limit/:PageNumber/:searcch
+  // @desc    Get tasks with pagination
+  // @access  Public
+  router.get(
+    "/getDataWithPage/:prospectId/:limit/:PageNumber/:search",
+    passport.authenticate("jwt", { session: false }),
+    async(req, res) => {
+      try {
+    
+
+
+       let data = await getSearchFun(req,res,"search")
+        res.status(200).json(data);
+
       } catch (error) {
   console.log(error)
         res.status(500).json({
@@ -170,6 +176,88 @@ router.get(
     }
   );
 
+  const getSearchFun = async (req, type) => {
+    try {
+      const page = parseInt(req.params.PageNumber) || 1; // Get the page number from the route parameters (default to 1)
+      const limit = parseInt(req.params.limit) || 10; // Number of records to retrieve per page
+      let myMatch = {
+        
+      }
+     
+      if(req.params.search){
+    const searchQuery = req.params.search
+    // Calculate total count if it's the first page
+     myMatch = {
+      $or: [
+        { task: { $regex: new RegExp(searchQuery, "i") } },
+        { "taskType.label": { $regex: new RegExp(searchQuery, "i") } },
+        // Add more fields as needed for searching
+      ],
+    }
+  }
+
+  if(req.params.prospectId == "general"){
+    myMatch.type =  "general"
+  }else {
+    myMatch.prospectId= req.params.prospectId 
+  }
+      const totalCount = await Task.countDocuments(myMatch);
+  
+      // Retrieve ledgers with pagination, populating the 'under' property
+   
+    
+      const myData = await Task.find(myMatch)
+      .skip((page - 1) * limit) // Calculate the correct skip value
+      .limit(limit) // Limit the number of records to retrieve
+      .sort({ date: -1 })
+        .populate({
+          path: "employee._id",
+          select: "_id firstName lastName userImage",
+        })
+        .lean();
+
+      function changeFormat(dateStr) {
+        const date = new Date(dateStr);
+        const formattedDate = date.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+
+        return formattedDate;
+      }
+      const modifiedData = myData.map((task) => {
+        const formattedTaskDueDate = formatDateToShortMonth(task.taskDueDate);
+        const formattedTaskDate = formatDateToShortMonth(task.date);
+        return {
+          ...task,
+          employeeId: task.employee?._id?._id,
+          employeeFirstName: task.employee?._id?.firstName,
+          employeeLastName: task.employee?._id?.lastName,
+          employeeFullName: task.employee?._id?.lastName + " " + task.employee?._id?.firstName,
+          employeeUserImage: task.employee.userImage,
+          taskType: task.taskType.label,
+          taskStatus: task.taskStatus.label,
+          taskDueDate: formattedTaskDueDate,
+          date: formattedTaskDate,
+        };
+      });
+
+  
+      const dataToSend = {
+        variant: "success",
+        message: "Group Loaded",
+        data: modifiedData,
+        page: page,
+        totalCount: totalCount,
+      };
+  
+      return dataToSend;
+    } catch (err) {
+      console.error("An error occurred while retrieving ledgers:", err);
+      throw err; // Re-throw the error so it can be caught in the route handler
+    }
+  };
   
 // @type    GET
 //@route    /api/v1/enquiry/task/getTask/getall/:searchTask

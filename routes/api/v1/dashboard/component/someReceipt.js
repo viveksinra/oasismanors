@@ -36,6 +36,7 @@ async function getLastFiveReceipts() {
     return {
         ledger:data.ledger.label,
         mode:data.mode.label,
+      voucher:data.voucher,
         ledgerImage:data.ledgerImage || "https://res.cloudinary.com/oasismanors/image/upload/v1687519053/user_myqgmv.png",
         amount:data.amount
     }

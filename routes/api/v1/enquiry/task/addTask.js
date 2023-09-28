@@ -119,6 +119,10 @@ async function getTaskObj(req,type) {
   let newTask = {  
 
   };
+  newTask.taskStatus = {
+    label:"New",
+    id:"new"
+  }
   if(type == "create"){
   newTask.user=  req.user.id;
    
@@ -149,14 +153,17 @@ async function getTaskObj(req,type) {
 if (req.body.task) {
   newTask.task = req.body.task;
 }
-newTask.employee = {};
 
 if (req.body.employee) {
+newTask.employee = {};
+if (req.body.employee._id) {
     newTask.employee._id = req.body.employee._id
+}
   }
-  newTask.taskType = {};
   
   if (req.body.taskType) {
+  newTask.taskType = {};
+
     if (req.body.taskType.label) {
       newTask.taskType.label = req.body.taskType.label;
     }
@@ -164,16 +171,7 @@ if (req.body.employee) {
       newTask.taskType.id = req.body.taskType.id;
     }
   }
-  newTask.taskStatus = {};
 
-  if (req.body.taskStatus) {
-    if (req.body.taskStatus.label) {
-      newTask.taskStatus.label = req.body.taskStatus.label;
-    }
-    if (req.body.taskStatus.id) {
-      newTask.taskStatus.id = req.body.taskStatus.id;
-    }
-  }
   
   if (req.body.taskDueDate) {
     newTask.taskDueDate = req.body.taskDueDate;
