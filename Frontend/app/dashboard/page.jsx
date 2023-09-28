@@ -11,10 +11,12 @@ import Link from 'next/link';
 const ProspectChart = lazy(() => import("../Components/Charts/ProspectChart"));
 const CareChart = lazy(() => import("../Components/Charts/CareChart"));
 const MedsChart = lazy(() => import("../Components/Charts/MedChart"));
+import { useRouter } from 'next/navigation';
 
 
 function   Dashboard () {
   const [showDate, setShowData] = useState(false)
+  const router = useRouter();
   const [totalCount, setTCount] = useState([{label:"Payment", number:"$0", bgColor:"#f08ff7",link:"/dashboard/payment", icon: "https://res.cloudinary.com/oasismanors/image/upload/v1693075190/paymentSVG_enp0ca.svg"},
                                             {label:"Receipt", number:"$0", bgColor:"#a9fcc0",link:"/dashboard/receipt", icon: "https://res.cloudinary.com/oasismanors/image/upload/v1693075277/receiptSVG_wtg3b7.svg"},
                                             {label:"Prospect", number:"0", bgColor:"#9155FD",link:"/dashboard/prospect", icon: "https://res.cloudinary.com/oasismanors/image/upload/v1693075342/prospectSVG_u807w7.svg" }, 
@@ -192,9 +194,11 @@ function   Dashboard () {
                 <TableBody>
                   {receipt.map((t,i)=> <TableRow
                       key={i}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      hover
+                      onClick={()=>router.push(`/dashboard/receipt/${t.voucher}`)}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 },cursor:"pointer" }}
                     >
-                       <TableCell align="left" padding="none">
+                      <TableCell align="left" padding="none">
                        <Avatar alt={t.ledger} src={t.ledgerImage}  sx={{ width: 28, height: 28 }} />
                         </TableCell>
                       <TableCell component="th" scope="row">
@@ -212,7 +216,7 @@ function   Dashboard () {
                   </TableBody>
                 </Table> 
               <List sx={{width:'100%',bgcolor:'background.paper',display:{xs:"block", md:"none"}}} component="nav" aria-labelledby="Nested Receipt Items">
-                {receipt.map((t,i)=><ListItem key={i} disableGutters>
+                {receipt.map((t,i)=><ListItem key={i} disableGutters onClick={()=>router.push(`/dashboard/receipt/${t.voucher}`)}>
                 <Avatar
                   alt={t.ledger}
                   sx={{width: 32, height: 32, marginRight:"10px" }}
@@ -238,7 +242,9 @@ function   Dashboard () {
                 <TableBody>
                   {payment.map((t,i)=> <TableRow
                       key={i}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      hover
+                      onClick={()=>router.push(`/dashboard/payment/${t.voucher}`)}
+                      sx={{'&:last-child td, &:last-child th': { border: 0 },cursor:"pointer"}}
                     >
                        <TableCell align="left" padding="none">
                        <Avatar alt={t.ledger} src={t.ledgerImage}  sx={{ width: 28, height: 28 }} />
@@ -258,7 +264,7 @@ function   Dashboard () {
                   </TableBody>
                 </Table> 
                 <List sx={{width:'100%',bgcolor:'background.paper', display:{xs:"block", md:"none"}}} component="nav" aria-labelledby="Nested Payment Items">
-                {payment.map((t,i)=><ListItem key={i} disableGutters>
+                {payment.map((t,i)=><ListItem key={i} disableGutters onClick={()=>router.push(`/dashboard/payment/${t.voucher}`)}>
                 <Avatar
                   alt={t.ledger}
                   sx={{width: 32, height: 32, marginRight:"10px" }}

@@ -7,8 +7,6 @@ import { FcCancel } from "react-icons/fc";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { medicationService } from "../../services";
 import {todayDate,timZone} from "../../Components/StaticData";
-import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
-
 
 
 const Meds = ({openMeds,setOpenMeds,act,popup}) => {
@@ -104,7 +102,7 @@ const Meds = ({openMeds,setOpenMeds,act,popup}) => {
         <Typography>{`Room ~ ${act?.room} ${act?.seat}` }</Typography>
         <Typography>{`Birth Date : ~ ${act?.dateOfBirth}` }</Typography>
         </Grid>
-        <Grid item xs={12} md={5}>
+        <Grid item xs={12} md={5} sx={{display:{xs:"none", md:"block"}}}>
         Drink more water. If possible, First boiled the water, let it cool and then drink it.
         </Grid>
         <Grid item xs={12} md={2}>

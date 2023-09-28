@@ -144,31 +144,27 @@ function Payment({receipt,paymentVoucher,receiptVoucher}) {
     <Grid container>
         <Grid item xs={12} md={8} sx={{background:"#fff", borderRadius:"10px", padding:"10px", boxShadow:"rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px"}}>
           <Grid container spacing={2}>
-            <Grid item xs={1}/>
-            <Grid item xs={10}>
+            <Grid item xs={12}>
             <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>{receipt ? "Receipt" : "Payment"} Voucher</Typography>
             <Typography color="darkslateblue" style={{fontFamily: 'Courgette'}} variant="subtitle2" align='center'>{receipt ? "Someone is Giving Money to the Company" : "Company is Giving Money to Someone"}</Typography>
             </Grid>
-            <Grid item xs={1}>
-            {voucher &&  <a target="_blank" href={`/print/${receipt ? "receipt" : "payment"}/${voucher}`} rel="noopener noreferrer">
+            <Grid item xs={6}>
+              <TextField fullWidth value={tranDate} sx={{maxWidth:"130px"}} onChange={e=>setDate(e.target.value)} label={receipt ? "Receipt Date" : "Payment Date"} size='small' type="date" focused variant="standard" />   
+            </Grid>
+            <Grid item xs={6}>
+              <div style={{display:"flex",justifyContent:"end"}}>
+              {voucher && <Grid sx={{display:{xs:"block",md:"none"}}}> <a target="_blank" href={`/print/${receipt ? "receipt" : "payment"}/${voucher}`} rel="noopener noreferrer">
               <Tooltip title="Print" arrow>
               <IconButton color="secondary" aria-label="Print-Out">
               <FcPrint />
             </IconButton>
               </Tooltip>
-              </a> }
+              </a> </Grid> }
+              <Divider flexItem light orientation="vertical" sx={{margin:"0px 5px",display:{xs:"block",md:"none"}}}/>
+      
+              {voucher && <Typography color="teal" sx={{fontSize:{xs:"12px", md:"16px"},marginTop:"10px", fontFamily: 'Courgette'}} align='right'>Voucher :  {voucher}</Typography>}
+              </div>
             </Grid>
-            <Grid item xs={12} md={4}>
-              <TextField fullWidth value={tranDate} sx={{maxWidth:"130px"}} onChange={e=>setDate(e.target.value)} label={receipt ? "Receipt Date" : "Payment Date"} size='small' type="date" focused variant="standard" />   
-            </Grid>
-            <Grid item xs={12} md={4}>
-            {/* <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>Payment Voucher</Typography> */}
-            </Grid>
-            <Grid item xs={12} md={4}>
-              {voucher && <Typography color="teal" sx={{fontFamily: 'Courgette'}} variant='body1' align='right'>Voucher No :  {voucher}</Typography>}
-              {cb &&  <Typography color="tomato" sx={{fontFamily: 'Courgette'}} variant='body1' align='right'>Current Balance : $  {cb}</Typography>}
-            </Grid>
-            <Grid item xs={12}><br/></Grid>
             <Grid item xs={12} md={4}>
             <Autocomplete
             isOptionEqualToValue={(option, value) => option._id === value._id}
@@ -211,7 +207,7 @@ function Payment({receipt,paymentVoucher,receiptVoucher}) {
             /> 
             </Grid>
             <Grid item xs={12} md={4}>
-            <TextField fullWidth value={remark} onChange={e=>setRemark(e.target.value)} label="Narration / Remark" placeholder="Type any Remark here..."  size='small' variant="standard" />   
+            <TextField fullWidth value={remark} multiline onChange={e=>setRemark(e.target.value)} label="Narration / Remark" placeholder="Type any Remark here..."  size='small' variant="standard" />   
             </Grid>
             <Grid item xs={12} md={4}>
             <TextField label="Document (If Any)" size='small' disabled={loadingDoc} helperText="PDF and Image Files are allowed" inputProps={{ accept:"image/*, application/pdf" }}  InputProps={{
@@ -222,11 +218,14 @@ function Payment({receipt,paymentVoucher,receiptVoucher}) {
               <TextField  value={reminderDate} helperText="If you want to be reminded  in future" onChange={e=>setRemind(e.target.value)} label="Reminder Date" size='small' type="date" focused variant="standard" />   
             </Grid>
           
-            <Grid item xs={12} sx={{marginTop:"100px"}}>
+            <Grid item xs={12} sx={{marginTop:{xs:"10px", md:"100px"}}}>
               <Grid container justifyContent="space-between">
-              <Button variant="outlined" onClick={()=>handleClear()} startIcon={<MdClearAll />}>Clear</Button>
-              <Button variant="contained" onClick={()=>handleSubmit()} startIcon={<MdDoneAll />} sx={{color:"#fff",borderRadius:"20px",padding:"0px 30px"}}>{_id ? "Update" : "Save"}</Button>
-              <Button variant="outlined" onClick={()=>deleteData()} disabled={!_id} startIcon={<FcFullTrash />}>Delete</Button>
+              <Button variant="outlined" onClick={()=>handleClear()} size="small" startIcon={<MdClearAll />}>Clear</Button>
+              {voucher && <Grid sx={{display:{xs:"none",md:"block"}}}> <a target="_blank" href={`/print/${receipt ? "receipt" : "payment"}/${voucher}`} rel="noopener noreferrer">
+              <Button variant="contained" size="small" startIcon={<FcPrint />} sx={{color:"#fff",borderRadius:"20px",padding:"5px 20px"}}>Print</Button>
+                </a></Grid>}
+              <Button variant="contained" onClick={()=>handleSubmit()} size="small" startIcon={<MdDoneAll />} sx={{color:"#fff",borderRadius:"20px",padding:"0px 20px"}}>{_id ? "Update" : "Save"}</Button>
+              <Button variant="outlined" onClick={()=>deleteData()} size="small" disabled={!_id} startIcon={<FcFullTrash />}>Delete</Button>
               </Grid>
             </Grid>
           </Grid>
@@ -235,7 +234,7 @@ function Payment({receipt,paymentVoucher,receiptVoucher}) {
         <Divider variant="fullWidth" orientation="vertical" />
         </Grid>
        
-        <Grid item xs={12} md={3.5} className="boxEffect">
+        <Grid item xs={12} md={3.5} sx={{marginTop:{xs:"20px", md:"0px"}}} className="boxEffect">
           <Grid container>
             <Grid item xs={12} sx={{padding:"10px"}}>
               <Input autoFocus disableUnderline sx={{padding:"10px"}} onChange={e=>setSearchText(e.target.value)} className="boxEffect" startAdornment={<FcSearch style={{fontSize:"24px", marginRight:"10px"}}/>} fullWidth  placeholder="Search By : Party Name / Voucher No." /> 

@@ -110,8 +110,8 @@ export function SearchArea({handleEdit}) {
           <Grid item xs={12} md={4}>
           <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>All Residents</Typography>
           </Grid>
-          <Grid item xs={12} md={4} sx={{display:"flex", justifyContent:"end"}} >
-          <ToggleButtonGroup aria-label="ViewMode">
+          <Grid item xs={12} md={4} sx={{display:"flex", justifyContent:"end", display:{xs:"none", md:"flex"}}} >
+          {/* <ToggleButtonGroup aria-label="ViewMode">
           <Tooltip arrow title="Grid View">
           <ToggleButton value="grid" onClick={()=>setView("grid")} aria-label="gridView">
           <FcOrgUnit/>
@@ -122,7 +122,7 @@ export function SearchArea({handleEdit}) {
           <FcTimeline />
           </ToggleButton>
           </Tooltip>
-          </ToggleButtonGroup>
+          </ToggleButtonGroup> */}
           </Grid> 
         </Grid>
 
@@ -167,8 +167,6 @@ function ResidentView({view,loading,filterRes,setFilterRes}){
         })
       setFilterRes(newArr);
       }
-
-  if(view ==="grid"){
     return <section> 
       {loading===false && filterRes.length === 0 &&  
           <NoResult label="No Resident Available"/>
@@ -188,6 +186,7 @@ function ResidentView({view,loading,filterRes,setFilterRes}){
           <FaHandHoldingHeart style={{marginRight:5}}/>
             Care
           </Button >
+       
           </Badge>
           <Badge badgeContent={r?.pendingMed} max={9} color="success">
           <Button variant="outlined" onClick={()=>{setOpenMeds(!openMeds);setPopup("Medication")}} size="small" sx={{background:"#fff"}}>
@@ -207,7 +206,6 @@ function ResidentView({view,loading,filterRes,setFilterRes}){
       <Suspense fallback={null}>  {act && <Meds setOpenMeds={()=>setOpenMeds(!openMeds)} popup={popup} openMeds={openMeds} act={act} /> }  </Suspense>
      
     </section>
-  }
 }
 
 function DetailedCard({act}){
@@ -221,7 +219,7 @@ function DetailedCard({act}){
       <Typography variant="subtitle1" color="primary" align="center">{`${act?.lastName}, ${act?.firstName}`} </Typography>
       <Typography variant="body2" align="center"> {`Resident Since ~ ${act?.physicalMoveInDate}`}</Typography>
       <Typography variant="body2" align="center"> {`Room No. ~ ${act?.room} ${act?.seat}` }</Typography>
-      <Typography variant="body2" align="center"> {`${act?.building?.label}, ${act?.floor?.label}` }</Typography>
+      <Typography variant="body2" align="center"> {`${act?.building?.label}, ${act?.floor?.label}`}</Typography>
       <br />
        <center> <Link href={`/dashboard/residents/${act?._id}`}> <Fab size="small" variant="extended" color="success" sx={{padding:"0px 20px"}}>View Profile <FaTelegramPlane style={{marginLeft:5}}/></Fab></Link></center>  
       </Grid> 

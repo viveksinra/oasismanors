@@ -59,7 +59,7 @@ const ProfileTab =({prospectId})=>{
             <p>{proData?.subTitle}</p>
             </div>
             <div className="profileBgBtm">
-            <Tabs value={profileTab} onChange={(e,v)=>setPTab(v)} aria-label="main_Tabs" sx={{height:55,float:"right"}}>
+            <Tabs value={profileTab} onChange={(e,v)=>setPTab(v)} aria-label="main_Tabs" sx={{height:55,float:"right",maxWidth: { xs: 350, sm: 480,md:"100%" }}} variant="scrollable" scrollButtons="auto" allowScrollButtonsMobile>
               <Tab icon={<FcViewDetails style={{fontSize:20}}/>} iconPosition="start" label="Summary"  />
               <Tab icon={<FaStethoscope style={{fontSize:20}}/>} iconPosition="start"  label="Health & Details"  />
               <Tab icon={<FcDiploma1 style={{fontSize:20}}/>} iconPosition="start"  label="Compliance" />
@@ -133,7 +133,7 @@ const Summary =({prospectId, setProData})=>{
     return(
         <main>
           <Grid container spacing={2} sx={{backgroundColor:"#fff", borderRadius:4,marginBottom:2}}>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={4}>
             <Grid container sx={{justifyContent:"space-evenly"}}>
                 <Grid item sx={{alignItems:"center"}}>
                     <Typography variant="h6" align="center">{totalCount?.totalContact}</Typography>
@@ -171,26 +171,26 @@ const Summary =({prospectId, setProData})=>{
                 </Grid>
                 </Grid>
 
-            <Grid container sx={{marginTop:2}}>
+            <Grid container sx={{marginTop:2,padding:{xs:"20px",md:"0px"}}}>
                 <Grid item>
                 <Typography variant="subtitle1" color="primary">Community :</Typography>
                 <Typography variant="subtitle2">Assisted Living Retirement Homes</Typography>
                 </Grid>
             </Grid>
-            <Grid container sx={{marginTop:2,justifyContent:"space-evenly"}}>
-                <Grid item>
+            <Grid container spacing={1} sx={{padding:{xs:"20px",md:"0px"}}}>
+                <Grid item xs={12}>
                 <Typography variant="subtitle1" color="primary">Sales Agent</Typography>
                 <Typography variant="subtitle2">{salesAgent?.label}</Typography>
                 </Grid>
-                <Divider orientation="vertical" flexItem />
-                <Grid item>
+                {/* <Divider orientation="vertical" flexItem /> */}
+                <Grid item xs={12}>
                     {subscribed ?  <Alert severity="success">Subscribed Marketing</Alert> :  <Alert severity="info">Not Subscribed for Marketing</Alert>  }
                
                 </Grid>
             </Grid>
            </Grid>
             <Grid item xs={8}>
-                <Grid container rowSpacing={2}>
+                <Grid container rowSpacing={2} sx={{padding:{xs:"20px",md:"0px"}}}>
                     <Grid item xs={12}>
                         <Typography variant="subtitle1" align="center" color="primary">-: Personal Details :-</Typography>
                     </Grid>

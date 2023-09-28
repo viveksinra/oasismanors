@@ -103,9 +103,9 @@ export class ProspectService {
       .then((res) => res.data)
       .catch((err) => err);
   };
-  getTask = async (prospectId, contactId) => {
+  getTask = async (taskApi) => {
     return this.instance
-      .get(`/api/v1/enquiry/task/getTask/getAll/${prospectId}/${contactId}`, {
+      .get(`/${taskApi}`, {
         headers: getAuthorizationHeader(),
       })
       .then((res) => res.data)
