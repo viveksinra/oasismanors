@@ -49,6 +49,7 @@ function Attendance() {
       const dayPropGetter = (date) => {
         const eventsOnDate = myEvents.filter((event) => {
           const eventStartDate = new Date(event.start);
+          eventStartDate.setDate(eventStartDate.getDate() - 1);
           const eventEndDate = new Date(event.end);
           return (
             date >= eventStartDate && date <= eventEndDate

@@ -53,8 +53,8 @@ router.post(
 const formatData = async (myEmpLeave) => {
     return myEmpLeave.map(item => {
       const title = item.status === 'Approved'
-        ? `${item.userDetails[0].lastName + " " + item.userDetails[0].firstName} is on Leave.`
-        : `${item.userDetails[0].lastName + " " + item.userDetails[0].firstName} Leave is Pending.`;
+        ? `${item.userDetails[0]?.lastName + " " + item.userDetails[0]?.firstName} is on Leave.`
+        : `${item.userDetails[0]?.lastName + " " + item.userDetails[0]?.firstName} Leave is Pending.`;
   
       const allDay = item.duration === 'full';
   
