@@ -334,7 +334,7 @@ const EntryArea = forwardRef((props, ref) => {
           <TextField fullWidth value={zip} inputProps={{maxLength: "10"}} onChange={e=> {setZip(e.target.value)}} onBlur={()=>getZIPData()} disabled={loadingCity} InputProps= {{
             endAdornment: (
             <InputAdornment position="end">
-            {loadingCity ? <CircularProgress size={25}/> : zip.length > 4 ? <IconButton size="medium" onClick={()=>getZIPData()}><FcSearch/></IconButton> : null}  
+            {loadingCity ? <CircularProgress size={25}/> : zip?.length > 4 ? <IconButton size="medium" onClick={()=>getZIPData()}><FcSearch/></IconButton> : null}  
             </InputAdornment>
             ),
             }}  label="ZIP Code" type="number"  placeholder="ZIP Code" variant="standard" />
@@ -344,7 +344,7 @@ const EntryArea = forwardRef((props, ref) => {
               id="all-City"
               getOptionLabel={(option) => option.city}
               options={allCity}
-              disabled={zip.length<5}
+              disabled={zip?.length<5}
               onChange={(e, v) => {
                 setCity(v);
               }}

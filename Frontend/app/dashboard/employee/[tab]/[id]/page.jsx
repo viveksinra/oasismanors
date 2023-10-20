@@ -1,22 +1,21 @@
 'use client';
 import React, { forwardRef,useImperativeHandle,useContext } from 'react'
 import { useState,useEffect,useRef} from 'react';
-import MySnackbar from "../../Components/MySnackbar/MySnackbar";
-import {Typography, Stepper,Step,StepLabel,StepContent, Button, Grid,TextField, Tooltip,Avatar, Chip,IconButton,Divider, FormControlLabel,Switch,ButtonGroup,Accordion,AccordionSummary,Rating, AccordionDetails,InputAdornment,CircularProgress} from '@mui/material/';
+import MySnackbar from "../../../../Components/MySnackbar/MySnackbar";
+import {Typography, Stepper,Step,StepLabel,StepContent, Button, Grid,TextField, Tooltip,Avatar, IconButton,Divider, FormControlLabel,Switch,Accordion,AccordionSummary, AccordionDetails,InputAdornment,CircularProgress} from '@mui/material/';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Autocomplete from '@mui/material/Autocomplete';
-import {allStates,allGenders, allJobRole} from "../../Components/StaticData";
+import {allStates,allGenders, allJobRole} from "../../../../Components/StaticData";
 import { useImgUpload } from '@/app/hooks/auth/useImgUpload';
 import { FcDeleteRow, FcExternal,FcExpand,FcApproval,FcSearch } from "react-icons/fc";
 import { DataGrid } from '@mui/x-data-grid';
 import {MdVisibility, MdVisibilityOff} from "react-icons/md";
 import Link from 'next/link';
-import { employeeService } from "../../services";
-import EmpContext from './EmpContext';
+import { useRouter } from 'next/navigation';
+import { employeeService,prospectService } from "../../../../services";
 import axios from 'axios';
 
 const PersonalInfo = forwardRef((props, ref)=>{
-     const {state, dispatch} = useContext(EmpContext)
     const snackRef = useRef();
     const [loadingImg, setLoadingImg]= useState(false);
     const [userImage, setImgUrl] = useState("")
@@ -44,37 +43,69 @@ const PersonalInfo = forwardRef((props, ref)=>{
     const [confirmPass, setConfirmPass] = useState("");
     const [showCPas, setShowCPass] = useState(false);
     const [match, setMatch] = useState(true);
+    const [building, setBuilding] = useState(null);
+    const [reportingTo, setReportingTo] = useState(null);
+    const [allBuildings, setAllBulding] = useState([]);
+    const [allSenior, setAllSenior] = useState([]);
+    const router = useRouter();
     
     const allStatus = [{label:"Fresh enquiry", id:"fresh"}, {label:"Inprogress", id:"Inprogress"},{label:"Hired", id:"Hired"},{label:"Discharged", id:"Discharged"},{label:"Blacklisted", id:"Blacklisted"}  ]
     
     useEffect(() => {
       async function getData(){
-      let res = await employeeService.getEmployee("api/v1/employee/basic/getEmployee/getAll", props.id);
-      if(res.variant === "success"){
-        setImgUrl(res.data.userImage);
-        setFN(res.data.firstName);
-        setLN(res.data.lastName);
-        setGender(res.data.gender);
-        setDob(res.data.dob);
-        setHireDate(res.data.hireDate);
-        setJobRole(res.data.jobRole);
-        setEmail(res.data.email);
-        setMobile(res.data.mobile);
-        setStatus(res.data.status);
-        setSalary(res.data.salary);
-        setStreet(res.data.street);
-        setUnit(res.data.unit);
-        setZip(res.data.zip);
-        setCity({city:res.data.city});
-        setState(res.data.state);
-        setAllow(res.data.loginAllowed);
-        setPass(res.data.value);
-        setConfirmPass(res.data.value);
-      snackRef.current.handleSnack(res);
-      }else snackRef.current.handleSnack(res);    
+        if(props.id){
+          let res = await employeeService.getEmployee("api/v1/employee/basic/getEmployee/getAll", props.id );
+          if(res.variant === "success"){
+            setImgUrl(res.data.userImage);
+            setFN(res.data.firstName);
+            setLN(res.data.lastName);
+            setGender(res.data.gender);
+            setDob(res.data.dob);
+            setHireDate(res.data.hireDate);
+            setJobRole(res.data.jobRole);
+            setEmail(res.data.email);
+            setMobile(res.data.mobile);
+            setStatus(res.data.status);
+            setSalary(res.data.salary);
+            setSalTenure(res.data.salaryTenure); 
+            setStreet(res.data.street);
+            setUnit(res.data.unit);
+            setZip(res.data.zip);
+            setCity({city:res.data.city});
+            setState(res.data.state);
+            setAllow(res.data.loginAllowed);
+            setPass(res.data.value);
+            setConfirmPass(res.data.value);
+            snackRef.current.handleSnack(res);
+          }else snackRef.current.handleSnack(res);
+        }
      }
      if(props.id){getData()}
     }, [props.id])
+
+    useEffect(() => {
+      async function getBuildingData(){
+        if(building===null){
+          let res = await prospectService.moveToResident("api/v1/main/seat/getSeat/get/building", "",);
+          setAllBulding([{_id:"all",houseNo:"All",label:"All Buildings"},...res.data]);
+        }
+     }
+     getBuildingData()
+    }, [])
+
+    useEffect(() => {
+      async function getSenior(){
+        if(jobRole){
+          let res = await prospectService.getAll(`api/v1/employee/empLeave/getEmpLeave/dropDown/getByRole/${jobRole?.id}`, "",);
+          if(res?.variant ==="success"){
+            setAllSenior(res.data)
+          }
+        }
+        }
+    getSenior()
+    }, [jobRole])
+    
+    
 
     async function getZIPData() {
       if(zip.length===5){
@@ -127,6 +158,7 @@ const PersonalInfo = forwardRef((props, ref)=>{
       setMobile("");
       setStatus(null);
       setSalary("");
+      setSalTenure(null); 
       setStreet("");
       setUnit("");
       setZip("");
@@ -144,16 +176,14 @@ const PersonalInfo = forwardRef((props, ref)=>{
       stepData: async () => {
         if(password === confirmPass){
           try {
-            let data={userImage,firstName,lastName,gender,dob,hireDate,jobRole,email,mobile,status,salary,salaryTenure:salaryTenure ? salaryTenure.label : "", street,unit,zip,city: city ? city.city : "", state:stateName,loginAllowed,password}
-             
+            let data={userImage,firstName,lastName,gender,dob,hireDate,jobRole,email,mobile,status,salary,salaryTenure:salaryTenure ? salaryTenure.label : "", street,unit,zip,city: city ? city.city : "", state:stateName,loginAllowed,building,reportingTo, password}
             let response;
                 response = await employeeService.saveEmployee("api/v1/employee/basic/addEmployee", props.id, data)
                 if(response.variant === "success"){
-                  dispatch({ type: "SETPERSONAL", payload: data}); 
-                props.setId(response?._id)
                 snackRef.current.handleSnack(response);
-                props.handleNext()
-                }else snackRef.current.handleSnack(response?.response?.data);            
+                router.push(`/dashboard/employee/1/${props.id}`)
+                // props.handleNext()
+                }else snackRef.current.handleSnack(response);            
              } catch (error) {
               console.log(error);
               snackRef.current.handleSnack({message:"Failed to fetch Data. " + error.response.data.message, variant:"error"});
@@ -232,11 +262,11 @@ const PersonalInfo = forwardRef((props, ref)=>{
       </Grid>
       <Grid item xs={12} md={2}>
       <Autocomplete
-          isOptionEqualToValue={(option, value) => option?.label === value?.label}
+          isOptionEqualToValue={(option, value) => option?.id === value?.id}
           options={allJobRole}
           renderOption={(props, option) => {
             return (
-              <li {...props} key={option?.label}>
+              <li {...props} key={option?.id}>
                 {option?.label}
               </li>
             );
@@ -285,7 +315,7 @@ const PersonalInfo = forwardRef((props, ref)=>{
         <TextField fullWidth value={zip} onChange={e=> setZip(e.target.value)} onBlur={getZIPData} disabled={loadingCity} InputProps= {{
             endAdornment: (
             <InputAdornment position="end">
-            {loadingCity ? <CircularProgress size={25}/> : zip.length > 4 ? <IconButton size="medium" onClick={()=>getZIPData()}><FcSearch/></IconButton> : null}  
+            {loadingCity ? <CircularProgress size={25}/> : zip?.length > 4 ? <IconButton size="medium" onClick={()=>getZIPData()}><FcSearch/></IconButton> : null}  
             </InputAdornment>
             ),
           }}  label="ZIP Code" type="number" placeholder="ZIP Code" variant="outlined" />
@@ -294,9 +324,9 @@ const PersonalInfo = forwardRef((props, ref)=>{
         <Autocomplete
           id="all-City"
           getOptionLabel={(option) => option.city ?? option}
-          isOptionEqualToValue={(option, value) => option.city === city.city}
+          // isOptionEqualToValue={(option, value) => option.city === city.city}
           options={allCity}
-          disabled={allCity.length===0}
+          disabled={allCity?.length===0}
           onChange={(e, v) => {
             setCity(v);
           }}
@@ -327,6 +357,50 @@ const PersonalInfo = forwardRef((props, ref)=>{
      
   </Grid>
   <br />
+  <Divider variant="inset"> <Typography variant='caption'>Allocate Building & Team</Typography></Divider>
+  <Grid container spacing={2}>
+    <Grid item xs={12} md={6}>
+      <Autocomplete
+          isOptionEqualToValue={(option, value) => option?._id === value?._id}
+          renderOption={(props, option) => {
+            return (
+              <li {...props} key={option._id}>
+                {option.label}
+              </li>
+            );
+          }}
+          groupBy={(option) => option.houseNo}
+          options={allBuildings}
+          onChange={(e, v) => {
+            setBuilding(v)
+          }}
+          value={building}
+          renderInput={(params) => <TextField {...params} variant="standard" label="Building Name"/>}
+          /> 
+    </Grid>
+    <Grid item xs={12} md={6}>
+      <Autocomplete
+          isOptionEqualToValue={(option, value) => option?._id === value?._id}
+          renderOption={(props, option) => {
+            return (
+              <li {...props} key={option._id}>
+                {option.label}
+              </li>
+            );
+          }}
+          // groupBy={(option) => option.houseNo}
+          options={allSenior}
+          onChange={(e, v) => {
+            setReportingTo(v)
+          }}
+          value={reportingTo}
+          renderInput={(params) => <TextField {...params} helperText="As per the Job Role" variant="standard" label="Reporting To Senior"/>}
+          /> 
+    </Grid>
+  </Grid>
+  <br />
+
+  <br />
   <Divider variant="inset"> <Typography variant='caption'>User Name is your Email or Mobile No.</Typography> </Divider>
   <br />
       <Grid container spacing={2} sx={{display:"flex",justifyContent:"center"}}>
@@ -348,6 +422,7 @@ const PersonalInfo = forwardRef((props, ref)=>{
 </section>
 })
   
+
 // Upload Docs 
 
 const UploadDocs = forwardRef((props, ref)=>{
@@ -358,6 +433,7 @@ const UploadDocs = forwardRef((props, ref)=>{
   const [expiryDate, setExpiryDate ] = useState("");
   const [loadingDoc, setLoadDoc] = useState(false);
   const [complianceRow, setRow]= useState([]);
+
   const complianceColumn = [
     {
       field: 'documentName',
@@ -723,7 +799,7 @@ id="EmergencyContact"
               />
     </Grid>
     </Grid>
-</AccordionDetails>
+  </AccordionDetails>
     </Accordion>
   </Grid>
 
@@ -733,14 +809,20 @@ id="EmergencyContact"
 </section>
 })
 
-const EntryArea = forwardRef((props, ref) => {
+
+function EntryArea({params}) {
   const snackRef = useRef();
   const step1Ref = useRef();
   const step2Ref = useRef();
   const step3Ref = useRef();
-
   const [activeStep, setActiveStep] = useState(0);
 
+  useEffect(() => {
+    if(params){
+      setActiveStep(+params?.tab)
+    }
+  }, [params])
+  
     const handleNext = () =>{
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
@@ -755,36 +837,20 @@ const EntryArea = forwardRef((props, ref) => {
       {
         label: 'Personal Information',
         description: `Fill out the general information of employee as per the document.`,
-        component: <PersonalInfo id={props.id} setId={(e) =>props.setId(e)}  ref={step1Ref} handleNext={()=>handleNext()}/>
+        component: <PersonalInfo tab={+params?.tab} id={params ? params.id==="new" ? "": params.id : ""} ref={step1Ref} handleNext={()=>handleNext()}/>
       },
       {
         label: 'Upload Documents (Resume)',
         description: 'Covid-19 certificate, DL, Resume and Other Documents.',
-        component: <UploadDocs id={props.id} setId={(e) =>props.setId(e)}  ref={step2Ref} handleNext={()=>handleNext()}/>
+        component: <UploadDocs tab={+params?.tab} id={params ? params.id==="new" ? "": params.id : ""} ref={step2Ref} handleNext={()=>handleNext()}/>
       },
       {
         label: 'Bank & Emergency Details',
         description: `Enter bank and Emergency details.`,
-        component:<BankInfo id={props.id} setId={(e) =>props.setId(e)}  ref={step3Ref} handleNext={()=>handleNext()}/>
+        component:<BankInfo id={params ? params.id :""} ref={step3Ref} handleNext={()=>handleNext()}/>
       },
     ];
-
-  // useEffect(() => {
-  //   async function getOneData(){
-  //   let res = await employeeService.getOne(props.id);
-  //   if(res.variant === "success"){
-  //   console.log(res.data)
-  //   props.setId(res.data._id);
-    
-  //   snackRef.current.handleSnack(res);
-  //   }else snackRef.current.handleSnack(res);    
-  //  }
-
-  //  if(props.id){getOneData()}
-   
-  // }, [props.id])
-
-
+  
   const handleSubmit = ()=>{
     if(activeStep===0){
        step1Ref.current.stepData()
@@ -807,22 +873,19 @@ const EntryArea = forwardRef((props, ref) => {
    }
   }
 
-  useImperativeHandle(ref, () => ({
-       handleSubmit: ()=> handleSubmit(),
-       handleClear: () => handleClear() 
-  }));
+  // useImperativeHandle(ref, () => ({
+  //      handleSubmit: ()=> handleSubmit(),
+  //      handleClear: () => handleClear() 
+  // }));
 
-  
-
-  return <main style={{background:"#fff", borderRadius:"10px", padding:20}}> 
+  return (
+  <main style={{background:"#fff", borderRadius:"10px", padding:20}}> 
   <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>Add New Employee</Typography>
   <Stepper activeStep={activeStep} orientation="vertical">
       {steps.map((step, index) => (
         <Step key={step.label}>
-          <StepLabel
-            optional={<Typography variant="body2">{step.description}</Typography>}
-          >
-             <Typography variant="subtitle1" color="primary">{step.label}</Typography>
+          <StepLabel optional={<Typography variant="body2">{step.description}</Typography>}>
+           <Typography variant="subtitle1" color="primary">{step.label}</Typography>
           </StepLabel>
           <StepContent>
             {step.component}
@@ -846,10 +909,9 @@ const EntryArea = forwardRef((props, ref) => {
         </Step>
       ))}
     </Stepper>
-<MySnackbar ref={snackRef} />
-</main>;
-});
+  <MySnackbar ref={snackRef} />
+</main>
+  )
+}
 
-
-export default EntryArea; 
-
+export default EntryArea;

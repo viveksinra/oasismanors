@@ -54,7 +54,7 @@ export const allGenders = [{label:"Female", id:"Female"},{label:"Male", id:"Male
 
 export const allRelation = [{label:"Friend",id:"friend"},{label:"Father",id:"father"},{label:"Mother",id:"mother"},{label:"Brother",id:"brother"},{label:"Sister",id:"sister"},{label:"Cousin",id:"cousin"},{label:"Others",id:"Others"}]
 
-export const allJobRole = [{label:"Admin"},{label:"C.E.O."},{label:"Building Manager"},{label:"Caregiver"},{label:"Cook"},{label:"Outdoor Worker"},{label:"Indoor Worker"},{label:"Doctor"},{label:"Accountant"},{label:"Housekeeper"},{label:"Other"}]
+export const allJobRole = [{label:"Admin",id:"admin"},{label:"C.E.O.",id:"ceo"},{label:"Building Manager",id:"buildingManager"},{label:"Caregiver",id:"caregiver"},{label:"Cook",id:"cook"},{label:"Outdoor Worker",id:"outdoorWorker"},{label:"Indoor Worker",id:"indoorWorker"},{label:"Doctor",id:"doctor"},{label:"Accountant",id:"accountant"},{label:"Housekeeper",id:"housekeeper"},{label:"Other",id:"other"}]
 
 
 export const todayDate = ()=> {
