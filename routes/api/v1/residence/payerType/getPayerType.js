@@ -104,6 +104,12 @@ router.get(
              category:"care",
              price:"300"
           },
+          {
+            label:"Other",
+             _id:"60f98cef90051e32b7ed29bf",
+             category:"care",
+             price:"0"
+          },
       ]
       res.status(200).json({ variant: "success", message: "Type Loaded", data: BillingItem.reverse() });
     } catch (error) {
