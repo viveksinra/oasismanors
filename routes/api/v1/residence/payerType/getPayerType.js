@@ -107,7 +107,7 @@ router.get(
           {
             label:"Other",
              _id:"60f98cef90051e32b7ed29bf",
-             category:"care",
+             category:"other",
              price:"0"
           },
       ]
