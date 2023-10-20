@@ -3,7 +3,6 @@ import { useEffect, useState, useRef } from "react";
 import "./enquiryStyle.css";
 import {Container, Grid, Typography,TextField,RadioGroup,FormControlLabel,Radio,Autocomplete ,Fab,MenuItem,InputAdornment,CircularProgress,Alert } from '@mui/material/';
 import { allStates } from "../StaticData";
-import MySnackbar from "../MySnackbar/MySnackbar";
 import { FcFeedback,FcApproval } from "react-icons/fc";
 import {authService} from "../../services/index"
 import axios from "axios";
@@ -11,31 +10,34 @@ import axios from "axios";
 
 const Enquiry = () => {
   const [enquiryFor, setEnquiryFor]=useState("self");
-  const [name, setName]=useState("");
+  const [firstName,setFName] = useState("");
+  const [lastName, setLName] = useState("");
   const [email, setEmail]=useState("");
   const [mobile, setMobile]=useState("");
   const [address, setAddress]=useState("");
   const [zip, setZip]=useState("");
-  const [city, setCity]=useState("");
+  const [city, setCity]=useState(null);
   const [loadingCity, setLoadingCity]=useState(false);
   const [state, setStateName]=useState(null);
+  const [allCity, setAllCity] = useState([]);
   const [marketing, setMarketing]=useState("");
   const [message,setMsg]=useState("");
-  const snackRef = useRef();
+  const [submitted,setSubmitted] = useState(false)
   useEffect(() => {
     async function getZIPData() {
       if(zip.length===5){
         setLoadingCity(true)
         await axios.get(`/api/public/zipToLocation?zipCode=${zip}`).then(res=>{
-          setCity(res.data.city)
-          let obj = allStates.find(o=>o.id ===res.data.state)
+          setAllCity(res.data)
+          let obj = allStates.find(o=>o.id ===res.data[0].state)
           setStateName(obj)
           setLoadingCity(false)
         }).catch(err=>{
           console.log(err);
           alert("Plesae enter correct ZIP code.");
           setZip("");
-          setCity("");
+          setCity(null);
+          setAllCity([]);
           setStateName(null)
           setLoadingCity(false)
         })
@@ -46,25 +48,27 @@ const Enquiry = () => {
   
   const handleEnquiry= async (e)=>{
     e.preventDefault();
-    let user = {enquiryFor,name,email,mobile,address,zip,city,state,marketing,message};
+    let user = {enquiryFor,firstName,lastName,email,mobile,address,zip,city:city?.city,state,marketing,message};
     try {
       let res = await authService.post(`api/v1/public/enquiry`,user);
       if(res.variant ==="success"){
-        snackRef.current.handleSnack(res);
+        setSubmitted(true);
         setEnquiryFor("self");
-        setName("");
+        setFName("");
+        setLName("");
         setEmail("");
         setMobile("");
         setAddress("");
         setZip("");
-        setCity("");
+        setCity(null);
+        setAllCity([]);
         setStateName(null);
         setMarketing("");
         setMsg("");
-      }  
+      }else alert(res.message)  
     } catch (error) {
       console.log(error);
-      snackRef.current.handleSnack({message:"Something went wrong. Please try again.", variant: "error" });
+      alert("Something went wrong. Please try again.")
     }
   }
 
@@ -83,6 +87,16 @@ const Enquiry = () => {
                       Protecting your privacy: This website adheres to <a href="https://en.wikipedia.org/wiki/Health_Insurance_Portability_and_Accountability_Act" target="_blank"><strong>HIPAA compliance</strong> standards. </a>
                     </Alert>
                         </Grid>
+                        {submitted ? <Grid item xs={12} className="center" sx={{flexDirection:"column"}}>
+                          <div id="thanks"/>
+                          <Typography color="teal" sx={{fontSize:{xs:"14px",md:"18px"}}}>Your message has been sent. We will get back you to very shortly.</Typography>
+                          <br/>
+                          <Fab variant="extended" size="medium" color="primary" onClick={()=>setSubmitted(false)} aria-label="Thank">
+                          <FcFeedback style={{fontSize:24,marginRight:10}} sx={{ mr: 1 }} />
+                         New Enquiry ?
+                        </Fab>
+                           </Grid> : 
+                        <> 
                         <Grid item xs={12} id="self" className="center">
                         <Typography color="primary" variant="h5">Are you interest for &#x2192;</Typography>
                         <RadioGroup row style={{marginLeft:30}}
@@ -95,8 +109,11 @@ const Enquiry = () => {
                         <FormControlLabel value="other" style={{marginLeft:20}} control={<Radio />} label="Other" />
                       </RadioGroup>
                         </Grid>
-                        <Grid item xs={12}>
-                        <TextField fullWidth value={name} required onChange={e=>setName(e.target.value)} label="Full Name" placeholder="Enter your Full Name" variant="outlined" />
+                        <Grid item xs={12} md={6}>
+                        <TextField fullWidth value={firstName} required onChange={e=>setFName(e.target.value)} label="First Name" placeholder="First Name..." variant="outlined" />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                        <TextField fullWidth value={lastName} required onChange={e=>setLName(e.target.value)} label="Last Name" placeholder="Last Name..." variant="outlined" />
                         </Grid>
                         <Grid item xs={12} md={6}> 
                         <TextField fullWidth value={email} required type="email" onChange={e=>setEmail(e.target.value)} label="Email" placeholder="Enter your Email" variant="outlined" />
@@ -109,15 +126,26 @@ const Enquiry = () => {
                         </Grid>
                         <Grid item xs={12} md={4}> 
                         <TextField fullWidth value={zip} onChange={e=> setZip(e.target.value)} disabled={loadingCity} InputProps= {{
-          endAdornment: (
-            <InputAdornment position="end">
-                 {loadingCity && <CircularProgress size={25}/>}  
-            </InputAdornment>
-          ),
-        }}  label="ZIP Code" type="number" placeholder="ZIP Code" variant="outlined" />
+                          endAdornment: (
+                            <InputAdornment position="end">
+                                  {loadingCity && <CircularProgress size={25}/>}  
+                            </InputAdornment>
+                          ),
+                        }}  label="ZIP Code" type="number" placeholder="ZIP Code" variant="outlined" />
                         </Grid> 
-                        <Grid item xs={12} md={4}> 
-                        <TextField fullWidth value={city} onChange={e=>setCity(e.target.value)} label="City" helperText="Just type ZIP Code" disabled placeholder="City" variant="outlined" />
+                        <Grid item xs={12} md={4}>
+                        <Autocomplete
+                          id="all-City"
+                          getOptionLabel={(option) => option.city ?? option}
+                          isOptionEqualToValue={(option, value) => option.city === city.city}
+                          options={allCity}
+                          disabled={allCity.length===0}
+                          onChange={(e, v) => {
+                            setCity(v);
+                          }}
+                          value={city}
+                          renderInput={(params) => <TextField {...params} fullWidth helperText="Just type ZIP Code" label="City" placeholder="City"/>}
+                          />
                         </Grid>
                         <Grid item xs={12} md={4}> 
                           <Autocomplete
@@ -142,7 +170,7 @@ const Enquiry = () => {
                           </TextField>
                         </Grid>
                         <Grid item xs={12}> 
-                        <TextField fullWidth value={message} onChange={e=>setMsg(e.target.value)} label="Your Message"  multiline rows={4} placeholder="Please write your message..." variant="outlined" />
+                        <TextField fullWidth value={message} onChange={e=>setMsg(e.target.value)} label="Your Message"  multiline minRows={4} placeholder="Please write your message..." variant="outlined" />
                         </Grid>
                         <Grid item xs={12} style={{display:"flex",justifyContent:"center"}}> 
                         <Fab variant="extended" size="medium" color="primary" aria-label="add" type="submit">
@@ -150,13 +178,15 @@ const Enquiry = () => {
                           Send Enquiry
                         </Fab>
                         </Grid>
+
+                        </> }
+                        
                     </Grid>
                   </form>
                     
                 </Grid>
             </Grid>
         </Container>
-        <MySnackbar ref={snackRef} />
     </section>
   )
 }

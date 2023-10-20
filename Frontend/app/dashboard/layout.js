@@ -1,24 +1,25 @@
 'use client';
 import React,{useState, Suspense} from 'react'
 import "./dashboardStyle.css";
-import {styled,Box,CssBaseline,Toolbar,IconButton,useTheme,List,ListItem,ListItemButton,ListItemIcon,ListItemText,Divider, SwipeableDrawer,Collapse,Menu,Avatar,MenuItem   } from '@mui/material/';
+import {styled,Box,CssBaseline,Toolbar,IconButton,useTheme,List,ListItem,ListItemButton,ListItemIcon,ListItemText,Divider, SwipeableDrawer,Collapse,Menu,Avatar,MenuItem,Tooltip   } from '@mui/material/';
 import MuiAppBar from '@mui/material/AppBar';
 import MuiDrawer from '@mui/material/Drawer';
-import { FcMenu,FcLeft,FcHome,FcImport,FcStatistics,FcAdvertising,FcPlanner,FcConferenceCall,FcComboChart,FcBusinessman,FcRightUp,FcDataRecovery,FcExpand,FcCollapse,FcPlus,FcLeftDown,FcTodoList,FcInspection,FcDocument,FcFlowChart,FcContacts,FcCalculator } from "react-icons/fc";
+import { FcMenu,FcLeft,FcHome,FcImport,FcStatistics,FcAdvertising,FcPlanner,FcCalendar,FcConferenceCall,FcComboChart,FcBusinessman,FcRightUp,FcDataRecovery,FcExpand,FcCollapse,FcPlus,FcLeftDown,FcTodoList,FcInspection,FcDocument,FcFlowChart,FcContacts,FcCalculator } from "react-icons/fc";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation'
 import Loading from '../Components/Loading/Loading';
+import { MdQrCodeScanner } from "react-icons/md";
 import { useLogout } from "../hooks/auth/uselogout";
 import { authService } from "../services";
 
-const drawerWidth = 240;
+export const drawerWidth = 240;
 
 const DrawerData = ({open,setMobileOpen}) => {
   const router = useRouter();
   const { logout } = useLogout();
   const [masterOpen, setMas] = useState(false);
   const [reportOpen, setRO] = useState(false);
-  const [dashList1, setDashList] = useState([{title:"Dashboard",active: true, link:"/dashboard",icon:<FcComboChart/>},{title:"Prospect",active: false, link:"/dashboard/prospect",icon:<FcConferenceCall/>},{title:"Residents", active: false,link:"/dashboard/residents",icon:<FcHome/>},{title:"Payment", active: false,link:"/dashboard/payment",icon:<FcRightUp/>},{title:"Receipt", active: false,link:"/dashboard/receipt",icon:<FcLeftDown/>},{title:"Invoice", active: false,link:"/dashboard/invoice",icon:<FcDocument/>},{title:"All Tasks", active: false,link:"/dashboard/task",icon:<FcTodoList/>},{title:"All Notes", active: false,link:"/dashboard/notes",icon:<FcInspection/>},{title:"Employee", active: false,link:"/dashboard/employee",icon:<FcBusinessman/>}]) 
+  const [dashList1, setDashList] = useState([{title:"Dashboard",active: true, link:"/dashboard",icon:<FcComboChart/>},{title:"Prospect",active: false, link:"/dashboard/prospect",icon:<FcConferenceCall/>},{title:"Residents", active: false,link:"/dashboard/residents",icon:<FcHome/>},{title:"Attendance", active: false,link:"/dashboard/attendance",icon:<FcCalendar/>},{title:"Payment", active: false,link:"/dashboard/payment",icon:<FcRightUp/>},{title:"Receipt", active: false,link:"/dashboard/receipt",icon:<FcLeftDown/>},{title:"Invoice", active: false,link:"/dashboard/invoice",icon:<FcDocument/>},{title:"All Tasks", active: false,link:"/dashboard/task",icon:<FcTodoList/>},{title:"All Notes", active: false,link:"/dashboard/notes",icon:<FcInspection/>},{title:"Employee", active: false,link:"/dashboard/employee",icon:<FcBusinessman/>}]) 
   const [reports, setReports] = useState([{title:"Day Book",active:false, link:"/dashboard/reports/daybook", icon:<FcPlanner/>},{title:"Ledger Book",active:false, link:"/dashboard/reports/ledgerbook", icon:<FcContacts/>},{title:"Trial Balance",active:false, link:"/dashboard/reports/trialbalance", icon:<FcCalculator/>}]) 
   const [masterList, setMasterList] = useState([{title:"Create Ledger",active: false, link:"/dashboard/master/ledger",icon:<FcPlus/>},{title:"Create Group",active: false, link:"/dashboard/master/group",icon:<FcPlus/>},{title:"Create Prospect Source",active: false, link:"/dashboard/master/prospectsource",icon:<FcAdvertising/>},{title:"Create Building Layout",active: false, link:"/dashboard/master/buildinglayout",icon:<FcFlowChart/>}])
   const handleLink = (v,n,Ar)=>{
@@ -155,7 +156,7 @@ const DrawerData = ({open,setMobileOpen}) => {
         </List>
       </Collapse>
         </List>
-        <List sx={{position:"absolute", bottom:0, width:"100%"}}>
+        <List sx={{display:{xs:"none",md:"block"}, position:"absolute", bottom:0, width:"100%"}}>
         <ListItem onClick={()=>{logout(); router.push("/login")} } disablePadding>
         <ListItemButton sx={{ minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
@@ -239,6 +240,14 @@ function DashboardLayout({children}) {
           </IconButton>
           <Image priority width={140} height={60} src="https://res.cloudinary.com/oasismanors/image/upload/v1685029880/Logo_hmwkcj.svg" alt="Oasis Manor"/>
           <span style={{flexGrow:1}}/>
+          <Tooltip title="Scan Attendance" arrow>
+          <IconButton onClick={()=>router.push("/dashboard/attendance/scan")}>
+          <MdQrCodeScanner/>
+          </IconButton>
+          </Tooltip>
+        
+         
+        
           <Menu
             id="profile-menu"
             anchorEl={anchorElProfile}

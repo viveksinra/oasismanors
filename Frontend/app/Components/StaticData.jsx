@@ -54,9 +54,8 @@ export const allGenders = [{label:"Female", id:"Female"},{label:"Male", id:"Male
 
 export const allRelation = [{label:"Friend",id:"friend"},{label:"Father",id:"father"},{label:"Mother",id:"mother"},{label:"Brother",id:"brother"},{label:"Sister",id:"sister"},{label:"Cousin",id:"cousin"},{label:"Others",id:"Others"}]
 
-export const allJobRole = [{label:"Admin"},{label:"Manager"},{label:"Caregiver"},{label:"Wellness Director"},{label:"Fitness coach"},{label:"Cook"},{label:"Outdoor Worker"},{label:"Indoor Worker"},{label:"Doctor"},{label:"Accountant"},{label:"Housekeeper"},{label:"Other"}]
+export const allJobRole = [{label:"Admin"},{label:"C.E.O."},{label:"Building Manager"},{label:"Caregiver"},{label:"Cook"},{label:"Outdoor Worker"},{label:"Indoor Worker"},{label:"Doctor"},{label:"Accountant"},{label:"Housekeeper"},{label:"Other"}]
 
-export const allSecurityRole = [{label:"Administrator", id:"administrator"},{label:"Care Taker", id:"careTaker"},{label:"Medical", id:"medical"},{label:"Staff", id:"staff"},{label:"Account", id:"account"},{label:"Enquiry", id:"enquiry"},{label:"Manager", id:"manager"}];
 
 export const todayDate = ()=> {
     let today = new Date();

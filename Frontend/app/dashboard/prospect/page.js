@@ -1,12 +1,13 @@
 'use client';
 import "./prospectStyle.css";
 import React, { lazy, Suspense, useEffect } from 'react'
-import {Typography, Fab,styled,Avatar,CircularProgress,Rating,ToggleButtonGroup,ToggleButton, Grid,ButtonGroup,AppBar,Toolbar, Button,Tooltip, Chip, Table,TableRow,TableCell,TableBody, TableHead, IconButton,TablePagination} from '@mui/material/';
+import {Typography, Fab,styled,Avatar,CircularProgress,Rating,Badge,ToggleButtonGroup,ToggleButton,Tab, Grid,ButtonGroup,AppBar,Toolbar, Button,Tooltip, Chip, Table,TableRow,TableCell,TableBody, TableHead, IconButton,TablePagination} from '@mui/material/';
 import { useState,useRef} from 'react';
+import {TabContext,TabList } from '@mui/lab/';
 import { prospectService } from "../../services";
 import Link from 'next/link';
 import { FiCheck,FiFileMinus } from "react-icons/fi";
-import {FcLike,FcLikePlaceholder,FcOrgUnit,FcTimeline} from "react-icons/fc";
+import {FcLike,FcLikePlaceholder,FcOrgUnit,FcTimeline,FcExpand} from "react-icons/fc";
 import {MdModeEdit,MdSend,MdOutlineClose} from "react-icons/md";
 import NoResult from "@/app/Components/NoResult/NoResult";
 import Search from "../../Components/Search";
@@ -44,8 +45,6 @@ function   Prospect () {
   )
 }
 
-
-
 export const ToggleFab = styled(Fab)({
   position: 'absolute',
   zIndex: 1,
@@ -55,13 +54,12 @@ export const ToggleFab = styled(Fab)({
   margin: '0 auto',
 });
 
-
-
 export function SearchArea({handleEdit}) {
   const [loading, setLoading] = useState(false);
   const [rows, setRows] = useState([]);
   const [tabular, setView] = useState(false);
- 
+  const sortOptions = [{label:"New First",value:"newToOld"},{label:"Rating",value:"rating"},{label:"Important",value:"important"},{label:"Old First",value:"oldToNew"}];
+  const [sortBy, setSort]= useState("newToOld");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchText, setSearchText] = useState("");
@@ -69,14 +67,14 @@ export function SearchArea({handleEdit}) {
   useEffect(() => {
     async function fetchAllData() {
       setLoading(true)
-      let response = await prospectService.getAll(`api/v1/enquiry/prospect/getProspect/getDataWithPage/${rowsPerPage}/${page}/${searchText}`);
+      let response = await prospectService.getAll(`api/v1/enquiry/prospect/getProspect/getDataWithPage/${sortBy}/${rowsPerPage}/${page}/${searchText}`);
       if(response.variant === "success"){
         setLoading(false)
         setRows(response.data)
       }else {console.log(response); setLoading(false)}
     }
     fetchAllData()
-  }, [rowsPerPage,page,searchText])
+  }, [rowsPerPage,page,searchText,sortBy])
  return (
     <main style={{background:"#fff",boxShadow:"rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",borderRadius:8,padding:10}}>
         <Grid container>
@@ -84,9 +82,9 @@ export function SearchArea({handleEdit}) {
           <Grid item xs={12} md={2}>
           <Typography color="slateblue" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>All Prospects</Typography>
           </Grid>
-          <Grid item xs={12} md={5} sx={{display:"flex", justifyContent:"end", marginBottom:"20px"}} >
-            <Search onChange={e=>setSearchText(e.target.value)} value={searchText} fullWidth endAdornment={<IconButton size="small" sx={{display: searchText ? "block": "none"}} onClick={()=>setSearchText("")}> <MdOutlineClose /></IconButton> } /> <span style={{flexGrow:0.2}}/>
-          <ToggleButtonGroup aria-label="ViewMode" sx={{display:{xs:"none", md:"block"}}}>
+          <Grid item xs={12} md={5} sx={{display:"flex", justifyContent:"end", marginBottom:"20px"}}>
+          <Search onChange={e=>setSearchText(e.target.value)} value={searchText} fullWidth endAdornment={<IconButton size="small" sx={{display: searchText ? "block": "none"}} onClick={()=>setSearchText("")}> <MdOutlineClose /></IconButton> } />
+          <ToggleButtonGroup aria-label="ViewMode" sx={{display:{xs:"none", md:"block"},marginLeft:"10px",marginRight:"10px"}}>
           <Tooltip arrow title="Grid View">
           <ToggleButton value="grid" onClick={()=>setView(!tabular)} aria-label="gridView">
           <FcOrgUnit/>
@@ -98,8 +96,16 @@ export function SearchArea({handleEdit}) {
           </ToggleButton>
           </Tooltip>
           </ToggleButtonGroup>
+          </Grid>
+          <Grid item xs={12} sx={{maxWidth: { xs: 350, sm: 480,md:700 },marginBottom:"10px"}}>
+          <TabContext value={sortBy} variant="scrollable" allowScrollButtonsMobile scrollButtons>
+          <TabList onChange={(e,v)=>setSort(v)} aria-label="Sort Tabs" variant="scrollable" scrollButtons="auto" allowScrollButtonsMobile>
+          {sortOptions.map((t,i)=> <Tab key={i} iconPosition="bottom" value={t?.value} label={t?.label} />)}
+          </TabList>
+        </TabContext>
           </Grid> 
         </Grid>
+       
       {loading ? <div className="center" style={{flexDirection:"column"}}><CircularProgress size={30}/> <Typography color="slateblue" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>Loading prospect...</Typography>  </div> : rows.length === 0 ? <NoResult label="No Prospect Available"/> : tabular ? <Table size="small" sx={{display:{xs:"none", md:"block"}}} aria-label="Prospect data Table"> 
       <TableHead>
       <TableCell align="left" padding="none" > </TableCell>
@@ -113,7 +119,7 @@ export function SearchArea({handleEdit}) {
       <TableCell align="center">Action</TableCell>
       </TableHead>
       {rows && rows.map((r,i)=>  <TableBody key={r._id}> 
-        <TableCell align="left" padding="none"> <Avatar alt={r.firstName} src={r.userImage} /></TableCell>
+        <TableCell align="left" padding="none"> <Badge color="primary" variant="dot" invisible={!Boolean(r.important)}><Avatar alt={r.firstName} src={r.userImage} /> </Badge> </TableCell>
         <TableCell align="left">{`${r.lastName} ${r.firstName}`} </TableCell>
         <TableCell align="left">{r.inquiryDate}</TableCell>
         <TableCell align="left"><Chip label={r.prospectStage} variant="outlined" size="small"  /></TableCell>      

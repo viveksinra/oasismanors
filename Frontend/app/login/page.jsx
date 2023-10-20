@@ -12,15 +12,17 @@ import { FcKey } from 'react-icons/fc';
 import { BsEyeSlashFill, BsEyeFill } from 'react-icons/bs';
 import { useRouter } from 'next/navigation';
 import { useLogin } from "../hooks/auth/useLogin";
+// import { useCurrentUser } from "../hooks/auth/useCurrentUser";
 
 
 function Login() {
-  const [tabVal, setTabs] = useState(0);
+  // const [tabVal, setTabs] = useState(0);
   const [showPassword,setShowPass]= useState(false);
   const [email, setEmail]=useState("");
   const [password, setPass]=useState("");
-	const { state, dispatch } = useContext(MainContext);
+	const {dispatch } = useContext(MainContext);
   const { login } = useLogin();
+  // const {user} = useCurrentUser()
   
   const router = useRouter();
   const snackRef = useRef();
@@ -42,7 +44,7 @@ function Login() {
     }
   }
   // if (state.isAuthenticated) {
-  //   return router.push('/dashboard');
+  //   // return router.push('/dashboard');
 	// } else
   return (
     <main>
@@ -54,16 +56,16 @@ function Login() {
           <Typography color="primary" gutterBottom variant="h6">Login</Typography>
           <div className="center">
           <Typography style={{color:"#000", marginRight:20}} variant="subtitle1">Don't have an account? </Typography>
-          <Link href="/#enquiry"> <Typography color="secondary" variant="subtitle1">Register</Typography></Link>
+          <Link href="/#enquiry"> <Typography color="secondary" variant="subtitle1">Register New</Typography></Link>
           </div>
-        <Tabs value={tabVal} onChange={(e,v)=>setTabs(v)} aria-label="tabs">
+        {/* <Tabs value={tabVal} onChange={(e,v)=>setTabs(v)} aria-label="tabs">
           <Tab label="Email Based" />
           <Tab label="Phone Based" />
-        </Tabs>
+        </Tabs> */}
     <br/>
-        {tabVal === 0 &&
+        {/* {tabVal === 0 && */}
             <form onSubmit={e=>handleLogin(e)} id="login-form" className="loginDataBox">
-            <Grid container spacing={2}>
+            <Grid container spacing={4}>
             <Grid item xs={12}>
             <TextField id="loginEmail" fullWidth required type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="Enter your Email Id" label="Email Address" variant="outlined" />
             </Grid>
@@ -88,8 +90,8 @@ function Login() {
             </Grid>
             </Grid>
             </form>
-          }
-      {tabVal === 1 && <div className="loginDataBox">
+          {/* } */}
+      {/* {tabVal === 1 && <div className="loginDataBox">
           <Grid container spacing={2}>
             <Grid item xs={12}>
             <TextField id="phoneNo" fullWidth label="Enter your Phone Number" placeholder="Enter your Mobile No." type="number" variant="outlined" />
@@ -104,10 +106,11 @@ function Login() {
             </Fab>
             </Grid>
           </Grid>
-      </div> }
+      </div> } */}
         </Grid>
         <Grid item xs={12} md={6} id="LoginImgSide">
-            <img src="https://res.cloudinary.com/oasismanors/image/upload/v1685043381/auth-illustration_wy8tqy.svg" alt="Login-Img" />
+
+            <img src="https://res.cloudinary.com/oasismanors/image/upload/v1696145088/Login2_pvckvi.svg" style={{width:"100%",height:"400px"}} alt="Login-Img" />
         </Grid>
       </Grid>
       </div>

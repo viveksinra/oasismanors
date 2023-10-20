@@ -16,8 +16,6 @@ try{
     res
     .status(200)
     .json({ message: "Loaded successfully!!", variant: "success",data:summaryData });
-
-
   } catch(error){
     console.log(error)
     res

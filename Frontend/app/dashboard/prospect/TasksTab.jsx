@@ -188,7 +188,6 @@ function SearchTask({prospectId, handleEdit}) {
        </Table>
         </Grid> :   <Grid item xs={12}>
           <Grid container >
-            
             {rows && rows.map((r,i)=> <Grid key={i} item xs={12} md={4}> <div style={{display:"flex",flexDirection:"column",alignItems:"center", boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",background: "linear-gradient(356deg, rgba(248,227,243,0.4990371148459384) 2%, rgba(220,237,253,0.4822303921568627) 41%, rgba(190,244,255,0.65449929971988796) 100%)", height:"240px", padding:"20px", margin:"20px", borderRadius:"20px"}}>
               <Grid container sx={{minHeight:"45px",overflow:"hidden"}} >
                 <Grid item xs={11}>

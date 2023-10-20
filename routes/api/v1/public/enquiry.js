@@ -10,16 +10,19 @@ const Prospect = require("../../../../Models/Private/Enquiry/Prospect");
 // @desc    Route for creating a new enquiry
 // @access  Public
 router.post("/", (req, res) => {
-    if(!req.body.name || !(req.body.email || req.body.mobile)){
+    if((!req.body.firstName && !req.body.name) || !(req.body.email || req.body.mobile)){
         res.json({
             message: "Name/Email and Mobile Number is Mandatory",
-            variant: "success"
+            variant: "error"
           })
     } 
     else {
 // console.log(req.body)
   const newEnquiry = {
-    firstName: req.body.name,
+
+    
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     email: req.body.email,
     phone: req.body.mobile,
     streetAddress: req.body.address,
@@ -43,7 +46,9 @@ router.post("/", (req, res) => {
   if(req.body.state.label){
   newEnquiry.state.label = req.body.state.label;
 }}
-
+if(req.body.name){
+  newEnquiry.firstName = req.body.name
+}
 Enquiry.findOne({
   firstName: req.body.name,
   email: req.body.email,

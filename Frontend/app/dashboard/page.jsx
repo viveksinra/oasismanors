@@ -29,7 +29,7 @@ function   Dashboard () {
       endDate: new Date(),
       key: 'selection'
     }]);
-  const [heading, setHeading] = useState({msg: "Welcome",taskCount: 0,subMsg: "Congratulation, You have 0 pending task",firstName: "Guest",lastName: ""})
+  const [heading, setHeading] = useState({msg: "Welcome",taskCount: 0,subMsg: "Congratulation, You have 0 pending task",firstName: "Guest",lastName: "",designation:"Role"})
   const [task, setTask]= useState([])
   const [receipt,setReceipt]= useState([])
   const [payment,setPayment]= useState([])
@@ -85,10 +85,14 @@ function   Dashboard () {
         <Grid item xs={12} md={4} sx={{marginLeft:{xs:"8px",md:"0px"},marginRight:{xs:"8px", md:"0px"}}}>
           <div style={{height:"170px", padding:"20px", boxShadow:"rgba(58, 53, 65, 0.1) 0px 2px 10px 0px", width:"100%",backgroundColor:"#fff",borderRadius:"10px",overflow:"hidden"}} id="topBoxBg">
             <Typography variant="h6" color="teal" className='headingText'>{`Welcome, ${heading?.firstName}!`}</Typography>
+            <Typography variant="subtitle2" color="darkviolet">{heading.designation}</Typography>
             <div id="trophy"/>
-            <Typography variant="caption" gutterBottom color="grey">{heading?.subMsg}</Typography><br/>
+            <Typography variant="caption" gutterBottom color="grey">{heading?.subMsg}</Typography>
+            <div style={{display:"flex",marginTop:"10px"}}>
             <Typography variant="h5" gutterBottom color="darkviolet">{heading?.taskCount} </Typography>
-            <Link href="/dashboard/invoice"> <Button size='small' variant="outlined">View Invoices</Button></Link> 
+            <Link href="/dashboard/invoice"> <Button size='small' sx={{marginLeft:"20px"}} variant="outlined">View Invoices</Button></Link> 
+            </div>
+            
           </div>
         </Grid>
         <Grid item xs={12} md={8} sx={{marginLeft:{xs:"8px",md:"0px"},marginRight:{xs:"8px", md:"0px"}}}>

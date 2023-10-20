@@ -56,6 +56,7 @@ const UserSchema = new Schema({
     },
     id:{
       type: String,
+      enum:["admin", "ceo", "buildingManager", "caregiver", "cook", "outdoorWorker", "indoorWorker", "doctor", "accountant", "housekeeper", "other" ]
     }    
   },
   status: {
@@ -66,6 +67,16 @@ const UserSchema = new Schema({
       type: String,
     }    
   },
+  reportingTo:{
+    label:{
+      type:String
+    },
+    _id:{
+      type: Schema.Types.ObjectId,
+      ref: "myUser",
+      required: true
+    }
+  },
   loginAllowed:{
     type:Boolean,
     default:false
@@ -73,11 +84,10 @@ const UserSchema = new Schema({
   securityRole: [{
     label:{
       type: String,
-      enum:["Administrator", "Care Taker", "Medical", "Staff", "Account", "Enquiry", "Manager"]
+
     },
     id:{
       type: String,
-      enum:["administrator", "careTaker", "medical", "staff", "account", "enquiry", "manager"]
     }  
 }]
 ,
@@ -90,6 +100,11 @@ const UserSchema = new Schema({
   salary: {
     type: Number,
     default: 0
+  },
+ 
+  salaryTenure: {
+    type: String,
+    enum:["Hourly","Daily","Weekly","Monthly","On Commission"]
   },
   street: {
     type: String,

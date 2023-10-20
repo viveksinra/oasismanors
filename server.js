@@ -58,6 +58,9 @@ const getCompliance = require("./routes/api/v1/enquiry/compliance/getCompliance"
 // Employee
 const addEmployee = require("./routes/api/v1/employee/basic/addEmployee");
 const getEmployee = require("./routes/api/v1/employee/basic/getEmployee");
+const addEmpLeave = require("./routes/api/v1/employee/empLeave/addEmpLeave");
+const getEmpLeave = require("./routes/api/v1/employee/empLeave/getEmpLeave");
+const empLeaveTable = require("./routes/api/v1/employee/empLeave/empLeaveTable");
 // Dashboard
 const getDashboard = require("./routes/api/v1/dashboard/getDashboard");
 
@@ -183,6 +186,10 @@ app.use("/api/v1/enquiry/compliance/getCompliance", getCompliance);
 // Employee
 app.use("/api/v1/employee/basic/addEmployee", addEmployee);
 app.use("/api/v1/employee/basic/getEmployee", getEmployee);
+// Employee leave
+app.use("/api/v1/employee/empLeave/addEmpLeave", addEmpLeave);
+app.use("/api/v1/employee/empLeave/getEmpLeave", getEmpLeave);
+app.use("/api/v1/employee/empLeave/empLeaveTable", empLeaveTable);
 // Document validation
 app.use("/api/v1/employee/document/addDocument", addDocument);
 app.use("/api/v1/employee/document/getDocument", getDocument);

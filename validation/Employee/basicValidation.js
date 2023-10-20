@@ -1,5 +1,8 @@
 
+const jobRole = ["admin", "ceo", "buildingManager", "caregiver", "cook", "outdoorWorker", "indoorWorker", "doctor", "accountant", "housekeeper", "other" ]
+
 const validateOnCreate = async (req, res, next) => {
+  const jId = req.body.jobRole.id
 
     //   Check if the required fields are present
       if (!req.body.email &&  !req.body.mobile) {
@@ -8,8 +11,21 @@ const validateOnCreate = async (req, res, next) => {
           variant: "error",
         });  
       }
+
+      if (!jId || !jobRole.includes(jId)) {
+        return res.json({
+          message: "Job role is required",
+          variant: "error",
+        });
+      }
         //   Check if the required fields are present
       if (!req.body.password) {
+        return res.status(406).json({
+          message: "Password is required",
+          variant: "error",
+        });  
+      }
+      if (!req.body.reportingTo || !req.body.reportingTo._id) {
         return res.status(406).json({
           message: "Password is required",
           variant: "error",

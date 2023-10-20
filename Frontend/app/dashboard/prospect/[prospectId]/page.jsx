@@ -30,7 +30,7 @@ const ProspectDetail = ({ params }) => {
     const [mainTab, setMainTab]=useState(0)
   return ( 
     <main> 
-    <Tabs value={mainTab} onChange={(e,v)=>setMainTab(v)} aria-label="main_Tabs" sx={{height:60}}>
+    <Tabs value={mainTab} onChange={(e,v)=>setMainTab(v)} aria-label="main_Tabs" sx={{height:60,maxWidth: { xs: 350, sm: 480,md:"100%" }}} variant="scrollable" scrollButtons="auto" allowScrollButtonsMobile>
     <Tab icon={<FcBusinessman style={{fontSize:24}}/>} iconPosition="start" label="Profile"  />
     <Tab icon={<FcCallback style={{fontSize:24}}/>} iconPosition="start"  label="Contact"  />
     <Tab icon={<FcTodoList style={{fontSize:24}}/>} iconPosition="start"  label="Tasks" />

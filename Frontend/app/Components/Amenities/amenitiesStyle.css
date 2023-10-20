@@ -20,7 +20,13 @@
     font-weight:400
 }
 #welcomeImg{
-    width: 489px;
+    width: 100%;
+    height: 310px;
+    background-image: url("https://res.cloudinary.com/oasismanors/image/upload/v1696088490/1d1e49ac.f10_vf5syo.jpg");
+    background-position:center;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    background-size:cover;
 };
 .amenityCard{
     height: 50px;
@@ -39,7 +45,7 @@
 }
 #connected ul{
     list-style: none;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
     padding-left: 30px;
     padding-top: 10px;

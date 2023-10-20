@@ -8,11 +8,13 @@ import {FaUserPlus } from "react-icons/fa";
 import {BsTable } from "react-icons/bs";
 import { DataGrid } from '@mui/x-data-grid';
 import NoResult from "@/app/Components/NoResult/NoResult";
+import {EmpProvider} from "./EmpContext";
 import Loading from "../../Components/Loading/Loading";
-const EntryArea = lazy(() => import("./EntryArea"));
 
 
 
+
+ 
 
 function   Employee () {
   const [viewTabular,toggleView] = useState(true);
@@ -20,7 +22,7 @@ function   Employee () {
   const entryRef = useRef();
   return (
     <main> 
-      {viewTabular ? <Suspense fallback={<Loading/>} > <SearchArea handleEdit={(id)=>{toggleView(false); setId(id)}} />  </Suspense>   : <Suspense fallback={null}><EntryArea ref={entryRef} id={id} setId={(e)=>setId(e)}/> </Suspense>}
+      {viewTabular ? <Suspense fallback={<Loading/>} > <SearchArea handleEdit={(id)=>{toggleView(false); setId(id)}} />  </Suspense>   : <Suspense fallback={null}> <EmpProvider ref={entryRef} id={id} setId={(e)=>setId(e)}/> </Suspense>}
       <AppBar position="fixed" sx={{ top: 'auto', bottom: 0,background:"#d6f9f7"}}>
       <Toolbar variant="dense">
         <span style={{flexGrow:0.2}}/>

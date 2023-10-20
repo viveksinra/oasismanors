@@ -19,7 +19,7 @@
     align-items: center;
   }
 
-#heroBack:after{
+/* #heroBack:after{
   content: '';
   background-image: url("https://www.ecsforseniors.org/wp-content/themes/3fo_gutenberg_base/images/ECS_Banner-texture.svg");
   height: 126px;
@@ -28,7 +28,7 @@
   position: absolute;
   bottom: -12px;
   z-index: 4;
-}
+} */
 #availability{
   height: 112px;
   width: 600px;

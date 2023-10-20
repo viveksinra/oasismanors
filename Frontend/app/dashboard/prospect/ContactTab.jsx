@@ -124,7 +124,7 @@ function SearchContact({prospectId, handleEdit}) {
     <main>
       <Box sx={{background:"#fff",boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px", borderRadius:"10px", width: '100%' }}>
       <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>All Contacts</Typography>
-      <DataGrid
+        {loading ? <div className="center"><CircularProgress size={30}/> </div> : loading === false && rows.length === 0 ? <NoResult label="No Contact Added"/> :   <DataGrid
         rows={rows}
         columns={columns}
         loading={loading}
@@ -137,8 +137,7 @@ function SearchContact({prospectId, handleEdit}) {
           },
         }}
         pageSizeOptions={[10]}
-      />
-        {loading ? <div className="center"><CircularProgress size={30}/> </div> : loading === false && rows.length === 0 ? <NoResult label="No Contact Added"/> : null} 
+      /> } 
     </Box>
     </main>
   )
@@ -158,7 +157,8 @@ const EntryContact = forwardRef((props, ref) => {
      const [email, setEmail] = useState("");
      const [zip, setZip] = useState("")
      const [loadingCity, setLoadingCity] = useState(false);
-     const [city, setCity] = useState("");
+     const [allCity, setAllCity] = useState([]);
+     const [city, setCity] = useState(null);
      const [state, setState] = useState(null);
      const [relation, setRelation] = useState(null);
      const [notes, setNotes]=useState("");
@@ -179,11 +179,11 @@ const EntryContact = forwardRef((props, ref) => {
           setMobile(res.data.mobile);
           setEmail(res.data.emailAddress);
           setZip(res.data.zipCode);
-          setCity(res.data.city);
+          setCity({city:res.data.city});
           setState(res.data.state);
           setRelation(res.data.relation);
           setNotes(res.data.notes)
-           snackRef.current.handleSnack(res);
+          snackRef.current.handleSnack(res);
          }else snackRef.current.handleSnack(res);            
         } catch (error) {
          console.log(error);
@@ -199,15 +199,16 @@ const EntryContact = forwardRef((props, ref) => {
       if(zip.length===5){
         setLoadingCity(true)
         await axios.get(`/api/public/zipToLocation?zipCode=${zip}`).then(res=>{
-          setCity(res.data.city)
-          let obj = allStates.find(o=>o.id ===res.data.state)
+          setAllCity(res.data)
+          let obj = allStates.find(o=>o.id ===res.data[0].state)
           setState(obj)
           setLoadingCity(false)
         }).catch(err=>{
           console.log(err);
-          alert("Please Enter Correct ZIP Code")
+          alert("Plesae enter correct ZIP code.");
           setZip("");
-          setCity("");
+          setCity(null);
+          setAllCity([]);
           setState(null)
           setLoadingCity(false)
         })
@@ -226,7 +227,7 @@ const EntryContact = forwardRef((props, ref) => {
         setEmail("");
         setZip("");
         setLoadingCity(false);
-        setCity("");
+        setCity(null);
         setState(null);
         setRelation(null);
         setNotes("");
@@ -235,8 +236,8 @@ const EntryContact = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => ({
         handleSubmit: async () => {
           try {
-            let contactData = {prospectId:props.prospectId, contactImage, firstName,lastName,relation,organization,gender,streetAddress,unit,mobile,emailAddress:email,zipCode:zip,city,state,notes  };
-            let response = await prospectService.saveContact(props.contactId, contactData);
+            let contactData = {prospectId:props.prospectId, contactImage, firstName,lastName,relation,organization,gender,streetAddress,unit,mobile,emailAddress:email,zipCode:zip,city:city.city,state,notes  };
+           let response = await prospectService.saveContact(props.contactId, contactData);
            if(response.variant === "success"){
              snackRef.current.handleSnack(response);
              handleClear();
@@ -344,7 +345,18 @@ const EntryContact = forwardRef((props, ref) => {
             }}  label="ZIP Code" type="number"  placeholder="ZIP Code" variant="standard" />
     </Grid> 
     <Grid item xs={12} md={3}> 
-        <TextField fullWidth value={city} label="City" helperText="Just type ZIP Code" disabled placeholder="City" variant="standard" />
+      <Autocomplete
+        id="all-City"
+        getOptionLabel={(option) => option.city ?? option}
+        isOptionEqualToValue={(option, value) => option.city === city.city}
+        options={allCity}
+        disabled={allCity.length===0}
+        onChange={(e, v) => {
+          setCity(v);
+        }}
+        value={city}
+        renderInput={(params) => <TextField {...params} fullWidth variant="standard" helperText="Just type ZIP Code" label="City" placeholder="City"/>}
+        />
     </Grid>
         <Grid item xs={12} md={3}> 
             <Autocomplete

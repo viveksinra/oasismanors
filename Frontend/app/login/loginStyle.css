@@ -13,12 +13,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     height: 800px;
     /* color: white;
     background: radial-gradient(50% 50% at 50% 50%, rgb(18, 38, 71) 0%, rgb(9, 14, 35) 100%); */
     background-image: url("https://res.cloudinary.com/oasismanors/image/upload/v1685043818/blurry-gradient-haikei_hf8srn.svg");
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
 }
 /* Mobile */
 @media only screen and (max-width: 580px) {

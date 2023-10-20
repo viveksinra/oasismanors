@@ -73,6 +73,7 @@ const ProfileTab =({prospectId})=>{
 }
 
 const Summary =({prospectId, setProData})=>{
+    const [loading, setLoading] = useState(false);
     const [totalCount, setTCount] = useState();
     const [inquiryDate, setInquiryDate] = useState("");
     const [financialMoveInDate, setFinancialDate] = useState("");
@@ -98,8 +99,10 @@ const Summary =({prospectId, setProData})=>{
     const [state, setState]=useState(null);
     useEffect(() => {
         async function getOneData(){
+        setLoading(true)
         let res = await prospectService.getOne(prospectId);
         if(res.variant === "success"){
+        setLoading(false)
         setProData({name:`${res.data.firstName} ${res.data.lastName}` , subTitle: `Prospect ~ ${res.data.prospectStage?.label}`, important:res.data.important, userImage: res.data.userImage})
         setInquiryDate(res.data.inquiryDate);
         setFinancialDate(res.data.financialMoveInDate);
@@ -126,10 +129,18 @@ const Summary =({prospectId, setProData})=>{
         setTCount(res.data.totalCount);
         // snackRef.current.handleSnack(res);
         }
+        setLoading(false)
         // else snackRef.current.handleSnack(res);    
        }
        if(prospectId){getOneData()}
       }, [prospectId])
+    if(loading){
+     return (<Grid sx={{display:"flex",justifyContent:"center",alignItems:"center",borderRadius:"20px", flexDirection:"column",height:"400px",width:"100%",background:"#fff"}}>
+     <CircularProgress color="primary" />
+     <Typography align="center" color="teal">Loading ...</Typography>
+     <Typography align="center" color="steelblue">Please Wait</Typography>
+   </Grid>) 
+    }else
     return(
         <main>
           <Grid container spacing={2} sx={{backgroundColor:"#fff", borderRadius:4,marginBottom:2}}>

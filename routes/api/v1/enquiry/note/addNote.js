@@ -87,7 +87,7 @@ console.log(error)
 
 
 // @type    DELETE
-// @route   /api/v1/note/addNote/:id
+// @route   /api/v1/enquiry/note/addNote/deleteOne/:id
 // @desc    Delete a note by ID
 // @access  Public
 router.delete(

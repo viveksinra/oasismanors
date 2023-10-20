@@ -5,7 +5,7 @@ import MySnackbar from "../../Components/MySnackbar/MySnackbar";
 import {Typography, Grid,TextField,FormControlLabel,Switch,ButtonGroup,Button,Accordion,AccordionSummary,Rating, AccordionDetails,InputAdornment,CircularProgress,IconButton} from '@mui/material/';
 import Autocomplete from '@mui/material/Autocomplete';
 import {allStates,allGenders, todayDate} from "../../Components/StaticData";
-import { FcLikePlaceholder, FcLike,FcExpand } from "react-icons/fc";
+import { FcLikePlaceholder, FcLike,FcExpand,FcCheckmark,FcSearch } from "react-icons/fc";
 import {MdDeleteForever} from "react-icons/md";
 import { prospectService,invoiceService } from "../../services";
 import axios from 'axios';
@@ -35,12 +35,12 @@ const EntryArea = forwardRef((props, ref) => {
     const [email, setEmail] = useState("");
     const [zip, setZip] = useState("");
     const [loadingCity, setLoadingCity] = useState(false);
-    const [city, setCity] =useState("");
+    const [city, setCity] =useState(null);
     const [state, setState]=useState(null);
   
     const [PAccordion, setPAccordion]=useState(true);
     const [allSalesAgent, setAllAgents] = useState([]);
-
+    const [allCity, setAllCity] = useState([]);
     const allProspectStage=[{label:"Casual Inquiry",id:"casualInquiry"},{label:"Qualified",id:"qualified"},{label:"Cold",id:"cold"},{label:"Warm",id:"warm"},{label:"Hot",id:"hot"}, {label:"Waiting List",id:"waitingList"},{label:"Lost",id:"lost"},{label:"Needs Assessment",id:"needsAssessment"}]
     const [allProspectSource, setAllPSource] = useState([]);
    
@@ -70,7 +70,7 @@ const EntryArea = forwardRef((props, ref) => {
       setMobile(res.data.phone);
       setEmail(res.data.email);
       setZip(res.data.zipCode);
-      setCity(res.data.city);
+      setCity({city:res.data.city});
       setState(res.data.state);
       setPAccordion(true);
       snackRef.current.handleSnack(res);
@@ -83,26 +83,27 @@ const EntryArea = forwardRef((props, ref) => {
       setInquiryDate(todayDate())
     }, [])
     
-    
     async function getZIPData() {
       if(zip.length === 5){
         setLoadingCity(true)
         await axios.get(`/api/public/zipToLocation?zipCode=${zip}`).then(res=>{
-          setCity(res.data.city)
-          let obj = allStates.find(o=>o.id ===res.data.state)
+          if(res.data){
+          setAllCity(res.data)
+          let obj = allStates.find(o=>o.id ===res.data[0]?.state)
           setState(obj)
           setLoadingCity(false)
+          }else snackRef.current.handleSnack({message:"No City Found with this zip code.", variant:"info"});
         }).catch(err=>{
           console.log(err);
           snackRef.current.handleSnack({message:"Plesae enter correct ZIP code.", variant:"error"});
           setZip("");
-          setCity("");
-          setState(null)
-          setLoadingCity(false)
+          setCity(null);
+          setAllCity([]);
+          setState(null);
+          setLoadingCity(false);
         })
       }
     }
-
     const handleClear =()=>{
       props.setId("");
       setImp(false);
@@ -126,14 +127,15 @@ const EntryArea = forwardRef((props, ref) => {
       setMobile("");
       setEmail("");
       setZip("");
-      setCity("");
+      setCity(null);
+      setAllCity([]);
       setState(null);
       setPAccordion(true);
     }
     useImperativeHandle(ref, () => ({
          handleSubmit: async () => {
            try {
-          let prospectData = { _id: props.id,inquiryDate, financialMoveInDate,physicalMoveInDate,salesAgent,prospectStage,prospectScore, marketingStatus:subscribed,prospectSource,message,firstName,lastName,dateOfBirth:DOB,gender,phone:mobile,email,streetAddress:street,unit,home, office, city,state,zipCode:zip,important };
+          let prospectData = { _id: props.id,inquiryDate, financialMoveInDate,physicalMoveInDate,salesAgent,prospectStage,prospectScore, marketingStatus:subscribed,prospectSource,message,firstName,lastName,dateOfBirth:DOB,gender,phone:mobile,email,streetAddress:street,unit,home, office, city:city?.city,state,zipCode:zip,important };
           let response;
             response = await prospectService.add(props.id, prospectData);
             if(response.variant === "success"){
@@ -332,13 +334,23 @@ const EntryArea = forwardRef((props, ref) => {
           <TextField fullWidth value={zip} inputProps={{maxLength: "10"}} onChange={e=> {setZip(e.target.value)}} onBlur={()=>getZIPData()} disabled={loadingCity} InputProps= {{
             endAdornment: (
             <InputAdornment position="end">
-            {loadingCity && <CircularProgress size={25}/>}  
+            {loadingCity ? <CircularProgress size={25}/> : zip.length > 4 ? <IconButton size="medium" onClick={()=>getZIPData()}><FcSearch/></IconButton> : null}  
             </InputAdornment>
             ),
             }}  label="ZIP Code" type="number"  placeholder="ZIP Code" variant="standard" />
         </Grid> 
-            <Grid item xs={12} md={3}> 
-            <TextField fullWidth value={city} onChange={e=>setCity(e.target.value)} label="City" helperText="Just type ZIP Code" disabled placeholder="City" variant="standard" />
+            <Grid item xs={12} md={3}>
+            <Autocomplete
+              id="all-City"
+              getOptionLabel={(option) => option.city}
+              options={allCity}
+              disabled={zip.length<5}
+              onChange={(e, v) => {
+                setCity(v);
+              }}
+              value={city}
+              renderInput={(params) => <TextField {...params} fullWidth helperText="Just type ZIP Code" label="City" placeholder="City"/>}
+              /> 
             </Grid>
                     <Grid item xs={12} md={3}> 
                       <Autocomplete

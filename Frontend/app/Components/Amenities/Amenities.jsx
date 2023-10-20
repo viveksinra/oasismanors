@@ -28,7 +28,7 @@ function Amenities() {
 
             </Grid>
              <Grid item xs={12} md={6}  className="center">
-                <img id="welcomeImg" src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/ECS_Canterbury_Intro-1024x727.jpg" alt="Img" />
+                <div id="welcomeImg"/>
              </Grid>
         </Grid>
 
@@ -88,11 +88,11 @@ function Amenities() {
         <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
             <ul>
-                <li> <Typography variant="subtitle1"  style={{color:"#00a2c2"}}>Your Family can also track your all activities. (If allowed)</Typography></li>
-                <li> <Typography variant="subtitle1"  style={{color:"#00a2c2"}}>Instant notification to your family members.</Typography></li>
-                <li> <Typography variant="subtitle1"  style={{color:"#00a2c2"}}>Schedule call, message, online meeting with your family & Relatives.</Typography></li>
-                <li> <Typography variant="subtitle1"  style={{color:"#00a2c2"}}>Daily Summary Report (DSR) live on website for individual guest.</Typography></li>
-                <li> <Typography variant="subtitle1"  style={{color:"#00a2c2"}}>Your family can also track DSR and request for any change.</Typography></li>
+                <li> <Typography variant="subtitle1"  style={{color:"mediumblue"}}>Your Family can also track your all activities. (If allowed)</Typography></li>
+                <li> <Typography variant="subtitle1"  style={{color:"mediumblue"}}>Instant notification to your family members.</Typography></li>
+                <li> <Typography variant="subtitle1"  style={{color:"mediumblue"}}>Schedule call, message, online meeting with your family & Relatives.</Typography></li>
+                <li> <Typography variant="subtitle1"  style={{color:"mediumblue"}}>Daily Summary Report (DSR) live on website for individual guest.</Typography></li>
+                <li> <Typography variant="subtitle1"  style={{color:"mediumblue"}}>Your family can also track DSR and request for any change.</Typography></li>
             </ul>
             </Grid>
             <Grid item xs={12} md={6}>

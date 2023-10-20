@@ -8,9 +8,14 @@ export async function GET(request) {
       `https://www.zipcodeapi.com/rest/H1jGqL02BlSBVdCmm8EM6Dbr5CgOyQGyvvI56vfiM8lZis8kcsMO3wm70qDLXNNd/info.json/${zipCode}/degrees`
     )
     .then((res) => {
-      let dataToSend = {
-        city:res.data.city,
-        state:res.data.state
+      let dataToSend = res.data.acceptable_city_names
+      if(dataToSend.length <= 0){
+        dataToSend = [
+          {
+            "city": res.data.city,
+            "state": res.data.state,
+          }
+        ]
       }
       const response = new Response(JSON.stringify(dataToSend), {
         headers: {

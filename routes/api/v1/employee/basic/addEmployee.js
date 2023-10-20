@@ -218,6 +218,16 @@ if(uniqueUserName(req,newUser.userName)){
       newUser.status.id = req.body.status.id;
     }
   }
+  newUser.reportingTo = {};
+
+  if (req.body.reportingTo) {
+    if (req.body.reportingTo.label) {
+      newUser.reportingTo.label = req.body.reportingTo.label;
+    }
+    if (req.body.reportingTo._id) {
+      newUser.reportingTo._id = req.body.reportingTo._id;
+    }
+  }
 
   if (req.body.securityRole) {
     newUser.securityRole = req.body.securityRole;
@@ -232,6 +242,9 @@ if(uniqueUserName(req,newUser.userName)){
 
   if (req.body.salary) {
     newUser.salary = req.body.salary;
+  }
+  if (req.body.salaryTenure) {
+    newUser.salaryTenure = req.body.salaryTenure;
   }
 
   if (req.body.street) {

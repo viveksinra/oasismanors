@@ -1,20 +1,22 @@
 'use client';
-import React, { forwardRef,useImperativeHandle } from 'react'
+import React, { forwardRef,useImperativeHandle,useContext } from 'react'
 import { useState,useEffect,useRef} from 'react';
 import MySnackbar from "../../Components/MySnackbar/MySnackbar";
 import {Typography, Stepper,Step,StepLabel,StepContent, Button, Grid,TextField, Tooltip,Avatar, Chip,IconButton,Divider, FormControlLabel,Switch,ButtonGroup,Accordion,AccordionSummary,Rating, AccordionDetails,InputAdornment,CircularProgress} from '@mui/material/';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Autocomplete from '@mui/material/Autocomplete';
-import {allStates,allGenders,allSecurityRole, allJobRole} from "../../Components/StaticData";
+import {allStates,allGenders, allJobRole} from "../../Components/StaticData";
 import { useImgUpload } from '@/app/hooks/auth/useImgUpload';
-import { FcDeleteRow, FcExternal,FcExpand,FcApproval } from "react-icons/fc";
+import { FcDeleteRow, FcExternal,FcExpand,FcApproval,FcSearch } from "react-icons/fc";
 import { DataGrid } from '@mui/x-data-grid';
 import {MdVisibility, MdVisibilityOff} from "react-icons/md";
 import Link from 'next/link';
 import { employeeService } from "../../services";
+import EmpContext from './EmpContext';
 import axios from 'axios';
 
 const PersonalInfo = forwardRef((props, ref)=>{
+     const {state, dispatch} = useContext(EmpContext)
     const snackRef = useRef();
     const [loadingImg, setLoadingImg]= useState(false);
     const [userImage, setImgUrl] = useState("")
@@ -24,17 +26,18 @@ const PersonalInfo = forwardRef((props, ref)=>{
     const [dob, setDob] = useState("");
     const [hireDate, setHireDate] = useState("");
     const [jobRole, setJobRole] = useState(null)
-    const [securityRole, setRole] = useState([]);
     const [email, setEmail] = useState("");
     const [mobile, setMobile] = useState("");
     const [status, setStatus] = useState(null);
     const [salary, setSalary] = useState("");
+    const [salaryTenure,setSalTenure] = useState(null)
     const [street, setStreet] = useState("");
     const [unit, setUnit] = useState("");
     const [zip, setZip] = useState("");
     const [loadingCity, setLoadingCity] = useState(false);
-    const [city, setCity] = useState("");
-    const [state, setState] = useState(null);
+    const [city, setCity] = useState(null);
+    const [allCity, setAllCity] = useState([]);
+    const [stateName, setState] = useState(null);
     const [loginAllowed, setAllow] = useState(true);
     const [password, setPass] = useState("");
     const [showPass, setShowPass] = useState(false);
@@ -55,7 +58,6 @@ const PersonalInfo = forwardRef((props, ref)=>{
         setDob(res.data.dob);
         setHireDate(res.data.hireDate);
         setJobRole(res.data.jobRole);
-        setRole(res.data.securityRole);
         setEmail(res.data.email);
         setMobile(res.data.mobile);
         setStatus(res.data.status);
@@ -63,7 +65,7 @@ const PersonalInfo = forwardRef((props, ref)=>{
         setStreet(res.data.street);
         setUnit(res.data.unit);
         setZip(res.data.zip);
-        setCity(res.data.city);
+        setCity({city:res.data.city});
         setState(res.data.state);
         setAllow(res.data.loginAllowed);
         setPass(res.data.value);
@@ -74,23 +76,24 @@ const PersonalInfo = forwardRef((props, ref)=>{
      if(props.id){getData()}
     }, [props.id])
 
-   async function getZIPData(){
-    if(zip.length===5){
-      setLoadingCity(true)
-      await axios.get(`/api/public/zipToLocation?zipCode=${zip}`).then(res=>{
-        setCity(res.data.city)
-        let obj = allStates.find(o=>o.id ===res.data.state)
-        setState(obj)
-        setLoadingCity(false)
-      }).catch(err=>{
-        console.log(err);
-        snackRef.current.handleSnack({message:"Plesae enter correct ZIP code.", variant:"error"});
-        setZip("");
-        setCity("");
-        setState(null)
-        setLoadingCity(false)
-      })
-    }
+    async function getZIPData() {
+      if(zip.length===5){
+        setLoadingCity(true)
+        await axios.get(`/api/public/zipToLocation?zipCode=${zip}`).then(res=>{
+          setAllCity(res.data)
+          let obj = allStates.find(o=>o.id ===res.data[0].state)
+          setState(obj)
+          setLoadingCity(false)
+        }).catch(err=>{
+          console.log(err);
+          alert("Plesae enter correct ZIP code.");
+          setZip("");
+          setCity(null);
+          setAllCity([]);
+          setState(null)
+          setLoadingCity(false)
+        })
+      }
     }
     const imgUpload= async (e)=>{
       setLoadingImg(true)
@@ -128,7 +131,7 @@ const PersonalInfo = forwardRef((props, ref)=>{
       setUnit("");
       setZip("");
       setLoadingCity(false);
-      setCity("");
+      setCity(null);
       setState(null);
       setAllow(true);
       setPass("");
@@ -141,14 +144,16 @@ const PersonalInfo = forwardRef((props, ref)=>{
       stepData: async () => {
         if(password === confirmPass){
           try {
-            let data={userImage,firstName,lastName,gender,dob,hireDate,jobRole,securityRole,email,mobile,status,salary,street,unit,zip,city,state,loginAllowed,password}
+            let data={userImage,firstName,lastName,gender,dob,hireDate,jobRole,email,mobile,status,salary,salaryTenure:salaryTenure ? salaryTenure.label : "", street,unit,zip,city: city ? city.city : "", state:stateName,loginAllowed,password}
+             
             let response;
-              response = await employeeService.saveEmployee("api/v1/employee/basic/addEmployee", props.id, data)
-              if(response.variant === "success"){
+                response = await employeeService.saveEmployee("api/v1/employee/basic/addEmployee", props.id, data)
+                if(response.variant === "success"){
+                  dispatch({ type: "SETPERSONAL", payload: data}); 
                 props.setId(response?._id)
                 snackRef.current.handleSnack(response);
                 props.handleNext()
-              }else snackRef.current.handleSnack(response?.response?.data);            
+                }else snackRef.current.handleSnack(response?.response?.data);            
              } catch (error) {
               console.log(error);
               snackRef.current.handleSnack({message:"Failed to fetch Data. " + error.response.data.message, variant:"error"});
@@ -227,7 +232,7 @@ const PersonalInfo = forwardRef((props, ref)=>{
       </Grid>
       <Grid item xs={12} md={2}>
       <Autocomplete
-          isOptionEqualToValue={(option, value) => option?.id === value?.id}
+          isOptionEqualToValue={(option, value) => option?.label === value?.label}
           options={allJobRole}
           renderOption={(props, option) => {
             return (
@@ -244,39 +249,32 @@ const PersonalInfo = forwardRef((props, ref)=>{
           /> 
       </Grid>
       <Grid item xs={12} md={2}>
-      <Autocomplete
-          isOptionEqualToValue={(option, value) => option?.id === value?.id}
-          options={allSecurityRole}
-          renderOption={(props, option) => {
-            return (
-              <li {...props} key={option?.id}>
-                {option?.label}
-              </li>
-            );
-          }}
-          renderTags={(tagValue, getTagProps) => {
-            return tagValue.map((option, index) => (
-              <Chip {...getTagProps({ index })} key={option?.id} label={option?.label} />
-            ))
-          }}
-          multiple
-          onChange={(e, v) => {
-          setRole(v);
-          }}
-          value={securityRole}
-          renderInput={(params) => <TextField {...params} variant="standard"  fullWidth label="Security Role"/>}
-          /> 
-      </Grid>
-      <Grid item xs={12} md={2}>
       <TextField fullWidth value={email} type='email' onChange={e=>setEmail(e.target.value)} helperText="Required to Login" label="Email Id" placeholder='Email Id' variant="standard" />   
       </Grid>
       <Grid item xs={12} md={2}>
       <TextField fullWidth value={mobile} type='number' onChange={e=>setMobile(e.target.value)} helperText="Required to Login" label="Mobile No" placeholder='Cell phone Number' variant="standard" />   
       </Grid>
       <Grid item xs={12} md={2}>
-      <TextField fullWidth value={salary} type='number' onChange={e=>setSalary(e.target.value)} label="Salary (Monthly)" placeholder='($) Monthly Salary' variant="standard" />   
+      <TextField fullWidth value={salary} type='number' onChange={e=>setSalary(e.target.value)} label="Salary ($)" placeholder='($) Salary' variant="standard" />   
       </Grid>
-      
+      <Grid item xs={12} md={2}>
+      <Autocomplete
+          isOptionEqualToValue={(option, value) => option?.label === value?.label}
+          options={[{label:"Hourly"},{label:"Daily"},{label:"Weekly"},{label:"Monthly"},{label:"On Commission"}]}
+          renderOption={(props, option) => {
+            return (
+              <li {...props} key={option?.label}>
+                {option?.label}
+              </li>
+            );
+          }}
+          onChange={(e, v) => {
+            setSalTenure(v);
+          }}
+          value={salaryTenure}
+          renderInput={(params) => <TextField {...params} variant="standard"  fullWidth label="Salary Tenure"/>}
+          /> 
+      </Grid>
       <Grid item xs={12} md={2}>
       <TextField fullWidth label="Street Address" value={street} onChange={e=>setStreet(e.target.value)} placeholder='Street Address' variant="standard" />   
       </Grid>
@@ -284,36 +282,47 @@ const PersonalInfo = forwardRef((props, ref)=>{
       <TextField fullWidth label="Unit" value={unit} onChange={e=>setUnit(e.target.value)} placeholder='Unit' variant="standard" />   
       </Grid>
       <Grid item xs={12} md={2}>
-      <TextField fullWidth value={zip} onChange={e=> setZip(e.target.value)} onBlur={getZIPData} disabled={loadingCity} InputProps= {{
-      endAdornment: (
-      <InputAdornment position="end">
-      {loadingCity && <CircularProgress size={25}/>}  
-      </InputAdornment>
-      ),
-      }}  label="ZIP Code" type="number"  placeholder="ZIP Code" variant="standard" />
+        <TextField fullWidth value={zip} onChange={e=> setZip(e.target.value)} onBlur={getZIPData} disabled={loadingCity} InputProps= {{
+            endAdornment: (
+            <InputAdornment position="end">
+            {loadingCity ? <CircularProgress size={25}/> : zip.length > 4 ? <IconButton size="medium" onClick={()=>getZIPData()}><FcSearch/></IconButton> : null}  
+            </InputAdornment>
+            ),
+          }}  label="ZIP Code" type="number" placeholder="ZIP Code" variant="outlined" />
       </Grid>
       <Grid item xs={12} md={2}>
-      <TextField fullWidth value={city} onChange={e=>setCity(e.target.value)} label="City" helperText="Just type ZIP Code" disabled placeholder="City" variant="standard" />
+        <Autocomplete
+          id="all-City"
+          getOptionLabel={(option) => option.city ?? option}
+          isOptionEqualToValue={(option, value) => option.city === city.city}
+          options={allCity}
+          disabled={allCity.length===0}
+          onChange={(e, v) => {
+            setCity(v);
+          }}
+          value={city}
+          renderInput={(params) => <TextField {...params} fullWidth helperText="Just type ZIP Code" variant="standard" label="City" placeholder="City"/>}
+          />
       </Grid>
       <Grid item xs={12} md={2}>
       <Autocomplete
-                id="allStates"
-                isOptionEqualToValue={(option, value) => option?.id === value?.id}
-                renderOption={(props, option) => {
-                  return (
-                    <li {...props} key={option?.id}>
-                      {option?.label}
-                    </li>
-                  );
-                }}
-                options={allStates}
-                onChange={(e, v) => {
-                  setState(v);
-                }}
-                value={state}
-                disabled
-                renderInput={(params) => <TextField {...params} variant="standard" helperText="Just type ZIP Code"  fullWidth label="State"/>}
-                />
+        id="allStates"
+        isOptionEqualToValue={(option, value) => option?.id === value?.id}
+        renderOption={(props, option) => {
+          return (
+            <li {...props} key={option?.id}>
+              {option?.label}
+            </li>
+          );
+        }}
+        options={allStates}
+        onChange={(e, v) => {
+          setState(v);
+        }}
+        value={stateName}
+        disabled
+        renderInput={(params) => <TextField {...params} variant="standard" helperText="Just type ZIP Code"  fullWidth label="State"/>}
+        />
       </Grid>
      
   </Grid>
@@ -833,7 +842,6 @@ const EntryArea = forwardRef((props, ref) => {
                   {index === steps.length - 1 ? 'Finish' : 'Continue'}
                 </Button>
               </div>
-        
           </StepContent>
         </Step>
       ))}
@@ -844,3 +852,4 @@ const EntryArea = forwardRef((props, ref) => {
 
 
 export default EntryArea; 
+

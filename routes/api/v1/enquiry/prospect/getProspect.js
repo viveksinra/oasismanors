@@ -190,7 +190,7 @@ const formattedProspect = {
 
 
   router.get(
-    "/getDataWithPage/:limit/:PageNumber",
+    "/getDataWithPage/:sort/:limit/:PageNumber",
     passport.authenticate("jwt", { session: false }),
     async(req, res) => {
       try {
@@ -212,11 +212,11 @@ const formattedProspect = {
   );
  
 // @type    GET
-//@route    /api/v1/enquiry/prospect/getProspect/getDataWithPage/:limit/:PageNumber/:search
+//@route    /api/v1/enquiry/prospect/getProspect/getDataWithPage/:sort/:limit/:PageNumber/:search
 // @desc    route for searching of user from searchbox using any text
 // @access  PRIVATE
 router.get(
-  "/getDataWithPage/:limit/:PageNumber/:search",
+  "/getDataWithPage/:sort/:limit/:PageNumber/:search",
   passport.authenticate("jwt", { session: false }),
   async(req, res) => {
     try {
@@ -258,12 +258,23 @@ const getSearchFun = async (req) => {
     ],
   }
 }
+let sort = req.params.sort
+let sortBy = { date: -1 }
+
+if(sort == "oldToNew"){
+  sortBy = { date: +1 }
+}else if(sort == "rating"){
+  sortBy = { prospectScore: -1 }
+}else if(sort == "important"){
+  sortBy = { important: -1 }
+}
+
     const totalCount = await Prospect.countDocuments(myMatch);
 
     // Retrieve ledgers with pagination, populating the 'under' property
     const mydata = await Prospect.aggregate([
       { $match: myMatch },
-      { $sort: { date: -1 } }, // Sort by date in descending order
+      { $sort: sortBy }, // Sort by date in descending order
       { $skip: (page - 1) * limit }, // Skip the appropriate number of records based on the page number
       { $limit: limit }, // Limit the number of records to retrieve
         {
