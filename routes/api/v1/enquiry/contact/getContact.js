@@ -164,7 +164,7 @@ router.get(
   
         const modifiedData = myData.map(contact => ({
           _id:contact._id,
-          label:contact.lastName + " "+ contact.firstName,
+          label:contact.firstName + " "+ contact.lastName,
           mobile:contact.mobile,
           email:contact.emailAddress,
           billingAddress:contact.unit,

@@ -127,7 +127,7 @@ const ResMedSchema = new Schema({
     ref: "myProspect",
     required: true
   },
-  community: {
+  communityId: {
     type: String,
     default: "647654545893b52b5c8bbc61"
   },

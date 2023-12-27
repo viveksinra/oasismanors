@@ -1,39 +1,37 @@
 "use client";
 import "./amenitiesStyle.css";
-import Image from 'next/image';
-import {Container, Divider, Grid, Typography,Hidden} from '@mui/material/';
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
+import {Container, Divider, Grid, Typography,Hidden,Accordion,AccordionSummary,AccordionDetails} from '@mui/material/';
+import { FcCollapse } from "react-icons/fc";
+import { BsPatchQuestionFill } from "react-icons/bs";
+
 import Link from 'next/link';
-import yoga from "./yoga.svg";
-import diet from "./diet.svg";
-import doctor from "./doctor.svg";
-import freedom from "./freedom.svg";
 
 function Amenities() {
-    const [amenities] = useState([{title:"Experience Actual Freedom",subtitle:"Live with your own dignity",img:freedom},{title:"Proper Diet & Nutrition",subtitle:"Get fresh & healthy meal every time",img:diet},{title:"Regular Health Checkup",subtitle:"Free Health Checkup with diagnosis & Medicine",img:doctor},{title:"Yoga & Exercise Events",subtitle:"Participate in health & cultural events",img:yoga}])
-  return (
-    <section className="sectionMargin" style={{background:"#fff"}}>
+    const [amenities] = useState([{title:"Courtyard for Family-like Environment",subtitle:"We prove a large courtyard for your comfortable living.",link:"/", img:"https://res.cloudinary.com/oasismanors/image/upload/v1703589808/oasisApi/courtyard_sie00n.webp"},{title:"Swimming Pool With Easy Stairs",subtitle:"Easy accessible Swimming Pool with convenient setup for elderly.",link:"/",img:"https://res.cloudinary.com/oasismanors/image/upload/v1703589808/oasisApi/swimmingPool_cwmuvr.webp"},{title:"Proper Diet & Nutrition",subtitle:"Get fresh & healthy meal every time. Check out our Sample Menu.",link:"/amenities/menu", img:"https://res.cloudinary.com/oasismanors/image/upload/v1703589807/oasisApi/properDiet_yjypj2.webp"},{title:"Regular Health Checkup",subtitle:"Free Health Checkup with diagnosis & Medicine",link:"/", img:"https://res.cloudinary.com/oasismanors/image/upload/v1703589807/oasisApi/healthCheckUp_rpxyng.webp"},{title:"Yoga & Exercise Events",subtitle:"Participate in health & cultural events",link:"/", img:"https://res.cloudinary.com/oasismanors/image/upload/v1703589807/oasisApi/yoga_kj8yxf.webp"},{title:"All Private Bedrooms",subtitle:"We offer a Separate Bathrooms with attach Bathroom, direct Backyard, Flat Screen TV and centralised AC. ",link:"/", img:"https://res.cloudinary.com/oasismanors/image/upload/v1703589806/oasisApi/bedroom_splw9e.webp"},{title:"Special Celebration & Social Events",subtitle:"We love to celebrate special occasions and holidays in style with good food, festival decoration, etc.",link:"/", img:"https://res.cloudinary.com/oasismanors/image/upload/v1703589807/oasisApi/dancing_ijfdzy.webp"},{title:"Big Garden with Lord Buddha statue",subtitle:"Experience the natural and positive vibes with a large Gautam Buddha stone statue in our Garden.",link:"/", img:"https://res.cloudinary.com/oasismanors/image/upload/v1703589808/oasisApi/stone-gautama-buddha_elxxg5.webp"},{title:"Online Activities Tracking",subtitle:"You and your Family can track all major activities, Daily Summary Report and medical information on our Oasis web portal.",link:"/", img:"https://res.cloudinary.com/oasismanors/image/upload/v1703594840/oasisApi/image1_vo2crp.webp"}])
+    const [faq, setFaq] = useState([{ques:"What is the difference between a retirement home and a long-term care home?", ans:"People who are entering a long-term care home often require substantial medical care and/or personal living assistance. Retirement homes, on the other hand, provide residents with an age-restricted community. The two property types differ primarily in the level of care that is given. Moving into a retirement village or nursing home enables these seniors to enjoy their time without having to worry about the hassles of everyday chores."},{ques:"Are there standards that retirement homes must abide by?", ans:"Yes. The Retirement Homes Regulatory Authority (RHRA) is an organization that establishes and measures standards for retirement residences in the province. All Sharon Village Home Care properties meet or exceed these standards."},{ques:"How much does it cost to live in a retirement village?", ans:"Prices vary based on the location and the services offered. In most cases, fees are specific to the retirement residence and to the client themselves. Please contact the Sharon Village retirement residence of your choice for more information on accommodation costs."},  {ques:"What should I consider when looking for a retirement home?",ans:"This depends a lot on your personal preferences. The following is a list of criteria to consider when looking at potential retirement options:",list:[{point:"Accommodations: Consider things like wheelchair accessibility, whether or not a kitchenette is available, housekeeping and laundry services, etc."},{point:"Leisure activities: Be sure to enquire about outdoor spaces, common areas, recreational programming, onsite amenities (like a salon or spa), and worship services."},{point:"Health and assisted living services: Always be sure to check staff credentials and facility safety protocols. If you require more in-depth assisted living services, you may wish to consider one of our Long-Term Care facilities."}] }, {ques:"How do I talk to my loved one about retirement living?",ans:"It is never too soon to start this conversation with a loved one. Making the transition from independent living to a retirement community does not have to be difficult; however it will take some adjusting to. Start the conversation by asking your loved one about their future plans and needs. Be supportive and enthusiastic about their options. By keeping a positive outlook and assisting your loved one with their research and planning, you will help them feel more confident and comfortable with their decision."}, ])
+    return (
+    <section style={{background:"#fff"}}>
         <Container>
         <div id="visit">
-            <span id="firstText"><p><Link href="/about">Schedule Your Visit  ➡ </Link></p> </span>
+            <span id="firstText"><p><Link href="/contact">Schedule Your Visit  ➡ </Link></p> </span>
             <span id="secoundText" style={{color:"#00a2c2"}}>Starting at $5,743 monthly, including amenities & services, with entrance-fee contract.*</span>
         </div>
 
         <Grid container spacing={2} className="sectionMargin">
             <Grid item xs={12} md={6}>
-            <Typography variant="h3" color="primary" gutterBottom style={{fontFamily: 'Courgette'}}> Welcome to Oasis Manors </Typography>
+            <Typography color="primary" gutterBottom sx={{fontSize:{xs:"24px",md:"40px"}, fontFamily: 'Courgette'}} align="center"> Welcome to Oasis Manors </Typography>
             <Typography variant="subtitle1" style={{color:"#000"}} gutterBottom>Come home to sophisticated living in the 15116 Roxford St, Sylmar, CA 91342, where relaxed, maintenance-free living and proactive wellness ensure a lifestyle as vibrant as you are. Here, you are free to pursue your passions and discover new interests, all in the company of neighbors who share your view of what independent senior living in CALIFORNIA should be.</Typography>
             <br/>
             <Typography variant="p" style={{color:"#000"}} gutterBottom>Perched on a scenic bluff in the rolling hills of Sylmar, CA, at The Oasis Manors, you can be as active or easygoing as you want with the confidence and peace of mind that comes from choosing a Life Plan community to call home.</Typography>
-
             </Grid>
              <Grid item xs={12} md={6}  className="center">
                 <div id="welcomeImg"/>
              </Grid>
         </Grid>
 
-    
-        <Grid container>
+        <Suspense fallback={<h6>Loading...</h6>}>
+        <Grid container spacing={2}>
          <Grid item xs={12}>
             <Divider light variant="inset"> <h4 className='heading'> Our Amentities</h4> </Divider>
             <br/>
@@ -43,14 +41,17 @@ function Amenities() {
             <br/>
          </Grid>
          {amenities.map(a=>
-            <Grid key={a.title} item xs={12} md={3} className='amenityCard'>
-                <center><Image priority src={a.img} alt={a.title}/></center>
-                <Typography variant='h6'style={{fontFamily: 'Courgette'}} textAlign="center" color="primary">{a.title}</Typography>
+            <Grid key={a.title} item xs={12} md={4} >
+                <Grid className="amenityCard">
+                <img src={a?.img} className="amenityImg" alt={a?.title} />
+                <Link href={a.link}><Typography variant='h6'style={{fontFamily: 'Courgette'}} textAlign="center" color="primary">{a.title}</Typography></Link>
                 <Typography align='center' style={{color:"#000"}} variant="body2" >
                 {a.subtitle}
              </Typography>
+                </Grid>                
             </Grid>)}
         </Grid>
+        </Suspense>
 
         <Grid container spacing={2} id="imgBox">
             <Grid item xs={12} md={6} className="center">
@@ -114,7 +115,7 @@ function Amenities() {
                 <video className="communityImg" style={{height:310}} src="https://www.ecsforseniors.org/wp-content/uploads/2023/03/ECS_How-We-Live_Vido.mp4" type="video/mp4/" playsInline autoPlay loop muted>
                 </video>
                 <Typography variant="h6" color="primary">How we Live</Typography>
-                <Typography variant="subtitle2" color="secondary">A lifestyle as rich and vibrant as you are.</Typography>
+                <Typography variant="subtitle2" color="royalblue">A lifestyle as rich and vibrant as you are.</Typography>
                 <br/>   <Link href="/" className="btnLink">Watch Our Video  ➡ </Link>
                 <br/>  <br/>  <br/>
             </div>
@@ -124,7 +125,7 @@ function Amenities() {
                 <img className="abstractImg" src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/11/abstract_2.jpg" alt="abstract_1" />
             <img className="communityImg" src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/Services-Amenties-640x427.jpg" alt="abstract_2" />
             <Typography variant="h6" color="primary">Services & Amenities</Typography>
-            <Typography variant="subtitle2" color="secondary">All the comforts of home and so much more.</Typography>
+            <Typography variant="subtitle2" color="royalblue">All the comforts of home and so much more.</Typography>
             <br/>   <Link href="/" className="btnLink">Take a Tour  ➡ </Link>  
             <br/>  <br/>  <br/>
             </div>
@@ -134,14 +135,42 @@ function Amenities() {
                 <img className="abstractImg" src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/11/abstract_3.jpg" alt="abstract_1" />
             <img className="communityImg" src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/Delectable-Dining-2-640x427.jpg" alt="abstract_2" />
             <Typography variant="h6" color="primary">Fresh & Hygienic Meal</Typography>
-            <Typography variant="subtitle2" color="secondary">This is core speciality to provide best nutritious meal.</Typography>
-            <br/>   <Link href="/" className="btnLink">Schedule Visit  ➡ </Link>
+            <Typography variant="subtitle2" color="royalblue">This is core speciality to provide best nutritious meal.</Typography>
+            <br/>   <Link href="/amenities/menu" className="btnLink">Sample Menu  ➡ </Link>
             <br/>  <br/>  <br/>            
             </div>
         </Grid>
     </Grid>
     </Container>
     </div>
+    <br/>
+
+   <Divider light> <Typography variant='h4' textAlign="center" className='heading'>FAQ ~ Retirement Homes</Typography> </Divider> 
+   <br/>
+   <div id="faqBg">
+  
+   </div>
+   <Container>
+    {faq.map((f,i)=> <Accordion key={i}> 
+            <AccordionSummary
+          expandIcon={<FcCollapse  />}
+          aria-controls="faq-header"
+          id="faq-header"
+        >
+      <BsPatchQuestionFill style={{marginTop:"4px",marginRight:"8px",color:"lightseagreen"}}/> <Typography>{f?.ques}</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            A. ~ {f?.ans}
+          </Typography>
+          <br/>
+          <ul >
+            {f?.list && f?.list.map((l,j)=><li className="faqBgUl" key={j}> <Typography gutterBottom variant="body2"> {l?.point}</Typography> </li>)}
+          </ul>
+        </AccordionDetails>
+        </Accordion>)}
+   </Container>
+    <br/>
     
     </section>
   )

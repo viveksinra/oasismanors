@@ -92,7 +92,6 @@ function   Dashboard () {
             <Typography variant="h5" gutterBottom color="darkviolet">{heading?.taskCount} </Typography>
             <Link href="/dashboard/invoice"> <Button size='small' sx={{marginLeft:"20px"}} variant="outlined">View Invoices</Button></Link> 
             </div>
-            
           </div>
         </Grid>
         <Grid item xs={12} md={8} sx={{marginLeft:{xs:"8px",md:"0px"},marginRight:{xs:"8px", md:"0px"}}}>

@@ -21,7 +21,6 @@ const fileupload = require("./routes/api/v1/other/fileupload");
 const passwordAuth = require("./routes/api/v1/auth/passwordAuth");
 const company = require("./routes/api/v1/company");
 // main
-const community = require("./routes/api/v1/main/community");
 const addSeat = require("./routes/api/v1/main/seat/addSeat");
 const getSeat = require("./routes/api/v1/main/seat/getSeat");
   const addCareCat = require("./routes/api/v1/main/careCat/addCareCat");
@@ -94,6 +93,21 @@ const getPayment = require("./routes/api/v1/account/payment/getPayment");
 const addReceipt = require("./routes/api/v1/account/receipt/addReceipt");
 const getReceipt = require("./routes/api/v1/account/receipt/getReceipt");
 const getReport = require("./routes/api/v1/account/report/getReport");
+//
+const getFormData = require("./routes/api/v1/form/formFunction/getFormData");
+
+// Access
+const addAccess = require("./routes/api/v1/access/roleAccess/addAccess");
+const getAccess = require("./routes/api/v1/access/roleAccess/getAccess");
+
+// Form
+const allForm = require("./routes/api/v1/form/main/allForm");
+// Common
+const addComplianceDocs = require("./routes/api/v1/common/complianceDocs/addComplianceDocs");
+const getComplianceDocs = require("./routes/api/v1/common/complianceDocs/getComplianceDocs");
+// Community
+const addCommunity = require("./routes/api/v1/main/community/addCommunity");
+const getCommunity = require("./routes/api/v1/main/community/getCommunity");
 
 
 //passport 
@@ -144,9 +158,7 @@ app.use("/api/v1/other/fileupload", fileupload);
 //actual routes
 app.use("/api/v1/auth/passwordAuth", passwordAuth);
 app.use("/api/v1/company", company);
-app.use("/api/v1/main/community", community);
 // main
-app.use("/api/v1/main/community", community);
 app.use("/api/v1/main/seat/addSeat", addSeat);
 app.use("/api/v1/main/seat/getSeat", getSeat);
 // Addition
@@ -222,6 +234,19 @@ app.use("/api/v1/account/payment/getPayment", getPayment);
 app.use("/api/v1/account/receipt/addReceipt", addReceipt);
 app.use("/api/v1/account/receipt/getReceipt", getReceipt);
 app.use("/api/v1/account/report/getReport", getReport);
+// Form
+app.use("/api/v1/form/formFunction/getFormData", getFormData);
+// Access
+app.use("/api/v1/access/roleAccess/addAccess", addAccess);
+app.use("/api/v1/access/roleAccess/getAccess", getAccess);
+// Form
+app.use("/api/v1/form/main/allForm", allForm);
+// Common
+app.use("/api/v1/common/complianceDocs/addComplianceDocs", addComplianceDocs);
+app.use("/api/v1/common/complianceDocs/getComplianceDocs", getComplianceDocs);
+// Community
+app.use("/api/v1/main/community/addCommunity", addCommunity);
+app.use("/api/v1/main/community/getCommunity", getCommunity);
 
 app.get("/*", function(req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"), function(

@@ -67,16 +67,16 @@ async function getProspectObj(req,type) {
     newProspect.isResidence = true
     newProspect.residenceStage = req.body.residenceStage || "residence"
 
-    if (req.body.building) {
-      newProspect.building = {}
-      if (req.body.building.label) {
-        newProspect.building.label = req.body.building.label;
+    if (req.body.community) {
+      newProspect.community = {}
+      if (req.body.community.communityName) {
+        newProspect.community.communityName = req.body.community.communityName;
       } 
-      if (req.body.building.houseNo) {
-        newProspect.building.houseNo = req.body.building.houseNo;
+      if (req.body.community.buildingNumber) {
+        newProspect.community.buildingNumber = req.body.community.buildingNumber;
       } 
-       if (req.body.building._id) {
-        newProspect.building._id = req.body.building._id;
+       if (req.body.community._id) {
+        newProspect.community._id = req.body.community._id;
    
       }
     }

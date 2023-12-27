@@ -29,9 +29,16 @@
     background-size:cover;
 };
 .amenityCard{
-    height: 50px;
-    border: 1px solid red;
-    flex-direction: column;
+    /* border: 1px solid red;
+    flex-direction: column; */
+}
+.amenityImg{
+    width: 100%;
+    max-height: 250px;
+    border-radius: 10px;
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size:cover;
 }
 #imgBox{
     margin-top: 50px;
@@ -75,7 +82,19 @@
     border: 1px solid #1672eb;
     border-radius: 20px;
 }
-
+#faqBg{
+    background: url(https://svch.ca/wp-content/uploads/2013/10/Retirement-Home.png) no-repeat top center;
+    background-size:cover;
+    height: 200px;
+    width: 100%;
+}
+.faqBgUl {
+    list-style: none;
+    background: url("https://svch.ca/wp-content/uploads/2013/10/Retirement-Home.png") no-repeat 0px 6px;
+    padding-left: 16px;
+    padding-bottom: 5px;
+    font-size: 16px;
+}
 /* Mobile */
 @media only screen and (max-width: 580px) {
     #visit{

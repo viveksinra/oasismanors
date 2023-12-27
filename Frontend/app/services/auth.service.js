@@ -21,7 +21,7 @@ export class AuthService {
       .post(
         `/api/v1/auth/passwordAuth/login`,
         qs.stringify({
-          emu:email,
+          emu: email,
           password,
         }),
         {
@@ -32,14 +32,15 @@ export class AuthService {
         return {
           id: res.data.id,
           name: res.data.name,
-          firstName:res.data.firstName,
-          lastName:res.data.lastName,
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
           token: res.data.token,
           success: res.data.success,
-          message:res.data.message,
-          userImage:res.data.userImage,
-          designation:res.data.designation,
-          variant:res.data.variant,
+          message: res.data.message,
+          userImage: res.data.userImage,
+          designation: res.data.designation,
+          variant: res.data.variant,
+          roleData: res.data.roleData,
         };
       })
       .catch((err) => {
@@ -48,22 +49,18 @@ export class AuthService {
   };
   get = async (url) => {
     return this.instance
-      .get(`/${url}`,
-        {
-          headers: getHeaderUrlEncoded(),
-        }
-      )
+      .get(`/${url}`, {
+        headers: getHeaderUrlEncoded(),
+      })
       .then((res) => res.data)
       .catch((err) => err);
   };
 
   post = async (url, data) => {
     return this.instance
-      .post(`/${url}`,data,
-        {
-          headers: getHeaderUrlEncoded(),
-        }
-      )
+      .post(`/${url}`, data, {
+        headers: getHeaderUrlEncoded(),
+      })
       .then((res) => res.data)
       .catch((err) => err);
   };
@@ -72,5 +69,4 @@ export class AuthService {
     const currentUser = Cookies.get("currentUser");
     return currentUser ? JSON.parse(currentUser) : {};
   };
-  
 }

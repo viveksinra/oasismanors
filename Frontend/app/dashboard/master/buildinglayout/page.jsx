@@ -1,45 +1,47 @@
 'use client';
 import "./buildingStyle.css";
-import React, { useState,useEffect,useRef } from 'react'
-import {Grid,Typography,IconButton,TextField,Button,Breadcrumbs,ButtonGroup, Input, List,ListSubheader,ListItemButton,ListItemText, CircularProgress } from '@mui/material/';
+import React, { useState,useEffect,useRef,lazy, Suspense} from 'react'
+import {Grid,Typography,IconButton,TextField,Button,Breadcrumbs,ButtonGroup, Input, List,ListSubheader,ListItemButton,ListItemText, CircularProgress, Dialog,DialogTitle,DialogContent,DialogActions,InputAdornment } from '@mui/material/';
 import { FcCheckmark,FcHome,FcFullTrash,FcNext, FcTemplate } from "react-icons/fc";
 import {MdEditNote} from "react-icons/md";
 import MySnackbar from "../../../Components/MySnackbar/MySnackbar";
 import { prospectService } from "../../../services";
 import clsx from 'clsx';
-  
+
+const AddCommunity = lazy(() => import("./AddCommunity"));
+
 function BuildingLayout() {
-    const [building, setBuilding] = useState([])
+    const [comDialog, setComDialog]= useState({open:false,_id:""});
+    const [community, setCommunity] = useState([]);
     const [floor, setFloor] = useState([]);
     const [room, setRoom] = useState([]);
     const [seat, setSeat] = useState([]);
-    const [actBuilding, setActBuild]= useState({});
+    const [actCommunity, setActCom]= useState({});
     const [actFloor, setActFloor]= useState({});
-    const [actRoom, setActRoom] = useState({})
-    const [actSeat, setActSeat] = useState({})
+    const [actRoom, setActRoom] = useState({});
+    const [actSeat, setActSeat] = useState({});
     const [loadingFloor, setLoadingFloor] = useState(false)
     const [loadingRoom, setLoadingRoom] = useState(false)
     const [loadingSeat, setLoadingSeat] = useState(false)
     const snackRef = useRef();
 
-    const getBuilding = async () => {
-      let res = await prospectService.moveToResident("api/v1/main/seat/getSeat/get/building", "",);
+    const getCommunity = async () => {
+      let res = await prospectService.getScheduleLeave("api/v1/main/community/getCommunity/getAll");
       if(res.variant ==="success"){
-        setBuilding(res.data)
+        setCommunity(res.data)
         setRoom([])
         setActRoom({})
         setSeat([])
         setActSeat({})
       }
     }
-   
     useEffect(() => {
-      getBuilding()
-    },[])
+      getCommunity()
+    },[comDialog])
 
     const getFloor = async ()=>{
       setLoadingFloor(true)
-      let res = await prospectService.moveToResident("api/v1/main/seat/getSeat/get/floor", "",{building:actBuilding});
+      let res = await prospectService.moveToResident("api/v1/main/seat/getSeat/get/floor", "",{communityId:actCommunity?._id});
       if(res.variant ==="success"){
         setLoadingFloor(false)
         setFloor(res.data)
@@ -55,15 +57,14 @@ function BuildingLayout() {
       }     
       }
     useEffect(() => {
-  
-        if(actBuilding){
+        if(actCommunity){
           getFloor()
         }
-    }, [actBuilding, ])
+    }, [actCommunity])
 
     const getRoom = async ()=>{
       setLoadingRoom(true)
-      let res = await prospectService.moveToResident("api/v1/main/seat/getSeat/get/room", "",{building:actBuilding,floor:actFloor});
+      let res = await prospectService.moveToResident("api/v1/main/seat/getSeat/get/room", "",{communityId:actCommunity?._id,floor:actFloor});
       if(res.variant ==="success"){
         setLoadingRoom(false)
         setRoom(res.data)
@@ -76,15 +77,14 @@ function BuildingLayout() {
           }     
       }
     useEffect(() => {
-
-        if(actFloor.label){
+        if(actFloor._id){
           getRoom()
         }
     }, [actFloor])
 
     const getSeat = async () => {
       setLoadingSeat(true)
-      let res = await prospectService.moveToResident("api/v1/main/seat/getSeat/get/seat", "",{building:actBuilding,floor:actFloor,room:actRoom});
+      let res = await prospectService.moveToResident("api/v1/main/seat/getSeat/get/seat", "",{community:actCommunity,floor:actFloor,room:actRoom});
       if(res.variant ==="success"){
         setLoadingSeat(false)
         setSeat(res.data)
@@ -96,25 +96,24 @@ function BuildingLayout() {
       }     
       }
     useEffect(() => {
-
-        if(actRoom.label){
+        if(actRoom._id){
           getSeat()
         }
     }, [actRoom])
 
-    const handleBuilding = (i, action)=>{  
-      let newArr =  building.map((obj, j)=> {
+    const handleCommunity = (i)=>{  
+      let newArr =  community.map((obj, j)=> {
         if(i === j){
-          setActBuild(obj)
-          if(action === "edit"){ 
-            obj.edit = !obj.edit;
-          }
+          setActCom(obj);
+          setActFloor({});
+          setActRoom({});
+          setActSeat({});
           return { ...obj, active:true}
         } else {
-          return {...obj,active:false,edit:false}
+          return {...obj,active:false}
         }
       })
-      setBuilding(newArr);
+      setCommunity(newArr);
     }
 
     const handleFloor = (i, action)=>{  
@@ -162,14 +161,10 @@ function BuildingLayout() {
     }
     
     const handleObjChange=(e,i,p)=>{
-      if(p === "building"){
-        let newArr = [...building]; // copying the old building array
-        newArr[i].label = e
-        setBuilding(newArr)
-      }else if(p === "houseNo"){
-        let newArr = [...building]; // copying the old building array
+      if(p === "houseNo"){
+        let newArr = [...community]; // copying the old building array
         newArr[i].houseNo = e
-        setBuilding(newArr)
+        setCommunity(newArr)
       } else if(p === "floor"){
         let newArr = [...floor]; // copying the old floor array
         newArr[i].label = e
@@ -185,14 +180,7 @@ function BuildingLayout() {
       }
       }
       const handleAdd = async (place,i,b)=>{
-        if(place==="building"){
-          let Arr1 = [...building]
-          if(Arr1.length === 0 || Arr1[Arr1.length -1].label){
-            Arr1.map(a=> {a.active = false; a.edit = false} )
-            let newArr=[...Arr1,{label:"", houseNo:"", _id:"", active:true, edit:true}]
-            setBuilding(newArr);
-          }else  snackRef.current.handleSnack({message:"Provide name to the current Building, First.", variant:"warning"});
-        }else if(place ==="floor"){
+        if(place ==="floor"){
           let Arr1 = [...floor]
           if(Arr1.length === 0 || Arr1[Arr1.length-1].label){
             Arr1.map(a=> {a.active = false; a.edit = false} )
@@ -218,29 +206,19 @@ function BuildingLayout() {
     }
 
     const handleSave = async (name, i, b)=>{
-      if(name=== "building"){
-        if(b.label){
-          try {
-            let res = await prospectService.moveToResident(`api/v1/main/seat/addSeat/save/building`, b._id, {building:b});
-            if(res.variant==="success"){
-              snackRef.current.handleSnack(res);
-              getBuilding()
-            }else{
-              snackRef.current.handleSnack(res);
-            }
-          } catch (error) {
-            console.log(error)
-          }
-        }else snackRef.current.handleSnack({message:"Name your Building to save it. Else Delete it.", variant:"warning"});
-       
-      }else if(name ==="floor"){
+     if(name ==="floor"){
         if(b.label){
           try {
             let acti = floor.filter(f=>f.active)
-            let res = await prospectService.moveToResident(`api/v1/main/seat/addSeat/save/floor`, b._id, {building:actBuilding,floor:acti[0]});
+            let res = await prospectService.moveToResident(`api/v1/main/seat/addSeat/save/floor`, b._id, {communityId:actCommunity._id, floor:acti[0]});
             if(res.variant==="success"){
               snackRef.current.handleSnack(res);
-              handleFloor(i, "edit")
+              getFloor();
+              setActFloor({})
+              getRoom();
+              setActRoom({});
+              getSeat();
+              setActSeat({});
             }else{
               snackRef.current.handleSnack(res);
             }
@@ -257,10 +235,13 @@ function BuildingLayout() {
         if(b.label){
           try {
             let acti = room.filter(f=>f.active)
-            let res = await prospectService.moveToResident(`api/v1/main/seat/addSeat/save/room`, b._id, {building:actBuilding,floor:actFloor,room:acti[0]});
+            let res = await prospectService.moveToResident(`api/v1/main/seat/addSeat/save/room`, b._id, {communityId:actCommunity._id,floor:actFloor,room:acti[0]});
             if(res.variant==="success"){
               snackRef.current.handleSnack(res);
-              handleRoom(i, "edit")
+              getRoom();
+              setActRoom({})
+              getSeat();
+              setActSeat({})
             }else{
               snackRef.current.handleSnack(res);
             }
@@ -278,10 +259,10 @@ function BuildingLayout() {
           try {
             let actiRoom = room.filter(f=>f.active)
             let actiSeat = seat.filter((f) => f.active);
-            let res = await prospectService.moveToResident(`api/v1/main/seat/addSeat/save/seat`, b._id, { building: actBuilding, floor: actFloor, room: actiRoom[0], seat: actiSeat[0] });
+            let res = await prospectService.moveToResident(`api/v1/main/seat/addSeat/save/seat`, b._id, { communityId:actCommunity._id, floor: actFloor, room: actiRoom[0], seat: actiSeat[0] });
             if (res.variant === "success") {
               snackRef.current.handleSnack(res);
-              handleSeat(i,"edit")
+              getSeat();
             } else {
               snackRef.current.handleSnack(res);
             }
@@ -298,8 +279,30 @@ function BuildingLayout() {
     }
     const handleDelete = async (name, i, b)=>{
       let Arr1 = [...seat]
-        if(name === "building"){
-          Arr1 = [...building]
+        if(name === "community"){
+          Arr1 = [...community]
+          if(b?._id){
+            if(Arr1.length >0){
+              let y = confirm(`Are you sure to Permanently Delete : ${b.communityName} ?`)
+              if(y){
+                try {
+                  let res = await prospectService.deleteLeave(`api/v1/main/community/addCommunity/deleteOne/${b._id}`);
+                  if(res.variant ==="success"){
+                    snackRef.current.handleSnack(res);
+                    getcommunity()
+                  }else{
+                    snackRef.current.handleSnack(res);
+                  }
+                } catch (error) {
+                  console.log(error)
+                  snackRef.current.handleSnack({message:"Failed to fetch Data. " + error.res.data.message, variant:"error"});
+                }
+              } 
+            }else {
+              alert("Not Allowed to delete the last One. You may Rename it.")
+            }
+          }
+
         } else if(name === "floor"){
           Arr1 = [...floor]
         } else if(name === "room"){
@@ -313,12 +316,18 @@ function BuildingLayout() {
                 let res = await prospectService.deleteLeave(`api/v1/main/seat/addSeat/deleteOne/${b._id}`);
                 if(res.variant ==="success"){
                   snackRef.current.handleSnack(res);
-                  if(name === "building"){
-                    getBuilding()
-                  } else if(name === "floor"){
-                    getFloor()
+                  if(name === "floor"){
+                    getFloor();
+                    setActFloor({});
+                    getRoom();
+                    setActRoom({});
+                    getSeat();
+                    setActSeat({})
                   } else if(name === "room"){
-                    getRoom()
+                    getRoom();
+                    setActRoom({});
+                    getSeat();
+                    setActSeat({})
                   } else if(name === "seat"){
                     getSeat()
                   } 
@@ -336,45 +345,45 @@ function BuildingLayout() {
             }
         }else {
           Arr1.pop();
-          if(name === "building"){
-            setBuilding(Arr1);
-            getBuilding()
-          } else if(name === "floor"){
+          if(name === "floor"){
             setFloor(Arr1);
             getFloor()
+            snackRef.current.handleSnack({message:"Removed Successfully.", variant:"info"})
           } else if(name === "room"){
             setRoom(Arr1);
-            getRoom()
+            getRoom();
+            snackRef.current.handleSnack({message:"Removed Successfully.", variant:"info"})
           } else if(name === "seat"){
             setSeat(Arr1);
-            getSeat()
+            getSeat();
+            snackRef.current.handleSnack({message:"Removed Successfully.", variant:"info"})
           } 
         
-          snackRef.current.handleSnack({message:"Removed Successfully.", variant:"info"})}     
- 
+        }     
     }
+
     return (
     <main style={{background:"#fff",boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px", borderRadius:8,padding:10}}>
     <Grid container spacing={2}>
     <Grid item xs={12} className='center'>
-    <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>Create Building Layout</Typography>
+    <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>Create Community Layout</Typography>
     </Grid>
     <Grid item xs={12}>
     <Breadcrumbs separator={<FcNext fontSize="small" />} aria-label="breadcrumb">
-    <Typography variant="caption" color="teal" className='headingText'>My Buildings</Typography>
-    <Button variant="outlined" onClick={()=> handleAdd("building") } size="small" startIcon={<FcHome />}>
-            Add New Building
+    <Typography variant="caption" color="teal" className='headingText'>My Community</Typography>
+    <Button variant="outlined" onClick={()=>setComDialog({open:true,_id:""})} size="small" startIcon={<FcHome />}>
+            Add New Community
           </Button>
     </Breadcrumbs>
     </Grid>
      
     <Grid item xs={12} sx={{marginBottom:"20px"}} className="center">
       <Grid container spacing={2}>
-      {building && building.map((b,i)=><Grid item xs={12} md={3} lg={2} key={i} className="center">
-        <div className={clsx("buildingBox", "center", b?.active && "activeCard")} onClick={()=>handleBuilding(i)}>
-        <IconButton className="deleteBtn" size="small" onClick={()=>handleDelete("building",i,b)}> <FcFullTrash/> </IconButton>
-        {b.edit ? <div style={{width:"90%"}}> <TextField autoFocus id="standard-basic" size="small"  inputProps={{maxLength: "20"}} onChange={e=>handleObjChange(e.target.value, i, "building")} label="Building Name" variant="standard" value={b.label} /> <TextField autoFocus id="houseNo" size="small" inputProps={{maxLength: "20"}} onChange={e=>handleObjChange(e.target.value, i, "houseNo")} label="House No." variant="standard" value={b.houseNo} /> </div> :  <div> <Typography align="center">{b.label}</Typography><Typography align="center">{b.houseNo}</Typography> </div> }
-        {b.edit ?  <IconButton className="editBtn" onClick={()=>handleSave("building",i,b)}><FcCheckmark/></IconButton> :  <IconButton className="editBtn" onClick={()=>handleBuilding(i,"edit")}><MdEditNote/></IconButton> }
+      {community && community.map((b,i)=><Grid item xs={12} md={3} lg={2} key={i} className="center">
+        <div className={clsx("buildingBox", "center", b?.active && "activeCard")} onClick={()=>handleCommunity(i)}>
+        <IconButton className="deleteBtn" size="small" onClick={()=>handleDelete("community",i,b)}> <FcFullTrash/> </IconButton>
+        <div> <Typography align="center">{b.communityName}</Typography><Typography align="center">{b.buildingNumber}</Typography> </div>
+        <IconButton className="editBtn" onClick={()=>setComDialog({open:true, ...b})}><MdEditNote/></IconButton>
         </div>
         </Grid>)}
       </Grid>
@@ -382,9 +391,9 @@ function BuildingLayout() {
     <Grid item xs={12} >
     <Grid container spacing={2}>
         <Grid item xs={12} md={4}>
-        {actBuilding?.label && <section> 
+        {actCommunity?.communityName && <section> 
           <Breadcrumbs separator={<FcNext fontSize="small" />} aria-label="breadcrumb">
-          <Typography variant="caption" color="teal" className='headingText'>{`Floors in ${actBuilding?.label ? actBuilding?.label : ""}`}</Typography>
+          <Typography variant="caption" color="teal" className='headingText'>{`Floors in ${actCommunity?.communityName ? actCommunity?.communityName : ""}`}</Typography>
           <Button variant="text" onClick={()=> handleAdd("floor")} size="small" startIcon={<FcTemplate />}>
               Add Floor
             </Button>
@@ -420,7 +429,7 @@ function BuildingLayout() {
         {loadingRoom ? <div className="center"> <CircularProgress size={25}/> </div> : room && room.map((f,i)=> 
         f.edit ? <ListItemButton key={i} selected={f.active}> <Input value={f.label} placeholder="Type Room Name" onChange={e=>handleObjChange(e.target.value,i,"room")} inputProps={{maxLength: "20"}}  fullWidth /> <IconButton onClick={()=>handleSave("room", i,f )}> <FcCheckmark/> </IconButton> </ListItemButton> :  <ListItemButton key={i} onClick={()=>handleRoom(i)} selected={f.active}> <ListItemText primary={f.label} />
         <ButtonGroup variant="outlined" aria-label="outlined button group">
-        <IconButton size="small" onClick={()=>handleRoom(i,"edit")} > <MdEditNote /></IconButton>
+        <IconButton size="small" onClick={()=>handleRoom(i,"edit")}> <MdEditNote /></IconButton>
         <IconButton size="small" onClick={()=>handleDelete("room", i, f)}> <FcFullTrash /></IconButton>
         </ButtonGroup> </ListItemButton>
         )}
@@ -454,6 +463,7 @@ function BuildingLayout() {
       </Grid>
      </Grid>   
     </Grid>
+    <Suspense fallback={<CircularProgress/>}><AddCommunity comDialog={comDialog} setComDialog={()=>setComDialog({open:false,_id:""})} />  </Suspense> 
     <MySnackbar ref={snackRef} />
     </main>
   )

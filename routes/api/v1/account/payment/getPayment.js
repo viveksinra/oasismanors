@@ -342,7 +342,7 @@ router.get(
           let grp = resLed.residenceStage
           return {
             ...resLed,
-            label: `${resLed.lastName} ${resLed.firstName}`,
+            label: `${resLed.firstName} ${resLed.lastName}`,
             group: grp.charAt(0).toUpperCase() + grp.slice(1),            
             type:"prospect"
           };
@@ -357,7 +357,7 @@ router.get(
         const modifiedData3 = myData3.map((resLed) => {
           return {
             ...resLed,
-            label: `${resLed.lastName} ${resLed.firstName}`,
+            label: `${resLed.firstName} ${resLed.lastName}`,
             group: "Employee",
             type:"employee"
           };

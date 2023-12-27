@@ -21,10 +21,9 @@ router.post(
   generalValidation,
   validateOnCreate,
   async (req, res) => {
-    console.log("Started")
     try {
       const seatObj = await getSeatObj(req,"create");
-      
+      console.log(seatObj);
       await new Seat(seatObj)
       .save();
       res.status(201).json({
@@ -129,22 +128,11 @@ async function getSeatObj(req,type) {
     }
   
   newSeat.user=  req.user.id;
+  newSeat.communityId = req.body.communityId;
 
 // Check and assign values for each parameter based on their type
 
-    if (req.body.building) {
-    newSeat.building = {}
-    if (req.body.building.label) {
-      newSeat.building.label = req.body.building.label;  
-    } 
-    if (req.body.building.houseNo) {
-      newSeat.building.houseNo = req.body.building.houseNo;  
-    } 
-     if (req.body.building._id) {
-      newSeat.building._id = req.body.building._id;
- 
-    }
-  }
+  
   if(changeType == "floor" || changeType == "room" || changeType == "seat")
   {
     if (req.body.floor) {

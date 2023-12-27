@@ -16,12 +16,12 @@ router.post(
           let myMatch = {}
           myMatch.changeType = changeType
           if(changeType == "floor"){
-            if(req.body.building?._id){
+            if(req.body.communityId){
            
-              myMatch["building._id"] = mongoose.Types.ObjectId(req.body.building?._id)
+              myMatch["communityId"] = mongoose.Types.ObjectId(req.body.communityId)
             }else{
              return res         
-              .json({ variant: "error",message:"building Required", data:[] });
+              .json({ variant: "error",message:"Community Required", data:[] });
             }
           }
           if(changeType == "room" ){
@@ -48,7 +48,6 @@ router.post(
                   data: {
                     $switch: {
                       branches: [
-                        { case: { $eq: ["$changeType", "building"] }, then: "$building" },
                         { case: { $eq: ["$changeType", "floor"] }, then: "$floor" },
                         { case: { $eq: ["$changeType", "room"] }, then: "$room" },
                         { case: { $eq: ["$changeType", "seat"] }, then: "$seat" }
@@ -61,7 +60,7 @@ router.post(
             ]);
             const transformedData = mydata.map(item => ({
               label: item.data.label,
-              houseNo:item.data.houseNo,
+              buildingNumber:item.data.buildingNumber,
               _id: item._id
             }));
             

@@ -1,18 +1,19 @@
 
 'use client';
 import "./prospectStyle.css";
-import React, { useState,useEffect,useRef } from 'react'
+import React, { useState,useEffect,useRef,lazy,Suspense } from 'react'
 import { prospectService } from "../../services";
-import {Tabs,Tab,Avatar,Grid,Tooltip,Rating, Typography,Divider,AppBar,Toolbar,Badge,Alert,TextField,FormLabel,Switch,FormControlLabel,Button,ButtonGroup,InputAdornment,CircularProgress} from '@mui/material/';
-import { FcViewDetails,FcDiploma1,FcClock,FcLike,FcExternal } from "react-icons/fc";
+import {Tabs,Tab,Avatar,Grid,Tooltip,Rating, Typography,Divider,AppBar,Toolbar,Badge,Alert,TextField,FormLabel,Switch,FormControlLabel,Button,ButtonGroup,InputAdornment,CircularProgress,Table,TableHead,TableRow,TableCell,TableBody} from '@mui/material/';
+import { FcViewDetails,FcDiploma1,FcClock,FcLike,FcExternal,FcHighPriority,FcCheckmark  } from "react-icons/fc";
 import { FaStethoscope,FaEdit} from "react-icons/fa";
-import { FiCheck,FiFileMinus } from "react-icons/fi";
+import { FiCheck,FiFileMinus, } from "react-icons/fi";
 import Autocomplete from '@mui/material/Autocomplete';
 import { DataGrid } from '@mui/x-data-grid';
 import Link from 'next/link';
 import { useImgUpload } from '@/app/hooks/auth/useImgUpload'; 
-import MySnackbar from "../../Components/MySnackbar/MySnackbar";
-
+const MySnackbar = lazy(() => import("../../Components/MySnackbar/MySnackbar"));
+const FormHistory = lazy(() => import("../forms/FormHistory"));
+const FormUpload = lazy(() => import("../forms/FormUpload"));
 
 const ProTabPanel = ({value, prospectId,setProData})=>{
     switch (value) {
@@ -60,10 +61,10 @@ const ProfileTab =({prospectId})=>{
             </div>
             <div className="profileBgBtm">
             <Tabs value={profileTab} onChange={(e,v)=>setPTab(v)} aria-label="main_Tabs" sx={{height:55,float:"right",maxWidth: { xs: 350, sm: 480,md:"100%" }}} variant="scrollable" scrollButtons="auto" allowScrollButtonsMobile>
-              <Tab icon={<FcViewDetails style={{fontSize:20}}/>} iconPosition="start" label="Summary"  />
-              <Tab icon={<FaStethoscope style={{fontSize:20}}/>} iconPosition="start"  label="Health & Details"  />
-              <Tab icon={<FcDiploma1 style={{fontSize:20}}/>} iconPosition="start"  label="Compliance" />
-              <Tab icon={<FcClock style={{fontSize:20}}/>} iconPosition="start" label="Audit History"  />
+              <Tab icon={<FcViewDetails style={{fontSize:20}}/>} iconPosition="start" sx={{textTransform:"none"}} label="Personal Details"  />
+              <Tab icon={<FaStethoscope style={{fontSize:20}}/>} iconPosition="start" sx={{textTransform:"none"}} label="Health Details"  />
+              <Tab icon={<FcDiploma1 style={{fontSize:20}}/>} iconPosition="start" sx={{textTransform:"none"}} label="Compliance" />
+              <Tab icon={<FcClock style={{fontSize:20}}/>} iconPosition="start"sx={{textTransform:"none"}} label="Change History"  />
             </Tabs>
             </div>
             </div>
@@ -752,13 +753,16 @@ const ComplianceTab = ({prospectId})=>{
     const [loading, setLoading ] = useState(false);
     const [expiryDate, setExpiryDate ] = useState("");
     const [complianceRow, setRow]= useState([]);
+    const [resForm, setResForms] = useState([]);
+    const [selector, setSelector] = useState({open:false});
+    const [uploader, setUploader] = useState({open:false});
     useEffect(() => {
         async function getData() {
           try {
             let res = await prospectService.getCompliance(prospectId, id);
            if(res.variant === "success"){
             setRow(res.data)
-             snackRef.current.handleSnack(res);
+            snackRef.current.handleSnack(res);
            }else snackRef.current.handleSnack(res);            
           } catch (error) {
            console.log(error);
@@ -768,6 +772,23 @@ const ComplianceTab = ({prospectId})=>{
         if(prospectId){getData()}
         
       }, [prospectId])
+
+      async function getForms() {
+        try {
+          let res = await prospectService.getTask(`api/v1/form/main/allForm/oneResident/${prospectId}`);
+          if(res.variant === "success"){
+          setResForms(res.data);
+          snackRef.current.handleSnack(res);
+          }else snackRef.current.handleSnack(res);            
+        } catch (error) {
+          console.log(error);
+          snackRef.current.handleSnack({message:"Failed to fetch Data. " + error.res.data.message, variant:"error"});
+        } 
+      }
+
+    useEffect(() => {
+      if(prospectId){getForms()}
+    }, [prospectId])
 
     const imgUpload= async (e)=>{
         setLoading(true)
@@ -781,6 +802,9 @@ const ComplianceTab = ({prospectId})=>{
       }
     const handleSubmit =async ()=>{
         try {
+          if(!documentName){
+            snackRef.current.handleSnack({message:"Document Name is Required.", variant:"info"}); 
+          }
             let data = {documentName,documentUrl,expiryDate,prospectId};
             let response;
               response = await prospectService.saveCompliance(id, data);
@@ -797,9 +821,41 @@ const ComplianceTab = ({prospectId})=>{
     }
     return (
      <main>
-        <Typography variant="h6" align="center" style={{fontFamily: 'Courgette'}} color="primary">Upload Your Documents</Typography>
-        <br />
-        <Grid container spacing={2}>
+        <Grid sx={{background:"#fff", borderRadius:"10px", width: '100%' }}>
+        <Divider>   <Typography color="primary" style={{fontFamily: 'Courgette'}} variant='h6' gutterBottom align='center'>All Uploaded Documents</Typography> </Divider>
+      <Table size='small'> 
+          <TableHead>
+                <TableRow>
+                  <TableCell align="left">Form Description </TableCell>
+                  <TableCell align="left">Form Number</TableCell>
+                  <TableCell align="center">Required</TableCell>
+                  <TableCell align="center">Present</TableCell>
+                  <TableCell align="left">Last Modification</TableCell>
+                  <TableCell align="left">Last uploaded By</TableCell>
+                  <TableCell align="center">Action</TableCell>
+                  </TableRow>
+            </TableHead>
+            <TableBody>  
+            {resForm?.forms?.map((m,k)=> <TableRow hover key={k}> 
+            <TableCell align="left">{m.formName}</TableCell>
+                  <TableCell align="left">{m.formNo}</TableCell>
+                  <TableCell align="center">{m.required ? "Yes" : "No" }</TableCell>
+                  <TableCell align="center">{m.present ? <FcCheckmark style={{fontSize:22}} /> : m.required ? <FcHighPriority style={{fontSize:18}}/> : null }</TableCell>
+                  <TableCell align="left">{m.lastModified}</TableCell>
+                  <TableCell align="left">{m.lastUploadBy}</TableCell>
+                  <TableCell align="center">
+                  <ButtonGroup size="small"  variant="text" aria-label="text button group">
+                  <Button size="small" color="info" onClick={()=>setSelector({open:true,m,r:resForm})} >History</Button>
+                  <Button size="small" color="success"><Link target="_blank" rel="noopener noreferrer" href={`/print/forms/${m?.formNoLink}/${resForm?._id}`}>View</Link></Button>
+                  <Button size="small" color="info" onClick={()=>setUploader({open:true,m,r:resForm})} >Upload</Button>
+                    </ButtonGroup></TableCell>
+            </TableRow>  )}
+            </TableBody>
+        </Table>
+        <br/> <br/>
+        <Typography variant="h6" align="center" style={{fontFamily: 'Courgette'}} color="primary">Upload Other Documents</Typography>
+        <br/>
+    <Grid container spacing={2}>
             <Grid item xs={12} md={3}>
             <TextField label="Document Name" value={documentName} onChange={e=>setFileName(e.target.value)}  placeholder="Name of the File" type="text" fullWidth/>
             </Grid>
@@ -815,12 +871,7 @@ const ComplianceTab = ({prospectId})=>{
             <Button variant="outlined" color="secondary" onClick={handleSubmit} startIcon={<FcExternal style={{fontSize:24}}/>}>Upload File</Button>
             </Grid>
         </Grid>
-        <br />
-        <Divider/>
-        <br />
-        <Grid sx={{background:"#fff", borderRadius:"10px", width: '100%' }}>
-      <Typography color="primary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>All Uploaded Documents</Typography>
-      <DataGrid
+        <DataGrid
         rows={complianceRow}
         columns={complianceColumn}
         getRowId={(row) => row._id}
@@ -835,7 +886,10 @@ const ComplianceTab = ({prospectId})=>{
         
       />
     </Grid>
-    <MySnackbar ref={snackRef} />
+    <Suspense fallback={<CircularProgress/>}> <FormHistory selector={selector} setSelector={()=>setSelector({open:false})}/> </Suspense>
+    <Suspense fallback={<CircularProgress/>}> <FormUpload uploader={uploader} setUploader={()=>setUploader({open:false})} getForms={()=>getForms()}/> </Suspense>
+    <Suspense fallback={null}> <MySnackbar ref={snackRef} /></Suspense>
+   
     </main>
     )
 }

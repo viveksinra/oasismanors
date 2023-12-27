@@ -190,12 +190,13 @@ if(req.params.residence != "all"){
       });
      let residence = await Prospect.aggregate([
       {$match:{isResidence:true}},
-      {$project:{firstName:1,lastName:1,userImage:1,floor:1,room:1,seat:1 }}
+      {$project:{firstName:1,lastName:1,userImage:1,community:1,floor:1,room:1,seat:1 }}
      ]).exec()
     let inRes = [ {
       _id:"all",
      firstName:"All Residents", 
      lastName:"", 
+     community:{communityName:""},
      room:{label:"All"}, 
      seat:{label:""},
      important: true,
@@ -241,7 +242,7 @@ if(req.params.residence != "all"){
         const modifiedDataPromises = allInvoice.map(async (Invoice) => {
           const pros = await Prospect.findOne({_id:Invoice.ledger._id})
           let newLedger = {
-            building:pros.building.label,
+            community:pros.community.communityName,
             floor:pros.floor.label,
             label:Invoice.ledger.label,
             room:pros.room.label,

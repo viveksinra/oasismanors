@@ -32,7 +32,7 @@ const ProspectSourceSchema = new Schema({
     zip: String,
     city: String,
     state: {label:String,id:String},
-    community: {
+    communityId: {
         type: String,
         default: "647654545893b52b5c8bbc61"
       },

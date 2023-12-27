@@ -5,8 +5,8 @@ const Prospect = require("../Models/Private/Enquiry/Prospect");
       let data = []
       
 // check for room details available
-      if (!req.body.building ) {
-        let myMessage= {message: `building is Required`}
+      if (!req.body.community || !req.body.community._id) {
+        let myMessage= {message: `community is Required`}
         data.push(myMessage) 
       }
       if (!req.body.floor ) {
@@ -51,10 +51,7 @@ const Prospect = require("../Models/Private/Enquiry/Prospect");
       let myMessage= {message: `Password is Missing`}
       data.push(myMessage)
     }
-    if(!prospect.community){
-      let myMessage= {message: `Not assigned to any community`}
-      data.push(myMessage)
-    }
+
     if(data.length > 0){
       return res.status(200).json({
         message: "Some Field are requireds before you move",

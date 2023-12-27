@@ -215,7 +215,7 @@ let modifiedData = {
     floor:room.floor,
     room:room.room,
     seat:room.seat,
-    building:room.building,
+    community:room.community,
 
           }
 res.status(200).json({ variant: "success", message: "room Loaded", data: modifiedData });

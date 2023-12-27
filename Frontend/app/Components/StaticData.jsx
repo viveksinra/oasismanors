@@ -52,7 +52,7 @@ export const allStates= [ {label:"Alabama",id:"AL"},
 export const allGenders = [{label:"Female", id:"Female"},{label:"Male", id:"Male"},{label:"Non-Binary", id:"Non-Binary"},{label:"Transgender Male", id:"TransgenderMale"},{label:"Transgender Female", id:"TransgenderFemale"}]
 
 
-export const allRelation = [{label:"Friend",id:"friend"},{label:"Father",id:"father"},{label:"Mother",id:"mother"},{label:"Brother",id:"brother"},{label:"Sister",id:"sister"},{label:"Cousin",id:"cousin"},{label:"Others",id:"Others"}]
+export const allRelation = [{label:"Friend",id:"friend"},{label:"Father",id:"father"},{label:"Mother",id:"mother"},{label:"Brother",id:"brother"},{label:"Sister",id:"sister"},{label:"Cousin",id:"cousin"},{label:"Physician",id:"physician"},{label:"Mental Health Provider",id:"mentalHealthProvider"},{label:"Dentist",id:"Dentist"}, {label:"Others",id:"others"}]
 
 export const allJobRole = [{label:"Admin",id:"admin"},{label:"C.E.O.",id:"ceo"},{label:"Building Manager",id:"buildingManager"},{label:"Caregiver",id:"caregiver"},{label:"Cook",id:"cook"},{label:"Outdoor Worker",id:"outdoorWorker"},{label:"Indoor Worker",id:"indoorWorker"},{label:"Doctor",id:"doctor"},{label:"Accountant",id:"accountant"},{label:"Housekeeper",id:"housekeeper"},{label:"Other",id:"other"}]
 

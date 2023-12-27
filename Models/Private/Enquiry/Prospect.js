@@ -79,6 +79,10 @@ const ProspectSchema = new Schema({
   phone: {
     type: String
   },
+  ssNumber: {
+    type: String,
+    default: ""
+  },
   email: {
     type: String
   },
@@ -137,18 +141,18 @@ const ProspectSchema = new Schema({
     type: Boolean,
     default: false
   },
-  building: {
-    label: {
+community: {
+    communityName: {
      type: String,
  },
- houseNo:{
-  type: String,
- },
-    _id: {
+ buildingNumber: {
      type: String,
  },
- 
-   },
+ _id: {
+  type: Schema.Types.ObjectId,
+  ref: "myCommunity",
+ }, 
+},
    floor: {
      label: {
          type: String,
@@ -180,10 +184,7 @@ const ProspectSchema = new Schema({
      },
    },
   // Default for all
-  community: {
-    type: String,
-    default: "647654545893b52b5c8bbc61"
-  },
+
   user: {
     type: Schema.Types.ObjectId,
     ref: "myUser",

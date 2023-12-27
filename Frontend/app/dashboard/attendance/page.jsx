@@ -22,20 +22,20 @@ import {drawerWidth} from "../layout"
 const localizer = momentLocalizer(moment) // or globalizeLocalizer
 
 function Attendance() {
-    const [building,setBuilding] = useState([]);
+    const [community,setCommunity] = useState([]);
     const [buildTab, setBTab]=useState("all");
     const [shift, setShift] = useState("all");
     const [myEvents, setEvents] = useState([]);
     const router = useRouter();
     useEffect(() => {
-        async function fetchBuilding() {
-          let response = await residentService.saveResident("api/v1/main/seat/getSeat/get/building", "");
+        async function fetchCommunity() {
+          let response = await residentService.getResident("api/v1/main/community/getCommunity/getAll", "");
           if(response.variant === "success"){
-            setBuilding(response.data)
+            setCommunity(response.data)
             // setBTab(response.data[0].label)
           }else {console.log(response)}
         }
-        fetchBuilding()
+        fetchCommunity()
         async function getEvents() {
           let response = await residentService.saveResident("api/v1/employee/empLeave/empLeaveTable/withFilter", "");
           if(response.variant === "success"){
@@ -49,7 +49,6 @@ function Attendance() {
       const dayPropGetter = (date) => {
         const eventsOnDate = myEvents.filter((event) => {
           const eventStartDate = new Date(event.start);
-          eventStartDate.setDate(eventStartDate.getDate() - 1);
           const eventEndDate = new Date(event.end);
           return (
             date >= eventStartDate && date <= eventEndDate
@@ -80,17 +79,17 @@ function Attendance() {
         <Grid item xs={12}>
         <Typography color="teal" style={{fontFamily: 'Courgette'}} variant="body1" align='center'>All Leave</Typography>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={7}>
         <TabContext value={buildTab} variant="scrollable" allowScrollButtonsMobile scrollButtons>
-        <Box sx={{  maxWidth: { xs: "320px", sm: "480px",md:"max-content" }, bgcolor: 'background.paper', borderBottom: 1, borderColor: 'divider' }}>
-        <TabList onChange={(e,v)=>setBTab(v)} sx={{height:60}} aria-label="Building Tabs" variant="scrollable" scrollButtons="auto" allowScrollButtonsMobile>
+        <Box sx={{  maxWidth: { xs: "320px", sm: "max-content"}, bgcolor: 'background.paper', borderBottom: 1, borderColor: 'divider' }}>
+        <TabList onChange={(e,v)=>setBTab(v)} sx={{height:60}} aria-label="Community Tabs" variant="scrollable" scrollButtons="auto" allowScrollButtonsMobile>
         <Tab value="all" icon={<FcLibrary style={{fontSize:20}}/>} iconPosition="bottom" label="All"/>
-        {building.map((t,i)=> <Tab key={i} iconPosition="bottom" icon={<Typography variant="caption">{t?.houseNo}</Typography>} value={t?.label} label={t?.label}  />)}
+        {community.map((t,i)=> <Tab key={i} iconPosition="bottom" icon={<Typography variant="caption">{t?.buildingNumber}</Typography>} value={t?._id} label={t?.communityName}  />)}
         </TabList>
         </Box>
         </TabContext>
         </Grid>
-        <Grid item xs={12} md={6} sx={{display:"flex",justifyContent:"right"}}>   
+        <Grid item xs={12} md={5} sx={{display:"flex",justifyContent:"right"}}>   
       <FormControl>
       <FormLabel id="demo-radio-buttons-group-label">Filter By Shift</FormLabel>
         <RadioGroup  defaultValue="First Half" row onChange={e=>setShift(e.target.value)} value={shift}>

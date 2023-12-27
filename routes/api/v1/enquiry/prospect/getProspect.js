@@ -51,10 +51,11 @@ const formattedProspect = {
     prospectScore: prospect.prospectScore,
     marketingStatus: prospect.marketingStatus,
     important: prospect.important,
-    community: prospect.community,
+    communityId: prospect.community,
     company: prospect.company,
     _id: prospect._id,
     user: prospect.user,
+    ssNumber:prospect.ssNumber,
     financialMoveInDate: formatDate(prospect.financialMoveInDate),
     physicalMoveInDate: formatDate(prospect.physicalMoveInDate),
     userImage: prospect.userImage || "https://res.cloudinary.com/oasismanors/image/upload/v1687519053/user_myqgmv.png",
@@ -89,9 +90,9 @@ const formattedProspect = {
 
   const totalCountCTN = async(pId) => {
 
-    let totalContact = await Contact.find({prospectId:pId}).count()
-    let totalPendingTask = await Task.find({prospectId:pId}).count()
-    let totalNotes = await Note.find({prospectId:pId}).count();
+    let totalContact = await Contact.find({prospectId:pId}).countDocuments()
+    let totalPendingTask = await Task.find({prospectId:pId}).countDocuments()
+    let totalNotes = await Note.find({prospectId:pId}).countDocuments();
 
       let totalCount = {
         totalContact: totalContact,

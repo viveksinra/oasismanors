@@ -22,7 +22,7 @@ const getUserDetails= async(id) => {
     let data = await User.findById(id)
 if(data){
     let myData = {
-    label:data.lastName + " " + data.firstName,
+    label:data.firstName + " " + data.lastName,
 address:data.street || "",
  city:data.city || "", 
  state:data.state.label || "", 

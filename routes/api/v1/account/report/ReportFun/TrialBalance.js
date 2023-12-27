@@ -250,7 +250,7 @@ const getAllLedger = async() => {
           let grp = resLed.residenceStage
           return {
             ...resLed,
-            particulars: `${resLed.lastName} ${resLed.firstName}`,
+            particulars: `${resLed.firstName} ${resLed.lastName}`,
             group: grp.charAt(0).toUpperCase() + grp.slice(1),            
             type:"prospect"
           };
@@ -265,7 +265,7 @@ const getAllLedger = async() => {
         const modifiedData3 = myData3.map((resLed) => {
           return {
             ...resLed,
-            particulars: `${resLed.lastName} ${resLed.firstName}`,
+            particulars: `${resLed.firstName} ${resLed.lastName}`,
             group: "Employee",
             type:"employee"
           };

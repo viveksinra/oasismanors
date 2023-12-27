@@ -61,24 +61,23 @@ export const ToggleFab = styled(Fab)({
 
 export function SearchArea({handleEdit}) {
   const [view, setView] = useState('grid');
-  const [floor,setFloor] = useState([]);
+  const [community,setCommunity] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filterRes, setFilterRes] = useState([]);
   const [allRes, setAllRes]= useState([]);
   const [residentTab, setRTab]=useState("incoming");
   
   useEffect(() => {
-    async function fetchBuilding() {
-      let response = await residentService.saveResident("api/v1/main/seat/getSeat/get/building", "");
+    async function fetchCommunity() {
+      let response = await residentService.getResident("api/v1/main/community/getCommunity/getAll", "");
       if(response.variant === "success"){
-        setFloor(response.data)
-        setRTab(response.data[0].label)
+        setCommunity(response.data)
+        setRTab(response.data[0]._id)
       }else {console.log(response)}
     }
-    fetchBuilding()
+    fetchCommunity()
   }, [])
   
-
   useEffect(() => {
     setLoading(true)
     async function fetchAllResi() {
@@ -94,7 +93,7 @@ export function SearchArea({handleEdit}) {
   useEffect(() => {
    let filtArr = allRes.filter(f => {
       if(f.residenceStage === "residence"){
-        return f?.building?.label === residentTab
+        return f?.communityId === residentTab
       }else if(f.residenceStage === "incoming" || f.residenceStage === "movedOut"){
         return f.residenceStage === residentTab
       }
@@ -130,14 +129,14 @@ export function SearchArea({handleEdit}) {
           <Grid item xs={12}>
             <Box sx={{ width: '100%', typography: 'body1' }}>
           <TabContext value={residentTab} variant="scrollable" allowScrollButtonsMobile scrollButtons>
-            <Box sx={{  maxWidth: { xs: 340, sm: 480,md:700 }, bgcolor: 'background.paper', borderBottom: 1, borderColor: 'divider' }}>
+            <Box sx={{  maxWidth: { xs: 340, sm: 480,md:800 }, bgcolor: 'background.paper', borderBottom: 1, borderColor: 'divider' }}>
               <TabList onChange={(e,v)=>setRTab(v)} sx={{height:60}} aria-label="Resident Tabs" variant="scrollable" scrollButtons="auto" allowScrollButtonsMobile>
-              {floor.map((t,i)=> <Tab key={i} iconPosition="bottom" icon={<Typography variant="caption">{t?.houseNo}</Typography>} value={t?.label} label={t?.label}  />)}
+              {community.map((t,i)=> <Tab key={i} iconPosition="bottom" icon={<Typography variant="caption">{t?.buildingNumber}</Typography>} value={t?._id} label={t?.communityName}  />)}
               <Tab value="incoming" icon={<FcDebt style={{fontSize:20}}/>} iconPosition="bottom" label="Incoming"/>
               <Tab value="movedOut" icon={<FaUsersSlash style={{fontSize:20}} />} iconPosition="bottom" label="Moved Out" />
               </TabList>
             </Box>
-            {floor.map((t,i)=> <TabPanel key={i} value={t?.label}> <ResidentView view={view} loading={loading} filterRes={filterRes} setFilterRes={e=>setFilterRes(e)} />
+            {community.map((t,i)=> <TabPanel key={i} value={t?._id}> <ResidentView view={view} loading={loading} filterRes={filterRes} setFilterRes={e=>setFilterRes(e)} />
              </TabPanel>)}
             <TabPanel value="incoming"> <ResidentView view={view} loading={loading} filterRes={filterRes} setFilterRes={e=>setFilterRes(e)}/> </TabPanel>
             <TabPanel value="movedOut"> <ResidentView view={view} loading={loading} filterRes={filterRes} setFilterRes={e=>setFilterRes(e)}/> </TabPanel>
@@ -219,7 +218,7 @@ function DetailedCard({act}){
       <Typography variant="subtitle1" color="primary" align="center">{`${act?.lastName}, ${act?.firstName}`} </Typography>
       <Typography variant="body2" align="center"> {`Resident Since ~ ${act?.physicalMoveInDate}`}</Typography>
       <Typography variant="body2" align="center"> {`Room No. ~ ${act?.room} ${act?.seat}` }</Typography>
-      <Typography variant="body2" align="center"> {`${act?.building?.label}, ${act?.floor?.label}`}</Typography>
+      <Typography variant="body2" align="center"> {`${act?.community?.communityName}, ${act?.floor?.label}`}</Typography>
       <br />
        <center> <Link href={`/dashboard/residents/${act?._id}`}> <Fab size="small" variant="extended" color="success" sx={{padding:"0px 20px"}}>View Profile <FaTelegramPlane style={{marginLeft:5}}/></Fab></Link></center>  
       </Grid> 

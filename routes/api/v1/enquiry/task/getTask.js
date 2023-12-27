@@ -234,7 +234,7 @@ router.get(
           employeeId: task.employee?._id?._id,
           employeeFirstName: task.employee?._id?.firstName,
           employeeLastName: task.employee?._id?.lastName,
-          employeeFullName: task.employee?._id?.lastName + " " + task.employee?._id?.firstName,
+          employeeFullName: task.employee?._id?.firstName + " " + task.employee?._id?.lastName,
           employeeUserImage: task.employee.userImage,
           taskType: task.taskType.label,
           taskStatus: task.taskStatus.label,

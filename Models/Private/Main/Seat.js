@@ -6,24 +6,10 @@ const SeatSchema = new mongoose.Schema({
         type: String,
     required: true,
     enum:[
-      "building","floor","room","seat"
+      "floor","room","seat"
     ]
     },
-  building: {
-   label: {
-    type: String,
-    required: true
-},
-houseNo: {
-    type: String,
-    required: true
-},
-   _id: {
-    type: Schema.Types.ObjectId,
-    ref: "Seat",
-},
 
-  },
   floor: {
     label: {
         type: String,
@@ -52,10 +38,9 @@ houseNo: {
   },
   },
     // Default for all
- community: {
+ communityId: {
   type: Schema.Types.ObjectId,
-    type: String,
-    default: "647654545893b52b5c8bbc61"
+    required: true,
   },
   user: {
     type: Schema.Types.ObjectId,

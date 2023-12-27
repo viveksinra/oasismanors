@@ -219,6 +219,9 @@ if (req.body.firstName) {
 if (req.body.lastName) {
   newProspect.lastName = req.body.lastName;
 }
+if (req.body.ssNumber) {
+  newProspect.ssNumber = req.body.ssNumber;
+}
 
 if (req.body.dateOfBirth) {
   newProspect.dateOfBirth = new Date(req.body.dateOfBirth);

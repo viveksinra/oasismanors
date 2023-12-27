@@ -149,6 +149,16 @@ if (req.body.relation.id) {
 }
 }
 
+if (req.body.nearestRelative !=null) {
+  newContact.nearestRelative = req.body.nearestRelative;
+}
+if (req.body.responsiblePerson !=null) {
+  newContact.responsiblePerson = req.body.responsiblePerson;
+}
+if (req.body.financePerson !=null) {
+  newContact.financePerson = req.body.financePerson;
+}
+
 if (req.body.organization) {
   newContact.organization = req.body.organization;
 }

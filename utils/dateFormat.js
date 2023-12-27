@@ -24,6 +24,16 @@ function formatDateToShortMonth(dateStr) {
     return formattedDate;
 }
 
+function formatDateToMmDdYyyy(inputDate) {
+  const date = new Date(inputDate);
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  const year = date.getFullYear();
+
+  return `${month}/${day}/${year}`;
+}
+
+
 function formatDateToISO(dateStr) {
     const date = new Date(dateStr);
     const year = date.getFullYear();
@@ -90,5 +100,5 @@ function convertTimeTo12HourFormat(time) {
     return formattedDate;
   }
   module.exports = {
-    formatDateToLong,setTimeToZero,formatDateToShortMonth,formatDateToISO,convertTimeTo12HourFormat,convertTimeTo24HourFormat,formatTimeWithTimeZone
+    formatDateToMmDdYyyy,formatDateToLong,setTimeToZero,formatDateToShortMonth,formatDateToISO,convertTimeTo12HourFormat,convertTimeTo24HourFormat,formatTimeWithTimeZone
 };

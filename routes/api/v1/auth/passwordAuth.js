@@ -5,6 +5,7 @@ const jsonwt = require("jsonwebtoken");
 const key = require("../../../../setup/myurl");
 const jwt_decode = require("jwt-decode");
 const User = require("../../../../Models/User")
+const RoleAccess = require("../../../../Models/Access/RoleAccess")
 
 // @type    POST
 //@route    /api/v1/auth/passwordAuth/login
@@ -79,6 +80,7 @@ async function checkPassword(req,res,password,user){
 
 // sending login data
 async function sendLoginData(req,res,user){
+  let roleData = await rolePermissions(req,res,User.roleId);
 
     //use payload and create token for user
     const payload = {
@@ -100,11 +102,17 @@ async function sendLoginData(req,res,user){
         lastName:user.lastName,
         userImage: user.userImage || "https://mui.com/static/images/avatar/2.jpg",
         designation: user.designation ,
-        name: user.name
+        name: user.name,
+        roleData,
       }
       res.json(obj)
       const decoded = jwt_decode(token);     
     });
 }
 
+const rolePermissions = async(req,res,roleId)  => {
+      let data = await RoleAccess.findOne({}).catch(err => console.log(err))
+      let permissions = data.permissions;
+  return permissions
+}
 module.exports = router;

@@ -1,13 +1,13 @@
 'use client';
 import React,{useState,useEffect,forwardRef,useRef,useImperativeHandle} from 'react'
-import {Grid, AppBar,Toolbar,Box,Typography,TextField, Button,Tooltip,Avatar,InputAdornment,CircularProgress} from '@mui/material/';
+import {Grid, AppBar,Toolbar,Box,Typography,TextField, Button,Tooltip,Avatar,InputAdornment,CircularProgress,FormGroup,FormControlLabel,Checkbox,} from '@mui/material/';
 import {FaUserPlus } from "react-icons/fa";
 import {FiFileMinus,FiCheck } from "react-icons/fi";
 import {BsTable } from "react-icons/bs";
 import {ToggleFab} from "./page"
 import { DataGrid } from '@mui/x-data-grid';
 import { useImgUpload } from '@/app/hooks/auth/useImgUpload';
-import MySnackbar from "../../Components/MySnackbar/MySnackbar";
+import  MySnackbar from "../../Components/MySnackbar/MySnackbar";
 import {allStates,allRelation,allGenders} from "../../Components/StaticData";
 import { prospectService } from "../../services";
 import Autocomplete from '@mui/material/Autocomplete';
@@ -146,7 +146,12 @@ function SearchContact({prospectId, handleEdit}) {
 const EntryContact = forwardRef((props, ref) => {
   const snackRef = useRef();
      const [contactImage, setImgUrl] = useState("")
-     const [loadingImg, setLoadingImg]= useState(false)
+     const [loadingImg, setLoadingImg]= useState(false);
+
+     const [nearestRelative, setNearestRelative] = useState(false);
+     const [financePerson,setFinancePerson] = useState(false);
+     const [responsiblePerson, setResPerson] = useState(false);
+
      const [firstName, setFN] = useState("");
      const [lastName, setLN] = useState("");
      const [organization, setOrg] = useState("");
@@ -162,6 +167,7 @@ const EntryContact = forwardRef((props, ref) => {
      const [state, setState] = useState(null);
      const [relation, setRelation] = useState(null);
      const [notes, setNotes]=useState("");
+
     useEffect(() => {
       async function getData() {
         try {
@@ -170,6 +176,9 @@ const EntryContact = forwardRef((props, ref) => {
           props.setContactId(res.data._id);
           setImgUrl(res.data.contactImage);
           setLoadingImg(res.data.loadingImg);
+          setNearestRelative(res.data.nearestRelative);
+          setFinancePerson(res.data.financePerson);
+          setResPerson(res.data.responsiblePerson);
           setFN(res.data.firstName);
           setLN(res.data.lastName);
           setOrg(res.data.organization);
@@ -217,6 +226,9 @@ const EntryContact = forwardRef((props, ref) => {
       const handleClear=()=>{
         props.setContactId("");
         setImgUrl("")
+        setNearestRelative(false);
+        setFinancePerson(false);
+        setResPerson(false);
         setFN("");
         setLN("");
         setOrg("");
@@ -236,7 +248,7 @@ const EntryContact = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => ({
         handleSubmit: async () => {
           try {
-            let contactData = {prospectId:props.prospectId, contactImage, firstName,lastName,relation,organization,gender,streetAddress,unit,mobile,emailAddress:email,zipCode:zip,city:city.city,state,notes  };
+            let contactData = {prospectId:props.prospectId, contactImage,nearestRelative,financePerson,responsiblePerson, firstName,lastName,relation,organization,gender,streetAddress,unit,mobile,emailAddress:email,zipCode:zip,city:city.city,state,notes  };
            let response = await prospectService.saveContact(props.contactId, contactData);
            if(response.variant === "success"){
              snackRef.current.handleSnack(response);
@@ -262,12 +274,10 @@ const EntryContact = forwardRef((props, ref) => {
   return (
    <main style={{backgroundColor:"#fff",boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px", borderRadius:8,marginBottom:2, padding:"10px"}}>
     <Grid container spacing={2}>
-    <Grid item xs={12} className='center'>
+    <Grid item xs={12} md={4} />
+    <Grid item xs={12} md={4} className='center' sx={{flexDirection:"column"}}>
     <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>Add New Contact</Typography>
-    </Grid>
-    <br />
-    <Grid item xs={12} className='center'>
-      {
+    {
         loadingImg ?  <CircularProgress /> :  <label htmlFor="contactImg">
         <input type="file" id="contactImg" style={{display:"none"}} onChange={(e) => imgUpload(e.target.files[0])}  accept="image/*"  />
         <Tooltip title="Upload Contact Photo" arrow>
@@ -276,6 +286,15 @@ const EntryContact = forwardRef((props, ref) => {
       </label>
       } 
     </Grid>
+    <Grid item xs={12} md={4}>
+    <FormGroup>
+      <FormControlLabel  control={<Checkbox size="small" checked={nearestRelative} onChange={()=>setNearestRelative(!nearestRelative)}/>} label="Nearest Relative" />
+      <FormControlLabel control={<Checkbox size="small" checked={financePerson} onChange={()=>setFinancePerson(!financePerson)}  />} label="Finance Person" /> 
+      <FormControlLabel control={<Checkbox size="small" checked={responsiblePerson} onChange={()=>setResPerson(!responsiblePerson)}  />} label="Responsible Person" /> 
+    </FormGroup>
+    
+    </Grid>
+
     <Grid item xs={12} md={3}>
     <TextField fullWidth value={firstName} onChange={e=>setFN(e.target.value)} label="First Name" placeholder='Contact First Name' variant="standard" />   
     </Grid>

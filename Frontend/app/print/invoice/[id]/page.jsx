@@ -58,13 +58,13 @@ function PrintInvoice({ params }) {
 
   return (
     <main style={{backgroundColor:"#fff",width:"100%", overflowY:"hidden"}}>
-      <section style={{backgroundColor:"#f2faf6", height:"180px",}}>
+      <section style={{backgroundColor:"#f2faf6", height:"180px"}}>
         <Grid container>
-        <Grid item xs={4} className='center'>
+        <Grid item xs={3} className='center'>
         <img src="https://res.cloudinary.com/oasismanors/image/upload/v1685029880/Logo_hmwkcj.svg" alt="Oasis Manor" style={{width:"160px", height:"80px"}} />
         </Grid>
-        <Grid item xs={4} style={{paddingTop:"30px"}}>
-          <Typography variant="h6" color="darkgreen" style={{fontFamily: 'Courgette'}} align='center'>Tax Invoice</Typography>
+        <Grid item xs={5} style={{paddingTop:"30px"}}>
+          <Typography variant="h6" color="darkgreen" style={{fontFamily: 'Courgette'}} align='center'>Invoice</Typography>
         </Grid>
         <Grid item xs={4} style={{paddingTop:"20px"}}>
         <Typography variant="body2" color="grey" style={{fontFamily: 'Courgette'}} >Billed By :-</Typography>

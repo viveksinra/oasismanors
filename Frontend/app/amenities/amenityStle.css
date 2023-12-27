@@ -1,0 +1,8 @@
+#menuBg{
+    background: url(https://res.cloudinary.com/oasismanors/image/upload/v1703102421/meal_pzoimo.jpg) no-repeat top center;
+    background-size:cover;
+    height: 200px;
+    width: 100%;
+    display: flex;
+   align-items: center;
+}

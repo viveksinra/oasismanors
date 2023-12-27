@@ -3,10 +3,15 @@ const Seat = require("../../Models/Private/Main/Seat");
 
 const validateOnCreate = async (req, res, next) => {
     //   Check if the required fields are present
-
+    if((!mongoose.Types.ObjectId.isValid(req.body.communityId)) 
+    ){
+      return res.json({
+        message:"Invalid community id",
+        variant: "error",
+      });
+    }
       // Check for duplicate
       const seatObj = await getCreateSeatObj(req,"create");
-      console.log(seatObj)
     let mySeat = await Seat.findOne(seatObj)
     if(mySeat){
       console.log(" seat - duplicate")
@@ -84,7 +89,6 @@ const validateOnUpdate = async (req, res, next) => {
         const changeType = data.changeType;
         const query = { [`${changeType}._id`]: req.params.id };
         const newD = await Seat.findOne(query);
-    
         if (newD) {
           return res.json({
             message: `Please Delete the dependent ${changeType === "building" ? "Floor" : changeType === "floor" ? "Room" : "Seat"} first`,
@@ -125,15 +129,9 @@ const generalValidation = async (req, res, next) => {
       req.params.changeType == "floor" || 
       req.params.changeType == "room" ||
       req.params.changeType == "seat"      
-      ) && (!req.body.building || !req.body.building.label) ) {
+      ) && (!req.body.communityId) ) {
         return res.json({
-          message: "Building is required fields.",
-          variant: "error",
-        });  
-      }
-      if (!req.body.building ||  !req.body.building.houseNo ) {
-        return res.json({
-          message: "House No is required fields.",
+          message: "communityId is required fields.",
           variant: "error",
         });  
       }
@@ -141,12 +139,13 @@ const generalValidation = async (req, res, next) => {
       req.params.changeType == "floor" || 
       req.params.changeType == "room" ||
       req.params.changeType == "seat"      
-      ) && (!req.body.floor || !req.body.floor.label || !req.body.building._id) ) {
+      ) && (!req.body.floor || !req.body.floor.label || !req.body.communityId) ) {
         return res.json({
           message: "Floor and Building is required fields.",
           variant: "error",
         });  
       }
+      console.log(req.body)
       if ((
       req.params.changeType == "room" ||
       req.params.changeType == "seat"      
@@ -188,8 +187,8 @@ async function getCreateSeatObj(req) {
     }
     if(changeType == "floor")
 {        
-        if (req.body.building?._id) {
-          newSeat["building._id"] = mongoose.Types.ObjectId(req.body.building._id);  
+        if (req.body.communityId) {
+          newSeat["communityId"] = mongoose.Types.ObjectId(req.body.communityId);  
       }
       if (req.body.floor?.label) {
         newSeat["floor.label"] = req.body.floor.label;  
@@ -197,8 +196,8 @@ async function getCreateSeatObj(req) {
  }
     if(changeType == "room")
 {        
-        if (req.body.building?._id) {
-          newSeat["building._id"] = mongoose.Types.ObjectId(req.body.building._id);  
+        if (req.body.communityId) {
+          newSeat["communityId"] = mongoose.Types.ObjectId(req.body.communityId);  
       }
       if (req.body.floor?._id) {
         newSeat["floor._id"] = req.body.floor._id;  
@@ -209,8 +208,8 @@ async function getCreateSeatObj(req) {
  }
     if(changeType == "seat")
 {        
-        if (req.body.building?._id) {
-          newSeat["building._id"] = mongoose.Types.ObjectId(req.body.building._id);  
+        if (req.body.communityId) {
+          newSeat["communityId"] = mongoose.Types.ObjectId(req.body.communityId);  
       }
       if (req.body.floor?._id) {
         newSeat["floor._id"] = req.body.floor._id;  
@@ -245,8 +244,8 @@ async function getSeatObj(req,type) {
       {
         if (req.body.building) {
        
-           if (req.body.building._id && (type == "update" || req.body.changeType !== "building")) {
-            newSeat.building._id = mongoose.Types.ObjectId(req.body.building._id);
+           if (req.body.communityId && (type == "update" || req.body.changeType !== "building")) {
+            newSeat.communityId = mongoose.Types.ObjectId(req.body.communityId);
        
           }
         }

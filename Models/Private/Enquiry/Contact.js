@@ -14,6 +14,18 @@ const ContactSchema = new Schema({
     type: String,
     default: ""
   },
+nearestRelative:{
+  type:Boolean,
+  default:false
+},
+responsiblePerson:{
+  type:Boolean,
+  default:false
+},
+financePerson:{
+  type:Boolean,
+  default:false
+},
   relation: {
     label: {
       type: String,
@@ -86,7 +98,7 @@ const ContactSchema = new Schema({
    required:true
   },
  // Default for all
- community: {
+ communityId: {
   type: String,
   default: "647654545893b52b5c8bbc61"
 },

@@ -33,6 +33,7 @@ const EntryArea = forwardRef((props, ref) => {
     const [office, setOffice] = useState("");
     const [mobile, setMobile] = useState("");
     const [email, setEmail] = useState("");
+    const [ssNumber,setSSNo] = useState("");
     const [zip, setZip] = useState("");
     const [loadingCity, setLoadingCity] = useState(false);
     const [city, setCity] =useState(null);
@@ -69,8 +70,9 @@ const EntryArea = forwardRef((props, ref) => {
       setOffice(res.data.office);
       setMobile(res.data.phone);
       setEmail(res.data.email);
+      setSSNo(res.data.ssNumber);
       setZip(res.data.zipCode);
-      setCity({city:res.data.city});
+      if (res.data.city ) setCity({city:res.data.city});
       setState(res.data.state);
       setPAccordion(true);
       snackRef.current.handleSnack(res);
@@ -126,6 +128,7 @@ const EntryArea = forwardRef((props, ref) => {
       setOffice("");
       setMobile("");
       setEmail("");
+      setSSNo("");
       setZip("");
       setCity(null);
       setAllCity([]);
@@ -135,7 +138,7 @@ const EntryArea = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => ({
          handleSubmit: async () => {
            try {
-          let prospectData = { _id: props.id,inquiryDate, financialMoveInDate,physicalMoveInDate,salesAgent,prospectStage,prospectScore, marketingStatus:subscribed,prospectSource,message,firstName,lastName,dateOfBirth:DOB,gender,phone:mobile,email,streetAddress:street,unit,home, office, city:city?.city,state,zipCode:zip,important };
+          let prospectData = { _id: props.id,inquiryDate, financialMoveInDate,physicalMoveInDate,salesAgent,prospectStage,prospectScore, marketingStatus:subscribed,prospectSource,message,firstName,lastName,dateOfBirth:DOB,gender,phone:mobile,email,ssNumber, streetAddress:street,unit,home, office, city:city?.city,state,zipCode:zip,important };
           let response;
             response = await prospectService.add(props.id, prospectData);
             if(response.variant === "success"){
@@ -329,6 +332,9 @@ const EntryArea = forwardRef((props, ref) => {
         </Grid>
         <Grid item xs={12} md={3}> 
         <TextField fullWidth label="Email" inputProps={{maxLength: "60"}} value={email} onChange={e=>setEmail(e.target.value)} type='email' placeholder='Email' variant="standard" />
+        </Grid>
+        <Grid item xs={12} md={3}> 
+        <TextField fullWidth label="Social Security Number" inputProps={{maxLength: "9"}} value={ssNumber} onChange={e=>setSSNo(e.target.value)} type="number" placeholder='Social Security Number (SSN)' variant="standard" />
         </Grid>
         <Grid item xs={12} md={3}> 
           <TextField fullWidth value={zip} inputProps={{maxLength: "10"}} onChange={e=> {setZip(e.target.value)}} onBlur={()=>getZIPData()} disabled={loadingCity} InputProps= {{

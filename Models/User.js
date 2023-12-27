@@ -134,7 +134,7 @@ const UserSchema = new Schema({
     required: true
   },
     // Default for all
-    community: [{
+    communityId: [{
       type: String,
       default: "647654545893b52b5c8bbc61"
     }],

@@ -38,7 +38,7 @@ const formattedProspect = {
     prospectScore: prospect.prospectScore,
     marketingStatus: prospect.marketingStatus,
     important: prospect.important,
-    community: prospect.community,
+    communityId: prospect.community,
     company: prospect.company,
     _id: prospect._id,
     user: prospect.user,
@@ -107,7 +107,7 @@ const formattedProspect = {
               residenceStage: 1,
               state: "$state.label",
               zipCode:1,
-              building:1,
+              communityId:"$community._id",
               floor:1,
               room:1,
               seat:1,
@@ -334,12 +334,12 @@ router.get(
                  
         return {
           // ...pro.toObject(),   
-          label: pro.lastName + " " + pro.firstName, 
+          label: pro.firstName + " " + pro.lastName, 
           _id: pro._id, 
           floor:pro.floor.label,
           room:pro.room.label,
-          building:pro.building.label,
-          building:pro.building.houseNo,
+          community:pro.community.label,
+          community:pro.community.buildingNumber,
           userImage:pro.userImage,
         };
       });

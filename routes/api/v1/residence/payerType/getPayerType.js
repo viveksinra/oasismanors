@@ -46,7 +46,7 @@ router.get(
   
         const modifiedData = myData.map(contact => ({
           _id:contact._id,
-          label:contact.lastName + " "+ contact.firstName,
+          label:contact.firstName + " "+ contact.lastName,
           relation: contact.relation.label,
           gender: contact.gender.label,
           contactImage: contact.contactImage,
@@ -103,12 +103,6 @@ router.get(
              _id:"60f98cef90051e32b7ed29bd",
              category:"care",
              price:"300"
-          },
-          {
-            label:"Other",
-             _id:"60f98cef90051e32b7ed29bf",
-             category:"other",
-             price:"0"
           },
       ]
       res.status(200).json({ variant: "success", message: "Type Loaded", data: BillingItem.reverse() });

@@ -3,11 +3,71 @@ const Schema = mongoose.Schema;
 
 const CommunitySchema = new Schema({
   
-  communityName:{
+communityName:{
     type: String,
     required: true
   },
-  communityLink:{
+  buildingNumber:{
+    type: String,
+    default:""
+  },
+  licenseNumber:{
+    type: String,
+    required: true
+  },
+  communityMobileNumber:{
+    type: String,
+    required: true
+  },
+  communityAddress:{
+    type: String,
+    required: true
+  },
+  communityCity:{
+   city:{ 
+    type: String,
+    required: true
+  },
+  state:{
+    type: String,
+    required: true
+  }
+  },
+  communityState:{
+    type: String,
+    required: true
+  },
+  communityZipCode:{
+    type: String,
+    required: true
+  },
+  licenseeName:{
+    type: String,
+    required: true
+  },
+  licenseeMobileNumber:{
+    type: String,
+    required: true
+  },
+  licenseeAddress:{
+    type: String,
+    required: true
+  },
+  licenseeCity:{
+    city:{ 
+      type: String,
+      required: true
+    },
+    state:{
+      type: String,
+      required: true
+    }
+  },
+  licenseeState:{
+    type: String,
+    required: true
+  },
+  licenseeZipCode:{
     type: String,
     required: true
   },
@@ -47,7 +107,8 @@ const CommunitySchema = new Schema({
   company:{
     type: Schema.Types.ObjectId,
     ref: "myCompany",
-    required: true
+    default: "647644e05117173d58993882"
+
   },
   date: {
     type: Date,

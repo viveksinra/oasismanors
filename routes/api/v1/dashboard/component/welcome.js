@@ -3,7 +3,7 @@ const User = require("../../../../../Models/User")
 
 async function welcomeMsg(req,res){
 
-    let msg = "Welcome, " + req.user.lastName + " " +req.user.firstName
+    let msg = "Welcome, " + req.user.firstName + " " +req.user.lastName
     let firstName = req.user.firstName
     let lastName = req.user.lastName
     let designation = req.user.designation

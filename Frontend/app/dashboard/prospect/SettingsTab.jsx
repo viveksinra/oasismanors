@@ -21,12 +21,12 @@ function SettingsTab({prospectId,residentId}) {
     const [deactPass, setDeact] = useState(true);
     const [deactMoveBtn, setDeactMoveBtn] = useState(false);
     const [err, setErr] = useState([]);
-    const [building, setBuilding] = useState(null);
+    const [community, setCommunity] = useState(null);
     const [floor, setFloor] = useState(null);
     const [room, setRoom] = useState(null);
     const [seat, setSeat] = useState(null);
   
-    const [allBuildings, setAllBulding] = useState([]);
+    const [allCommunity, setAllCommunity] = useState([]);
     const [allFloors, setAllFloor] = useState([]);
     const [allRooms, setAllRoom] = useState([]);
     const [allSeats, setAllSeat] = useState([])
@@ -64,7 +64,7 @@ function SettingsTab({prospectId,residentId}) {
       let y = confirm("Are you sure to move it as Resident ?")
       if(y===true){
         try {
-          let res = await prospectService.moveToResident("api/v1/enquiry/prospect/moveToResidence", (prospectId || residentId), {building,floor,room,seat});
+          let res = await prospectService.moveToResident("api/v1/enquiry/prospect/moveToResidence", (prospectId || residentId), {community,floor,room,seat});
           if(res?.variant === "success"){
             snackRef.current.handleSnack(res); 
             router.push("/dashboard/residents")
@@ -83,28 +83,28 @@ function SettingsTab({prospectId,residentId}) {
 
     useEffect(() => {
       async function getData(){
-        if(building===null){
-          let res = await prospectService.moveToResident("api/v1/main/seat/getSeat/get/building", "",);
-          setAllBulding(res.data)
-        }else if (floor === null){
-          let res = await prospectService.moveToResident("api/v1/main/seat/getSeat/get/floor", "", {building});
+        if(community===null){
+          let res = await prospectService.getScheduleLeave("api/v1/main/community/getCommunity/getAll");
+          setAllCommunity(res.data);
+        }else if (floor === null){ 
+          let res = await prospectService.moveToResident("api/v1/main/seat/getSeat/get/floor", "", {communityId:community?._id});
           setAllFloor(res.data)
         } else if (room === null){
-          let res = await prospectService.moveToResident("api/v1/main/seat/getSeat/get/room", "", {building, floor});
+          let res = await prospectService.moveToResident("api/v1/main/seat/getSeat/get/room", "", {community, floor});
           setAllRoom(res.data)
         } else if (seat ===null){
-          let res = await prospectService.moveToResident("api/v1/main/seat/getSeat/get/seat", "", {building, floor, room});
+          let res = await prospectService.moveToResident("api/v1/main/seat/getSeat/get/seat", "", {community, floor, room});
           setAllSeat(res.data)
         }
      }
      if(prospectId || residentId){getData()}
-    }, [prospectId,residentId,building,floor,room, seat])
+    }, [prospectId,residentId,community,floor,room, seat])
 
     useEffect(() => {
       async function getResRoom(){
        let res = await prospectService.getScheduleLeave(`api/v1/residence/leave/getLeave/getRoom/${residentId}`);
        if(res.variant ==="success"){
-        setBuilding(res.data.building);
+        setCommunity(res.data.community);
         setFloor(res.data.floor);
         setRoom(res.data.room);
         setSeat(res.data.seat)
@@ -153,14 +153,15 @@ function SettingsTab({prospectId,residentId}) {
                   renderOption={(props, option) => {
                     return (
                       <li {...props} key={option._id}>
-                        {option.label}
+                        {option.communityName}
                       </li>
                     );
                   }}
-                  groupBy={(option) => option.houseNo}
-                  options={allBuildings}
+                  groupBy={(option) => option?.buildingNumber}
+                  getOptionLabel={(option) => option.communityName}
+                  options={allCommunity}
                   onChange={(e, v) => {
-                    setBuilding(v);
+                    setCommunity(v)     
                     setFloor(null);
                     setRoom(null);
                     setSeat(null);
@@ -168,8 +169,8 @@ function SettingsTab({prospectId,residentId}) {
                     setAllRoom([]);
                     setAllSeat([]);
                   }}
-                  value={building}
-                  renderInput={(params) => <TextField {...params} variant="standard"  fullWidth label="Building Name"/>}
+                  value={community}
+                  renderInput={(params) => <TextField {...params} variant="standard"  fullWidth label="Community Name"/>}
                   /> 
               </Grid>
               <Grid item xs={12} md={3}>
@@ -183,7 +184,7 @@ function SettingsTab({prospectId,residentId}) {
                     );
                   }}
                   options={allFloors}
-                  noOptionsText="Select Building Name"
+                  noOptionsText="Select Community Name"
                   onChange={(e, v) => {
                     setFloor(v);
                     setRoom(null);
@@ -192,7 +193,7 @@ function SettingsTab({prospectId,residentId}) {
                     setAllSeat([]);
                   }}
                   value={floor}
-                  renderInput={(params) => <TextField {...params} variant="standard" helperText="Associated to Building" fullWidth label="Floor Name"/>}
+                  renderInput={(params) => <TextField {...params} variant="standard" helperText="Associated to Community" fullWidth label="Floor Name"/>}
                   /> 
               </Grid>
               <Grid item xs={12} md={3}>

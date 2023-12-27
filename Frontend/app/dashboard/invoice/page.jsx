@@ -159,7 +159,7 @@ function SearchInvoice({prospectId, handleEdit}) {
         </Tooltip>
         <div className="userName">
         <Badge invisible={!user?.important} badgeContent={<FcLike style={{fontSize:18}}/>} color="primary">
-        <h3 style={{cursor: "pointer"}} onClick={()=>setResBox(!selectResBox)}>{`${user?.lastName} ${user?.firstName}`}</h3>
+        <h3 style={{cursor: "pointer"}} onClick={()=>setResBox(!selectResBox)}>{`${user?.firstName} ${user?.lastName}`}</h3>
         </Badge>
         <p>Room : <b>{`${user?.room?.label} ${user?.seat?.label}`}</b> </p>
         </div> 
@@ -230,7 +230,7 @@ function SearchInvoice({prospectId, handleEdit}) {
               <ListItemAvatar>
                 <Avatar sx={{ bgcolor: "blue", color: "white", }} src={r?.userImage} alt="User Image" />
               </ListItemAvatar>
-              <ListItemText primary={`${r?.lastName}, ${r?.firstName}`} secondary={`${r?.floor?.label}, Room : ${r?.room?.label}`} />
+              <ListItemText primary={`${r?.firstName} ${r?.lastName}`} secondary={`${r?.community?.communityName ?? "All"}, Room : ${r?.room?.label}`} />
             </ListItemButton>
           </ListItem>
         ))}

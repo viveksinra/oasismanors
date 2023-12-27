@@ -117,7 +117,7 @@ const LedgerSchema = new Schema({
     type: String,
     default: "",
   },
-  community: {
+  communityId: {
     type: String,
     default: "647654545893b52b5c8bbc61",
   },

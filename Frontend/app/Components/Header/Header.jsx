@@ -51,13 +51,13 @@ const Header = () => {
         <div style={{flexGrow:1}}/>
         <Hidden mdDown>
         <ul>
-            <li><Link href="/about">About us</Link></li>
-            <li><Link href="/amenities">Amenities</Link></li>
-            <li><Link href="/">Gallery</Link></li>
-            <li><Link href="/">Pricing</Link></li>
-            <li><Link href="/contact">Contact us</Link></li>
-            <li id="callBackBtn"><Link href="/#enquiry">Get a Call Back</Link></li>
-        </ul>
+            <li><Link href="/about"> <Typography variant="body1">About us</Typography></Link></li>
+            <li><Link href="/amenities"><Typography variant="body1">Amenities</Typography></Link></li>
+            <li><Link href="/"><Typography variant="body1">Gallery</Typography></Link></li>
+            <li><Link href="/"><Typography variant="body1">Pricing</Typography></Link></li>
+            <li><Link href="/contact"><Typography variant="body1">Contact Us</Typography></Link></li>
+            <li id="callBackBtn"><Link href="/#enquiry"><Typography variant="body2">Get a Call Back</Typography></Link></li>
+        </ul> 
         </Hidden>
         {state?.isAuthenticated ?  <Link href="/dashboard"> <Avatar alt={state.name}  src={authService.getLoggedInUser()?.userImage ?? "https://res.cloudinary.com/oasismanors/image/upload/v1687519053/user_myqgmv.png"}/></Link> :  <Link href="/login"> <Button startIcon={<FaUserCircle />}>Login</Button></Link>  }
         
