@@ -29,11 +29,15 @@ financePerson:{
   relation: {
     label: {
       type: String,
-      default: ""
+      default: "",
+      enum:["Friend", "Father", "Mother", "Brother", "Sister", "Cousin", "Physician", "Mental Health Provider", "Dentist", "Others"]
+
     },
     id: {
       type: String,
-      default: ""
+      default: "",
+      enum:["friend", "father", "mother", "brother", "sister", "cousin", "physician", "mentalHealthProvider", "dentist", "others"]
+
     }
   },
   organization: {

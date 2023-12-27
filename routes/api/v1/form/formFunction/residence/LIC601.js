@@ -34,23 +34,7 @@ let dobAge = await dobToAge(myResident?.dateOfBirth)
     };
   let financePerson = await getFinancialInfo(res,resId)
 
-   let emergencyPerson = {        
-        physicianName:"",
-        physicianAddress:"",
-        physicianPhone:"",
-        mental:"",
-        mentalAddress:"",
-        mentalPhone:"",
-        dentist:"",
-        dentistAddress:"",
-    dentistPhone:"",
-    relativeName:"",
-    relAddress:"",
-    relPhone:"",
-    friendName:"",
-    friendAddress:"",
-    friendPhone:"",
-        };
+   let emergencyPerson = await getEmergencyInfo(res,resId)
         let emergencyHospitals ={
     hospitalName:"",
     hospitalAddress:"",
@@ -88,23 +72,78 @@ let dobAge = await dobToAge(myResident?.dateOfBirth)
     
     }
 
-    const getFinancialInfo = async(data) => {
-      const finInfo = await Contact.find({financePerson:true}).catch(err => console.log(err))
-
-      let financePerson = {
-        nameRow1:"",
-        addressRow1:"",
-        phoneRow1:"",
-        nameRow2:"",
-         addressRow2:"",
-          phoneRow2:"",
-          nameRow3:"",
-          addressRow3:"",
-       phoneRow3:""
-      };
-
-      return financePerson
-
+    const getFinancialInfo = async (res,resId) => {
+      try {
+        const finInfo = await Contact.find({ financePerson: true,prospectId:resId }).limit(3); // Limit to three contacts
+        let financePerson = {
+          nameRow1: "",
+          addressRow1: "",
+          phoneRow1: "",
+          nameRow2: "",
+          addressRow2: "",
+          phoneRow2: "",
+          nameRow3: "",
+          addressRow3: "",
+          phoneRow3: ""
+        };
+    
+        // Loop through the contacts and fill the financePerson object
+        finInfo.forEach((contact, index) => {
+          const rowNumber = index + 1;
+          financePerson[`nameRow${rowNumber}`] = contact?.firstName + " " + contact?.lastName;
+          financePerson[`addressRow${rowNumber}`] = contact.streetAddress;
+          financePerson[`phoneRow${rowNumber}`] = contact.mobile;
+        });
+    
+        return financePerson;
+      } catch (err) {
+        console.error(err);
+        // Handle the error as needed
+        throw err;
+      }
     };
+    const getEmergencyInfo = async (res,resId) => {
+      try {
+        const validRelationIds = ["father", "mother", "brother", "sister", "cousin"];
+
+        const relativeInfo = await Contact.findOne({
+          'relation.id': { $in: validRelationIds },
+          prospectId: resId
+        });
+
+        const physicianInfo = await Contact.findOne({ 'relation.id': "physician",prospectId:resId }).limit(3); // Limit to three contacts
+        const mentalInfo = await Contact.findOne({ 'relation.id': "mentalHealthProvider",prospectId:resId }).limit(3); // Limit to three contacts
+        const dentistInfo = await Contact.findOne({ 'relation.id': "dentist",prospectId:resId }).limit(3); // Limit to three contacts
+    
+        
+        const friendInfo = await Contact.findOne({ 'relation.id': "friend",prospectId:resId }).limit(3); // Limit to three contacts
+        let emergencyPerson = {        
+          physicianName:physicianInfo? physicianInfo?.firstName + " " + physicianInfo?.lastName : "",
+          physicianAddress:physicianInfo?.streetAddress,
+          physicianPhone:physicianInfo?.mobile,
+          mental:mentalInfo? mentalInfo?.firstName + " " + mentalInfo?.lastName: "",
+          mentalAddress:mentalInfo?.streetAddress,
+          mentalPhone:mentalInfo?.mobile,
+          dentist:dentistInfo? dentistInfo?.firstName + " " + dentistInfo?.lastName:"",
+          dentistAddress:dentistInfo?.streetAddress,
+      dentistPhone:dentistInfo?.mobile,
+      relativeName:relativeInfo? relativeInfo?.firstName + " " + relativeInfo?.lastName: "",
+      relAddress:relativeInfo?.streetAddress,
+      relPhone:relativeInfo?.mobile,
+      friendName:friendInfo? friendInfo?.firstName + " " + friendInfo?.lastName : "",
+      friendAddress:friendInfo?.streetAddress,
+      friendPhone:friendInfo?.mobile,
+          };
+    
+
+    
+        return emergencyPerson;
+      } catch (err) {
+        console.error(err);
+        // Handle the error as needed
+        throw err;
+      }
+    };
+    
     
     module.exports = LIC601;
