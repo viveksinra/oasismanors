@@ -20,7 +20,7 @@ export function LIC625({params}) {
     form.getTextField('residentName').setText(basicInfo?.residentName);
     form.getTextField('dob').setText(basicInfo?.dob);
     form.getTextField('age').setText(basicInfo?.age);
-    form.getRadioGroup('sex').select(basicInfo?.sex);
+    basicInfo?.sex &&  form.getRadioGroup('sex').select(basicInfo?.sex);
     form.getTextField('date').setText(basicInfo?.date);
     form.getTextField('facilityName').setText(basicInfo?.facilityName);
     form.getTextField('facilityAddress').setText(basicInfo?.facilityAddress);

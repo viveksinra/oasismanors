@@ -40,7 +40,7 @@ export function LIC604A({params}) {
     form.getTextField('relationship').setText(basicInfo?.relationship);
     form.getTextField('resAddress').setText(basicInfo?.resAddress);
     form.getTextField('telephone3').setText(basicInfo?.telephone3);
-    form.getRadioGroup('lodging').select(serviceInfo?.lodging);
+    {serviceInfo?.lodging && form.getRadioGroup('lodging').select(serviceInfo?.lodging)} 
     {serviceInfo?.threeMeals ? form.getCheckBox('threeMeals').check() : form.getCheckBox('threeMeals').uncheck }
     {serviceInfo?.specialDiets ? form.getCheckBox('specialDiets').check() : form.getCheckBox('specialDiets').uncheck }
     {serviceInfo?.otherMeals ? form.getCheckBox('otherMeals').check() : form.getCheckBox('otherMeals').uncheck }

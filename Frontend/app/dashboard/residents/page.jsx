@@ -178,7 +178,7 @@ function ResidentView({view,loading,filterRes,setFilterRes}){
           <div className={clsx("residentCard", r?.active && "activeCard")} onClick={()=>handleCard(i)}>
           <div className="cross">{r.room}</div>  
           <img alt={r?.firstName} src={r?.userImage} className="residentImg" variant="square" />
-          <Typography variant="subtitle2" color="primary" sx={{ top: "-15px",position: "relative"}} align="center">{`${r?.lastName}, ${r?.firstName}`} </Typography>
+          <Typography variant="subtitle2" color="primary" sx={{ top: "-15px",position: "relative"}} align="center">{`${r?.firstName} ${r?.lastName}`} </Typography>
           <div style={{display:"flex", justifyContent:"space-evenly", top: "-15px",position: "relative"}}> 
           <Badge badgeContent={r?.pendingCare} max={9} color="success">
           <Button  variant="outlined" size="small" onClick={()=>{setOpenMeds(!openMeds);setPopup("Care")}} sx={{background:"#fff"}}>
@@ -215,10 +215,10 @@ function DetailedCard({act}){
       <Grid container id="moreCard" sx={{marginTop:{xs:"20px", md:"0px"}}}>
       <Grid item xs={12} sx={{display:"flex", flexDirection:"column", position: "relative", top:"-65px"}}>
       <Avatar alt={act?.firstName} src={act?.userImage} id="moreImg" />
-      <Typography variant="subtitle1" color="primary" align="center">{`${act?.lastName}, ${act?.firstName}`} </Typography>
+      <Typography variant="subtitle1" color="primary" align="center">{`${act?.firstName} ${act?.lastName}`} </Typography>
       <Typography variant="body2" align="center"> {`Resident Since ~ ${act?.physicalMoveInDate}`}</Typography>
       <Typography variant="body2" align="center"> {`Room No. ~ ${act?.room} ${act?.seat}` }</Typography>
-      <Typography variant="body2" align="center"> {`${act?.community?.communityName}, ${act?.floor?.label}`}</Typography>
+      <Typography variant="body2" align="center"> {`${act?.floor?.label}`}</Typography>
       <br />
        <center> <Link href={`/dashboard/residents/${act?._id}`}> <Fab size="small" variant="extended" color="success" sx={{padding:"0px 20px"}}>View Profile <FaTelegramPlane style={{marginLeft:5}}/></Fab></Link></center>  
       </Grid> 

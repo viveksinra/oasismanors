@@ -28,18 +28,7 @@
     border-radius: 20px;
     background-size:cover;
 };
-.amenityCard{
-    /* border: 1px solid red;
-    flex-direction: column; */
-}
-.amenityImg{
-    width: 100%;
-    max-height: 250px;
-    border-radius: 10px;
-    background-position:center;
-    background-repeat: no-repeat;
-    background-size:cover;
-}
+
 #imgBox{
     margin-top: 50px;
 }

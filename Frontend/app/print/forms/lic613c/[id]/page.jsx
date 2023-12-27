@@ -67,8 +67,6 @@ if(loading){
  return (
     <main style={{background:"#fff",boxShadow:"rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",borderRadius:8,padding:10}} className='center'>
              <Button variant="contained" onClick={()=>fillForm()}>Download Form LIC 613C </Button>   
-    
-  
     </main>
   )
 }

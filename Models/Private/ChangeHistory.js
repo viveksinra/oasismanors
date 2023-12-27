@@ -2,18 +2,33 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const HistorySchema = new Schema({
-    type: {
-        type: String,
-        required:true
-      },
-    type:{
-        type: String,
-        default: ""
-    },
-  
-  anyId:{
-    type: Schema.Types.ObjectId,
-   required:true
+  action: {
+    type: String,
+    enum: ['create', 'update', 'delete'],
+    required: true,
+  },
+  collection: {
+    type: String,
+    required: true,
+    enum:['residence']
+  },
+  residenceId: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
+  documentId: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
+  changes: {
+    type: [{
+      field: String,
+      oldValue: mongoose.Schema.Types.Mixed,
+      newValue: mongoose.Schema.Types.Mixed,
+    }],
+  },
+  note: {
+    type: String,
+    required: "",
+
   },
   // Default for all
  communityId: {

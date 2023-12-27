@@ -4,7 +4,7 @@ const User = require("../../../../../Models/User");
 
 async function SomeReceipt(req,res) {
  let myReceipt = await getLastFiveReceipts()
- receipt = [{ledger:"Raghav John Michu",
+ receipt = [{ledger:"John Michu",
   mode:"Cash",
    ledgerImage:"https://mui.com/static/images/avatar/1.jpg", 
    amount:"514"}]

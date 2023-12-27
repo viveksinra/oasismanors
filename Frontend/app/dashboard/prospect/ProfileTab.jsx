@@ -11,7 +11,8 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { DataGrid } from '@mui/x-data-grid';
 import Link from 'next/link';
 import { useImgUpload } from '@/app/hooks/auth/useImgUpload'; 
-const MySnackbar = lazy(() => import("../../Components/MySnackbar/MySnackbar"));
+import MySnackbar from "../../Components/MySnackbar/MySnackbar"
+
 const FormHistory = lazy(() => import("../forms/FormHistory"));
 const FormUpload = lazy(() => import("../forms/FormUpload"));
 
@@ -104,7 +105,7 @@ const Summary =({prospectId, setProData})=>{
         let res = await prospectService.getOne(prospectId);
         if(res.variant === "success"){
         setLoading(false)
-        setProData({name:`${res.data.firstName} ${res.data.lastName}` , subTitle: `Prospect ~ ${res.data.prospectStage?.label}`, important:res.data.important, userImage: res.data.userImage})
+        setProData({name:`${res.data.firstName} ${res.data.lastName}` , subTitle: `Stage ~ ${res.data.prospectStage?.label}`, important:res.data.important, userImage: res.data.userImage})
         setInquiryDate(res.data.inquiryDate);
         setFinancialDate(res.data.financialMoveInDate);
         setPhysicalDate(res.data.physicalMoveInDate);

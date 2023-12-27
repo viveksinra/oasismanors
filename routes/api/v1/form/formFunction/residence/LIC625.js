@@ -17,25 +17,27 @@ async function LIC625(res,resId) {
         facilityName:myCommunity.communityName,
         facilityAddress:myCommunity.communityAddress,
         admission:true,update:false,
-        person:"asdfasdf",licenseNumber:"sdfsdfsdf",
-        phone:"asdfsdfasf",backgroundInfo:"dasdfsfsdfsdfsdfsdfsdfsd",
+        person:"",
+        licenseNumber:myCommunity.licenseNumber,
+        phone:myCommunity.communityMobileNumber,
+        backgroundInfo:"",
 
     };
 
     let pay = {
-        social1:"asdfsdf",social2:"asdfasdfsd",social3:"asdfasdf",
-        social4:"asdfasdf",social5:"asdfasdf",emotion1:"Dasfdf",
-        emotion2:"asdfasdf",emotion3:"Asdfasdfsdf",
-        emotion4:"asdfasdfasdf",emotion5:"asdfasdfsdf",
-        mental1:"sdfsdfsdf",mental2:"afsdfasdfsdf",
-        mental3:"asdfasdfsdf",mental4:"asdfasdfasdf",
-        mental5:"asdfasdfasdfs",physical1:"Dsfsdfdsfdsf",
-        physical2:"sdfsdfsdfsdfs",physical3:"dfsdfsdfsdfsdf",
-        physical4:"physical1dsdsdfsdf",physical5:"ddfsfsdfsdfsdfdfsdf",
-        skill:"dsfsdfsdfsf",plan:"sdfsdfsdfsdfs",timeFrame:"sdfsdfsdfsdf",
-        implement:"sdfsfdfwef51451",evaluation:"sdfsdfasdfsafdf41",
-        dateOfSign:"sddsafsd",client:"sdfsfsdf",dateByClient:'aasdfasdf',
-        clientDate:"sdfsdfsdf"
+        social1:"",social2:"",social3:"",
+        social4:"",social5:"",emotion1:"",
+        emotion2:"",emotion3:"",
+        emotion4:"",emotion5:"",
+        mental1:"",mental2:"",
+        mental3:"",mental4:"",
+        mental5:"",physical1:"",
+        physical2:"",physical3:"",
+        physical4:"",physical5:"",
+        skill:"",plan:"",timeFrame:"",
+        implement:"",evaluation:"",
+        dateOfSign:"",client:"",dateByClient:'',
+        clientDate:""
     };
 
     return res.json({

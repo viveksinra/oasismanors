@@ -132,7 +132,7 @@ useEffect(() => {
                   <Button size="small" color="info" onClick={()=>setSelector({open:true,m:t,r:f})}>History</Button>
                   <Button size="small" color="success">
                     <Link target="_blank" rel="noopener noreferrer" href={`/print/forms/${t.formNoLink}`}>View</Link></Button>
-                  <Button size="small" color="info">Upload</Button>
+                  <Button size="small" color="info" onClick={()=>setUploader({open:true,m:t,r:f})}>Upload</Button>
                     </ButtonGroup>
                     </TableCell>
                   </TableRow>)}

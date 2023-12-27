@@ -48,8 +48,6 @@ import {
   FcContacts,
   FcCalculator,
   FcBriefcase,
-  FcFinePrint,
-  FaUniversalAccess,
 } from "react-icons/fc";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -129,10 +127,10 @@ const DrawerData = ({ open, setMobileOpen }) => {
       icon: <FcBusinessman />,
     },
     {
-      title: "Forms",
+      title: "All Forms",
       active: false,
       link: "/dashboard/forms",
-      icon: <FcFinePrint />,
+      icon: <FcBriefcase />,
     },
     // {
     //   title: "Roles & Policies",

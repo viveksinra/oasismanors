@@ -151,9 +151,6 @@ useEffect(() => {
 
  }, [params?.id])
 
- useEffect(() => {
-  fillForm()
- }, [])
  
 if(loading){
     return <div className='center' style={{width:"100%", height:"800px", flexDirection:"column"}}> <CircularProgress/><Typography variant="h6" color="teal">Loading Form...</Typography></div>
@@ -161,7 +158,6 @@ if(loading){
  return (
     <main style={{background:"#fff",boxShadow:"rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",borderRadius:8,padding:10}} className='center'>
            <Button variant="contained" onClick={()=>fillForm()}>Download Form LIC 603 </Button>   
-            
     </main>
   )
 }

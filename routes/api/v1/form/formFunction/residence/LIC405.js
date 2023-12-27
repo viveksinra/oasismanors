@@ -6,11 +6,15 @@ const { formatDateToShortMonth } = require("../../../../../../utils/dateFormat")
 async function LIC405(res, resId) {
     try {
         const myResident = await Prospect.findOne({_id: resId});
+        const myCommunity = await Community.findOne({ _id: myResident.community._id }).catch((err) => console.log(err));
+        const currentDate = new Date();
 
+        // Get the current year
+        const currentYear = currentDate.getFullYear();
         let residentInfo = {
             residentName:`${myResident?.firstName} ${myResident?.lastName}`,
-            facilityNumber:"5465s121d5sf4SDs",
-            year:"2023"
+            facilityNumber:myCommunity.licenseNumber,
+            year:currentYear
         };
 
         const PaymentData = await Payment.aggregate([

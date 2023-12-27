@@ -6,7 +6,7 @@ import { PDFDocument } from 'pdf-lib'
 import {invoiceService} from "../../../../services/index"
 
 
-export function LIC602A({params}) {
+export function LIC624({params}) {
     const [loading, setLoading] = useState(false);
     async function fillForm() {
     try {
@@ -24,7 +24,7 @@ export function LIC602A({params}) {
     // Create a download link and trigger a click to download the file
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = `LIC602A.pdf`;
+    link.download = `LIC624.pdf`;
     link.click();
     } catch (error) {
      console.error('Error filling the form:', error);
@@ -54,13 +54,11 @@ if(loading){
   } else
  return (
     <main style={{background:"#fff",boxShadow:"rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",borderRadius:8,padding:10}} className='center'>
-           <Button href="https://test.rcfesoftware.com/report_templates/1/LIC602A%20physician%20report.pdf" download variant="contained" >Download Form LIC 602A </Button>
+           <Button href="https://test.rcfesoftware.com/report_templates/1/lic624%20unusual%20incident.pdf" download variant="contained" >Download Form LIC 624 </Button>
            
     </main>
   )
 }
 
 
-
-
-export default LIC602A;
+export default LIC624

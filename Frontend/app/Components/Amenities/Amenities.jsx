@@ -41,14 +41,12 @@ function Amenities() {
             <br/>
          </Grid>
          {amenities.map(a=>
-            <Grid key={a.title} item xs={12} md={4} >
-                <Grid className="amenityCard">
-                <img src={a?.img} className="amenityImg" alt={a?.title} />
+            <Grid key={a.title} item xs={12} md={4}>
+                <img src={a?.img} style={{  width: "100%",maxHeight: "250px",borderRadius: "10px",backgroundPosition:"center", backgroundRepeat: "no-repeat", backgroundSize:"cover"}} alt={a?.title} />
                 <Link href={a.link}><Typography variant='h6'style={{fontFamily: 'Courgette'}} textAlign="center" color="primary">{a.title}</Typography></Link>
                 <Typography align='center' style={{color:"#000"}} variant="body2" >
                 {a.subtitle}
              </Typography>
-                </Grid>                
             </Grid>)}
         </Grid>
         </Suspense>

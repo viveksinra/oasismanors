@@ -16,24 +16,24 @@ async function LIC603(res,resId) {
         outOfBed:false,bedAll:false,bedPart:"yes",tuberculosis:"yes",
         ambulatory:"yes"};
         let amb = {
-            amy1:true,amn1:true,amy2:true,amn2:true,
-            amy3:true,amn3:true,amy4:true,amn4:true
+            amy1:false,amn1:false,amy2:false,amn2:false,
+            amy3:false,amn3:false,amy4:false,amn4:false
         }
 
-        let fnc = {fy1:true,fn1:true,fy2:true,fn2:true,
-            fy3:true,fn3:true,fy4:true,fn4:true,fy5:true,
-            fn5:true,fy6:true,fn6:true,fy7:true,fn7:true,
-            fy8:true,fn8:true,fy9:true,fn9:true,fy10:true,fn10:true}
+        let fnc = {fy1:false,fn1:false,fy2:false,fn2:false,
+            fy3:false,fn3:false,fy4:false,fn4:false,fy5:false,
+            fn5:false,fy6:false,fn6:false,fy7:false,fn7:false,
+            fy8:false,fn8:false,fy9:false,fn9:false,fy10:false,fn10:false}
 
-        let ser = {sy1:true,sn1:true,sy2:true,sn2:true,
-            sy3:true,sn3:true,sy4:true,sn4:true,sy5:true,
-            sn5:true,sy6:true,sn6:true,sy7:true,sn7:true,
-            sy8:true,sn8:true,sy9:true,sn9:true,sy10:true,
-            sn10:true,sy11:true,sn11:true,sy12:true,sn12:true,
-            sy13:true,sn13:true,sy14:true,sn14:true,sy15:true,
-            sn15:true,sy16:true,sn16:true,dateComp:"dsdfsdf",
-            dateCom2:"sdsdsd54",dateOfComp3:"sdsfsdf",
-            licensee:"sdfsdfsdf"}
+        let ser = {sy1:false,sn1:false,sy2:false,sn2:false,
+            sy3:false,sn3:false,sy4:false,sn4:false,sy5:false,
+            sn5:false,sy6:false,sn6:false,sy7:false,sn7:false,
+            sy8:false,sn8:false,sy9:false,sn9:false,sy10:false,
+            sn10:false,sy11:false,sn11:false,sy12:false,sn12:false,
+            sy13:false,sn13:false,sy14:false,sn14:false,sy15:false,
+            sn15:false,sy16:false,sn16:false,dateComp:"",
+            dateCom2:"",dateOfComp3:"",
+            licensee:""}
 
 
     // Set values from basicInfo, serviceInfo, rate, and pay

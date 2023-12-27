@@ -120,7 +120,7 @@ export function SearchArea({handleEdit}) {
       </TableHead>
       {rows && rows.map((r,i)=>  <TableBody key={r._id}> 
         <TableCell align="left" padding="none"> <Badge color="primary" variant="dot" invisible={!Boolean(r.important)}><Avatar alt={r.firstName} src={r.userImage} /> </Badge> </TableCell>
-        <TableCell align="left">{`${r.lastName} ${r.firstName}`} </TableCell>
+        <TableCell align="left">{`${r.firstName} ${r.lastName} `} </TableCell>
         <TableCell align="left">{r.inquiryDate}</TableCell>
         <TableCell align="left"><Chip label={r.prospectStage} variant="outlined" size="small"  /></TableCell>      
         <TableCell align="left"><Rating value={r.prospectScore} readOnly /></TableCell>
