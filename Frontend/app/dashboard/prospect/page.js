@@ -108,7 +108,8 @@ export function SearchArea({handleEdit}) {
        
       {loading ? <div className="center" style={{flexDirection:"column"}}><CircularProgress size={30}/> <Typography color="slateblue" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>Loading prospect...</Typography>  </div> : rows.length === 0 ? <NoResult label="No Prospect Available"/> : tabular ? <Table size="small" sx={{display:{xs:"none", md:"block"}}} aria-label="Prospect data Table"> 
       <TableHead>
-      <TableCell align="left" padding="none" > </TableCell>
+      <TableRow>
+      <TableCell align="left" padding="none" ></TableCell>
       <TableCell align="left">Full Name </TableCell>
       <TableCell align="left">Inquiry Date</TableCell>
       <TableCell align="left">Prospect Stage</TableCell>
@@ -117,8 +118,10 @@ export function SearchArea({handleEdit}) {
       <TableCell align="left">Email  Id</TableCell>
       <TableCell align="left">City & State</TableCell>
       <TableCell align="center">Action</TableCell>
+      </TableRow>
       </TableHead>
-      {rows && rows.map((r,i)=>  <TableBody key={r._id}> 
+      <TableBody>
+      {rows && rows.map((r,i)=>  <TableRow key={r._id}> 
         <TableCell align="left" padding="none"> <Badge color="primary" variant="dot" invisible={!Boolean(r.important)}><Avatar alt={r.firstName} src={r.userImage} /> </Badge> </TableCell>
         <TableCell align="left">{`${r.firstName} ${r.lastName} `} </TableCell>
         <TableCell align="left">{r.inquiryDate}</TableCell>
@@ -134,7 +137,8 @@ export function SearchArea({handleEdit}) {
        <Button  variant="text"></Button>
     </ButtonGroup>
         </TableCell>
-      </TableBody> )}
+      </TableRow> )}
+      </TableBody>
       </Table> : <Grid container spacing={2}>
       {rows && rows.map((c,i)=> <Grid item key={i} xs={12} md={4} className="center">
           <div className="prospectCard">

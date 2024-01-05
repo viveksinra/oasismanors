@@ -74,7 +74,7 @@ const Enquiry = () => {
 
   const allMarketing = ["Web Search / Google", "Friend or colleague Recommendation", "Social Media","Direct Mailer","Family Member", "Email","Blog or Publication"];
   return (
-    <section className="sectionMargin enquryBg" id="enquiry">
+    <section className="enquryBg" id="enquiry">
         <Container maxWidth="xl">
             <Grid container>
                 <Grid item xs={12} lg={6} id="infoDesign">

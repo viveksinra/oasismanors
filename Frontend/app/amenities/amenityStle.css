@@ -6,3 +6,34 @@
     display: flex;
    align-items: center;
 }
+
+#amenitiesHero{
+    background-image: url("https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2020/09/ECS_Hero_Couple-BBQing.jpg");
+    background-size: cover;	
+    object-fit: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+    width: 100%;
+    z-index: -1;
+}
+#amenitiesHero:after{
+    content: "";
+    background-image: url("https://res.cloudinary.com/oasismanors/image/upload/v1704391434/Banner-texture_y57tn3.svg");
+    height: 140px;
+    width: 100vw;
+    z-index: 2;
+    display:block;
+    position: relative;
+    bottom: -95%;
+    left: 0px;
+} 
+
+/* Mobile */
+@media only screen and (max-width: 580px) {
+    #amenitiesHero{
+        height: 300px;
+    }
+    #amenitiesHero:after{
+        bottom: -85%;
+      }
+  }

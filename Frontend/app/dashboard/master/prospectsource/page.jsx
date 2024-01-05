@@ -155,14 +155,15 @@ function ProspectSource() {
               <TextField fullWidth value={createDate} sx={{maxWidth:"130px"}} onChange={e=>setDate(e.target.value)} label="Create Date" size='small' type="date" focused variant="standard" />   
             </Grid>
             <Grid item xs={12} md={4} className="center">
-            {
+            {/* {
             loadingImg ?  <CircularProgress /> :  <label htmlFor="LedgerImg">
             <input type="file" id="LedgerImg" style={{display:"none"}} onChange={(e) => imgUpload(e.target.files[0])}  accept="image/*"  />
             <Tooltip title="Upload Location Image" arrow>
             <Avatar alt="Location Img" variant="square" sx={{cursor: "pointer",width: 112, height: 112, borderRadius:"10px", border:"4px solid #d9fdd3"}} src={locationImg}/>
             </Tooltip>
             </label>
-            } 
+            }  */}
+              <TextField fullWidth value={createDate} disabled={loadingDoc} onChange={e=>imgUpload(e.target.files[0])} label="Upload Resume" size='small' type="file" focused variant="standard" />   
             </Grid>
             <Grid item xs={12} md={4} />
             <Grid item xs={12}><br/></Grid>

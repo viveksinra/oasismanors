@@ -216,9 +216,9 @@ function DetailedCard({act}){
       <Grid item xs={12} sx={{display:"flex", flexDirection:"column", position: "relative", top:"-65px"}}>
       <Avatar alt={act?.firstName} src={act?.userImage} id="moreImg" />
       <Typography variant="subtitle1" color="primary" align="center">{`${act?.firstName} ${act?.lastName}`} </Typography>
-      <Typography variant="body2" align="center"> {`Resident Since ~ ${act?.physicalMoveInDate}`}</Typography>
-      <Typography variant="body2" align="center"> {`Room No. ~ ${act?.room} ${act?.seat}` }</Typography>
-      <Typography variant="body2" align="center"> {`${act?.floor?.label}`}</Typography>
+      <Typography variant="body2" color="black" align="center"> {`Resident Since ~ ${act?.physicalMoveInDate}`}</Typography>
+      <Typography variant="body2" color="black" align="center"> {`Room No. ~ ${act?.room} ${act?.seat}` }</Typography>
+      <Typography variant="body2" color="black" align="center"> {`${act?.floor?.label}`}</Typography>
       <br />
        <center> <Link href={`/dashboard/residents/${act?._id}`}> <Fab size="small" variant="extended" color="success" sx={{padding:"0px 20px"}}>View Profile <FaTelegramPlane style={{marginLeft:5}}/></Fab></Link></center>  
       </Grid> 
@@ -228,28 +228,28 @@ function DetailedCard({act}){
             <ListItemIcon sx={{minWidth:40}}>
               <FcPhone style={{fontSize:25}} />
             </ListItemIcon>
-            <ListItemText primary={act?.phone} secondary="Phone Number" />
+            <ListItemText primaryTypographyProps={{color:"Scrollbar"}} primary={act?.phone} secondary="Phone Number" />
         </ListItem>}
         <Divider light/>
         {act?.email && <ListItem dense disablePadding>
             <ListItemIcon sx={{minWidth:40}}>
               <FcFeedback style={{fontSize:25}} />
             </ListItemIcon>
-            <ListItemText primary={act?.email} secondary="Email Id" />
+            <ListItemText primaryTypographyProps={{color:"Scrollbar"}} primary={act?.email} secondary="Email Id" />
         </ListItem>}
         <Divider light/>
         {act?.zipCode && <ListItem dense disablePadding>
             <ListItemIcon sx={{minWidth:40}}>
               <FcHome style={{fontSize:25}} />
             </ListItemIcon>
-            <ListItemText primary={act?.streetAddress} secondary={`${act?.city} ~ ${act?.state}, ${act?.zipCode}`} />
+            <ListItemText primaryTypographyProps={{color:"Scrollbar"}} primary={act?.streetAddress} secondary={`${act?.city} ~ ${act?.state}, ${act?.zipCode}`} />
         </ListItem>}
         <Divider light/>
           {act?.dateOfBirth && <ListItem dense disablePadding>
             <ListItemIcon sx={{minWidth:40}}>
               <MdCake style={{fontSize:25}} />
             </ListItemIcon>
-            <ListItemText primary={act?.dateOfBirth} secondary="Date of Birth" />
+            <ListItemText primaryTypographyProps={{color:"Scrollbar"}} primary={act?.dateOfBirth} secondary="Date of Birth" />
         </ListItem>}
         </List>
       </Grid>

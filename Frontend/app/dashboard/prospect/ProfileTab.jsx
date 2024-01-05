@@ -149,51 +149,51 @@ const Summary =({prospectId, setProData})=>{
           <Grid item xs={12} md={4}>
             <Grid container sx={{justifyContent:"space-evenly"}}>
                 <Grid item sx={{alignItems:"center"}}>
-                    <Typography variant="h6" align="center">{totalCount?.totalContact}</Typography>
+                    <Typography variant="h6" color="black" align="center">{totalCount?.totalContact}</Typography>
                     <Typography variant="caption" color="primary">All Contacts</Typography>
                 </Grid>
                 <Divider orientation="vertical" flexItem />
                 <Grid item>
-                    <Typography variant="h6" align="center" >{totalCount?.totalPendingTask}</Typography>
+                    <Typography variant="h6" color="black" align="center" >{totalCount?.totalPendingTask}</Typography>
                     <Typography variant="caption" color="primary">Pending Tasks</Typography>
                 </Grid>
                 <Divider orientation="vertical" flexItem />
                 <Grid item >
-                    <Typography variant="h6" align="center">{totalCount?.totalNotes}</Typography>
+                    <Typography variant="h6" color="black" align="center">{totalCount?.totalNotes}</Typography>
                     <Typography variant="caption" color="primary">All Notes</Typography>
                 </Grid>
             </Grid>
             <Grid container direction="column" sx={{justifyContent:"space-evenly",height:260, border:"1px solid #dbe0e0",borderRadius:5,paddingLeft:5,marginTop:2}}>
                 <Grid item>
-                <Typography variant="subtitle1">Important Dates</Typography>
+                <Typography color="black" variant="subtitle1">Important Dates</Typography>
                 </Grid>
                 <Divider orientation="horizontal" flexItem />
                 <Grid item>
                 <Typography variant="subtitle1" sx={{color:"#76838e"}}>Inquiry Date : </Typography>
-                <Typography variant="subtitle2">{inquiryDate}</Typography>
+                <Typography color="black" variant="subtitle2">{inquiryDate}</Typography>
                 </Grid>
                 <Divider orientation="horizontal" flexItem />
                 <Grid item>
                 <Typography variant="subtitle1" sx={{color:"#76838e"}}>Financial Move-In Date : </Typography>
-                <Typography variant="subtitle2">{financialMoveInDate}</Typography>
+                <Typography color="black" variant="subtitle2">{financialMoveInDate}</Typography>
                 </Grid>
                 <Divider orientation="horizontal" flexItem />
                 <Grid item>
                 <Typography variant="subtitle1" sx={{color:"#76838e"}}>Physical Move-In Date : </Typography>
-                <Typography variant="subtitle2">{physicalMoveInDate}</Typography>
+                <Typography color="black" variant="subtitle2">{physicalMoveInDate}</Typography>
                 </Grid>
                 </Grid>
 
             <Grid container sx={{marginTop:2,padding:{xs:"20px",md:"0px"}}}>
                 <Grid item>
                 <Typography variant="subtitle1" color="primary">Community :</Typography>
-                <Typography variant="subtitle2">Assisted Living Retirement Homes</Typography>
+                <Typography color="black" variant="subtitle2">Assisted Living Retirement Homes</Typography>
                 </Grid>
             </Grid>
             <Grid container spacing={1} sx={{padding:{xs:"20px",md:"0px"}}}>
                 <Grid item xs={12}>
                 <Typography variant="subtitle1" color="primary">Sales Agent</Typography>
-                <Typography variant="subtitle2">{salesAgent?.label}</Typography>
+                <Typography color="black" variant="subtitle2">{salesAgent?.label}</Typography>
                 </Grid>
                 {/* <Divider orientation="vertical" flexItem /> */}
                 <Grid item xs={12}>
@@ -209,15 +209,15 @@ const Summary =({prospectId, setProData})=>{
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <Typography variant="subtitle1" sx={{color:"#76838e"}}>First Name</Typography>
-                        <Typography variant="subtitle2"> {gender?.label === "Male" ? "Mr." : gender?.label ==="Female" ? "Mrs." : null} {firstName}</Typography>
+                        <Typography color="black" variant="subtitle2"> {gender?.label === "Male" ? "Mr." : gender?.label ==="Female" ? "Mrs." : null} {firstName}</Typography>
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <Typography variant="subtitle1" sx={{color:"#76838e"}}>Last Name</Typography>
-                        <Typography variant="subtitle2">{lastName}</Typography>
+                        <Typography color="black" variant="subtitle2">{lastName}</Typography>
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <Typography variant="subtitle1" sx={{color:"#76838e"}}>Date of Birth</Typography>
-                        <Typography variant="subtitle2">{dateOfBirth}</Typography>
+                        <Typography color="black" variant="subtitle2">{dateOfBirth}</Typography>
                     </Grid>
                     <Grid item xs={12}>
                     <Divider />
@@ -225,63 +225,63 @@ const Summary =({prospectId, setProData})=>{
                   
                     <Grid item xs={12} md={4}>
                         <Typography variant="subtitle1" sx={{color:"#76838e"}}>Mobile No.</Typography>
-                        <Typography variant="subtitle2">{phone}</Typography>
+                        <Typography color="black" variant="subtitle2">{phone}</Typography>
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <Typography variant="subtitle1" sx={{color:"#76838e"}}>Email Id</Typography>
-                        <Typography variant="subtitle2">{email}</Typography>
+                        <Typography color="black" variant="subtitle2">{email}</Typography>
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <Typography variant="subtitle1" sx={{color:"#76838e"}}>Unit</Typography>
-                        <Typography variant="subtitle2">{unit}</Typography>
+                        <Typography color="black" variant="subtitle2">{unit}</Typography>
                     </Grid>
                     <Grid item xs={12}>
                     <Divider />
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <Typography variant="subtitle1" sx={{color:"#76838e"}}>ZIP Code</Typography>
-                        <Typography variant="subtitle2">{zip}</Typography>
+                        <Typography color="black" variant="subtitle2">{zip}</Typography>
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <Typography variant="subtitle1" sx={{color:"#76838e"}}>City</Typography>
-                        <Typography variant="subtitle2">{city}</Typography>
+                        <Typography color="black" variant="subtitle2">{city}</Typography>
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <Typography variant="subtitle1" sx={{color:"#76838e"}}>State</Typography>
-                        <Typography variant="subtitle2">{state?.label}</Typography>
+                        <Typography color="black" variant="subtitle2">{state?.label}</Typography>
                     </Grid>
                     <Grid item xs={12}>
                     <Divider />
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <Typography variant="subtitle1" sx={{color:"#76838e"}}>Street Address</Typography>
-                        <Typography variant="subtitle2">{streetAddress}</Typography>
+                        <Typography color="black" variant="subtitle2">{streetAddress}</Typography>
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <Typography variant="subtitle1" sx={{color:"#76838e"}}>Home Address</Typography>
-                        <Typography variant="subtitle2">{home}</Typography>
+                        <Typography color="black" variant="subtitle2">{home}</Typography>
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <Typography variant="subtitle1" sx={{color:"#76838e"}}>Office Address</Typography>
-                        <Typography variant="subtitle2">{office}</Typography>
+                        <Typography color="black" variant="subtitle2">{office}</Typography>
                     </Grid>
                     <Grid item xs={12}>
                     <Divider />
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <Typography variant="subtitle1" sx={{color:"#76838e"}}>Prospect Stage</Typography>
-                        <Typography variant="subtitle2">{prospectStage?.label}</Typography>
+                        <Typography color="black" variant="subtitle2">{prospectStage?.label}</Typography>
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <Typography variant="subtitle1" sx={{color:"#76838e"}}>Prospect Source</Typography>
-                        <Typography variant="subtitle2">{prospectSource?.label}</Typography>
+                        <Typography color="black" variant="subtitle2">{prospectSource?.label}</Typography>
                     </Grid>
                     <Grid item xs={12} md={4}>
                     <FormControlLabel control={<Rating name="Prospect-Score" readOnly value={prospectScore} />} label="Prospect Score" />
                     </Grid>
                     <Grid item xs={12}>
                     <Typography variant="subtitle1" sx={{color:"#76838e"}}>Story</Typography>
-                    <Typography variant="subtitle2">{message}</Typography>
+                    <Typography color="black" variant="subtitle2">{message}</Typography>
                     </Grid>
                 </Grid>
             </Grid>

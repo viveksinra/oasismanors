@@ -1,21 +1,22 @@
 #heroAbout{
-    background-image: url("https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/2.1_CAN_hero-2048x471.jpg");
+    background-image: url("https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/1.1_CAN_hero-2048x471.jpg");
     background-size: cover;	
-    /* object-fit: cover; */
+    object-fit: cover;
     background-repeat: no-repeat;
     height: 500px;
     width: 100%;
+    z-index: -1;
 }
- #heroAbout:after{
+#heroAbout:after{
     content: "";
-    background-image: url("https://www.ecsforseniors.org/wp-content/themes/3fo_gutenberg_base/images/ECS_Banner-texture.svg");
+    background-image: url("https://res.cloudinary.com/oasismanors/image/upload/v1704391434/Banner-texture_y57tn3.svg");
     height: 126px;
-    width: calc(100% + 1px);
-    display: block;
+    width:100vw;
+    z-index: 2;
+    display:block;
     position: relative;
     bottom: -90%;
     left: 0px;
-
 } 
 
 /* Mobile */

@@ -3,20 +3,32 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 18px;  
+  height: 14px;  
 }
-#heroBack{
-    /* background-image: url("https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/hero_confidence-3-1536x672.jpg"); */
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("https://oldagehome.co.in/img/banner.jpg");
-    width: 100%;
-    height: 800px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-  }
 
+#visit{
+  display: flex;
+  justify-items: center;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  line-height: 1.32rem;
+  font-size: 1.2rem;
+}
+
+.legend{
+  width:40% !important;
+  opacity:1 !important;
+  left:30% !important;
+  bottom:100px !important;
+  margin-left:unset !important;
+  background-color: unset !important;
+}
 #availability{
-  height: 112px;
+  height: 110px;
+  z-index: 2;
+  border: 1px solid rgb(157, 247, 154);
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 20px;
   padding: 0px 20px;
@@ -33,10 +45,7 @@ input[type=number]::-webkit-outer-spin-button {
   
 /* Mobile */
 @media (max-width: 700px) {
-  #heroBack {
-    height: 400px;
-  }
-  #heroBack:after{
+  .legend{
     display: none;
   }
   #topAbstract{
@@ -47,4 +56,7 @@ input[type=number]::-webkit-outer-spin-button {
     margin-right: 20px;
     height: 180px;
   }
+  #visit{
+    flex-direction: column;
+}
 }

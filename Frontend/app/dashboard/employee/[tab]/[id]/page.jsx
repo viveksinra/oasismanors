@@ -865,7 +865,7 @@ function EntryArea({params}) {
   const handleClear =()=>{
     if(activeStep===0){
       step1Ref.current.handleClear() 
-   }else if(activeStep===1){
+   }else if(activeStep===1){ 
      step2Ref.current.handleClear()
    }else if (activeStep===2){
     step3Ref.current.handleClear() 
@@ -881,7 +881,7 @@ function EntryArea({params}) {
   return (
   <main style={{background:"#fff", borderRadius:"10px", padding:20}}> 
   <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>Add New Employee</Typography>
-  <Stepper activeStep={activeStep} orientation="vertical">
+  {/* <Stepper activeStep={activeStep} orientation="vertical">
       {steps.map((step, index) => (
         <Step key={step.label}>
           <StepLabel optional={<Typography variant="body2">{step.description}</Typography>}>
@@ -908,7 +908,7 @@ function EntryArea({params}) {
           </StepContent>
         </Step>
       ))}
-    </Stepper>
+    </Stepper> */}
   <MySnackbar ref={snackRef} />
 </main>
   )

@@ -380,11 +380,12 @@ const DrawerData = ({ open, setMobileOpen }) => {
           </List>
         </Collapse>
       </List>
+     
       <List
         sx={{
           display: { xs: "none", md: "block" },
-          position: "absolute",
-          bottom: 0,
+          // position: "absolute",
+          // bottom: 0,
           width: "100%",
         }}
       >
@@ -453,7 +454,7 @@ function DashboardLayout({ children }) {
     setOpen(!open);
   };
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex",background:"#fff" }}>
       <CssBaseline />
       <AppBar position="fixed" color="default" open={open}>
         <Toolbar>

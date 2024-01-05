@@ -1,19 +1,19 @@
 'use client';
 import React,{useState,useEffect} from 'react'
 import {Typography,  Grid,CircularProgress} from '@mui/material/';
-import {invoiceService} from "../../../services/index";
+import {invoiceService} from "../../../../../services/index";
 
 
-function LIC9020() {
+function LIC9020({params}) {
     const [loading,setLoading]= useState(false);
-    const [facData,setFacData]=useState({facilityName:"",facilityNumber:"",licenseeName:"", date:""})
+    const [facData,setFacData]=useState({communityName:"",buildingNumber:"",licenseeName:"", date:""})
     const [resData, setResData] =useState([{room:"",residentName:"",status:"",physician:{name:"", address:"",city:"",state:"",pin:"",mobile:""},responsible:{name:"", address:"",city:"",state:"",pin:"",mobile:""}}])
-    
+     
     useEffect(() => {
-        // Getting all the data
+        // Getting all the data by communityId 
         setLoading(true);
         async function getData(){ 
-          let res = await invoiceService.getLedger(`api/v1/form/formFunction/getFormData/residence/lic9020`);
+          let res = await invoiceService.getLedger(`api/v1/form/formFunction/getFormData/community/lic9020/${params?.id}`);
           if(res.variant === "success"){
             setFacData(res.data.facData)
             setResData(res.data.resData)
@@ -24,8 +24,8 @@ function LIC9020() {
            
           }else {console.log(res);  setLoading(false);};    
          }
-         getData()
-       }, [])
+        if(params?.id){getData()} 
+       }, [params?.id])
     if(loading){
         return <div className='center' style={{width:"100%", height:"800px", flexDirection:"column"}}> <CircularProgress/><Typography variant="h6" color="teal">Loading Preview...</Typography></div>
     } else
@@ -47,11 +47,11 @@ function LIC9020() {
         <Grid container sx={{borderTop:"medium double black",borderBottom:"1px solid black"}}>
             <Grid item xs={3.5} sx={{borderRight:"2px solid",padding:"0px 10px"}}>
                 <Typography sx={{fontSize:"12px"}}>FACILITY NUMBER:</Typography>
-                <Typography variant='subtitle2'>{facData?.facilityName}</Typography>
+                <Typography variant='subtitle2'>{facData?.communityName}</Typography>
             </Grid>
             <Grid item xs={2.5} sx={{borderRight:"2px solid",padding:"0px 10px"}}>
                 <Typography sx={{fontSize:"12px"}}>FACILITY NUMBER:</Typography>
-                <Typography variant='subtitle2'>{facData?.facilityNumber}</Typography>
+                <Typography variant='subtitle2'>{facData?.buildingNumber}</Typography>
             </Grid>
             <Grid item xs={4} sx={{borderRight:"2px solid",padding:"0px 10px"}}>
             <Typography sx={{fontSize:"12px"}}>LICENSEE NAME</Typography>

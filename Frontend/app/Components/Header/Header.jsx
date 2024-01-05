@@ -26,13 +26,13 @@ const Header = () => {
           <div className="center" style={{height:40}}>
           <div className="dataBox">
             <FcPhone style={{fontSize:24,marginRight:10}} />
-            <Typography variant="body1"><Link href="tel:310-995-4859">310-995-4859</Link></Typography>
+            <Typography color="seagreen" variant="body1"><Link href="tel:310-995-4859">310-995-4859</Link></Typography>
             </div>   
             <span style={{flexGrow:1}}/>
             <Hidden mdDown> 
             <div className="dataBox">
             <MdLocationOn style={{fontSize:24,marginRight:10}} />
-            <Typography variant="body1">15116 Roxford St, Sylmar, CA 91342</Typography>
+            <Typography color="seagreen" variant="body1">15116 Roxford St, Sylmar, CA 91342</Typography>
             </div>
             </Hidden>
           </div>
@@ -51,16 +51,16 @@ const Header = () => {
         <div style={{flexGrow:1}}/>
         <Hidden mdDown>
         <ul>
-            <li><Link href="/about"> <Typography variant="body1">About us</Typography></Link></li>
-            <li><Link href="/amenities"><Typography variant="body1">Amenities</Typography></Link></li>
-            <li><Link href="/"><Typography variant="body1">Gallery</Typography></Link></li>
-            <li><Link href="/"><Typography variant="body1">Pricing</Typography></Link></li>
-            <li><Link href="/contact"><Typography variant="body1">Contact Us</Typography></Link></li>
+            <li><Link href="/about"> <Typography color="primary" variant="body1">About us</Typography></Link></li>
+            <li><Link href="/amenities"><Typography color="primary" variant="body1">Amenities</Typography></Link></li>
+            <li><Link href="/"><Typography color="primary" variant="body1">Gallery</Typography></Link></li>
+            <li><Link href="/"><Typography color="primary" variant="body1">Pricing</Typography></Link></li>
+            <li><Link href="/contact"><Typography color="primary" variant="body1">Contact Us</Typography></Link></li>
             <li id="callBackBtn"><Link href="/#enquiry"><Typography variant="body2">Get a Call Back</Typography></Link></li>
         </ul> 
         </Hidden>
-        {state?.isAuthenticated ?  <Link href="/dashboard"> <Avatar alt={state.name}  src={authService.getLoggedInUser()?.userImage ?? "https://res.cloudinary.com/oasismanors/image/upload/v1687519053/user_myqgmv.png"}/></Link> :  <Link href="/login"> <Button startIcon={<FaUserCircle />}>Login</Button></Link>  }
-        
+    
+    {state?.isAuthenticated ?  <Link href="/dashboard"><Button color="secondary" startIcon={<Avatar alt={state.name}  src={authService.getLoggedInUser()?.userImage ?? "https://res.cloudinary.com/oasismanors/image/upload/v1687519053/user_myqgmv.png"}/>}>Dashboard</Button> </Link> :  <Link href="/login"> <Button startIcon={<FaUserCircle />}>Login</Button></Link>  }
     </Container>    
     </header>
     <Suspense fallback={<Loading />}>

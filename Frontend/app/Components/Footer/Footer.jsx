@@ -16,7 +16,7 @@ const Footer = () => {
             <Link href="/">
             <Image priority width={160} height={60} src="https://res.cloudinary.com/oasismanors/image/upload/v1685029880/Logo_hmwkcj.svg" alt="Oasis Manor"/>
         </Link><br/><br/>
-        <Typography variant="subtitle1">Embrace a life of tranquility, luxury, and well-being at our premier senior living community, where independence thrives and care is paramount. </Typography>
+        <Typography color="black" variant="subtitle1">Embrace a life of tranquility, luxury, and well-being at our premier senior living community, where independence thrives and care is paramount. </Typography>
         <br/><Typography variant="body2" color="secondary">Oasis Manors - The Home of Happiness</Typography>
             </Grid>
             <Grid item xs={12} md={3}>
