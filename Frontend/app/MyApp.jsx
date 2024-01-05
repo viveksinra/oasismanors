@@ -28,7 +28,7 @@ function MyApp() {
         <Header/>
         <Suspense fallback={<Loading />}>
         <TopAbstract/>
-        <Carousel  showArrows showThumbs={false}>
+        <Carousel autoPlay infiniteLoop showArrows showThumbs={false}>
                 <div>
                     <img src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/hero_confidence-3-1536x672.jpg" />
                   <div className="legend">
