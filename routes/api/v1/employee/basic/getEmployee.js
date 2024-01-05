@@ -7,13 +7,6 @@ const User = require("../../../../../Models/User");
 // @route   /api/v1/employee/basic/getEmployee/getAll/:id
 // @desc    Get a user by ID
 // @access  Public
-const formatDate = (date) => {
-  const dateObj = new Date(date);
-  const day = dateObj.getDate().toString().padStart(2, "0");
-  const month = (dateObj.getMonth() + 1).toString().padStart(2, "0");
-  const year = dateObj.getFullYear().toString();
-  return `${year}-${month}-${day}`;
-};
 
 router.get(
   "/getAll/:id",
@@ -29,10 +22,6 @@ router.get(
       } else {
         let formattedObj = myUser.toObject();
         delete formattedObj.dob;
-        delete formattedObj.hireDate;
-        formattedObj.dob = formatDate(myUser.dob);
-        formattedObj.hireDate = formatDate(myUser.hireDate);
-
         res.status(200).json({
           variant: "success",
           message: "User Loaded",
@@ -60,42 +49,12 @@ router.get(
     async (req, res) => {
      
       try {
-        function changeFormat(dateStr) {
-          const date = new Date(dateStr);
-          const formattedDate = date.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          });
-  
-          return formattedDate;
-        }
+     let myUser = await User.find().catch(err => {console.log(err);});
 
-        const myData = await User.find({designation:"employee"})
-        const modifiedData = myData.map((user) => {
-          const formattedUserDate = changeFormat(user.date);
-          const formatedHireDate = changeFormat(user.hireDate);
-          let formatedData = {
-            _id:user._id,
-            userImage:user.userImage,     
-            firstName:user.firstName,     
-            lastName:user.lastName,     
-            email:user.email,     
-            mobile:user.mobile,     
-            jobRole:user.jobRole?.label,     
-            status:user.status?.label,     
-            loginAllowed:`${user.loginAllowed}`,     
-            city:user.city,     
-            state:user.state?.label,     
-            date:formattedUserDate,
-            hireData:formatedHireDate,
-          }
-          return formatedData
-        });
-
+        
         res
           .status(200)
-          .json({ variant: "success", message: "User Loaded", data: modifiedData.reverse() });
+          .json({ variant: "success", message: "User Loaded", data: myUser.reverse() });
       } catch (error) {
         console.log(error)
         res.status(500).json({ variant: "error", message: "Internal server error" + error.message});

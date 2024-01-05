@@ -5,7 +5,7 @@ const passport = require("passport");
 // Load Contact Model
 const Contact = require("../../../../../Models/Private/Enquiry/Contact");
 const LIC601  = require("./residence/LIC601");
-const LIC9020  = require("./residence/LIC9020");
+const LIC9020  = require("./community/LIC9020");
 const LIC604A = require("./residence/LIC604A");
 const LIC627A = require("./residence/LIC627A");
 const LIC627C = require("./residence/LIC627C");
@@ -238,15 +238,16 @@ console.log(error)
   }
 );
 // @type    GET
-// @route   /api/v1/form/formFunction/getFormData/residence/lic9020
+// @route   /api/v1/form/formFunction/getFormData/community/lic9020/:communityId
 // @desc    Create a 
 // @access  Private
 router.get(
-  "/residence/lic9020",
+  "/community/lic9020/:communityId",
   // passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     try {
-    await LIC9020(res)
+      let comId = req.params.communityId
+    await LIC9020(res,comId)
     } catch (error) {
 console.log(error)
       res

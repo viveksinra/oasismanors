@@ -43,9 +43,7 @@ res.status(200).json({ variant: "success", message: "Community Loaded", data: co
   
       try {
   
-        const myData = await Community.find()
-  
-    
+        const myData = await Community.find()   
   
         res
           .status(200)
@@ -56,9 +54,33 @@ res.status(200).json({ variant: "success", message: "Community Loaded", data: co
     }
   );
   
-  
-  
-  
+// @type    GET
+// @route   /api/v1/main/community/getCommunity/dropDown
+// @desc    Get all communities
+// @access  Public
+
+router.get("/dropDown", async (req, res) => {
+  try {
+    const communities = await Community.find();
+    
+    const dataToSend = communities.map(community => ({
+      communityName: community.communityName,
+      _id: community._id
+    }));
+    
+    res.status(200).json({
+      variant: "success",
+      message: "Communities Loaded",
+      data: dataToSend
+    });
+  } catch (error) {
+    res.status(500).json({
+      variant: "error",
+      message: "Internal server error: " + error.message
+    });
+  }
+});
+
   // @type    GET
   // @route   /api/v1/community/getDataWithPage
   // @desc    Get communitys with pagination

@@ -19,19 +19,6 @@ const validateOnCreate = async (req, res, next) => {
         });
       }
         //   Check if the required fields are present
-      if (!req.body.password) {
-        return res.status(406).json({
-          message: "Password is required",
-          variant: "error",
-        });  
-      }
-      if (!req.body.reportingTo || !req.body.reportingTo._id) {
-        return res.status(406).json({
-          message: "Password is required",
-          variant: "error",
-        });  
-      }
-        //   Check if the required fields are present
       if (req.body.email) {
        let data = await User.findOne({email:req.body.email})
         .catch(err => {

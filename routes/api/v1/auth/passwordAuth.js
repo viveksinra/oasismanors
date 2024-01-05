@@ -112,7 +112,7 @@ async function sendLoginData(req,res,user){
 
 const rolePermissions = async(req,res,roleId)  => {
       let data = await RoleAccess.findOne({}).catch(err => console.log(err))
-      let permissions = data.permissions;
+      let permissions = data?.permissions;
   return permissions
 }
 module.exports = router;

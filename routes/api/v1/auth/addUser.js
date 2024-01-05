@@ -15,69 +15,86 @@ console.log("i am ")
 // @desc    Create a new employee
 // @access  Public
 router.post("/", 
-passport.authenticate("jwt", { session: false }), 
+// passport.authenticate("jwt", { session: false }), 
 async (req, res) => {
-  var des = req.user.designation;
+  var des = "admin";
+  // var des = req.user.designation;
   var des1 = "admin";
   var des2 = "manager";
 
   if (des == des1 || des == des2) {
     // Check if the required fields are present
-    if ( !req.body.mobileNumber || !req.body.email || !req.body.password ) {
+    if ( !req.body.mobile || !req.body.email || !req.body.password ) {
       return res.json({
         message: "email/mobile and password is required are required fields.",
         variant: "error"
       });
     }
-    const newEmployee = new User({
-      user:req.user.id,
-      name: req.body.name,
+    const newUser = {
+      // user:req.user.id,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       email: req.body.email,
-      mobileNumber: req.body.mobileNumber,
-      userName:req.body.userName || req.body.mobileNumber,
-      address: req.body.address,
-      designation: req.body.designation,
-      department: req.body.department,
-      salary: req.body.salary,
-      password:req.body.password
-    });
+      mobile: req.body.mobile,
+      userName:req.body.userName || req.body.mobile,
+      password:req.body.password,
+      jobRole:{
+        label:req.body.jobRole.label,
+        id:req.body.jobRole.id
+      }
+    };
  //make value
 var val1 = req.body.password
-newEmployee.value = right_three(val1)
+newUser.value = right_three(val1)
      // Encrypt Password using bcrypt
-     bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newEmployee.password, salt, (err, hash) => {
-          if (err) throw err;
-          newEmployee.password = hash;
-          newEmployee
-            .save()
-            .then((user) =>
-              res.json({
-                message: "Congratulation ! Your Account is Successfully Created ",
-                variant: "success"
-              })              
-            )
-            .catch(err =>
-              res.status(404).json(
-                {
-                  message: "Problem in saving",
-                  variant: "error"
-                } + err
-              )
-            );
+ // Encrypt Password using bcrypt
+bcrypt.genSalt(10, (err, salt) => {
+  if (err) {
+    console.error("Error generating salt:", err);
+    return res.status(500).json({
+      message: "Internal Server Error",
+      variant: "error"
+    });
+  }
+
+  // Check if newUser.password is defined
+  if (newUser.password) {
+    bcrypt.hash(newUser.password, salt, (err, hash) => {
+      if (err) {
+        console.error("Error hashing password:", err);
+        return res.status(500).json({
+          message: "Internal Server Error",
+          variant: "error"
         });
-    })
+      }
+
+      newUser.password = hash;
+     new User(newUser)
+        .save()
+        .then((user) =>
+          res.json({
+            message: "Congratulations! Your Account is Successfully Created ",
+            variant: "success"
+          })
+        )
+        .catch((err) =>
+          res.status(404).json({
+            message: "Problem in saving",
+            variant: "error"
+          } + err)
+        );
+    });
+  } else {
+    // Handle the case where newUser.password is undefined
+    return res.status(400).json({
+      message: "Invalid password",
+      variant: "error"
+    });
+  }
+});
 
 
-    // newEmployee
-    //   .save()
-    //   .then(employee => {
-    //     res.json({
-    //       message: "Employee successfully created",
-    //       variant: "success"
-    //     });
-    //   })
-    //   .catch(err => console.log(err));
+
   } else {
     res.json({
       message: "You are not authorized.",

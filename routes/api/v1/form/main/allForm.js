@@ -3,23 +3,22 @@ const router = express.Router();
 const passport = require("passport");
 
 // Load Contact Model
-const Contact = require("../../../../../Models/Private/Enquiry/Contact");
-const Prospect = require("../../../../../Models/Private/Enquiry/Prospect");
+
 const ResidenceData = require("./Component/ResidenceForms");
-const FacilityData = require("./Component/FacilityForm");
 let mongoose = require('mongoose');
+const CommunityData = require("./Component/CommunityForm");
 // @type    GET
 // @route   /api/v1/form/main/allForm/allType
 // @desc    Create a 
 // @access  Private
 router.get(
-  "/allType",
+  "/allTypeOfForm",
   // passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     try {
      let myMatch = { residenceStage: "residence" }
       let resData = await ResidenceData(req, res,myMatch)
-      let facData = await FacilityData(req, res)
+      let facData = await CommunityData(req, res)
 
         let myData =  [
             {
@@ -27,7 +26,7 @@ router.get(
             expand:true,
          residentData:resData
         },
-        {category:"Forms for Facility",
+        {category:"Forms for Community",
         expand:false,
         forms:facData,
     },
@@ -76,7 +75,91 @@ console.log(error)
   }
 );
 
+// @type    GET
+// @route   /api/v1/form/main/allForm/allResidence
+// @desc    Create a 
+// @access  Private
+router.get(
+  "/allResidence",
+  // passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    try {
+     let myMatch = { residenceStage: "residence" }
+      let resData = await ResidenceData(req, res,myMatch)
 
+        res.json({
+            message: "DATA Loaded",
+            variant: "success",
+            data: resData,
+        });
+
+
+    } catch (error) {
+console.log(error)
+      res
+        .status(500)
+        .json({ variant: "error", message: "Internal server error1" });
+    }
+  }
+);
+
+// @type    GET
+// @route   /api/v1/form/main/allForm/allCommunity
+// @desc    Create a 
+// @access  Private
+router.get(
+  "/allCommunity",
+  // passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    try {
+     let myMatch = {  }
+
+      let facData = await CommunityData(req, res,myMatch)
+
+        res.json({
+            message: "DATA Loaded",
+            variant: "success",
+            data: facData,
+        });
+
+
+    } catch (error) {
+console.log(error)
+      res
+        .status(500)
+        .json({ variant: "error", message: "Internal server error1" });
+    }
+  }
+);
+
+// @type    GET
+// @route   /api/v1/form/main/allForm/allCommunity
+// @desc    Create a 
+// @access  Private
+router.get(
+  "/allEmployee",
+  // passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    try {
+     let myMatch = {  }
+
+      let facData = await CommunityData(req, res,myMatch)
+
+        res.json({
+            message: "DATA Loaded",
+            variant: "success",
+            data: facData,
+        });
+
+
+    } catch (error) {
+console.log(error)
+      res
+        .status(500)
+        .json({ variant: "error", message: "Internal server error1" });
+    }
+  }
+);
 
 
 

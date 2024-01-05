@@ -134,148 +134,100 @@ async function getUserObj(req, type) {
     // Handle "create" type if needed
   }
 
-  newUser.user = req.user.id;
-
   if (req.body.userName) {
     newUser.userName = req.body.userName;
-  } else if (req.body.mobile) {
-    newUser.userName = req.body.mobile;
-  } else {
-    newUser.userName = extractUsernameFromEmail(req.body.email);
-  }
-
-if(uniqueUserName(req,newUser.userName)){
-  return res.status(500).json({
-    variant: "error",
-    message: "Internal server error" + error.message,
-  });
-}
-
-
+  } 
   if (req.body.userImage) {
     newUser.userImage = req.body.userImage;
-  }
-
+  } 
+  if (req.body.openingBalance) {
+    newUser.openingBalance = req.body.openingBalance;
+  } 
+  if (req.body.important) {
+    newUser.important = req.body.important;
+  } 
+  if (req.body.employeeScore) {
+    newUser.employeeScore = req.body.employeeScore;
+  } 
+  if (req.body.docUrl) {
+    newUser.docUrl = req.body.docUrl;
+  } 
+  if (req.body.message) {
+    newUser.message = req.body.message;
+  } 
   if (req.body.firstName) {
     newUser.firstName = req.body.firstName;
-  }
-
+  } 
   if (req.body.lastName) {
     newUser.lastName = req.body.lastName;
-  }
-
+  } 
   if (req.body.email) {
     newUser.email = req.body.email;
-  }
-
+  } 
   if (req.body.mobile) {
     newUser.mobile = req.body.mobile;
-  }
-
-  if (req.body.password) {
-    // var val1 = req.body.password
-    // newUser.value = right_three(val1)
-    newUser.value = req.body.password
-    const password = req.body.password;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    newUser.password = hashedPassword;
-  }
-
-  if (req.body.dob) {
-    newUser.dob = req.body.dob;
-  }
-
-  if (req.body.hireDate) {
-    newUser.hireDate = req.body.hireDate;
-  }
-  newUser.gender = {};
-
+  } 
+  if (req.body.dateOfBirth) {
+    newUser.dateOfBirth = req.body.dateOfBirth;
+  } 
+  if (req.body.applicationDate) {
+    newUser.applicationDate = req.body.applicationDate;
+  } 
+  if (req.body.interviewDate) {
+    newUser.interviewDate = req.body.interviewDate;
+  } 
+  if (req.body.physicalHiringDate) {
+    newUser.physicalHiringDate = req.body.physicalHiringDate;
+  } 
   if (req.body.gender) {
-    if (req.body.gender.label) {
-      newUser.gender.label = req.body.gender.label;
-    }
-    if (req.body.gender.id) {
-      newUser.gender.id = req.body.gender.id;
-    }
-  }
-  newUser.jobRole = {};
-
+    newUser.gender = {};
+  if (req.body.gender && req.body.gender.id) {
+    newUser.gender.label = req.body.gender.label;
+    newUser.gender.id = req.body.gender.id;
+  } 
+  } 
   if (req.body.jobRole) {
-    if (req.body.jobRole.label) {
-      newUser.jobRole.label = req.body.jobRole.label;
-    }
-    if (req.body.jobRole.id) {
-      newUser.jobRole.id = req.body.jobRole.id;
-    }
-  }
-  newUser.status = {};
-
-  if (req.body.status) {
-    if (req.body.status.label) {
-      newUser.status.label = req.body.status.label;
-    }
-    if (req.body.status.id) {
-      newUser.status.id = req.body.status.id;
-    }
-  }
-  newUser.reportingTo = {};
-
-  if (req.body.reportingTo) {
-    if (req.body.reportingTo.label) {
-      newUser.reportingTo.label = req.body.reportingTo.label;
-    }
-    if (req.body.reportingTo._id) {
-      newUser.reportingTo._id = req.body.reportingTo._id;
-    }
-  }
-
-  if (req.body.securityRole) {
-    newUser.securityRole = req.body.securityRole;
-  }
-  if (req.body.loginAllowed != undefined) {
-    newUser.loginAllowed = req.body.loginAllowed;
-  }
-
-  if (req.body.designation) {
-    newUser.designation = req.body.designation;
-  }
-
-  if (req.body.salary) {
-    newUser.salary = req.body.salary;
-  }
-  if (req.body.salaryTenure) {
-    newUser.salaryTenure = req.body.salaryTenure;
-  }
-
-  if (req.body.street) {
-    newUser.street = req.body.street;
-  }
-
+    newUser.jobRole = {};
+  if (req.body.jobRole && req.body.jobRole.id) {
+    newUser.jobRole.label = req.body.jobRole.label;
+    newUser.jobRole.id = req.body.jobRole.id;
+  } 
+  } 
+  if (req.body.employeeStage) {
+    newUser.employeeStage = {};
+  if (req.body.employeeStage && req.body.employeeStage.id) {
+    newUser.employeeStage.label = req.body.employeeStage.label;
+    newUser.employeeStage.id = req.body.employeeStage.id;
+  } 
+  } 
+  if (req.body.streetAddress) {
+    newUser.streetAddress = req.body.streetAddress;
+  } 
   if (req.body.unit) {
     newUser.unit = req.body.unit;
-  }
-
-  if (req.body.zip) {
-    newUser.zip = req.body.zip;
-  }
-
+  } 
   if (req.body.city) {
     newUser.city = req.body.city;
-  }
-  newUser.state = {};
-
+  } 
   if (req.body.state) {
-    if (req.body.state.label) {
-      newUser.state.label = req.body.state.label;
-    }
-    if (req.body.state.id) {
-      newUser.state.id = req.body.state.id;
-    }
-  }
+    newUser.state = {};
+  if (req.body.state && req.body.state.id) {
+    newUser.state.label = req.body.state.label;
+    newUser.state.id = req.body.state.id;
+  } 
+  } 
+  if (req.body.zipCode) {
+    newUser.zipCode = req.body.zipCode;
+  } 
 
-  newUser.lastModified = new Date();
+  newUser.community = [{
+    communityName: req.body.communityName,
+    _id: req.body.communityId
+  }];
+
   return newUser;
 }
+
 
 
 function uniqueUserName(req,userName) {
@@ -298,33 +250,6 @@ User.findOne({userName:userName})
     return false
   }
 })
-}
-function extractUsernameFromEmail(email) {
-  // Remove the domain part of the email
-  var username = email.split("@")[0];
-
-  // Remove any extra characters after the username
-  username = username.split("+")[0];
-
-  // Remove any periods (.) from the username
-  username = username.replace(/\./g, "");
-
-  return username;
-}
-
-function right_three(str) {
-  if (str.length > 1)
-    {
-      var text = "";
-var char_list = "abcdefghijklmnopqrstuvwxyz0123456789";
-for(var i=0; i < 5; i++ )
-{  
-text += char_list.charAt(Math.floor(Math.random() * char_list.length));
-}
-var k = str.slice(-3) + text + str.slice(0, -3);
-      return k
-    }
-return str;
 }
 
 module.exports = router;

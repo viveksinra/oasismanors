@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  
   userName: {
     type: String,
     required: true
@@ -10,12 +9,27 @@ const UserSchema = new Schema({
   userImage: {
     type: String,
   },
+  openingBalance: {
+    type:Number,
+  },
+  important: {
+    type: Boolean,
+    default: false
+  },
+  employeeScore: {
+    type: Number,
+  },
+  docUrl: {
+    type: String,
+  },
+  message: {
+    type: String,
+  },
   firstName: {
     type: String,
   },
   lastName: {
     type: String,
-    
   },
   email: {
     type: String,
@@ -25,127 +39,97 @@ const UserSchema = new Schema({
     type: String,
     default: ""
   },
-  password: {
-    type: String,
-    required: true
-  },
-  value: {
-    type: String,
-  },
-  dob: {
+  dateOfBirth: {
     type: Date,
   },
-  hireDate: {
+  applicationDate: {
     type: Date,
   },
-  openingBal: {
-    type: Number,
-    default: 0,
+  interviewDate: {
+    type: Date,
+  },
+  physicalHiringDate: {
+    type: Date,
   },
   gender: {
-    label:{
+    label: {
       type: String,
     },
-    id:{
+    id: {
       type: String,
-    }  
-  },
-  jobRole: {
-    label:{
-      type: String,
-    },
-    id:{
-      type: String,
-      enum:["admin", "ceo", "buildingManager", "caregiver", "cook", "outdoorWorker", "indoorWorker", "doctor", "accountant", "housekeeper", "other" ]
-    }    
-  },
-  status: {
-    label:{
-      type: String,
-    },
-    id:{
-      type: String,
-    }    
-  },
-  reportingTo:{
-    label:{
-      type:String
-    },
-    _id:{
-      type: Schema.Types.ObjectId,
-      ref: "myUser",
-      required: true
     }
   },
-  loginAllowed:{
-    type:Boolean,
-    default:false
-  },
-  securityRole: [{
-    label:{
+  jobRole: {
+    label: {
       type: String,
-
     },
-    id:{
+    id: {
       type: String,
-    }  
-}]
-,
-
-  designation: {
-    type: String,
-    enum: ["customer", "admin","employee" ],
-    default: "customer"
+      enum: ["admin", "ceo", "buildingManager", "caregiver", "cook", "outdoorWorker", "indoorWorker", "doctor", "accountant", "housekeeper", "other" ]  
+    }
   },
-  salary: {
-    type: Number,
-    default: 0
+  employeeStage: {
+    label: {
+      type: String,
+    },
+    id: {
+      type: String,
+    }
   },
- 
-  salaryTenure: {
-    type: String,
-    enum:["Hourly","Daily","Weekly","Monthly","On Commission"]
-  },
-  street: {
+  streetAddress: {
     type: String,
   },
   unit: {
-    type: String,
-  },
-  zip: {
     type: String,
   },
   city: {
     type: String,
   },
   state: {
-    label:{
+    label: {
       type: String,
     },
-    id:{
+    id: {
       type: String,
-    }    
+    }
+  },
+  zipCode: {
+    type: String,
+  },
+
+
+  loginAllowed:{
+    type:Boolean,
+    default:false
+  },
+  value:{
+    type:String,
+    default:""
+  },
+  password:{
+    type:String,
+    default:""
   },
   // Add more fields as needed
-  // comman data required in every Model
+  community: [{
+    communityName: {
+      type: String,
+    },
+    _id: {
+      type: Schema.Types.ObjectId,
+      ref: "myCommunity",
+    },
+  }],
   user: {
     type: Schema.Types.ObjectId,
     ref: "myUser",
-    required: true
+    // required: true
   },
-    // Default for all
-    communityId: [{
-      type: String,
-      default: "647654545893b52b5c8bbc61"
-    }],
-  company: {
+  company:{
     type: Schema.Types.ObjectId,
     ref: "myCompany",
     default: "647644e05117173d58993882"
-  },
-  lastModified: {
-    type: Date,
-    default: Date.now
+
   },
   date: {
     type: Date,
@@ -154,6 +138,3 @@ const UserSchema = new Schema({
 });
 
 module.exports = User = mongoose.model("myUser", UserSchema);
-
-
-

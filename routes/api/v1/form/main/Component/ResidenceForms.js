@@ -55,6 +55,7 @@ const ResidenceData = async (req, res,myMatch) => {
             
             return {
                 _id: resident._id,
+                userImage: resident.userImage,
                 residentName: `${resident.firstName} ${resident.lastName}`,
                 floor: resident.floor?.label,
                 room: resident?.room?.label,
