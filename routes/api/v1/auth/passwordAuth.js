@@ -101,7 +101,7 @@ async function sendLoginData(req,res,user){
         firstName:user.firstName,
         lastName:user.lastName,
         userImage: user.userImage || "https://mui.com/static/images/avatar/2.jpg",
-        designation: user.designation ,
+        designation: user.jobRole.label ,
         name: user.name,
         roleData,
       }

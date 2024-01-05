@@ -36,6 +36,7 @@ async (req, res) => {
       lastName: req.body.lastName,
       email: req.body.email,
       mobile: req.body.mobile,
+      userImage: req.body.userImage,
       userName:req.body.userName || req.body.mobile,
       password:req.body.password,
       jobRole:{
