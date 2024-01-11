@@ -8,25 +8,16 @@
 }
 
 #amenitiesHero{
-    background-image: url("https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2020/09/ECS_Hero_Couple-BBQing.jpg");
-    background-size: cover;	
-    object-fit: cover;
-    background-repeat: no-repeat;
-    height: 500px;
-    width: 100%;
-    z-index: -1;
+    background-image: url("https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/2.2_CAN_hero-2048x896.jpg");
 }
-#amenitiesHero:after{
-    content: "";
-    background-image: url("https://res.cloudinary.com/oasismanors/image/upload/v1704391434/Banner-texture_y57tn3.svg");
-    height: 140px;
-    width: 100vw;
-    z-index: 2;
-    display:block;
-    position: relative;
-    bottom: -95%;
-    left: 0px;
-} 
+
+.stayList{
+    list-style-image: url('https://res.cloudinary.com/qualifier/image/upload/v1585479266/Default/check-mark_zbl05t.svg');
+    font-size: 1.4rem;
+    line-height: 2.6rem;
+    font-family: acumin-pro, "sans-serif";
+    color: #333;
+}
 
 /* Mobile */
 @media only screen and (max-width: 580px) {

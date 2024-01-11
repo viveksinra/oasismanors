@@ -9,6 +9,51 @@
     background-color: #fff;
     color: #3905c7;
 }
+#newFooterBg{
+    background-color: #082952;
+    color:#fff;
+    padding: 115px 0 55px;
+}
+#newFooterBg ul{
+    list-style: none;
+}
+#newFooterBg ul li{
+    font-family:Acumin-Pro,Helvetica Neue,Helvetica,"sans-serif";
+    font-weight:700;
+    text-decoration:none;
+    line-height:2rem;
+    transition:color 0.3s;
+}
+#newFooterBg ul li:hover{
+    color: #8bcbd2;
+}
+#footerBtn{
+    border-radius: 40px;
+    padding: 8px 40px 12px;
+    border-color:#fff;
+    color:#fff;
+    font-size: 18px;
+    background-color:transparent;
+    min-width:195px;
+    font-family:Acumin-Pro,Helvetica Neue,Helvetica,"sans-serif";
+    transition:all .5s;
+    appearance:none;
+    cursor: pointer;
+}
+#footerBtn:hover{
+    background-color: #fff;
+    color: #082952;
+}
+.footerTitle{
+    color:#8bcbd2;
+    font-size:1.2rem;
+    line-height:1.5rem;
+    font-family:Acumin-Pro,Helvetica Neue,Helvetica,"sans-serif";
+    font-weight:300;
+    margin-bottom:3.6rem;
+    margin-top:0;
+    display:block;
+}
 #amenitiesUl{
     list-style-image: url("https://res.cloudinary.com/qualifier/image/upload/v1585479266/Default/check-mark_zbl05t.svg")
 }

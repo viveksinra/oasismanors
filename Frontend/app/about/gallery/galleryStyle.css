@@ -1,0 +1,52 @@
+#galleryAbout{
+    background-image: url("https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/1.2_CAN_hero-2048x471.jpg");
+    background-size: cover;	
+    object-fit: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+    width: 100%;
+    z-index: -1;
+}
+#galleryAbout:after{
+    content: "";
+    background-image: url("https://res.cloudinary.com/oasismanors/image/upload/v1704391434/Banner-texture_y57tn3.svg");
+    height: 126px;
+    width:100vw;
+    z-index: 2;
+    display:block;
+    position: relative;
+    bottom: -90%;
+    left: 0px;
+} 
+.galleryImg{
+    background-size: cover;	
+    object-fit: cover;
+    background-repeat: no-repeat;
+    height: 300px;
+    width: 100%;
+    transition: all 0.2s;
+}
+.showImg{
+    background-size: cover;	
+    object-fit: cover;
+    background-repeat: no-repeat;
+    max-width: 100%;
+    height: auto;
+    max-height:75vh;
+    transition: transform .5s ease;
+}
+.galleryImg:hover{
+    cursor: pointer;
+    z-index: 2;
+    border-radius: 14px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    transform: scale(1.08);
+}
+.playBtn{
+    position: relative;
+    top: -45%;
+    left: 45%;
+    color: #fff;
+    font-size: 50px;
+    cursor: pointer;
+}

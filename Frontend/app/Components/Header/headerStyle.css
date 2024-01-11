@@ -1,14 +1,52 @@
-#topData{
-    height: 40px;
-    background-color: #e9f3f6;
-    color: #26b20e;
-}
 .dataBox{
     display: flex;
+    justify-content: flex-end;
+    align-items:center;
+    height: 50px;
+    width: 100%;
+    z-index:9;
+}
+.dataBox ul{
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.dataBox ul li {
+    border-left: 1px solid #082952;
+    float: none;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+.dataBox ul li a {
+    font-size: 15px;
+    font-family: Acumin-Pro, Helvetica Neue, Helvetica,"sans-serif";
+    font-weight: 300;
+    color: #082952;
+    transition: all .5s;
+}
+.dataBox ul li a:hover{
+    color: #2988c9;
+}
+#OasisLogo{
+    width: 200px;
+    transition: all 1s ease-out;
+    margin-top: -40px;
+    margin-left: 40px;
+}
+#OasisLogoComp{
+    width: 160px;
+    transition: all 1s ease-out;
+    margin-top: -40px;
+    margin-left: 40px;
 }
 #topHeader{
-    height: 60px;
-    background-color: rgb(255, 255, 255);
+    height:fit-content;
+    width: 100%;
+    position: fixed;
+    z-index:9;
+    background-color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,21 +57,116 @@
 }
 #topHeader ul{
     list-style: none;
+    display: flex;
+    align-items: center;
 }
 #topHeader ul li{
-    display: inline-block;
-    padding-right: 30px;
+    float: none;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
 }
+#topHeader ul li a{
+    margin:0px 5px;
+    padding: 15px 20px 0px;
+    font-size:18px;
+    font-family:Acumin-Pro,Helvetica Neue,Helvetica,"sans-serif";
+    font-weight:700;
+    color: #082952;
+    transition: all 0.5s ease-out;
+}
+
 #topHeader ul li:hover{
-    color: #26b20e;
+    text-decoration: underline;
+    text-underline-offset: 8px;
+    text-decoration-color: #2988c9;
+    text-decoration-thickness: 2px;
 }
-#callBackBtn{
-    border: 1px solid #26b20e;
-    border-radius: 20px;
-    padding-left: 10px;
-    padding-right: 10px !important;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    color: #26b20e;
-    margin-right: 20px;
+
+#headerCompress{
+    width: 100%;
+    position: fixed;
+    z-index:9;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+#headerCompress ul{
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+#headerCompress ul li{
+    float: none;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+#headerCompress ul li a{
+    margin:0px 10px;
+    padding: 10px 0px 0px 10px;
+    font-size:18px;
+    font-family:Acumin-Pro,Helvetica Neue,Helvetica,"sans-serif";
+    font-weight:700;
+    color: #082952;
+    transition: all 0.5s ease-in;
+}
+/* #headerCompress ul li:hover{
+    text-decoration: underline;
+    text-underline-offset: 8px;
+    text-decoration-color: #2988c9;
+    text-decoration-thickness: 2px;
+} */
+.dropdownMenu{
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    padding-top: 19px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdownMenu a {
+    color: #082952 !important;
+    padding: 10px 30px !important;
+    margin: 0px !important;
+    text-decoration: none !important;
+    display: block;
+    text-align: left;
+    transition: none !important;
+}
+.dropdownMenu a:hover{
+    background-color: #082952 ;
+    color: #fff !important;
+}
+#dropdownAbout{
+    display: none;
+  
+}
+#about:hover #dropdownAbout {
+    display: block;
+}
+
+#dropdownLifeStyle{
+    display: none;
+}
+
+#lifestyle:hover #dropdownLifeStyle {
+    display: block;
+}
+
+#dropdownContact{
+    display: none;
+}
+
+#contact:hover #dropdownContact {
+    display: block;
+}
+#dropdownStarted{
+    display: none;
+}
+
+#started:hover #dropdownStarted {
+    display: block;
 }

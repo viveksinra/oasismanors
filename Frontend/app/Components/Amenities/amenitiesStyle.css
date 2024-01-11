@@ -10,15 +10,7 @@
     padding-right: 10px;
     font-weight:400
 }
-#welcomeImg{
-    width: 100%;
-    height: 310px;
-    background-image: url("https://res.cloudinary.com/oasismanors/image/upload/v1696088490/1d1e49ac.f10_vf5syo.jpg");
-    background-position:center;
-    background-repeat: no-repeat;
-    border-radius: 20px;
-    background-size:cover;
-};
+
 
 #imgBox{
     margin-top: 50px;
@@ -55,13 +47,52 @@
 .communityImg{
  max-width:100%;
  object-fit: cover;
- margin-top:-4px;
+ margin-top:-7px;
 }
 .btnLink{
-    color: #1672eb;
+    color: #082952;
     padding: 5px 10px;
-    border: 1px solid #1672eb;
+    font-size: 18px;
+    font-weight: 600;
+    transition: all 0.2s;
     border-radius: 20px;
+}
+.btnLink:hover{
+    color: #2988c9;
+    text-decoration: underline;
+    text-underline-offset: 8px;
+    text-decoration-color: #2988c9;
+    text-decoration-thickness: 2px;
+}
+#newsletter{
+    background-color:#b3dde1;
+    margin-top:150px;
+    padding: 25px 0px 100px;
+}
+#newsletter:before{
+    content:"";
+    background-image:url(https://www.ecsforseniors.org/wp-content/themes/ecs_org/images/newsletter_texture.svg);
+    height:161px;
+    width:100%;
+    display:block;
+    position:relative;
+    top:-100px;
+}
+#newsletterBtn{
+    border: 2px solid #082952;
+    padding:8px 60px;
+    color:#082952;
+    border-radius:28px;
+    display:inline-block;
+    cursor:pointer;
+    font-size: 1.3rem;
+    font-weight: 600;
+    background-color:#b3dde1;
+    transition: all 0.2s;
+}
+#newsletterBtn:hover{
+    background-color:#082952;
+    color: #fff;
 }
 #faqBg{
     background: url(https://svch.ca/wp-content/uploads/2013/10/Retirement-Home.png) no-repeat top center;

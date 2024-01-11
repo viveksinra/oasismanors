@@ -3,19 +3,72 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 14px;  
+  height: 16px;  
 }
+
+#design{
+  background: url("https://res.cloudinary.com/oasismanors/image/upload/v1704391434/Banner-texture_y57tn3.svg");
+  height: 126px;
+  width: 100%;
+  position: relative;
+  top: -63px;
+} 
+
+#heroText{
+  font-family: Adequate, Helvetica Neue, Helvetica, sans-serif !important;
+  font-size: 2.5rem;
+  line-height: 6.2rem;
+  color: #fff;
+  font-weight: 300;
+}
+
+#heroBtn{
+  border: 2px solid #ffffff;
+  color: #fff;
+  background-color: transparent;
+  border-radius:28px;
+  text-align:center;
+  cursor:pointer;
+  font-size:22px;
+  font-family: Adequate,Helvetica Neue,Helvetica,"sans-serif" !important;
+  padding: 6px 25px;
+  transition:all .5s;
+  margin-bottom: 10px;
+}
+
 
 #visit{
   display: flex;
   justify-items: center;
-  padding-top: 18px;
+  background-color:transparent;
   padding-bottom: 18px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "acumin-pro", sans-serif !important;
   font-weight: 300;
   line-height: 1.32rem;
   font-size: 1.2rem;
 }
+#firstText{
+  color: #082952;
+  font-weight:700;
+  transition:all .2s;
+}
+#firstText:hover{
+  color: #2988c9;
+  text-decoration: underline;
+  text-underline-offset: 8px;
+  text-decoration-color: #2988c9;
+  text-decoration-thickness: 2px;
+}
+#welcomeImg{
+  width: 100%;
+  height: 100%;
+  object-fit:cover;
+  object-position:center center;
+  background-image: url("https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/ECS_Canterbury_Intro-1024x727.jpg");
+  background-position:center;
+  background-repeat: no-repeat;
+  background-size:cover;
+};
 
 .legend{
   width:40% !important;

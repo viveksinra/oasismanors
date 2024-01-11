@@ -1,10 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
+@import url(https://db.onlinewebfonts.com/c/0d49fc455f4a8951a42daf952412a713?family=Helvetica+Neue+Regular);
+@import url('https://use.typekit.net/af/6d4bb2/00000000000000003b9acafc/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3');
+/* @import url(https://db.onlinewebfonts.com/c/72ed4d1ae54c6c3ab32b84b80fa0271e?family=Adequate+W01+Light); */
+ @import url("https://use.typekit.net/jny4fhu.css");
+
+@font-face {
+  font-family: 'roboto';
+  font-weight: 300;
+  font-style: normal;
+  src: url("https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxK.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: 'Adequate';
+  font-weight: 300;
+  font-style: normal;
+  src: url("https://www.ecsforseniors.org/fonts/Adequate/font.woff2") format('woff2');
+}
+@font-face {
+  font-family: 'AdequateLight';
+  font-weight: 700;
+  font-style: normal;
+  src: url("https://www.ecsforseniors.org/fonts/AdequateLight/font.woff2") format('woff2');
+}
 
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
+
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
+  Adequate, Helvetica Neue,Helvetica,"sans-serif", 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 
   --foreground-rgb: 0, 0, 0;
@@ -120,7 +145,26 @@ a {
   justify-content: center;
   align-items: center;
 }
-
+.topBg{
+  background-size: cover;	
+  object-fit: cover;
+  background-repeat: no-repeat;
+  object-position:center center;
+  height: 500px;
+  width: 100%;
+  z-index: -1;
+}
+.topBg:after{
+  content: "";
+  background-image: url("https://res.cloudinary.com/oasismanors/image/upload/v1704391434/Banner-texture_y57tn3.svg");
+  height: 126px;
+  width:100vw;
+  z-index: 2;
+  display:block;
+  position: relative;
+  bottom: -90%;
+  left: 0px;
+} 
 .sectionMargin{
   padding-top:50px;
   padding-bottom: 50px;

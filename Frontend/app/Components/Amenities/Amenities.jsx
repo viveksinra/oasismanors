@@ -1,7 +1,7 @@
 "use client";
 import "./amenitiesStyle.css";
 import { useState, Suspense } from 'react';
-import {Container, Divider, Grid, Typography,Hidden,Accordion,AccordionSummary,AccordionDetails} from '@mui/material/';
+import {Container, Divider, Grid, Typography,Hidden,Accordion,AccordionSummary,AccordionDetails,Input} from '@mui/material/';
 import { FcCollapse } from "react-icons/fc";
 import { BsPatchQuestionFill } from "react-icons/bs";
 
@@ -85,48 +85,6 @@ function Amenities() {
         </Grid>
     </Container>
     </div>
-    {/* <div id="community"> */}
-  
-    <Container maxWidth="xl">
-    <Grid container>
-        <Grid item xs={12} sx={{marginTop:{xs:"80px",md:"0px"}}}>
-        <Divider light> <Typography variant='h4' sx={{fontSize:{xs:"24px",md:"36px"},fontFamily: 'Courgette'}} textAlign="center" color="primary">Explore Our Community</Typography> </Divider> 
-        <br/>  <br/>
-        </Grid>
-        <Grid item xs={12} md={4} >
-            <div className="communityCard">
-                <img className="abstractImg" src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/11/abstract_1.jpg" alt="abstract_1" />
-                <video className="communityImg" style={{height:310}} src="https://www.ecsforseniors.org/wp-content/uploads/2023/03/ECS_How-We-Live_Vido.mp4" type="video/mp4/" playsInline autoPlay loop muted>
-                </video>
-                <Typography variant="h6" color="primary">How we Live</Typography>
-                <Typography variant="subtitle2" color="royalblue">A lifestyle as rich and vibrant as you are.</Typography>
-                <br/>   <Link href="/" className="btnLink">Watch Our Video  ➡ </Link>
-                <br/>  <br/>  <br/>
-            </div>
-        </Grid>
-        <Grid item xs={12} md={4}>
-            <div className="communityCard">
-                <img className="abstractImg" src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/11/abstract_2.jpg" alt="abstract_1" />
-            <img className="communityImg" src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/Services-Amenties-640x427.jpg" alt="abstract_2" />
-            <Typography variant="h6" color="primary">Services & Amenities</Typography>
-            <Typography variant="subtitle2" color="royalblue">All the comforts of home and so much more.</Typography>
-            <br/>   <Link href="/amenities" className="btnLink">Take a Tour  ➡ </Link>  
-            <br/>  <br/>  <br/>
-            </div>
-        </Grid>
-        <Grid item xs={12} md={4}>
-            <div className="communityCard">
-                <img className="abstractImg" src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/11/abstract_3.jpg" alt="abstract_1" />
-            <img className="communityImg" src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/Delectable-Dining-2-640x427.jpg" alt="abstract_2" />
-            <Typography variant="h6" color="primary">Fresh & Hygienic Meal</Typography>
-            <Typography variant="subtitle2" color="royalblue">This is core speciality to provide best nutritious meal.</Typography>
-            <br/>   <Link href="/amenities/menu" className="btnLink">Sample Menu  ➡ </Link>
-            <br/>  <br/>  <br/>            
-            </div>
-        </Grid>
-    </Grid>
-    </Container>
-    {/* </div> */}
     <br/>
 
    <Divider light> <Typography variant='h4' sx={{fontSize:{xs:"16px",md:"22px"}}} textAlign="center" className='heading'>Your General FAQ</Typography> </Divider> 
@@ -160,4 +118,70 @@ function Amenities() {
   )
 }
 
+export function OurCommunity() {
+  return (
+    <Container maxWidth="xl">
+    <Grid container>
+        <Grid item xs={12} sx={{marginTop:{xs:"80px",md:"0px"}}}>
+        <Typography variant='h4' sx={{fontSize:{xs:"24px",md:"36px"},fontFamily:"AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}  textAlign="left" color="#082952">Explore Our Community</Typography>
+        <br/>  <br/>
+        </Grid>
+        <Grid item xs={12} md={4} >
+            <div className="communityCard">
+                <img className="abstractImg" src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/11/abstract_1.jpg" alt="abstract_1" />
+                <video className="communityImg" style={{height:310}} src="https://www.ecsforseniors.org/wp-content/uploads/2023/03/ECS_How-We-Live_Vido.mp4" type="video/mp4/" playsInline autoPlay loop muted>
+                </video>
+                <Typography variant="h6" sx={{fontFamily:"Adequate,Helvetica,\"sans-serif\"",fontSize:"22px"}} color="#082952">How we Live</Typography>
+                <Typography variant="subtitle1" sx={{fontSize:"20px",fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,}} color="#082952">A lifestyle as rich and vibrant as you are.</Typography>
+                <br/>   <Link href="/" className="btnLink">Watch Our Video  ➡ </Link>
+                <br/>  <br/>  <br/>
+            </div>
+        </Grid>
+        <Grid item xs={12} md={4}>
+            <div className="communityCard">
+                <img className="abstractImg" src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/11/abstract_2.jpg" alt="abstract_1" />
+            <img className="communityImg" src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/Services-Amenties-640x427.jpg" alt="abstract_2" />
+            <Typography variant="h6" sx={{fontFamily:"Adequate,Helvetica,\"sans-serif\"",fontSize:"22px"}} color="#082952">Services & Amenities</Typography>
+            <Typography variant="subtitle1" sx={{fontSize:"20px",fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,}} color="#082952">All the comforts of home and so much more!</Typography>
+            <br/>  <Link href="/amenities" className="btnLink">Learn More  ➡ </Link>  
+            <br/>  <br/>  <br/>
+            </div>
+        </Grid>
+        <Grid item xs={12} md={4}>
+            <div className="communityCard">
+                <img className="abstractImg" src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/11/abstract_3.jpg" alt="abstract_1" />
+            <img className="communityImg" src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/Delectable-Dining-2-640x427.jpg" alt="abstract_2" />
+            <Typography variant="h6" sx={{fontFamily:"Adequate,Helvetica,\"sans-serif\"",fontSize:"22px"}} color="#082952">Delectable Dining</Typography>
+            <Typography variant="subtitle1" sx={{fontSize:"20px",fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,}} color="#082952">Always Fresh and Flavorful.</Typography>
+            <br/>   <Link href="/amenities/menu" className="btnLink">View Menu  ➡ </Link>
+            <br/>  <br/>  <br/>            
+            </div>
+        </Grid>
+    </Grid>
+    </Container>
+  )
+}
+
+
+export function Newsletter() {
+    return (
+        <section id="newsletter">
+        <Container maxWidth="xl">
+        <Grid container spacing={2} sx={{marginTop:"-100px"}}>
+            <Grid item xs={12} md={6}>
+        <Typography variant='h4' sx={{fontSize:{xs:"24px",md:"36px"},lineHeight:"1.6",fontWeight:"300", fontFamily:"Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}  textAlign="left" color="#082952">Stay informed with the <br/> ECS Newsletter</Typography>
+            </Grid>
+            <Grid item xs={12} md={6} sx={{display:"flex", alignItems:"center",}}>
+                <Input placeholder="Enter your email address" sx={{fontSize:"1.5rem",lineHeight:"normal",height:"3rem", width:"60%", fontFamily:"Adequate,Helvetica Neue,Helvetica,Helvetica,\"sans-serif\""}} type="email" />
+                <button id="newsletterBtn">Sign Up</button>
+            </Grid>
+        </Grid>
+        <br/>
+        </Container>
+        </section>
+    
+    )
+  }
+
+  
 export default Amenities

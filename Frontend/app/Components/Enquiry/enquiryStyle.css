@@ -6,12 +6,12 @@
 #self{
    display: flex;
 }
-#infoDesign{
+/* #infoDesign{
    background-image: url("https://res.cloudinary.com/oasismanors/image/upload/v1684735057/Oasis_Design_djvozk.jpg");
    background-size: cover;	
    background-repeat: no-repeat;
    height: 850px;
-}
+} */
 #thanks{
    background-image: url("https://res.cloudinary.com/oasismanors/image/upload/v1696092703/thanks_zx5zho.png");
    background-size: contain;	
