@@ -18,11 +18,11 @@ function CreativeLiving() {
       </div>
       <Container className="sectionMargin" >
         <br/>
-        <Breadcrumbs separator="›" sx={{fontSize:"24px"}} aria-label="breadcrumb">
+        <Breadcrumbs separator="›" sx={{fontWeight:600,fontFamily:"acumin-pro,\"sans-serif\"",fontSize:"24px"}} aria-label="breadcrumb">
         <Link underline="hover" color="inherit" href="/">
         Oasis
         </Link>
-        <Typography sx={{fontWeight:600,fontSize:"20px"}} color="text.primary">
+        <Typography sx={{fontWeight:600,fontFamily:"acumin-pro,\"sans-serif\"",fontSize:"20px"}} color="text.primary">
         Creative Living
         </Typography>
         </Breadcrumbs>

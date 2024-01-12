@@ -2,14 +2,16 @@ import "./contactStyle.css";
 import Header from "../Components/Header/Header";
 import { TopAbstract } from "../MyApp";
 import Enquiry from "../Components/Enquiry/Enquiry";
-import Footer from "../Components/Footer/Footer";
+import {Newsletter} from "../Components/Amenities/Amenities";
+import {NewFooter} from "../Components/Footer/Footer";
 function Contact() {
   return (
-    <main>
+    <main style={{backgroundColor:"#fff"}}>
     <Header/>
     <TopAbstract/>
     <Enquiry/>
-    <Footer/>
+    <Newsletter/>
+    <NewFooter/>
     </main>
   )
 }

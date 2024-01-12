@@ -75,16 +75,16 @@ const Header = ( { children,window }) => {
                 </div>
                   </li>
                   <li><Link href="/lifestyle/care">Care</Link></li>
-                  <li><Link href="/">Events</Link></li>
+                  <li><Link href="/lifestyle/events">Events</Link></li>
                   <li id="contact"><Link href="/contact">Contact</Link>
                   <div id="dropdownContact" className='dropdownMenu'>
-                  <Link href="/">Contact Us</Link>
-                  <Link href="/">Careers & Volunteers</Link>
+                  <Link href="/contact">Contact Us</Link>
+                  <Link href="/contact/careers">Careers & Volunteers</Link>
                 </div>
                   </li>
                   <li id="started"><Link href="/#enquiry">Getting Started</Link>
                   <div id="dropdownStarted" className='dropdownMenu'>
-                  <Link href="/">Where to Begin</Link>
+                  <Link href="/contact/starting">Where to Begin</Link>
                   <Link href="/">Lifeplan</Link>
                   <Link href="/">Resources</Link>
                 </div>
