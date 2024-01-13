@@ -40,14 +40,14 @@ function About() {
         <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontSize:"1.5rem"}}>~ Kathleen D, Oasis Homes resident</Typography>
           </Grid>
         <Grid item xs={12} md={9}>
-        <Typography color="#082952" sx={{paddingBottom:"2rem",marginTop:"100px", fontFamily:"AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\"",fontSize:"2rem"}}>Craft the life you want</Typography>
+        <Typography color="#082952" sx={{paddingBottom:"2rem",marginTop:"60px", fontFamily:"AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\"",fontSize:"2rem"}}>Craft the life you want</Typography>
         <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:100, fontSize:"1.2rem"}}>An integral part of life at The Oasis Homes is something we call <Link style={{fontWeight:600,color:"#00a2c2",textDecoration:"underline",overflowWrap:"break-word"}} href="/">Creative Living</Link> , an innovative approach to active lifestyle. It drives the culture of our community, providing daily opportunities for quality, purpose, and sense of fulfillment through meaningful engagement, activities, and continuous learning opportunities.</Typography>
         </Grid>
         <Grid item xs={12} md={3}/>
        </Grid>
        
        
-       <br/> <br/>
+       <br/> 
        <Grid container spacing={2}>
         <Grid item xs={12}><Divider sx={{marginBottom:"30px"}}/></Grid>
         <Grid item xs={12} md={6} className="center">

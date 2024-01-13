@@ -35,7 +35,7 @@ function Resources() {
             </Grid>
             <Grid item xs={12} md={6} sx={{display:"flex",alignItems:"center"}}>
                 <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:300,fontSize:"1.3rem",lineHeight:"1.8rem"}}>
-                ECS has been providing exceptional nonprofit, active senior living communities and services in Southern California since 1923. Our experience confirms that choosing a Life Plan community as your next home is really about securing your future. <br/>
+                OH has been providing exceptional nonprofit, active senior living communities and services in Southern California since 1923. Our experience confirms that choosing a Life Plan community as your next home is really about securing your future. <br/>
                 To support your decision making, below are curated links to informative articles, reports, and commentary by leading publications and financial and health experts.
                 <br/>
                 As you plan your next step, please take the time you need to do your due diligence.

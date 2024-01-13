@@ -117,7 +117,7 @@ function Lifeplan() {
             <Grid item xs={12} md={8}>
             <Typography color="#082952" sx={{fontSize:{xs:"18px",md:"26px"}, fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>Create the future you want</Typography> <br/>
             <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"20px",lineHeight:"1.8rem"}}>
-            Getting the care you need, when you need it, is one of the foundational benefits of ECS Life Plan communities, but that is just part of the ECS story. Our outlook on what an active senior lifestyle can be is something we call <Link style={{color:"#00a2c2",fontWeight:500,textDecoration:"underline"}} href="/about">Creative Living. </Link> It means:
+            Getting the care you need, when you need it, is one of the foundational benefits of OH Life Plan communities, but that is just part of the OH story. Our outlook on what an active senior lifestyle can be is something we call <Link style={{color:"#00a2c2",fontWeight:500,textDecoration:"underline"}} href="/about">Creative Living. </Link> It means:
             </Typography> 
             <ul style={{listStyle:"none",marginTop:"20px"}}>
             <li className="stayList">A belief in continuous learning. </li>
@@ -130,7 +130,7 @@ function Lifeplan() {
               <Divider sx={{margin:"30px 0px"}}/>
             <Typography color="#082952" sx={{fontSize:{xs:"18px",md:"30px"}, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>What are my care options?</Typography> <br/>
             <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"20px",lineHeight:"1.8rem"}}>
-            An important part of the ECS promise is ensuring all residents have the freedom and flexibility to manage their personal care needs. At ECS, choice is not a luxury, it is part of daily life, ensuring you receive the care you want, when you want it.
+            An important part of the OH promise is ensuring all residents have the freedom and flexibility to manage their personal care needs. At OH, choice is not a luxury, it is part of daily life, ensuring you receive the care you want, when you want it.
             </Typography> 
             <Divider sx={{margin:"30px 0px"}}/>
             </Grid>
@@ -141,7 +141,7 @@ function Lifeplan() {
             <Grid item xs={12} md={8}>
             <Typography color="#082952" sx={{fontSize:{xs:"18px",md:"26px"}, fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>Create the future you want</Typography> <br/>
             <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"20px",lineHeight:"1.8rem"}}>
-            We all need a little help now and then and ECS communities offer a variety of <Link style={{color:"#00a2c2",fontWeight:500,textDecoration:"underline"}} href="/about"> Choice Custom Care </Link> options to fit your needs and lifestyle.
+            We all need a little help now and then and OH communities offer a variety of <Link style={{color:"#00a2c2",fontWeight:500,textDecoration:"underline"}} href="/about"> Choice Custom Care </Link> options to fit your needs and lifestyle.
             </Typography> 
             <ul style={{listStyle:"none",marginTop:"20px"}}>
             <li className="stayList">Independent Living – Perfect for those needing only occasional assistance. </li>
@@ -162,7 +162,7 @@ function Lifeplan() {
             Within each option, our CareOne program allows you to customize the level and frequency of care you receive. From intermittent, task-based assistance, either daily or throughout the week, to more detailed, personalized care on a regular basis including a care companion, the choice is yours.
             </Typography> 
             <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"20px",lineHeight:"1.8rem"}}>
-            To learn more about ECS care options, please visit <Link style={{color:"#00a2c2",fontWeight:500,textDecoration:"underline"}} href="/contact/starting">Care</Link>.
+            To learn more about OH care options, please visit <Link style={{color:"#00a2c2",fontWeight:500,textDecoration:"underline"}} href="/contact/starting">Care</Link>.
             </Typography> 
                 </Grid>
 
