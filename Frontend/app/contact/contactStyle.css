@@ -5,7 +5,10 @@
     background-image: url("https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/12/hero-car-1-2048x896.jpg");
 }
 #lifeplanBg{
-    background-image: url("https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/12/hero-lifeplan-2048x896.jpg");
+    background-image: url("https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/7.2_CA_hero-2048x471.jpg");
+}
+#resourceBg{
+    background-image: url("https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/7.3_CA_hero-2048x471.jpg");
 }
 .choiceList{
     font-size: 20px;
@@ -14,6 +17,16 @@
     list-style-image: url('https://res.cloudinary.com/qualifier/image/upload/v1585479266/Default/check-mark_zbl05t.svg');
 }
 
+.stayList{
+    list-style-image: url('https://res.cloudinary.com/qualifier/image/upload/v1585479266/Default/check-mark_zbl05t.svg');
+    font-size: 1.4rem;
+    margin-left: 40px;
+    line-height: 1.8rem;
+    font-weight: 400;
+    font-size: 18px;
+    font-family: acumin-pro, "sans-serif";
+    color: #333;
+}
 .creativeImg{
     background-size: cover;	
     object-fit: cover;

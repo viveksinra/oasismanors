@@ -12,7 +12,6 @@ import Link from "next/link";
 
 
 function Lifeplan() {
-    const [startData] = useState([{title:"You have questions, we have answers.",img:"https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/12/Lifestyle_MonteCedro_DogWalk_4859_150_BL-533x355.jpg",list:["What is a Life Plan community?","What are the Benefits?","What are my Care Options?"],text:"For information on the Benefits and Care Options, visit",linkText:"What is a Life Plan Community?.",link:"/"},{title:"What other questions should I be asking?",img:"https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/12/Lifestyle_MonteCedro_LivingRoom_2732H_300_BL-533x355.jpg",list:["Is the organization for profit or nonprofit?","Are the business practices regularly reviewed?","Are they a certified Continuing Care Retirement Community (CCRC)?","Are they active in the wider community?","How do they support employees?"],text:"For an in-depth perspective on financial considerations, visit",linkText:"Helpful Resources.",link:"/"}])
     return (
     <main style={{backgroundColor:"#fff"}}>
       <Header/>
@@ -116,9 +115,68 @@ function Lifeplan() {
             <img src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/12/photo-create-533x355.jpg" className="creativeImg" alt="Oasis3" />
             </Grid>
             <Grid item xs={12} md={8}>
-            <Typography color="#082952" sx={{fontSize:{xs:"24px",md:"30px"}, fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>What are the benefits?</Typography> <br/>
-                
+            <Typography color="#082952" sx={{fontSize:{xs:"18px",md:"26px"}, fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>Create the future you want</Typography> <br/>
+            <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"20px",lineHeight:"1.8rem"}}>
+            Getting the care you need, when you need it, is one of the foundational benefits of ECS Life Plan communities, but that is just part of the ECS story. Our outlook on what an active senior lifestyle can be is something we call <Link style={{color:"#00a2c2",fontWeight:500,textDecoration:"underline"}} href="/about">Creative Living. </Link> It means:
+            </Typography> 
+            <ul style={{listStyle:"none",marginTop:"20px"}}>
+            <li className="stayList">A belief in continuous learning. </li>
+            <li className="stayList">Regular opportunities to try something new. </li>
+            <li className="stayList">Events and experiences that open both the mind and the heart. </li>
+            <li className="stayList">A lifestyle that helps you maintain and expand your social connections.</li>
+          </ul>
             </Grid>
+            <Grid item xs={12}>
+              <Divider sx={{margin:"30px 0px"}}/>
+            <Typography color="#082952" sx={{fontSize:{xs:"18px",md:"30px"}, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>What are my care options?</Typography> <br/>
+            <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"20px",lineHeight:"1.8rem"}}>
+            An important part of the ECS promise is ensuring all residents have the freedom and flexibility to manage their personal care needs. At ECS, choice is not a luxury, it is part of daily life, ensuring you receive the care you want, when you want it.
+            </Typography> 
+            <Divider sx={{margin:"30px 0px"}}/>
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+              <img style={{maxWidth:"100%"}} src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/7.2_CA_photo-6-533x355.jpg" alt="Oasis-4" />
+            </Grid>
+            <Grid item xs={12} md={8}>
+            <Typography color="#082952" sx={{fontSize:{xs:"18px",md:"26px"}, fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>Create the future you want</Typography> <br/>
+            <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"20px",lineHeight:"1.8rem"}}>
+            We all need a little help now and then and ECS communities offer a variety of <Link style={{color:"#00a2c2",fontWeight:500,textDecoration:"underline"}} href="/about"> Choice Custom Care </Link> options to fit your needs and lifestyle.
+            </Typography> 
+            <ul style={{listStyle:"none",marginTop:"20px"}}>
+            <li className="stayList">Independent Living – Perfect for those needing only occasional assistance. </li>
+            <li className="stayList">Assisted Living – Best suited for those seeking additional care and support. </li>
+            <li className="stayList">Recovery Care – Care for short-term rehabilitation. </li>
+            <li className="stayList">Memory Care – Created specifically for those dealing with memory loss challenges.</li>
+          </ul>
+              </Grid>
+              <Grid item xs={12}>
+                <Divider sx={{margin:"30px 0px"}}/>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                <img style={{maxWidth:"100%"}} src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/7.2_CA_photo-7-533x355.jpg" alt="Oasis-5" />
+                </Grid>
+                <Grid item xs={12} md={8}>
+                <Typography color="#082952" sx={{fontSize:{xs:"18px",md:"26px"}, fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>Care as individual as you are</Typography> <br/>
+            <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"20px",lineHeight:"1.8rem"}}>
+            Within each option, our CareOne program allows you to customize the level and frequency of care you receive. From intermittent, task-based assistance, either daily or throughout the week, to more detailed, personalized care on a regular basis including a care companion, the choice is yours.
+            </Typography> 
+            <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"20px",lineHeight:"1.8rem"}}>
+            To learn more about ECS care options, please visit <Link style={{color:"#00a2c2",fontWeight:500,textDecoration:"underline"}} href="/contact/starting">Care</Link>.
+            </Typography> 
+                </Grid>
+
+                <Grid item xs={12}>
+                <Divider sx={{margin:"30px 0px"}}/>
+                </Grid>
+
+                <Grid item xs={12}>
+            <Typography color="#082952" sx={{fontSize:{xs:"18px",md:"26px"}, fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>Here to help.</Typography> <br/>
+            <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"20px",lineHeight:"1.8rem"}}>
+            Choosing the right community is an important decision. If you have any questions, would like more information, clarification on a specific topic, or even arrange to drop by for a visit, please do not hesitate to call or <Link style={{color:"#00a2c2",fontWeight:500,textDecoration:"underline"}} href="/contact">contact us.</Link> 
+            </Typography> 
+            <br/> <br/>
+                </Grid>
         </Grid>
       
       

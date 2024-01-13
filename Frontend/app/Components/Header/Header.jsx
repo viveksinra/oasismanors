@@ -86,7 +86,7 @@ const Header = ( { children,window }) => {
                   <div id="dropdownStarted" className='dropdownMenu'>
                   <Link href="/contact/starting">Where to Begin</Link>
                   <Link href="/contact/lifeplan">Lifeplan</Link>
-                  <Link href="/">Resources</Link>
+                  <Link href="/contact/resources">Resources</Link>
                 </div>
                   </li>
               </ul> 
