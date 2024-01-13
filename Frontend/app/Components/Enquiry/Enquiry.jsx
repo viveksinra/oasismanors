@@ -81,8 +81,8 @@ const Enquiry = () => {
                 <Grid item xs={12} lg={6}>
           
                 <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"30px"},paddingTop:"100px", lineHeight:"1.2", fontWeight:300, fontFamily: "Adequate,Helvetica,\"sans-serif\""}}>Request More Information</Typography> <br/> <br/> <br/>
-                <p style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:200,fontSize:"20px",lineHeight:"2.5rem", color:"black"}}>To learn more about the benefits of a worry-free lifestyle at The Canterbury <br/> please complete and submit the form or call us at <Link href="tel:310-995-4859"><strong>(310) 995-4859</strong></Link> </p> <br/><br/>
-                <p style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:200,fontSize:"20px",lineHeight:"2.5rem", color:"black"}}>Stay informed with the ECS Newsletter.</p>
+                <p style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:200,fontSize:"20px",lineHeight:"2.5rem", color:"black"}}>To learn more about the benefits of a worry-free lifestyle at The Oasis Homes <br/> please complete and submit the form or call us at <Link href="tel:310-995-4859"><strong>(310) 995-4859</strong></Link> </p> <br/><br/>
+                <p style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:200,fontSize:"20px",lineHeight:"2.5rem", color:"black"}}>Stay informed with the OH Newsletter.</p>
 
                 </Grid>
                 <Grid item xs={12} lg={6}>

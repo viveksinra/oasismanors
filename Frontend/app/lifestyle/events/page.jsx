@@ -11,7 +11,7 @@ import Link from "next/link";
 
 function Events() {
     const [tabValue,setTabValue]= useState(0);
-    const [events] = useState([{eventStatus:"Upcoming Events",id:"upcoming", events:[{month:"January 2024",img:"https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/7.1_CA_you-questions-we-answers.jpg",timing:"January 24, 2024 @ 2:00PM",title:"Senior Living Simplified at The Covington Jan 24 2024",subTitle:"Event for ECS, The Covington",_id:"5415645151"},{month:"January 2024",img:"https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/1.1_CAN_photo.jpg",timing:"January 25, 2024 @ 2:00PM",title:"Senior Living Simplified at The Canterbury Jan 25 2024",subTitle:"Event for ECS, The Canterbury",_id:"541564515545451"}]}])
+    const [events] = useState([{eventStatus:"Upcoming Events",id:"upcoming", events:[{month:"January 2024",img:"https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/7.1_CA_you-questions-we-answers.jpg",timing:"January 24, 2024 @ 2:00PM",title:"Senior Living Simplified at The Covington Jan 24 2024",subTitle:"Event for OH, The Covington",_id:"5415645151"},{month:"January 2024",img:"https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/1.1_CAN_photo.jpg",timing:"January 25, 2024 @ 2:00PM",title:"Senior Living Simplified at The Oasis Homes Jan 25 2024",subTitle:"Event for OH, The Oasis Homes",_id:"541564515545451"}]}])
     const router = useRouter();
     return (
     <main style={{backgroundColor:"#fff"}}>
@@ -34,7 +34,7 @@ function Events() {
             <Grid item xs={12} md={9}>
             <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"46px"},lineHeight:"60px", marginTop:"30px", fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>You are Invited</Typography>
             <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:400,fontSize:"1.3rem",lineHeight:"1.8rem"}}>
-            ECS continuing care retirement communities hold regular virtual and in-person events. If you would like to get to know us better, please join us for one of these informative get-togethers. We would love to meet you and answer any questions you or your family may have.
+            OH continuing care retirement communities hold regular virtual and in-person events. If you would like to get to know us better, please join us for one of these informative get-togethers. We would love to meet you and answer any questions you or your family may have.
             </Typography> <br/> 
           
             </Grid>

@@ -80,9 +80,9 @@ function MyApp() {
 
         <Grid container spacing={4} className="sectionMargin">
             <Grid item xs={12} md={6} className="center" sx={{flexDirection:"column"}}>
-            <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"48px"}, lineHeight:"1.2", fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>Welcome to The Canterbury </Typography>
-            <p style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"20px",color:"#333333"}}>Come home to sophisticated living in the South Bay, where relaxed, maintenance-free living and proactive wellness ensure your lifestyle is as vibrant as you are. Here, you are free to pursue your passions and discover new interests, all in the company of neighbors who share your view of what independent senior living in Los Angeles should be.</p>
-        <br/><p style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"20px",color:"#333333"}}>Perched on a scenic bluff in the rolling hills of Rancho Palos Verdes, The Canterbury, provides the setting to be as active or easygoing as you want with the confidence and peace of mind that comes from choosing a Life Plan community to call home.</p>
+            <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"48px"}, lineHeight:"1.2", fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>Welcome to The Oasis Homes </Typography>
+            <p style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"20px",color:"#333333"}}>Come home to sophisticated living in the Sylmar, where relaxed, maintenance-free living and proactive wellness ensure your lifestyle is as vibrant as you are. Here, you are free to pursue your passions and discover new interests, all in the company of neighbors who share your view of what independent senior living in Los Angeles should be.</p>
+        <br/><p style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"20px",color:"#333333"}}>Perched on a scenic bluff in the rolling hills of Sylmar, The Oasis Homes, provides the setting to be as active or easygoing as you want with the confidence and peace of mind that comes from choosing a Life Plan community to call home.</p>
             </Grid>
              <Grid item xs={12} md={6}  className="center">
                 <div id="welcomeImg"/>

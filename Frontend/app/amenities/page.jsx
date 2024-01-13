@@ -34,17 +34,17 @@ function AmenitiesPage() {
           </Grid>
           <Grid item xs={12} md={6}>
           <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.3rem",lineHeight:"1.8rem"}}>
-          The Canterbury is a vibrant community where engaged, like-minded individuals enjoy a full range of exceptional amenities. These features and services are at the heart of our <Link href="/lifestyle" style={{color:"#00a2c2",fontWeight:500, textDecoration:"underline"}}>Creative Living</Link> culture, designed for lifelong intellectual, spiritual, and physical growth.
+          The Oasis Homes is a vibrant community where engaged, like-minded individuals enjoy a full range of exceptional amenities. These features and services are at the heart of our <Link href="/lifestyle" style={{color:"#00a2c2",fontWeight:500, textDecoration:"underline"}}>Creative Living</Link> culture, designed for lifelong intellectual, spiritual, and physical growth.
           </Typography>
           </Grid>
           <Grid item xs={12} md={6}>
           <Typography color="#00a2c2" align="center" gutterBottom sx={{fontSize:{xs:"18px",md:"30px"},fontWeight:500, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>“Everyone I know who doesn’t live here wants to move in.”</Typography>
           <Typography color="#00a2c2" align="center"  sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:500,fontSize:"1.3rem",lineHeight:"1.4rem"}}>
-          ~ Pat W, Canterbury resident
+          ~ Pat W, Oasis Homes resident
         </Typography>
           </Grid>
           <Grid item xs={12}>
-          <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"32px"}, marginTop:"50px", fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>Resort-style living at The Canterbury</Typography>
+          <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"32px"}, marginTop:"50px", fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>Resort-style living at The Oasis Homes</Typography>
           <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.3rem",lineHeight:"1.8rem"}}>
           Our resort-style campus offers a fresh perspective on what retirement living in Los Angeles can be. Here, you have access to a wealth of choices each day, which reflect our commitment to enriching pursuits and keep you connected to your friends, family, and neighbors. It’s why we call ourselves a community.
         </Typography>
@@ -67,7 +67,7 @@ function AmenitiesPage() {
           <ul style={{listStyle:"none"}}>
             <li className="stayList"><Link style={{color:"#00a2c2",fontWeight:500, textDecoration:"underline"}} href="/dining">Dining </Link>– All meals are freshly prepared every day </li>
             <li className="stayList"> <strong>Game Room </strong>– Join in a lively game of Bridge or board game </li>
-            <li className="stayList"> <strong>Pet-friendly </strong>–  The Canterbury welcomes well-behaved pets </li>
+            <li className="stayList"> <strong>Pet-friendly </strong>–  The Oasis Homes welcomes well-behaved pets </li>
             <li className="stayList"><Link style={{color:"#00a2c2",fontWeight:500, textDecoration:"underline"}} href="/dining">Creative Living Academy </Link>– Classes, activities, and more to support life-long learning </li>
           </ul>
           </Grid>
@@ -86,7 +86,7 @@ function AmenitiesPage() {
           <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"32px"}, marginTop:"60px", fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>Personal care and support</Typography>
           <ul style={{listStyle:"none"}}>
             <li className="stayList">24-hour licensed nurses on duty. </li>
-            <li className="stayList"><Link style={{color:"#00a2c2",fontWeight:500, textDecoration:"underline"}} href="/dining">CareOne  </Link>– Our innovative approach to personalized, à la carte care services that comes to you in the comfort of your Canterbury home, providing a seamless continuum of care </li>
+            <li className="stayList"><Link style={{color:"#00a2c2",fontWeight:500, textDecoration:"underline"}} href="/dining">CareOne  </Link>– Our innovative approach to personalized, à la carte care services that comes to you in the comfort of your Oasis Homes home, providing a seamless continuum of care </li>
             <li className="stayList">The security of having access to a specialized and collaborative health plan for now and in the future</li>
           </ul>
           </Grid>

@@ -27,7 +27,7 @@ const Header = ( { children,window }) => {
             <Hidden mdDown> 
             <div className="dataBox">
            <ul>
-            <li style={{borderLeft:"none"}}><Link style={{margin:"0px 5px 0px 0px",padding:"0px 10px 0px 0px"}} href="/">Visit ECS Home</Link></li>
+            <li style={{borderLeft:"none"}}><Link style={{margin:"0px 5px 0px 0px",padding:"0px 10px 0px 0px"}} href="/">Visit OH Home</Link></li>
             <li><Link style={{margin:"0px 5px",padding:"0px 10px"}} href="/">COVID-19 Information</Link></li>
             <li><Link style={{margin:"0px 5px",padding:"0px 10px"}} href="/">Careers</Link></li>
             <li><Link style={{margin:"0px 5px",padding:"0px 10px"}} href="/">Our Blog</Link></li>
@@ -85,7 +85,7 @@ const Header = ( { children,window }) => {
                   <li id="started"><Link href="/#enquiry">Getting Started</Link>
                   <div id="dropdownStarted" className='dropdownMenu'>
                   <Link href="/contact/starting">Where to Begin</Link>
-                  <Link href="/">Lifeplan</Link>
+                  <Link href="/contact/lifeplan">Lifeplan</Link>
                   <Link href="/">Resources</Link>
                 </div>
                   </li>

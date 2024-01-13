@@ -4,11 +4,21 @@
 #startedBg{
     background-image: url("https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/12/hero-car-1-2048x896.jpg");
 }
+#lifeplanBg{
+    background-image: url("https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/12/hero-lifeplan-2048x896.jpg");
+}
 .choiceList{
     font-size: 20px;
     line-height: 1.5;
     color: #333;
     list-style-image: url('https://res.cloudinary.com/qualifier/image/upload/v1585479266/Default/check-mark_zbl05t.svg');
+}
+
+.creativeImg{
+    background-size: cover;	
+    object-fit: cover;
+    background-repeat: no-repeat;
+    width: 100%;
 }
 .viewBtn{
     padding: 0px 30px 8px;

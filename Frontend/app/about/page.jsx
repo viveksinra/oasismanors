@@ -27,21 +27,21 @@ function About() {
         <br/>
         <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"40px"}, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>A Community to Call Home</Typography>
         <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.2rem"}}>
-        As the only Life Plan community in the South Bay, The Canterbury provides an active campus-like experience with a true neighborhood feel. Here, residents enjoy all the comforts of home, along with the security and confidence of having a broad spectrum of care and services available should the need arise. Exceptional Rancho Palos Verdes senior living has never looked so good.
+        As the only Life Plan community in the Sylmar, The Oasis Homes provides an active campus-like experience with a true neighborhood feel. Here, residents enjoy all the comforts of home, along with the security and confidence of having a broad spectrum of care and services available should the need arise. Exceptional Sylmar senior living has never looked so good.
         </Typography>
         <br/> <br/>
        <Grid container spacing={2}>
         <Grid item xs={12} md={6} sx={{display:"flex", flexDirection:"column",justifyContent:"center"}}>
         <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"36px"}, fontFamily: 'AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\"'}}>Resort-style living</Typography>
-         <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100, fontSize:"1.2rem"}}>The Canterbury is a nonprofit Life Plan community created specifically for active seniors aged 62+. Our resort-style experience and distinctive approach to lifelong learning reflects our commitment to enriching pursuits, and keeps you connected to your friends, family, and neighbors. Our vibrant community has multiple dining venues, panoramic views, sparkling heated pool, beauty salon and barbershop, fitness center, art studio, and so much more.</Typography>
+         <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100, fontSize:"1.2rem"}}>The Oasis Homes is a nonprofit Life Plan community created specifically for active seniors aged 62+. Our resort-style experience and distinctive approach to lifelong learning reflects our commitment to enriching pursuits, and keeps you connected to your friends, family, and neighbors. Our vibrant community has multiple dining venues, panoramic views, sparkling heated pool, beauty salon and barbershop, fitness center, art studio, and so much more.</Typography>
         </Grid>
         <Grid item xs={12} md={6} className="center" sx={{flexDirection:"column"}}>
         <Typography color="#00a2c2" sx={{paddingBottom:"2rem",fontFamily:"Adequate,Helvetica Neue,Helvetica,\"sans-serif\"",fontSize:"2rem"}}>“This is the place for me!”</Typography>
-        <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontSize:"1.5rem"}}>~ Kathleen D, Canterbury resident</Typography>
+        <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontSize:"1.5rem"}}>~ Kathleen D, Oasis Homes resident</Typography>
           </Grid>
         <Grid item xs={12} md={9}>
         <Typography color="#082952" sx={{paddingBottom:"2rem",marginTop:"100px", fontFamily:"AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\"",fontSize:"2rem"}}>Craft the life you want</Typography>
-        <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:100, fontSize:"1.2rem"}}>An integral part of life at The Canterbury is something we call <Link style={{fontWeight:600,color:"#00a2c2",textDecoration:"underline",overflowWrap:"break-word"}} href="/">Creative Living</Link> , an innovative approach to active lifestyle. It drives the culture of our community, providing daily opportunities for quality, purpose, and sense of fulfillment through meaningful engagement, activities, and continuous learning opportunities.</Typography>
+        <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:100, fontSize:"1.2rem"}}>An integral part of life at The Oasis Homes is something we call <Link style={{fontWeight:600,color:"#00a2c2",textDecoration:"underline",overflowWrap:"break-word"}} href="/">Creative Living</Link> , an innovative approach to active lifestyle. It drives the culture of our community, providing daily opportunities for quality, purpose, and sense of fulfillment through meaningful engagement, activities, and continuous learning opportunities.</Typography>
         </Grid>
         <Grid item xs={12} md={3}/>
        </Grid>
@@ -71,7 +71,7 @@ function About() {
           <Grid item xs={12} md={9}>
           <br/>
           <Typography gutterBottom sx={{fontFamily: 'AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\"',color:"#082952",fontSize:{xs:"20px",md:"30px"}}}>You have questions, we have answers.</Typography>
-          <Typography gutterBottom sx={{fontFamily: "acumin-pro, \"sans-serif\"",color:"#333",fontWeight:"100", fontSize:{xs:"20px",md:"20px"}}}>Everyone has different needs. To learn more about The Canterbury senior living in Rancho Palos Verdes, how it may be right for you or a loved one, or to arrange for a visit, please do not hesitate to <Link style={{color:"#00a2c2",fontWeight:500}} href="/contact">Contact Us.</Link></Typography>
+          <Typography gutterBottom sx={{fontFamily: "acumin-pro, \"sans-serif\"",color:"#333",fontWeight:"100", fontSize:{xs:"20px",md:"20px"}}}>Everyone has different needs. To learn more about The Oasis Homes senior living in Sylmar, how it may be right for you or a loved one, or to arrange for a visit, please do not hesitate to <Link style={{color:"#00a2c2",fontWeight:500}} href="/contact">Contact Us.</Link></Typography>
           </Grid>
           <Grid item xs={12} md={3}></Grid>
         </Grid>

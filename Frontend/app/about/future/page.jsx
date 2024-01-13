@@ -28,7 +28,7 @@ function Future() {
         <br/>
         <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"40px"}, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>Peace of Mind</Typography>
         <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.3rem"}}>
-        As a nonprofit senior living Life Plan community, The Canterbury provides a unique combination of benefits for your health, wellness, lifestyle, and legacy. These benefits are amplified by our nonprofit status – we do not pay dividends to shareholders. This allows us to continually reinvest in our communities to renew and improve infrastructure, amenities, and services.
+        As a nonprofit senior living Life Plan community, The Oasis Homes provides a unique combination of benefits for your health, wellness, lifestyle, and legacy. These benefits are amplified by our nonprofit status – we do not pay dividends to shareholders. This allows us to continually reinvest in our communities to renew and improve infrastructure, amenities, and services.
         </Typography>
         <br/> <br/>
         <Grid container spacing={2}>
@@ -53,7 +53,7 @@ function Future() {
                     <Grid item xs={8}>
                       <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"20px",md:"30px"}, fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>Financial Strength</Typography>
                       <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.2rem"}}>
-                      ECS is among the top Life Plan/CCRC providers in America when ranked by financial strength with an earned A- rating from Fitch Ratings, a global leader in credit ratings and research. We are extremely proud of this exceptionally high rating, something that fewer than 5% of senior communities in the U.S. have achieved.
+                      OH is among the top Life Plan/CCRC providers in America when ranked by financial strength with an earned A- rating from Fitch Ratings, a global leader in credit ratings and research. We are extremely proud of this exceptionally high rating, something that fewer than 5% of senior communities in the U.S. have achieved.
                      </Typography>
                     </Grid>
                     <Grid item xs={12}>
@@ -63,8 +63,8 @@ function Future() {
                     <Typography color="black" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.2rem"}}>
                     When you compare communities and their sponsoring organizations, be sure to find out if they operate on a for-profit or nonprofit basis.
                      </Typography><br/>
-                     <Link style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:400,fontSize:"1.4rem",color:"#00a2c2"}} href="/">ECS, incl. MonteCedro, Audited Financial Statements – FY 2023</Link> <br/>
-                     <Link style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:400,fontSize:"1.4rem",color:"#00a2c2"}} href="/">ECS Continuing Care Provider Report – FY 2023</Link>
+                     <Link style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:400,fontSize:"1.4rem",color:"#00a2c2"}} href="/">OH, incl. MonteCedro, Audited Financial Statements – FY 2023</Link> <br/>
+                     <Link style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:400,fontSize:"1.4rem",color:"#00a2c2"}} href="/">OH Continuing Care Provider Report – FY 2023</Link>
                      <Typography color="black" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.2rem"}}> <br/>
                      To learn more about our financial strength, or if you have any questions, please do not hesitate to call or <Link style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:400,color:"#00a2c2",fontSize:"1.2rem"}} href="/contact">Contact US</Link>
                      </Typography>

@@ -169,7 +169,7 @@ export function Newsletter() {
         <Container maxWidth="xl">
         <Grid container spacing={2} sx={{marginTop:"-100px"}}>
             <Grid item xs={12} md={6}>
-        <Typography variant='h4' sx={{fontSize:{xs:"24px",md:"36px"},lineHeight:"1.6",fontWeight:"300", fontFamily:"Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}  textAlign="left" color="#082952">Stay informed with the <br/> ECS Newsletter</Typography>
+        <Typography variant='h4' sx={{fontSize:{xs:"24px",md:"36px"},lineHeight:"1.6",fontWeight:"300", fontFamily:"Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}  textAlign="left" color="#082952">Stay informed with the <br/> OH Newsletter</Typography>
             </Grid>
             <Grid item xs={12} md={6} sx={{display:"flex", alignItems:"center",}}>
                 <Input placeholder="Enter your email address" sx={{fontSize:"1.5rem",lineHeight:"normal",height:"3rem", width:"60%", fontFamily:"Adequate,Helvetica Neue,Helvetica,Helvetica,\"sans-serif\""}} type="email" />
