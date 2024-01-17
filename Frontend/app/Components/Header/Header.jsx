@@ -26,12 +26,10 @@ const Header = ( { children,window }) => {
         <Container >
             <Hidden mdDown> 
             <div className="dataBox">
-           <ul>
-            <li style={{borderLeft:"none"}}><Link style={{margin:"0px 5px 0px 0px",padding:"0px 10px 0px 0px"}} href="/">Visit OH Home</Link></li>
-            <li><Link style={{margin:"0px 5px",padding:"0px 10px"}} href="/">COVID-19 Information</Link></li>
-            <li><Link style={{margin:"0px 5px",padding:"0px 10px"}} href="/">Careers</Link></li>
-            <li><Link style={{margin:"0px 5px",padding:"0px 10px"}} href="/">Our Blog</Link></li>
-            <li><Link style={{margin:"0px 0px 0px 5px",padding:"0px 0px 0px 10px"}} href="/">310-995-4859</Link></li>
+           <ul> 
+            <li style={{borderLeft:"none"}}><Link style={{margin:"0px 5px 0px 0px",padding:"0px 10px 0px 0px"}} href="/login">Resident Portal</Link></li>
+            <li><Link style={{margin:"0px 5px",padding:"0px 10px"}} href="/contact/careers">Careers</Link></li>
+            <li><Link style={{margin:"0px 0px 0px 5px",padding:"0px 0px 0px 10px"}} href="tel:310-995-4859">310-995-4859</Link></li>
            </ul>
             </div>
             </Hidden>
@@ -59,34 +57,29 @@ const Header = ( { children,window }) => {
               <ul>
                 <li id="about" ><Link href="/about">About us</Link>
                 <div id="dropdownAbout" className='dropdownMenu'>
-               <Link href="/about">Community</Link>
+               <Link href="/about">Oasis Gateway</Link>
                <Link href="/about/gallery">Gallery</Link>
-               <Link href="/">Blog</Link>
+               <Link target='_blank' href="https://www.facebook.com/oasismanors">Our Facebook Page</Link>
+               <Link href="/about/resources">Resources</Link>
                <Link href="/about/future">Secure your Future</Link>
-               <Link href="/login">Resident Portal</Link>
+           
                 </div>
                   </li>
-                  <li id="lifestyle" ><Link href="/amenities">Lifestyle</Link>
+                  <li id="lifestyle" ><Link href="/amenities">Amenities</Link>
                   <div id="dropdownLifeStyle" className='dropdownMenu'>
-                  <Link href="/lifestyle">Creative Living</Link>
                   <Link href="/amenities">Amenities & Activities</Link>
-                  <Link href="/lifestyle/dining">Dining</Link>
                   <Link href="/lifestyle/testimonials">Testimonials</Link>
+                  <Link href="/contact/lifeplan">Lifeplan</Link>
                 </div>
                   </li>
                   <li><Link href="/lifestyle/care">Care</Link></li>
+                  <li><Link href="/lifestyle/cuisine">Cuisine</Link></li>
+                  <li id="started"><Link href="/lifestyle">Joy in Living</Link></li>
                   <li><Link href="/lifestyle/events">Events</Link></li>
                   <li id="contact"><Link href="/contact">Contact</Link>
                   <div id="dropdownContact" className='dropdownMenu'>
-                  <Link href="/contact">Contact Us</Link>
                   <Link href="/contact/careers">Careers & Volunteers</Link>
-                </div>
-                  </li>
-                  <li id="started"><Link href="/#enquiry">Getting Started</Link>
-                  <div id="dropdownStarted" className='dropdownMenu'>
                   <Link href="/contact/starting">Where to Begin</Link>
-                  <Link href="/contact/lifeplan">Lifeplan</Link>
-                  <Link href="/contact/resources">Resources</Link>
                 </div>
                   </li>
               </ul> 

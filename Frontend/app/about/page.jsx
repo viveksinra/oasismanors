@@ -20,28 +20,85 @@ function About() {
         <Link underline="hover" color="inherit" href="/">
         Oasis
         </Link>
-        <Typography sx={{fontWeight:600,fontFamily:"acumin-pro,\"sans-serif\"",fontSize:"20px"}} color="text.primary">
+        <Typography sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontSize:"20px"}} color="text.primary">
         About
+        </Typography>
+        <Typography sx={{fontWeight:500,fontFamily:"acumin-pro,\"sans-serif\"",fontSize:"20px"}} color="text.primary">
+        Oasis Gateway
         </Typography>
         </Breadcrumbs>
         <br/>
-        <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"40px"}, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>A Community to Call Home</Typography>
+        <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"36px"}, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>Oasis Homes</Typography>
         <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.2rem"}}>
-        As the only Life Plan community in the Sylmar, The Oasis Homes provides an active campus-like experience with a true neighborhood feel. Here, residents enjoy all the comforts of home, along with the security and confidence of having a broad spectrum of care and services available should the need arise. Exceptional Sylmar senior living has never looked so good.
+        Oasis Homes is a chain of boutique assisted living facilities that bridge the gap between:
         </Typography>
+        <ul style={{listStyle:"none",marginLeft:"30px"}}>
+          <li className="ChoiceList"> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:100,fontSize:"1.2rem"}}>Small facilities that offer personalized attention with a limited range of services and</Typography></li>
+          <li className="ChoiceList"> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.2rem"}}>The impersonal feel of large institutional facilities with a full range of services.</Typography></li>
+        </ul>
+        <br/>
+        <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"36px"}, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>A Full Service Personalized Care Facility</Typography>
+        <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.2rem"}}>
+        Oasis Gateway, set in central San Fernando Valley, is our first offering of this new type of living
+        facility: the full services typically found in impersonal large care facilities combined with the
+        personal touch of an intimate setting. An integral part of life at Oasis Gateway is the <strong>Joy of
+        Living</strong>,  bringing you a personalized lifestyle in tune with your needs and abilities.
+        </Typography>
+        
         <br/> <br/>
        <Grid container spacing={2}>
         <Grid item xs={12} md={6} sx={{display:"flex", flexDirection:"column",justifyContent:"center"}}>
-        <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"36px"}, fontFamily: 'AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\"'}}>Resort-style living</Typography>
-         <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100, fontSize:"1.2rem"}}>The Oasis Homes is a nonprofit Life Plan community created specifically for active seniors aged 62+. Our resort-style experience and distinctive approach to lifelong learning reflects our commitment to enriching pursuits, and keeps you connected to your friends, family, and neighbors. Our vibrant community has multiple dining venues, panoramic views, sparkling heated pool, beauty salon and barbershop, fitness center, art studio, and so much more.</Typography>
+        <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"36px"}, fontFamily: 'Adequate,Helvetica Neue,Helvetica,\"sans-serif\"'}}>A Full Range of Services</Typography>
+         <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100, fontSize:"1.2rem"}}>Oasis Gateway provides a full range of amenities and services:</Typography>
+         <br/>
+        <Typography color="#082952" sx={{margin:"10px 0px", fontFamily:"AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\"",fontSize:"2rem"}}>- Your Safety</Typography>
+          <ul style={{listStyleType: "circle",marginLeft:"30px"}}>
+          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Cushioned Outdoor Floors - that help absorb pratfalls</Typography></li>
+          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>24-hour security for building and grounds</Typography></li>
+          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Full backup generator for 24x7 uptime of your equipment.</Typography></li>
+          </ul>
+          <br/>
+        <Typography color="#082952" sx={{margin:"10px 0px", fontFamily:"AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\"",fontSize:"2rem"}}>- Your Home</Typography>
+          <ul style={{listStyleType: "circle",marginLeft:"30px"}}>
+          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Choice of Private Bedrooms and Bathrooms</Typography></li>
+          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Garden Courtyard for the joy of nature</Typography></li>
+          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Indoor/outdoor maintenance and management.</Typography></li>
+          </ul>
+          <br/>
+        <Typography color="#082952" sx={{margin:"10px 0px", fontFamily:"AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\"",fontSize:"2rem"}}>- Your Joy</Typography>
+          <ul style={{listStyleType: "circle",marginLeft:"30px"}}>
+          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Heated Pool, sparkling spa and steam sauna</Typography></li>
+          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Putting Green</Typography></li>
+          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Courtyard Game Room.</Typography></li>
+          </ul>
+          <br/>
+        <Typography color="#082952" sx={{margin:"10px 0px", fontFamily:"AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\"",fontSize:"2rem"}}>- Your Lifestyle Choices</Typography>
+          <ul style={{listStyleType: "circle",marginLeft:"30px"}}>
+          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Bring your friendly pet – we love them!</Typography></li>
+          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Access personalized services like online classes and libraries.</Typography></li>
+          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Access personalized Salon and Fitness Services.</Typography></li>
+          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Personalized Meals from our in-house kitchen.</Typography></li>
+          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>All meals are freshly prepared every day.</Typography></li>
+          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Personalized web portal for you and your loved ones to interact.</Typography></li>
+          </ul>
+          <br/>
+        <Typography color="#082952" sx={{margin:"10px 0px", fontFamily:"AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\"",fontSize:"2rem"}}>- Your Concierge Services</Typography>
+          <ul style={{listStyleType: "circle",marginLeft:"30px"}}>
+          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Weekly housekeeping and laundry services.</Typography></li>
+          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Scheduled transportation to your choice destinations.</Typography></li>
+          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Community-wide WiFi.</Typography></li>
+          </ul>
         </Grid>
         <Grid item xs={12} md={6} className="center" sx={{flexDirection:"column"}}>
         <Typography color="#00a2c2" sx={{paddingBottom:"2rem",fontFamily:"Adequate,Helvetica Neue,Helvetica,\"sans-serif\"",fontSize:"2rem"}}>“This is the place for me!”</Typography>
         <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontSize:"1.5rem"}}>~ Kathleen D, Oasis Homes resident</Typography>
           </Grid>
         <Grid item xs={12} md={9}>
-        <Typography color="#082952" sx={{paddingBottom:"2rem",marginTop:"60px", fontFamily:"AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\"",fontSize:"2rem"}}>Craft the life you want</Typography>
-        <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:100, fontSize:"1.2rem"}}>An integral part of life at The Oasis Homes is something we call <Link style={{fontWeight:600,color:"#00a2c2",textDecoration:"underline",overflowWrap:"break-word"}} href="/">Creative Living</Link> , an innovative approach to active lifestyle. It drives the culture of our community, providing daily opportunities for quality, purpose, and sense of fulfillment through meaningful engagement, activities, and continuous learning opportunities.</Typography>
+        <Typography color="#082952" sx={{paddingBottom:"2rem",marginTop:"60px", fontFamily:"Adequate,Helvetica Neue,Helvetica,\"sans-serif\"",fontSize:"2rem"}}>An Intimate Community</Typography>
+        <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:100, fontSize:"1.2rem"}}>Our team members work with you to develop your personalized Joy of Living care plan: leveraging
+        our services to enable your personal comfort from walks in the morning to a glass of wine at night,
+        while working with you to address your support needs from medication management to dressing
+        and grooming. Quite simply, we care, and it shows in our community.</Typography>
         </Grid>
         <Grid item xs={12} md={3}/>
        </Grid>
@@ -54,14 +111,11 @@ function About() {
           <img src="https://res.cloudinary.com/oasismanors/image/upload/v1704448863/1.1_CAN_photo-533x355_pm26fh.avif" alt="Oasis-Aunty" style={{borderRadius:"20px",width:"500px"}}/>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Typography gutterBottom sx={{fontFamily: 'AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\"',color:"#082952",fontSize:{xs:"20px",md:"30px"}}}>Choice, freedom, and flexibility</Typography>
-          <Typography color="#333" sx={{fontSize:"1.2rem",fontFamily: "acumin-pro, \"sans-serif\""}}>The Oasis Manors difference can be seen in so many ways.</Typography><br/>
+          <Typography gutterBottom sx={{fontFamily: 'AdequateLight,Helvetica Neue, Helvetica,\"sans-serif\"',color:"#082952",fontSize:{xs:"20px",md:"30px"}}}>Respect, Care and Joy</Typography>
+          <Typography color="#333" sx={{fontSize:"1.2rem",fontFamily: "acumin-pro, \"sans-serif\""}}>Respect: we respect your wishes in crafting your living plan here. From engaging activities to learning opportunities, we support your active lifestyle.</Typography>
           <ul style={{ listStyle:"none",marginLeft:"10px"}}>
-            <li className="ChoiceList"><Typography variant="subtitle1">Our beautiful, spacious homes and Floor Plans</Typography></li>
-            <li className="ChoiceList"><Typography variant="subtitle1">A continuum of care with <Link href="/">Choice Custom Care</Link> </Typography></li>
-            <li className="ChoiceList"><Typography variant="subtitle1">An array of services and <Link href="/amenities">Amenities</Link></Typography></li>
-            <li className="ChoiceList"><Typography variant="subtitle1">An unmatched lifestyle with <Link href="/">Creative Living</Link></Typography></li>
-            <li className="ChoiceList"><Typography variant="subtitle1">A commitment to our Nonprofit Promise</Typography></li>
+            <li className="ChoiceList"><Typography variant="subtitle1">Care: We provide the care that you need: from assistance with daily chores to medications and physical activities.</Typography></li>
+            <li className="ChoiceList"><Typography variant="subtitle1">Joy: We seek to bring joy into your life in ways small and large: from a simple culinary delight to engaging with family and friends.</Typography></li>
           </ul>
         </Grid>
         <Grid item xs={12}><Divider sx={{marginTop:"30px"}}/></Grid>
@@ -70,8 +124,9 @@ function About() {
         <Grid container>
           <Grid item xs={12} md={9}>
           <br/>
-          <Typography gutterBottom sx={{fontFamily: 'AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\"',color:"#082952",fontSize:{xs:"20px",md:"30px"}}}>You have questions, we have answers.</Typography>
-          <Typography gutterBottom sx={{fontFamily: "acumin-pro, \"sans-serif\"",color:"#333",fontWeight:"100", fontSize:{xs:"20px",md:"20px"}}}>Everyone has different needs. To learn more about The Oasis Homes senior living in Sylmar, how it may be right for you or a loved one, or to arrange for a visit, please do not hesitate to <Link style={{color:"#00a2c2",fontWeight:500}} href="/contact">Contact Us.</Link></Typography>
+          <Typography gutterBottom sx={{fontFamily: 'AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\"',color:"#082952",fontSize:{xs:"20px",md:"30px"}}}>Come learn more about us.</Typography>
+          <Typography gutterBottom sx={{fontFamily: "acumin-pro, \"sans-serif\"",color:"#333",fontWeight:"100", fontSize:{xs:"20px",md:"20px"}}}>Everyone has different needs. To learn more about The Oasis Gateway in central Sylmar, how it
+            may be right for you or a loved one, or to arrange for a visit, please do not hesitate to <Link style={{color:"#00a2c2",fontWeight:500}} href="/contact">Contact Us.</Link></Typography>
           </Grid>
           <Grid item xs={12} md={3}></Grid>
         </Grid>

@@ -89,7 +89,7 @@ export const NewFooter = () => {
             </Grid>
             <Grid item xs={12} sx={{display:"flex"}}>
             <FaAccessibleIcon style={{fontSize:"25px"}} /> <FaHospitalAlt style={{fontSize:"25px",marginLeft:"20px"}} /> <span style={{flexGrow:1}}/> 
-            <Link href="/"><FaXTwitter style={{fontSize:"25px"}}/></Link>   <Link href="/"><FaFacebook style={{fontSize:"25px",marginLeft:"20px"}}/></Link>
+            <Link target='_blank' href="https://twitter.com/oasismanors"><FaXTwitter style={{fontSize:"25px"}}/></Link>   <Link target='_blank' href="https://www.facebook.com/oasismanors"><FaFacebook style={{fontSize:"25px",marginLeft:"20px"}}/></Link>
             </Grid>
             <Grid item xs={12}>
               <Grid container>

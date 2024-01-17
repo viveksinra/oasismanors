@@ -30,18 +30,7 @@ function Events() {
         </Typography>
         </Breadcrumbs>
         <br/>
-        <Grid container spacing={2}>
-            <Grid item xs={12} md={9}>
-            <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"46px"},lineHeight:"60px", marginTop:"30px", fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>You are Invited</Typography>
-            <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:400,fontSize:"1.3rem",lineHeight:"1.8rem"}}>
-            OH continuing care retirement communities hold regular virtual and in-person events. If you would like to get to know us better, please join us for one of these informative get-togethers. We would love to meet you and answer any questions you or your family may have.
-            </Typography> <br/> 
-          
-            </Grid>
-            <Grid item xs={12} md={3}/>
-        </Grid>
         </Container>
-      
         <div style={{backgroundColor:"#082952",padding:"10px 0px 20px",zIndex:1,transition:"padding 0.5s"}}>
         <Container>
             <Tabs value={tabValue}  onChange={(e,v)=>setTabValue(v)} aria-label="basic tabs example">

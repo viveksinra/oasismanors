@@ -163,10 +163,3 @@
 #contact:hover #dropdownContact {
     display: block;
 }
-#dropdownStarted{
-    display: none;
-}
-
-#started:hover #dropdownStarted {
-    display: block;
-}

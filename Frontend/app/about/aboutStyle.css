@@ -38,6 +38,7 @@
 .ChoiceList a:hover{
   color: #082952;
 }
+
 /* Mobile */
  @media only screen and (max-width: 580px) {
     #heroAbout {
