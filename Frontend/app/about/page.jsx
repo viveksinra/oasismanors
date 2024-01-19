@@ -39,7 +39,7 @@ function About() {
         <br/>
         <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"36px"}, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>
         <Link  href="/about/respiteCare">
-        Oasis Homes Respite Care
+        Respite Care Service
               </Link>
          </Typography>
         <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.2rem"}}>
