@@ -18,7 +18,7 @@ const Footer = () => {
             <Image priority width={160} height={60} src="https://res.cloudinary.com/oasismanors/image/upload/v1685029880/Logo_hmwkcj.svg" alt="Oasis Manor"/>
         </Link><br/><br/>
         <Typography color="black" variant="subtitle1">Embrace a life of tranquility, luxury, and well-being at our premier senior living community, where independence thrives and care is paramount. </Typography>
-        <br/><Typography variant="body2" color="secondary">Oasis Manors - The Home of Happiness</Typography>
+        <br/><Typography variant="body2" color="secondary">Oasis Homes - The Home of Happiness</Typography>
             </Grid>
             <Grid item xs={12} md={3}>
             <Typography variant="h5" color="primary" style={{fontFamily: 'Courgette'}}>Our Amenities :-</Typography>
@@ -51,9 +51,12 @@ export const NewFooter = () => {
         <Container maxWidth="xl">
           <Grid container spacing={2}>
             <Grid item xs={12} md={4}>
-            <Link href="/">
-                <img src="https://res.cloudinary.com/oasismanors/image/upload/v1685029880/Logo_hmwkcj.svg" style={{height:"101px"}} alt="Oasis Manor" />
+              <div style={{background:"#fff",maxWidth:"fit-content",borderRadius:"20px"}}>
+              <Link href="/">
+                <img src="https://res.cloudinary.com/qualifier/image/upload/v1705684670/OasisLogo_kngpov.svg" style={{height:"101px"}} alt="Oasis Manor" />
               </Link>
+              </div>
+         
               <Typography sx={{fontSize:"20px",lineHeight:"30px",fontWeight:200,marginTop:"20px", marginBottom:"28px",fontFamily:"Acumin-Pro,Helvetica Neue,Helvetica,\"sans-serif\""}}>As the only Life Plan community in the Sylmar, The Oasis Homes provides an active campus-like experience with a true neighborhood feel.</Typography>
               <Link href="/contact"> <button id="footerBtn">Schedule a Visit</button></Link>  
             </Grid>
@@ -61,10 +64,10 @@ export const NewFooter = () => {
             <Grid item xs={12} md={2}>
               <Link href="/" className="footerTitle">Communities</Link>
               <ul>
-                <li><Link href="/">MonteCedro</Link></li>
-                <li><Link href="/">The Covington</Link></li>
-                <li><Link href="/">The Oasis Homes</Link></li>
-                <li><Link href="/">Twelve Oaks</Link></li>
+                <li><Link href="/">A Siwa Oasis</Link></li>
+                <li><Link href="/">A Mara Oasis</Link></li>
+                <li><Link href="/">A Timia Oasis</Link></li>
+                <li><Link href="/">An Ubari Oasis</Link></li>
               </ul>
             </Grid>
             <Grid item xs={12} md={2}>
@@ -84,7 +87,7 @@ export const NewFooter = () => {
               </ul>
             </Grid>
             <Grid item xs={12} sx={{marginTop:"90px"}}>
-              <Typography color="#8bcbd2" sx={{fontSize:{xs:"14px",md:"20px"},marginBottom:"20px", lineHeight:"1.2", fontWeight:300, fontFamily: "Adequate,Helvetica,\"sans-serif\""}}>The Oasis Homes is an OH Senior Living Community. </Typography>
+              <Typography color="#8bcbd2" sx={{fontSize:{xs:"14px",md:"20px"},marginBottom:"20px", lineHeight:"1.2", fontWeight:300, fontFamily: "Adequate,Helvetica,\"sans-serif\""}}>The Oasis Homes is a RCFE Senior Living Community. </Typography>
               <Divider sx={{background:"#8bcbd2",height:"1px"}}/>
             </Grid>
             <Grid item xs={12} sx={{display:"flex"}}>

@@ -66,7 +66,7 @@ function Careers() {
                 <img style={{maxWidth:"100%"}} src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/12/MonteCedro-3-533x355.jpg" alt="Oasis" />
             </Grid>
             <Grid item xs={12} md={8}>
-        <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"30px"},marginTop:"50px", fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>Oasis Manors</Typography>
+        <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"30px"},marginTop:"50px", fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>Oasis Homes</Typography>
         <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.3rem",lineHeight:"2.4rem"}}>
         15116 Roxford St, Sylmar, CA 91342
             </Typography><br/>

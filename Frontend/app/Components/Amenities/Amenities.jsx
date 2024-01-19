@@ -79,7 +79,7 @@ function Amenities() {
             <center>  <Divider light variant="inset" style={{maxWidth:500}}/></center>  
             <br /> <br />  
             <Typography variant="subtitle1" style={{color:"#000"}} >
-            Oasis Manors provides you the best connectivity and notification facility so that you or your allowed family members can keep track of all the daily activities. Like at what time did you take what medicine, meal or any such activities? You can also keep track of your regular health check-up, reports, next doctor's appointment, all kind of medical diagnostic and much more just by login into the Oasis Manors online web portal.
+            Oasis Homes provides you the best connectivity and notification facility so that you or your allowed family members can keep track of all the daily activities. Like at what time did you take what medicine, meal or any such activities? You can also keep track of your regular health check-up, reports, next doctor's appointment, all kind of medical diagnostic and much more just by login into the Oasis Homes online web portal.
             </Typography>
             </Grid>
         </Grid>
@@ -133,7 +133,7 @@ export function OurCommunity() {
                 </video>
                 <Typography variant="h6" sx={{fontFamily:"Adequate,Helvetica,\"sans-serif\"",fontSize:"22px"}} color="#082952">How we Live</Typography>
                 <Typography variant="subtitle1" sx={{fontSize:"20px",fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,}} color="#082952">A lifestyle as rich and vibrant as you are.</Typography>
-                <br/>   <Link href="/" className="btnLink">Watch Our Video  ➡ </Link>
+                <br/>   <Link href="/lifestyle/testimonials" className="btnLink">Testimonials ➡ </Link>
                 <br/>  <br/>  <br/>
             </div>
         </Grid>

@@ -21,9 +21,9 @@ const Header = ( { children,window }) => {
   return (
     <Box sx={{ display:'flex', backgroundColor:"#fff"}}>
        <CssBaseline />
-       <AppBar component="nav" elevation={0} sx={{backgroundColor:"#fff"}}>
+       <AppBar component="nav" elevation={0} sx={{backgroundColor:"#fff",maxHeight:"118px"}}>
         <Toolbar disableGutters>
-        <Container >
+        <Container>
             <Hidden mdDown> 
             <div className="dataBox">
            <ul> 
@@ -44,13 +44,13 @@ const Header = ( { children,window }) => {
         </Toolbar>
         <Toolbar disableGutters>
         <div id={trigger ? "headerCompress" : "topHeader"}>
-            <Container id="navContainer">
+            <Container id="navContainer" >
               <Hidden mdUp> 
               <FcMenu style={{fontSize:25}} onClick={handleDrawer}/>
               <div style={{flexGrow:1}}/>
               </Hidden>
               <Link href="/">
-                <img src="https://res.cloudinary.com/oasismanors/image/upload/v1685029880/Logo_hmwkcj.svg" alt="Oasis Manor" id={trigger ? "OasisLogoComp" : "OasisLogo"} />
+                <img src="https://res.cloudinary.com/qualifier/image/upload/v1705684670/OasisLogo_kngpov.svg" alt="Oasis Manor" id={trigger ? "OasisLogoComp" : "OasisLogo"} />
               </Link>
               <div style={{flexGrow:1}}/>
               <Hidden mdDown>
@@ -61,27 +61,15 @@ const Header = ( { children,window }) => {
                <Link href="/about/gallery">Gallery</Link>
                <Link target='_blank' href="https://www.facebook.com/oasismanors">Our Facebook Page</Link>
                <Link href="/about/resources">Resources</Link>
-               <Link href="/about/future">Secure your Future</Link>
-           
+               <Link href="/lifestyle/testimonials">Testimonials</Link>
                 </div>
                   </li>
-                  <li id="lifestyle" ><Link href="/amenities">Amenities</Link>
-                  <div id="dropdownLifeStyle" className='dropdownMenu'>
-                  <Link href="/amenities">Amenities & Activities</Link>
-                  <Link href="/lifestyle/testimonials">Testimonials</Link>
-                  <Link href="/contact/lifeplan">Lifeplan</Link>
-                </div>
-                  </li>
+                  <li ><Link href="/amenities">Amenities</Link></li>
                   <li><Link href="/lifestyle/care">Care</Link></li>
                   <li><Link href="/lifestyle/cuisine">Cuisine</Link></li>
                   <li id="started"><Link href="/lifestyle">Joy in Living</Link></li>
                   <li><Link href="/lifestyle/events">Events</Link></li>
-                  <li id="contact"><Link href="/contact">Contact</Link>
-                  <div id="dropdownContact" className='dropdownMenu'>
-                  <Link href="/contact/careers">Careers & Volunteers</Link>
-                  <Link href="/contact/starting">Where to Begin</Link>
-                </div>
-                  </li>
+                  <li><Link href="/contact">Contact</Link> </li>
               </ul> 
               </Hidden>
               {/* {state?.isAuthenticated ?  <Link href="/dashboard"><Button color="secondary" startIcon={<Avatar alt={state.name}  src={authService.getLoggedInUser()?.userImage ?? "https://res.cloudinary.com/oasismanors/image/upload/v1687519053/user_myqgmv.png"}/>}>Dashboard</Button> </Link> :  <Link href="/login"> <Button startIcon={<FaUserCircle />}>Login</Button></Link>  } */}

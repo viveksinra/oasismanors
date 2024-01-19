@@ -27,7 +27,7 @@ function About() {
         Oasis Gateway
         </Typography>
         </Breadcrumbs>
-        <br/>
+        <br/>      
         <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"36px"}, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>Oasis Homes</Typography>
         <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.2rem"}}>
         Oasis Homes is a chain of boutique assisted living facilities that bridge the gap between:
@@ -36,6 +36,15 @@ function About() {
           <li className="ChoiceList"> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:100,fontSize:"1.2rem"}}>Small facilities that offer personalized attention with a limited range of services and</Typography></li>
           <li className="ChoiceList"> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.2rem"}}>The impersonal feel of large institutional facilities with a full range of services.</Typography></li>
         </ul>
+        <br/>
+        <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"36px"}, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>
+        <Link  href="/about/respiteCare">
+        Oasis Homes Respite Care
+              </Link>
+         </Typography>
+        <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.2rem"}}>
+        Caring for a loved one can be a rewarding experience, but it can also be challenging. Taking time for yourself is essential, but it can be difficult to find reliable care while you're away.
+        </Typography>
         <br/>
         <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"36px"}, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>A Full Service Personalized Care Facility</Typography>
         <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.2rem"}}>

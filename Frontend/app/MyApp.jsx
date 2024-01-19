@@ -26,7 +26,7 @@ function MyApp() {
   // const {state, dispatch} = useContext(MainContext)
   const [value, setValue] = React.useState(0);
   const [hero,setHero] = useState({btn:"Creative Living",link:"",text:"Bring out the best in you.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1704819303/hero_creativity-3-1440x630_f0gobc.avif"})
-  const [allItems] = useState([{btn:"Floor Plans",link:"",text:"Live life on your terms.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1704819321/hero_choice-3-1440x630_po0gdo.avif"},{btn:"Creative Living",link:"",text:"Bring out the best in you.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1704819303/hero_creativity-3-1440x630_f0gobc.avif"},{btn:"Our Community",link:"",text:"Feel right at home.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1704819223/hero_connection-3-1440x630_xnhwlx.avif"},{btn:"Supportive Services",link:"",text:"Support you can count on.",bgImg:"https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/hero_confidence-3-1536x672.jpg"}])
+  const [allItems] = useState([{btn:"Amenities",link:"/amenities",text:"Live life on your terms.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1704819321/hero_choice-3-1440x630_po0gdo.avif"},{btn:"Show Gallery",link:"/about/gallery",text:"Bring out the best in you.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1704819303/hero_creativity-3-1440x630_f0gobc.avif"},{btn:"Our Meal",link:"/amenities/menu",text:"Feel right at home.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1704819223/hero_connection-3-1440x630_xnhwlx.avif"},{btn:"Supportive Services",link:"/lifestyle",text:"Support you can count on.",bgImg:"https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/hero_confidence-3-1536x672.jpg"}])
 
   useEffect(() => {
     const interval = setInterval(() => {  //assign interval to a variable to clear it.
@@ -65,7 +65,7 @@ function MyApp() {
             <Tab sx={tabsStyle} label="Confidence."/>
           </Tabs>
           <h4 id="heroText">{hero.text}</h4>
-          <button id="heroBtn">{hero.btn}</button>
+        <Link href={hero.link}> <button id="heroBtn">{hero.btn}</button></Link> 
             </Grid>
           </Container>
         </Grid>

@@ -1,10 +1,7 @@
 .dataBox{
     display: flex;
     justify-content: flex-end;
-    align-items:center;
-    height: 50px;
     width: 100%;
-    z-index:9;
 }
 .dataBox ul{
     list-style: none;
@@ -30,30 +27,25 @@
     color: #2988c9;
 }
 #OasisLogo{
-    width: 200px;
+    width: 300px;
     transition: all 1s ease-out;
-    margin-top: -40px;
-    margin-left: 40px;
 }
 #OasisLogoComp{
-    width: 160px;
+    width: 200px;
     transition: all 1s ease-out;
-    margin-top: -40px;
-    margin-left: 40px;
 }
 #topHeader{
+    margin-top: -20px;
     height:fit-content;
     width: 100%;
     position: fixed;
     z-index:9;
     background-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 #navContainer{
     display: flex;
     align-items: center;
+    padding: 0px;
 }
 #topHeader ul{
     list-style: none;
@@ -67,8 +59,8 @@
     margin: 0px;
 }
 #topHeader ul li a{
-    margin:0px 5px;
-    padding: 15px 20px 0px;
+    margin:0px;
+    padding-left: 40px;
     font-size:18px;
     font-family:Acumin-Pro,Helvetica Neue,Helvetica,"sans-serif";
     font-weight:700;
@@ -86,12 +78,12 @@
 #headerCompress{
     width: 100%;
     position: fixed;
+    margin-top: -20px;
     z-index:9;
     background-color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
-    
 }
 #headerCompress ul{
     list-style: none;
@@ -105,8 +97,8 @@
     margin: 0px;
 }
 #headerCompress ul li a{
-    margin:0px 10px;
-    padding: 10px 0px 0px 10px;
+    margin:0px;
+    padding-left: 30px;
     font-size:18px;
     font-family:Acumin-Pro,Helvetica Neue,Helvetica,"sans-serif";
     font-weight:700;
@@ -148,18 +140,3 @@
     display: block;
 }
 
-#dropdownLifeStyle{
-    display: none;
-}
-
-#lifestyle:hover #dropdownLifeStyle {
-    display: block;
-}
-
-#dropdownContact{
-    display: none;
-}
-
-#contact:hover #dropdownContact {
-    display: block;
-}

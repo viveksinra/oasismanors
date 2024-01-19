@@ -486,9 +486,9 @@ function DashboardLayout({ children }) {
           </IconButton>
           <Image
             priority
-            width={140}
+            width={160}
             height={60}
-            src="https://res.cloudinary.com/oasismanors/image/upload/v1685029880/Logo_hmwkcj.svg"
+            src="https://res.cloudinary.com/qualifier/image/upload/v1705684670/OasisLogo_kngpov.svg"
             alt="Oasis Manor"
           />
           <span style={{ flexGrow: 1 }} />

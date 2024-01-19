@@ -64,7 +64,7 @@ function PaymentInvoice({params}) {
         </Grid>
         <Grid item xs={4} style={{paddingTop:"20px"}}>
         <Typography variant="body2" color="grey" style={{fontFamily: 'Courgette'}} >Billed By :-</Typography>
-        <Typography variant="h6" color="primary" style={{fontFamily: 'Courgette'}} >Oasis Manors</Typography>
+        <Typography variant="h6" color="primary" style={{fontFamily: 'Courgette'}} >Oasis Homes</Typography>
         <Typography variant="caption">15116, Roxford St, Sylmar, CA - 91342</Typography><br/>
         <Typography variant="caption">✆ 310-995-4859</Typography><br/>
         <Typography variant="caption">📧 contact@oasismanors.com</Typography><br/>
