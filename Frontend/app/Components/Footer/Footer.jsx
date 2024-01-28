@@ -57,7 +57,7 @@ export const NewFooter = () => {
               </Link>
               </div>
          
-              <Typography sx={{fontSize:"20px",lineHeight:"30px",fontWeight:200,marginTop:"20px", marginBottom:"28px",fontFamily:"Acumin-Pro,Helvetica Neue,Helvetica,\"sans-serif\""}}>As the only Life Plan community in the Sylmar, The Oasis Homes provides an active campus-like experience with a true neighborhood feel.</Typography>
+              <Typography sx={{fontSize:"20px",lineHeight:"30px",fontWeight:200,marginTop:"20px", marginBottom:"28px",fontFamily:"Acumin-Pro,Helvetica Neue,Helvetica,\"sans-serif\""}}>As the only Life Plan community in the Sylmar, Oasis Homes provides an active campus-like experience with a true neighborhood feel.</Typography>
               <Link href="/contact"> <button id="footerBtn">Schedule a Visit</button></Link>  
             </Grid>
             <Grid item xs={12} md={1}/>
@@ -87,7 +87,7 @@ export const NewFooter = () => {
               </ul>
             </Grid>
             <Grid item xs={12} sx={{marginTop:"90px"}}>
-              <Typography color="#8bcbd2" sx={{fontSize:{xs:"14px",md:"20px"},marginBottom:"20px", lineHeight:"1.2", fontWeight:300, fontFamily: "Adequate,Helvetica,\"sans-serif\""}}>The Oasis Homes is a RCFE Senior Living Community. </Typography>
+              <Typography color="#8bcbd2" sx={{fontSize:{xs:"14px",md:"20px"},marginBottom:"20px", lineHeight:"1.2", fontWeight:300, fontFamily: "Adequate,Helvetica,\"sans-serif\""}}>Oasis Homes is a RCFE Senior Living Community. </Typography>
               <Divider sx={{background:"#8bcbd2",height:"1px"}}/>
             </Grid>
             <Grid item xs={12} sx={{display:"flex"}}>
@@ -97,7 +97,7 @@ export const NewFooter = () => {
             <Grid item xs={12}>
               <Grid container>
                 <Grid item xs={12} md={6}>
-                  <Typography variant="caption" sx={{fontFamily:"Acumin-Pro,Helvetica Neue,Helvetica,\"sans-serif\"",lineHeight:1.4}} >The Oasis Homes, Sylmar RCFE 191-603774, COA 257
+                  <Typography variant="caption" sx={{fontFamily:"Acumin-Pro,Helvetica Neue,Helvetica,\"sans-serif\"",lineHeight:1.4}} >Oasis Homes, Sylmar RCFE 191-603774, COA 257
                     ©2024 <br/> Episcopal Communities & Services. All Rights Reserved. A website by Softechinfra.</Typography>
                 </Grid>
                 <Grid item xs={12} md={6}>

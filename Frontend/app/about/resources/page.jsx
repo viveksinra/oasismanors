@@ -4,7 +4,6 @@ import Header from "../../Components/Header/Header";
 import "../../contact/contactStyle.css";
 import { TopAbstract } from "../../MyApp";
 import { Container, Typography,Grid,  Breadcrumbs, Divider } from "@mui/material";
-import {Newsletter} from "../../Components/Amenities/Amenities";
 import {NewFooter} from "../../Components/Footer/Footer";
 import Enquiry from "../../Components/Enquiry/Enquiry";
 
@@ -25,7 +24,7 @@ function Resources() {
         Oasis
         </Link>
         <Typography sx={{fontWeight:600,fontFamily:"acumin-pro,\"sans-serif\"",fontSize:"20px"}} color="text.primary">
-        Helpful Resources
+        Resources for You
         </Typography>
         </Breadcrumbs>
         <br/>
@@ -35,7 +34,7 @@ function Resources() {
             </Grid>
             <Grid item xs={12} md={6} sx={{display:"flex",alignItems:"center"}}>
                 <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:300,fontSize:"1.3rem",lineHeight:"1.8rem"}}>
-                OH has been providing exceptional nonprofit, active senior living communities and services in Southern California since 1923. Our experience confirms that choosing a Life Plan community as your next home is really about securing your future. <br/>
+               Oasis Homes has been providing exceptional nonprofit, active senior living communities and services in Southern California since 1923. Our experience confirms that choosing a Life Plan community as your next home is really about securing your future. <br/>
                 To support your decision making, below are curated links to informative articles, reports, and commentary by leading publications and financial and health experts.
                 <br/>
                 As you plan your next step, please take the time you need to do your due diligence.
@@ -97,7 +96,6 @@ function Resources() {
         </Grid>
        </Container>
       <Enquiry/>
-      <Newsletter/>
       <NewFooter/>
     </main>
   )

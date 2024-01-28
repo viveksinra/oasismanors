@@ -3,7 +3,6 @@ import Header from "../../Components/Header/Header";
 import "./respiteStyle.css";
 import { TopAbstract } from "../../MyApp";
 import { Container, Typography, Grid, Breadcrumbs } from "@mui/material";
-import { Newsletter } from "../../Components/Amenities/Amenities";
 import { NewFooter } from "../../Components/Footer/Footer";
 import Link from "next/link";
 
@@ -163,7 +162,6 @@ function About() {
           <Grid item xs={12} md={3}></Grid>
         </Grid>
       </Container>
-      <Newsletter />
 
       <NewFooter />
     </main>

@@ -61,7 +61,6 @@ const Header = ( { children,window }) => {
                <Link href="/about/gallery">Gallery</Link>
                <Link target='_blank' href="https://www.facebook.com/oasismanors">Our Facebook Page</Link>
                <Link href="/about/resources">Resources</Link>
-               <Link href="/lifestyle/testimonials">Testimonials</Link>
                 </div>
                   </li>
                   <li ><Link href="/amenities">Amenities</Link></li>

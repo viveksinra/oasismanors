@@ -79,7 +79,7 @@ function Amenities() {
             <center>  <Divider light variant="inset" style={{maxWidth:500}}/></center>  
             <br /> <br />  
             <Typography variant="subtitle1" style={{color:"#000"}} >
-            Oasis Homes provides you the best connectivity and notification facility so that you or your allowed family members can keep track of all the daily activities. Like at what time did you take what medicine, meal or any such activities? You can also keep track of your regular health check-up, reports, next doctor's appointment, all kind of medical diagnostic and much more just by login into the Oasis Homes online web portal.
+            Oasis Homes provides you the best connectivity and notification facility so that you or your allowed family members can keep track of all the daily activities. Like at what time did you take what medicine, meal or any such activities? You can also keep track of your regular health check-up, reports, next doctor's appointment, all kind of medical diagnostic and much more just by login into Oasis Homes online web portal.
             </Typography>
             </Grid>
         </Grid>
@@ -133,14 +133,14 @@ export function OurCommunity() {
                 </video>
                 <Typography variant="h6" sx={{fontFamily:"Adequate,Helvetica,\"sans-serif\"",fontSize:"22px"}} color="#082952">How we Live</Typography>
                 <Typography variant="subtitle1" sx={{fontSize:"20px",fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,}} color="#082952">A lifestyle as rich and vibrant as you are.</Typography>
-                <br/>   <Link href="/lifestyle/testimonials" className="btnLink">Testimonials ➡ </Link>
+                <br/>   <Link href="/about" className="btnLink">Oasis Gateway ➡ </Link>
                 <br/>  <br/>  <br/>
             </div>
         </Grid>
         <Grid item xs={12} md={4}>
             <div className="communityCard">
                 <img className="abstractImg" src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/11/abstract_2.jpg" alt="abstract_1" />
-            <img className="communityImg" src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/Services-Amenties-640x427.jpg" alt="abstract_2" />
+            <img className="communityImg" style={{maxHeight:"310px",minWidth:"470px"}} src="https://res.cloudinary.com/oasismanors/image/upload/v1706129397/service_wruuiz.webp" alt="abstract_2" />
             <Typography variant="h6" sx={{fontFamily:"Adequate,Helvetica,\"sans-serif\"",fontSize:"22px"}} color="#082952">Services & Amenities</Typography>
             <Typography variant="subtitle1" sx={{fontSize:"20px",fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,}} color="#082952">All the comforts of home and so much more!</Typography>
             <br/>  <Link href="/amenities" className="btnLink">Learn More  ➡ </Link>  
@@ -161,27 +161,6 @@ export function OurCommunity() {
     </Container>
   )
 }
-
-
-export function Newsletter() {
-    return (
-        <section id="newsletter">
-        <Container maxWidth="xl">
-        <Grid container spacing={2} sx={{marginTop:"-100px"}}>
-            <Grid item xs={12} md={6}>
-        <Typography variant='h4' sx={{fontSize:{xs:"24px",md:"36px"},lineHeight:"1.6",fontWeight:"300", fontFamily:"Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}  textAlign="left" color="#082952">Stay informed with the <br/> OH Newsletter</Typography>
-            </Grid>
-            <Grid item xs={12} md={6} sx={{display:"flex", alignItems:"center",}}>
-                <Input placeholder="Enter your email address" sx={{fontSize:"1.5rem",lineHeight:"normal",height:"3rem", width:"60%", fontFamily:"Adequate,Helvetica Neue,Helvetica,Helvetica,\"sans-serif\""}} type="email" />
-                <button id="newsletterBtn">Sign Up</button>
-            </Grid>
-        </Grid>
-        <br/>
-        </Container>
-        </section>
-    
-    )
-  }
 
   
 export default Amenities

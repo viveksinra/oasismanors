@@ -4,14 +4,14 @@ import Header from "../../Components/Header/Header";
 import "../lifestyle.css";
 import { TopAbstract } from "../../MyApp";
 import { Container, Typography,Grid,  Breadcrumbs, Divider,Tabs,Tab } from "@mui/material";
-import {Newsletter} from "../../Components/Amenities/Amenities";
 import {NewFooter} from "../../Components/Footer/Footer";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Enquiry from "@/app/Components/Enquiry/Enquiry";
 
 function Events() {
     const [tabValue,setTabValue]= useState(0);
-    const [events] = useState([{eventStatus:"Upcoming Events",id:"upcoming", events:[{month:"January 2024",img:"https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/7.1_CA_you-questions-we-answers.jpg",timing:"January 24, 2024 @ 2:00PM",title:"Senior Living Simplified at The Covington Jan 24 2024",subTitle:"Event for OH, The Covington",_id:"5415645151"},{month:"January 2024",img:"https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/1.1_CAN_photo.jpg",timing:"January 25, 2024 @ 2:00PM",title:"Senior Living Simplified at The Oasis Homes Jan 25 2024",subTitle:"Event for OH, The Oasis Homes",_id:"541564515545451"}]}])
+    const [events] = useState([{eventStatus:"Upcoming Events",id:"upcoming", events:[{month:"February 2024",img:"https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/1.1_CAN_photo.jpg",timing:"February 21, 2024 @ 10:00AM to 12 Noon",title:"Meet and Greet at the Gateway.",subTitle:"Grand Opening Meet and Greet.",_id:"541564515545451"}]}])
     const router = useRouter();
     return (
     <main style={{backgroundColor:"#fff"}}>
@@ -69,7 +69,7 @@ function Events() {
             </Grid>
        
         </Container>
-      <Newsletter/>
+        <Enquiry/>
     
       <NewFooter/>
     </main>

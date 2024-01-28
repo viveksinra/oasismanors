@@ -4,7 +4,7 @@ import Header from "../../Components/Header/Header";
 import "../lifestyle.css";
 import { TopAbstract } from "../../MyApp";
 import { Container, Typography,Grid,  Breadcrumbs, Divider } from "@mui/material";
-import {Newsletter} from "../../Components/Amenities/Amenities";
+import Enquiry from "../../Components/Enquiry/Enquiry";
 import {NewFooter} from "../../Components/Footer/Footer";
 import Link from "next/link";
 
@@ -39,7 +39,7 @@ colleagues or relax in the comfort of your own home with in-room service.
             <li style={{listStyleType:"disc",fontSize: "1.3rem",fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:400,}}>Personalized for individual dietary needs</li>
         </ul>
         <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",marginTop:"30px",fontWeight:100,fontSize:"1.3rem",lineHeight:"1.8rem"}}>
-        <strong>The most delicious retirement community dining in Los Angeles. </strong>Enjoy the daily freedom to choose restaurant-style dining or relax in the comfort of your own home with in-room service. Our residents, their guests, and families all say the daily selection and quality of dining at The Oasis Homes is outstanding.
+        <strong>The most delicious retirement community dining in Los Angeles. </strong>Enjoy the daily freedom to choose restaurant-style dining or relax in the comfort of your own home with in-room service. Our residents, their guests, and families all say the daily selection and quality of dining at Oasis Homes is outstanding.
         </Typography>
         <br/>
         <Grid container spacing={2}>
@@ -60,22 +60,19 @@ colleagues or relax in the comfort of your own home with in-room service.
         <Grid item xs={12}>
         <Divider sx={{margin:"30px 0px"}}/>
         </Grid>
-        <Grid item xs={12}>
-        <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"32px"},marginTop:"30px", fontWeight:300, fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>Responsibly sourced. Deliciously prepared.</Typography>
-        <ul style={{listStyle:"none",marginTop:"30px"}}>
-            <li style={{listStyleType:"disc",fontSize: "1.2rem",lineHeight:"1.8",fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:300,}}>We use hormone-free poultry and beef that is USDA Choice or better.</li>
-            <li style={{listStyleType:"disc",fontSize: "1.2rem",lineHeight:"1.8",fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:300,}}>The Oasis Homes is guided by the Monterey Bay Aquarium Seafood Watch to help us select seafood <br/> that is responsibly managed, whether wild or farmed, causing little harm to habitats or wildlife.</li>
-            <li style={{listStyleType:"disc",fontSize: "1.2rem",lineHeight:"1.8",fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:300,}}>We buy local as much as possible, for the freshest fruits and vegetables that retain the highest levels <br/> of nutrients, as well as to support local farmers, producers, and our economy.</li>
-        </ul>
-        <br/>
-            <Typography color="black" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.3rem"}}> <br/>
-            To learn more about our dining, or if you have any questions, please do not hesitate to call or <Link style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:400,color:"#00a2c2",fontSize:"1.2rem"}} href="/contact">Contact US</Link>
-            </Typography>
         </Grid>
+        
+        <Grid container>
+          <Grid item xs={12} md={10}>
+          <br/>
+          <Typography gutterBottom sx={{fontFamily: 'AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\"',color:"#082952",fontSize:{xs:"20px",md:"30px"}}}>Come learn more about Cuisine</Typography>
+          <Typography gutterBottom sx={{fontFamily: "acumin-pro, \"sans-serif\"",color:"#333",fontWeight:"100", fontSize:{xs:"20px",md:"20px"}}}>To learn more about our dining, or if you have any questions, please do not hesitate to call <Link style={{color:"#00a2c2",fontWeight:500}} href="/contact">Contact Us.</Link></Typography>
+          </Grid>
+          <Grid item xs={12} md={2}></Grid>
         </Grid>
       </Container>
       
-      <Newsletter/>
+      <Enquiry/>
     
       <NewFooter/>
     </main>

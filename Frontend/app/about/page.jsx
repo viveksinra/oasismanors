@@ -4,7 +4,7 @@ import "./aboutStyle.css";
 import { TopAbstract } from "../MyApp";
 import { Container, Typography,Grid, Divider,Fab,Breadcrumbs  } from "@mui/material";
 // import {FcFinePrint } from "react-icons/fc";
-import {Newsletter} from "../Components/Amenities/Amenities";
+import Enquiry from "../Components/Enquiry/Enquiry";
 import {NewFooter} from "../Components/Footer/Footer";
 import Link from "next/link";
 function About() {
@@ -36,15 +36,6 @@ function About() {
           <li className="ChoiceList"> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:100,fontSize:"1.2rem"}}>Small facilities that offer personalized attention with a limited range of services and</Typography></li>
           <li className="ChoiceList"> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.2rem"}}>The impersonal feel of large institutional facilities with a full range of services.</Typography></li>
         </ul>
-        <br/>
-        <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"36px"}, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>
-        <Link  href="/about/respiteCare">
-        Respite Care Service
-              </Link>
-         </Typography>
-        <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.2rem"}}>
-        Caring for a loved one can be a rewarding experience, but it can also be challenging. Taking time for yourself is essential, but it can be difficult to find reliable care while you're away.
-        </Typography>
         <br/>
         <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"36px"}, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>A Full Service Personalized Care Facility</Typography>
         <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.2rem"}}>
@@ -99,8 +90,8 @@ function About() {
           </ul>
         </Grid>
         <Grid item xs={12} md={6} className="center" sx={{flexDirection:"column"}}>
-        <Typography color="#00a2c2" sx={{paddingBottom:"2rem",fontFamily:"Adequate,Helvetica Neue,Helvetica,\"sans-serif\"",fontSize:"2rem"}}>“This is the place for me!”</Typography>
-        <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontSize:"1.5rem"}}>~ Kathleen D, Oasis Homes resident</Typography>
+        <Typography color="#00a2c2" sx={{paddingBottom:"2rem",fontFamily:"Adequate,Helvetica Neue,Helvetica,\"sans-serif\"",fontSize:"2rem"}}>“It's like home to me.”</Typography>
+        <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>- A Resident of Oasis Home.</Typography>
           </Grid>
         <Grid item xs={12} md={9}>
         <Typography color="#082952" sx={{paddingBottom:"2rem",marginTop:"60px", fontFamily:"Adequate,Helvetica Neue,Helvetica,\"sans-serif\"",fontSize:"2rem"}}>An Intimate Community</Typography>
@@ -120,9 +111,9 @@ function About() {
           <img src="https://res.cloudinary.com/oasismanors/image/upload/v1704448863/1.1_CAN_photo-533x355_pm26fh.avif" alt="Oasis-Aunty" style={{borderRadius:"20px",width:"500px"}}/>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Typography gutterBottom sx={{fontFamily: 'AdequateLight,Helvetica Neue, Helvetica,\"sans-serif\"',color:"#082952",fontSize:{xs:"20px",md:"30px"}}}>Respect, Care and Joy</Typography>
-          <Typography color="#333" sx={{fontSize:"1.2rem",fontFamily: "acumin-pro, \"sans-serif\""}}>Respect: we respect your wishes in crafting your living plan here. From engaging activities to learning opportunities, we support your active lifestyle.</Typography>
+        <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"36px"}, fontFamily: 'Adequate,Helvetica Neue,Helvetica,\"sans-serif\"'}}>Respect, Care and Joy</Typography>
           <ul style={{ listStyle:"none",marginLeft:"10px"}}>
+            <li className="ChoiceList"><Typography variant="subtitle1">Respect: We respect your wishes in crafting your living plan here. From engaging activities to learning opportunities, we support your active lifestyle.</Typography></li>
             <li className="ChoiceList"><Typography variant="subtitle1">Care: We provide the care that you need: from assistance with daily chores to medications and physical activities.</Typography></li>
             <li className="ChoiceList"><Typography variant="subtitle1">Joy: We seek to bring joy into your life in ways small and large: from a simple culinary delight to engaging with family and friends.</Typography></li>
           </ul>
@@ -140,7 +131,7 @@ function About() {
           <Grid item xs={12} md={3}></Grid>
         </Grid>
       </Container>
-      <Newsletter/>
+      <Enquiry/>
     
       <NewFooter/>
     </main>

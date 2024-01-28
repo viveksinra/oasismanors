@@ -2,7 +2,7 @@
 // import MainContext from './Components/Context/MainContext';
 import React, { useEffect } from 'react'
 import "./pageStyle.css";
-import {OurCommunity,Newsletter} from "./Components/Amenities/Amenities";
+import {OurCommunity} from "./Components/Amenities/Amenities";
 import { useState,Suspense  } from "react";
 // import {DARKMODE} from "./Components/Context/types"
 import Header from "./Components/Header/Header";
@@ -25,8 +25,8 @@ const tabsStyle = {
 function MyApp() {  
   // const {state, dispatch} = useContext(MainContext)
   const [value, setValue] = React.useState(0);
-  const [hero,setHero] = useState({btn:"Creative Living",link:"",text:"Bring out the best in you.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1704819303/hero_creativity-3-1440x630_f0gobc.avif"})
-  const [allItems] = useState([{btn:"Amenities",link:"/amenities",text:"Live life on your terms.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1704819321/hero_choice-3-1440x630_po0gdo.avif"},{btn:"Show Gallery",link:"/about/gallery",text:"Bring out the best in you.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1704819303/hero_creativity-3-1440x630_f0gobc.avif"},{btn:"Our Meal",link:"/amenities/menu",text:"Feel right at home.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1704819223/hero_connection-3-1440x630_xnhwlx.avif"},{btn:"Supportive Services",link:"/lifestyle",text:"Support you can count on.",bgImg:"https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/hero_confidence-3-1536x672.jpg"}])
+  const [hero,setHero] = useState({btn:"Show Gallery",link:"/about/gallery",text:"Bring out the best in you.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1706128914/Oasis2_clq4l3.webp"})
+  const [allItems] = useState([{btn:"Amenities",link:"/amenities",text:"Live life on your terms.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1706128914/Oasis1_rwtkv6.webp"},{btn:"Show Gallery",link:"/about/gallery",text:"Bring out the best in you.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1706128914/Oasis2_clq4l3.webp"},{btn:"Our Meal",link:"/amenities/menu",text:"Feel right at home.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1706128914/Oasis3_biy68f.webp"},{btn:"Supportive Services",link:"/lifestyle",text:"Support you can count on.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1706128915/Oasis4_anftz6.webp"}])
 
   useEffect(() => {
     const interval = setInterval(() => {  //assign interval to a variable to clear it.
@@ -80,9 +80,9 @@ function MyApp() {
 
         <Grid container spacing={4} className="sectionMargin">
             <Grid item xs={12} md={6} className="center" sx={{flexDirection:"column"}}>
-            <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"48px"}, lineHeight:"1.2", fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>Welcome to The Oasis Homes </Typography>
+            <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"48px"}, lineHeight:"1.2", fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>Welcome to Oasis Homes </Typography>
             <p style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"20px",color:"#333333"}}>Come home to sophisticated living in the Sylmar, where relaxed, maintenance-free living and proactive wellness ensure your lifestyle is as vibrant as you are. Here, you are free to pursue your passions and discover new interests, all in the company of neighbors who share your view of what independent senior living in Los Angeles should be.</p>
-        <br/><p style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"20px",color:"#333333"}}>Perched on a scenic bluff in the rolling hills of Sylmar, The Oasis Homes, provides the setting to be as active or easygoing as you want with the confidence and peace of mind that comes from choosing a Life Plan community to call home.</p>
+        <br/><p style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"20px",color:"#333333"}}>Perched on a scenic bluff in the rolling hills of Sylmar, Oasis Homes, provides the setting to be as active or easygoing as you want with the confidence and peace of mind that comes from choosing a Life Plan community to call home.</p>
             </Grid>
              <Grid item xs={12} md={6}  className="center">
                 <div id="welcomeImg"/>
@@ -92,10 +92,8 @@ function MyApp() {
         </div> 
         <br/><br/> <br/>
          <OurCommunity/>
-       
         <Suspense fallback={<Loading />}>
         <Enquiry/>
-        <Newsletter/>
         {/* <Amenities/> */}
         <Suspense fallback={<Loading />}>
         {/* <Footer/> */}

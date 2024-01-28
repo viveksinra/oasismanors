@@ -4,7 +4,7 @@ import Header from "../Components/Header/Header";
 import "./lifestyle.css";
 import { TopAbstract } from "../MyApp";
 import { Container, Typography,Grid,  Breadcrumbs,CircularProgress, Divider } from "@mui/material";
-import {Newsletter} from "../Components/Amenities/Amenities";
+import Enquiry from "../Components/Enquiry/Enquiry";
 import {NewFooter} from "../Components/Footer/Footer";
 import Link from "next/link";
 
@@ -36,7 +36,6 @@ function CreativeLiving() {
           life.
         </Typography>
         
-        <img src="https://www.ecsforseniors.org/wp-content/uploads/2022/11/ECS005_Creative-Living-Logo_Aqua.svg" style={{width:"520px",marginTop:"30px"}} alt="CreativeLiving" />
         <Grid container spacing={2}>
         {creativeData.map((c,i)=><Grid item xs={12}>
             <Divider sx={{margin:"30px 0px"}}/>
@@ -58,14 +57,9 @@ function CreativeLiving() {
         <Divider sx={{margin:"30px 0px"}}/>
         </Grid>
         <Grid item xs={12}>
-        <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.3rem",lineHeight:"2.4rem"}}>
-        Read <Link style={{color:"#00a2c2",fontWeight:600,textDecoration:"underline"}} href="/">testimonials</Link>  from those already enjoying the Creative Living lifestyle at The Oasis Homes.
-        </Typography>
-        </Grid>
-        <Grid item xs={12}>
-        <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"30px"},marginTop:"30px", fontWeight:100, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>Resident led, staff supported</Typography>
+        <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"30px"}, fontWeight:100, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>Resident led, staff supported</Typography>
         <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.3rem",lineHeight:"2.0rem"}}>
-        The Academy draws on the insights and direction of a volunteer group of Oasis Homes resident advisors who assist in its development and oversight. Creative Living mindfully celebrates the talents and life experiences of those who live at The Oasis Homes Residents are encouraged to be facilitators and teachers.
+        The Academy draws on the insights and direction of a volunteer group of Oasis Homes resident advisors who assist in its development and oversight. Creative Living mindfully celebrates the talents and life experiences of those who live at Oasis Homes Residents are encouraged to be facilitators and teachers.
         </Typography><br/>
             <Typography color="black" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.3rem"}}> <br/>
             To learn more about joy in living, or if you have any questions, please do not hesitate to call or <Link style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:400,color:"#00a2c2",fontSize:"1.2rem"}} href="/contact">Contact US</Link>
@@ -74,7 +68,7 @@ function CreativeLiving() {
         </Grid>
       </Container>
       
-      <Newsletter/>
+      <Enquiry/>
     
       <NewFooter/>
     </main>
