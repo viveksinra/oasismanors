@@ -29,33 +29,36 @@ function CarePage() {
         </Typography>
         </Breadcrumbs>
         
-        <br/> <br/> 
-        <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"36px"}, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>
-        <Link  href="/about/respiteCare">
-        Respite Care Service
-              </Link>
-         </Typography>
-        <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.2rem"}}>
-        Caring for a loved one can be a rewarding experience, but it can also be challenging. Taking time for yourself is essential, but it can be difficult to find reliable care while you're away.
-        </Typography>
+
+
 <br/> 
         <Grid container spacing={2}>
        
         <Grid item xs={12}>
-        <Divider sx={{margin:"30px 0px"}}/>
         </Grid>
         <Grid item xs={12}>
-        <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"18px",md:"36px"}, fontWeight:400, fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>A trusted name</Typography>
+        <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"36px"}, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>
+        Assisted Living with Joy!
+         </Typography>
         <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.3rem",lineHeight:"2rem"}}>
-        Our Team Members are professionally trained and dedicated to providing heartfelt care with dignity and respect. As a continuing care retirement community, Oasis Homes takes pride in creating a family atmosphere. Our Team Members play an important role, which is why their tenure withOasis Homes can be measured in terms of decades, not years.
-        </Typography><br/>
-        <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.3rem",lineHeight:"2rem"}}>
-        All Team Members receive:
+        Your Joy of Living care program provides the assistance you need through a flexible range of services, including:
         </Typography>
             <ul style={{listStyle:"none",marginTop:"30px",marginLeft:"30px"}}>
-            <li className="choiceList">Fingerprint and background checks</li>
-            <li className="choiceList">Health screening</li>
-            <li className="choiceList">Ongoing training</li>
+            <li className="choiceList">Personal assistance – bathing, dressing, grooming, toileting</li>
+<li className="choiceList">Delivery of prepared meals</li>
+<li className="choiceList">Meal reminders or escorting to the dining rooms</li>
+<li className="choiceList">Assistance with incontinence care</li>
+<li className="choiceList">Arrangement of transportation to medical or dental appointments</li>
+<li className="choiceList">Escorting to offsite recreation, events, or appointments</li>
+<li className="choiceList">Observation of overall health status to identify and assist with dietary, social, and health needs</li>
+<li className="choiceList">Exceptional gourmet dining choices</li>
+<li className="choiceList">An array of enrichment and lifelong learning programs</li>
+<li className="choiceList">Transportation services</li>
+<li className="choiceList">Fitness and wellness programs</li>
+<li className="choiceList">Housekeeping and maintenance</li>
+<li className="choiceList">A continuum of supportive care services</li>
+<li className="choiceList">Move-in support to help you transition into your new Independent Living lifestyle</li>
+
             </ul>
         </Grid>
         </Grid>
@@ -64,7 +67,21 @@ function CarePage() {
       <Container>
         <Grid container spacing={2}>
         {teamCare.map((c,i)=><Grid item key={i} xs={12}>
-            <Divider sx={{margin:"30px 0px"}}/>
+            <Divider sx={{margin:"2px 0px"}}/>
+            <Typography color="#082952" gutterBottom sx={{ fontSize: { xs: "24px", md: "36px" }, fontFamily: "Adequate, Helvetica Neue, Helvetica, sans-serif" }}>
+  <Link href="/about/respiteCare">
+    Respite Care Service
+    <span style={{ marginLeft: '5px', display: 'inline-block' }}>→</span>
+  </Link>
+</Typography>
+<Typography color="#333" sx={{ fontFamily: "acumin-pro, sans-serif", fontWeight: 100, fontSize: "1.2rem" }}>
+  Caring for a loved one can be a rewarding experience, but it can also be challenging. Taking time for yourself is essential, but it can be difficult to find reliable care while you're away.
+</Typography>
+
+      <br/>
+      <br/>
+
+
             <Grid container spacing={4}>
                 <Grid item xs={12} md={4}>
                <img src={c.img} className="creativeImg" alt={c.title} />
@@ -78,6 +95,7 @@ function CarePage() {
             </Grid>
              </Grid>)}
              <Grid item xs={12} md={9}>
+
              <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"18px",md:"30px"},marginTop:"60px", fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>We are here for you</Typography>
              <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:300,fontSize:"20px",lineHeight:"1.8rem"}}>
                 From independent to assisted living in the Valley, choosing the right level of care and

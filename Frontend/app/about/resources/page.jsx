@@ -29,20 +29,8 @@ function Resources() {
         </Breadcrumbs>
         <br/>
         <Grid container spacing={2}>
-            <Grid item xs={12} >
-            <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"40px"},marginTop:"30px", fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>All Things Considered</Typography>
-            </Grid>
-            <Grid item xs={12} md={6} sx={{display:"flex",alignItems:"center"}}>
-                <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:300,fontSize:"1.3rem",lineHeight:"1.8rem"}}>
-               Oasis Homes has been providing exceptional nonprofit, active senior living communities and services in Southern California since 1923. Our experience confirms that choosing a Life Plan community as your next home is really about securing your future. <br/>
-                To support your decision making, below are curated links to informative articles, reports, and commentary by leading publications and financial and health experts.
-                <br/>
-                As you plan your next step, please take the time you need to do your due diligence.
-                </Typography>
-            </Grid>
-            <Grid item xs={12} md={6}>
-             <img style={{maxWidth:"100%"}} src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/7.3_CA_photo-1024x683.jpg" alt="Oasis-Lady" />
-            </Grid>
+       
+
             <Grid item xs={12}>
             <Typography color="#00a2c2" gutterBottom sx={{fontSize:{xs:"24px",md:"30px"},marginTop:"30px", fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>“Planning is the better part of success.”</Typography>
             <Typography color="#00a2c2" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:300,fontSize:"1.3rem",lineHeight:"1.8rem"}}>

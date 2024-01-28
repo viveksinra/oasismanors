@@ -29,6 +29,8 @@ function AmenitiesPage() {
         </Breadcrumbs>
     
         <br/>  <br/>
+        <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"36px"}, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>Let Joy into your Life</Typography>
+
         <Grid container spacing={2}>
         {amenities.map((a,i)=>
             <Grid key={i} item xs={12}>
@@ -42,37 +44,9 @@ function AmenitiesPage() {
             </Grid>)}
         </Grid>
        </Container>
-       <br/>  <br/>  <br/>  <br/>
+       <br/>  
        <Container>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
-          <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"32px"}, fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>Stay active, connected, and engage</Typography>
-          <ul style={{listStyle:"none"}}>
-            <li className="stayList"><Link style={{color:"#00a2c2",fontWeight:500, textDecoration:"underline"}} href="/dining">Dining </Link>– All meals are freshly prepared every day </li>
-            <li className="stayList"> <strong>Game Room </strong>– Join in a lively game of Bridge or board game </li>
-            <li className="stayList"> <strong>Pet-friendly </strong>–  Oasis Homes welcomes well-behaved pets </li>
-            <li className="stayList"><Link style={{color:"#00a2c2",fontWeight:500, textDecoration:"underline"}} href="/dining">Creative Living Academy </Link>– Classes, activities, and more to support life-long learning </li>
-          </ul>
-          </Grid>
-          <Grid item xs={12}>
-          <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"32px"}, marginTop:"60px", fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>Services to help you keep your edge</Typography>
-          <ul style={{listStyle:"none"}}>
-            <li className="stayList">Weekly housekeeping services </li>
-            <li className="stayList"> Laundry lounges</li>
-            <li className="stayList">Scheduled transportation </li>
-            <li className="stayList">Complete indoor/outdoor maintenance and groundskeeping</li>
-            <li className="stayList">Community-wide WIFI</li>
-            <li className="stayList">24-hour security for building and grounds</li>
-          </ul>
-          </Grid>
-          <Grid item xs={12}>
-          <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"32px"}, marginTop:"60px", fontFamily: "AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}>Personal care and support</Typography>
-          <ul style={{listStyle:"none"}}>
-            <li className="stayList">24-hour licensed nurses on duty. </li>
-            <li className="stayList"><Link style={{color:"#00a2c2",fontWeight:500, textDecoration:"underline"}} href="/dining">CareOne  </Link>– Our innovative approach to personalized, à la carte care services that comes to you in the comfort of your Oasis Homes home, providing a seamless continuum of care </li>
-            <li className="stayList">The security of having access to a specialized and collaborative health plan for now and in the future</li>
-          </ul>
-          </Grid>
           <Grid item xs={12}>
           <Typography color="black" sx={{fontFamily:"acumin-pro,\"sans-serif\"", marginTop:"30px",fontWeight:200,fontSize:"1.4rem"}}> <br/>
             To learn more about creative living, or if you have any questions, please do not hesitate to call or <Link style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:400,color:"#00a2c2", fontSize:"1.4rem"}} href="/contact">Contact US</Link>

@@ -56,15 +56,7 @@ function CreativeLiving() {
         <Grid item xs={12}>
         <Divider sx={{margin:"30px 0px"}}/>
         </Grid>
-        <Grid item xs={12}>
-        <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"30px"}, fontWeight:100, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>Resident led, staff supported</Typography>
-        <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.3rem",lineHeight:"2.0rem"}}>
-        The Academy draws on the insights and direction of a volunteer group of Oasis Homes resident advisors who assist in its development and oversight. Creative Living mindfully celebrates the talents and life experiences of those who live at Oasis Homes Residents are encouraged to be facilitators and teachers.
-        </Typography><br/>
-            <Typography color="black" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.3rem"}}> <br/>
-            To learn more about joy in living, or if you have any questions, please do not hesitate to call or <Link style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:400,color:"#00a2c2",fontSize:"1.2rem"}} href="/contact">Contact US</Link>
-            </Typography>
-        </Grid>
+   
         </Grid>
       </Container>
       

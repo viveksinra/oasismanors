@@ -28,15 +28,7 @@ function Gallery() {
         Gallery
         </Typography>
         </Breadcrumbs>
-        <br/>
-        <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"40px"}, fontFamily: "Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>Oasis Gateway Welcomes You!</Typography>
-        <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.3rem"}}>
-         These photos showcase the exceptional lifestyle possibilities at Oasis Homes. Our resort-style senior retirement community is the only Life Plan Community in The Sylmar, renowned for its welcoming residents, well-appointed accommodations, and elegant amenities. It is senior living as it should be.
-        </Typography>
-        <br/> <br/>
-        <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"1.3rem"}}>
-        If you would like to come see for yourself, please <Link style={{color:"#00a2c2",fontWeight:500}} href="/contact">Contact Us.</Link>
-        </Typography>
+ 
       </Container>
 
       <Container id="Photographs">

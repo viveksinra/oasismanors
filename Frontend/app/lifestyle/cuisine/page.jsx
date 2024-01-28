@@ -34,13 +34,7 @@ culinary team works with your dietician to understand your unique needs that we 
 through flavor and nutrition. Enjoy the daily freedom to choose restaurant-style dining with your
 colleagues or relax in the comfort of your own home with in-room service.
         </Typography>
-        <ul style={{listStyle:"none",marginTop:"30px"}}>
-            <li style={{listStyleType:"disc",fontSize: "1.3rem",fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:400,}}>Prepared from scratch with locally sourced, seasonal farm-fresh ingredients</li>
-            <li style={{listStyleType:"disc",fontSize: "1.3rem",fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:400,}}>Personalized for individual dietary needs</li>
-        </ul>
-        <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"",marginTop:"30px",fontWeight:100,fontSize:"1.3rem",lineHeight:"1.8rem"}}>
-        <strong>The most delicious retirement community dining in Los Angeles. </strong>Enjoy the daily freedom to choose restaurant-style dining or relax in the comfort of your own home with in-room service. Our residents, their guests, and families all say the daily selection and quality of dining at Oasis Homes is outstanding.
-        </Typography>
+  
         <br/>
         <Grid container spacing={2}>
         {creativeData.map((c,i)=><Grid item xs={12}>
