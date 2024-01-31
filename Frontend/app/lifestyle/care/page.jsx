@@ -45,19 +45,19 @@ function CarePage() {
         </Typography>
             <ul style={{listStyle:"none",marginTop:"30px",marginLeft:"30px"}}>
             <li className="choiceList">Personal assistance – bathing, dressing, grooming, toileting</li>
-<li className="choiceList">Delivery of prepared meals</li>
-<li className="choiceList">Meal reminders or escorting to the dining rooms</li>
-<li className="choiceList">Assistance with incontinence care</li>
-<li className="choiceList">Arrangement of transportation to medical or dental appointments</li>
-<li className="choiceList">Escorting to offsite recreation, events, or appointments</li>
-<li className="choiceList">Observation of overall health status to identify and assist with dietary, social, and health needs</li>
-<li className="choiceList">Exceptional gourmet dining choices</li>
-<li className="choiceList">An array of enrichment and lifelong learning programs</li>
-<li className="choiceList">Transportation services</li>
-<li className="choiceList">Fitness and wellness programs</li>
-<li className="choiceList">Housekeeping and maintenance</li>
-<li className="choiceList">A continuum of supportive care services</li>
-<li className="choiceList">Move-in support to help you transition into your new Independent Living lifestyle</li>
+            <li className="choiceList">Delivery of prepared meals</li>
+            <li className="choiceList">Meal reminders or escorting to the dining rooms</li>
+            <li className="choiceList">Assistance with incontinence care</li>
+            <li className="choiceList">Arrangement of transportation to medical or dental appointments</li>
+            <li className="choiceList">Escorting to offsite recreation, events, or appointments</li>
+            <li className="choiceList">Observation of overall health status to identify and assist with dietary, social, and health needs</li>
+            <li className="choiceList">Exceptional gourmet dining choices</li>
+            <li className="choiceList">An array of enrichment and lifelong learning programs</li>
+            <li className="choiceList">Transportation services</li>
+            <li className="choiceList">Fitness and wellness programs</li>
+            <li className="choiceList">Housekeeping and maintenance</li>
+            <li className="choiceList">A continuum of supportive care services</li>
+            <li className="choiceList">Move-in support to help you transition into your new Independent Living lifestyle</li>
 
             </ul>
         </Grid>
@@ -68,7 +68,7 @@ function CarePage() {
         <Grid container spacing={2}>
         {teamCare.map((c,i)=><Grid item key={i} xs={12}>
             <Divider sx={{margin:"2px 0px"}}/>
-            <Typography color="#082952" gutterBottom sx={{ fontSize: { xs: "24px", md: "36px" }, fontFamily: "Adequate, Helvetica Neue, Helvetica, sans-serif" }}>
+            {/* <Typography color="#082952" gutterBottom sx={{ fontSize: { xs: "24px", md: "36px" }, fontFamily: "Adequate, Helvetica Neue, Helvetica, sans-serif" }}>
   <Link href="/about/respiteCare">
     Respite Care Service
     <span style={{ marginLeft: '5px', display: 'inline-block' }}>→</span>
@@ -76,7 +76,7 @@ function CarePage() {
 </Typography>
 <Typography color="#333" sx={{ fontFamily: "acumin-pro, sans-serif", fontWeight: 100, fontSize: "1.2rem" }}>
   Caring for a loved one can be a rewarding experience, but it can also be challenging. Taking time for yourself is essential, but it can be difficult to find reliable care while you're away.
-</Typography>
+</Typography> */}
 
       <br/>
       <br/>
@@ -107,7 +107,7 @@ function CarePage() {
              <Grid item xs={12} md={3}/>
         </Grid>
       </Container>
-      
+      <br/>
       <Enquiry/>
     
       <NewFooter/>

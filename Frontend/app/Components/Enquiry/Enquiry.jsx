@@ -81,7 +81,7 @@ const Enquiry = () => {
                 <Grid item xs={12} lg={6}>
           
                 <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"30px"},paddingTop:"100px", lineHeight:"1.2", fontWeight:300, fontFamily: "Adequate,Helvetica,\"sans-serif\""}}>Request More Information</Typography> <br/> <br/> <br/>
-                <p style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:200,fontSize:"20px",lineHeight:"2.5rem", color:"black"}}>To learn more about the benefits of a worry-free lifestyle at Oasis Homes <br/> please complete and submit the form or call us at <Link href="tel:310-995-4859"><strong>(310) 995-4859</strong></Link> </p> <br/><br/>
+                <p style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:200,fontSize:"20px",lineHeight:"2.5rem", color:"black"}}>To contact us for more information, please fill the form on the right or call us at <br/> <Link href="tel:310-995-4859"><strong>(310) 995-4859</strong></Link> </p> <br/><br/>
 
                 </Grid>
                 <Grid item xs={12} lg={6}>
@@ -103,14 +103,14 @@ const Enquiry = () => {
                            </Grid> : 
                         <> 
                         <Grid item xs={12} id="self" className="center">
-                        <Typography color="primary" variant="h5">Are you interest for &#x2192;</Typography>
+                        <Typography color="primary" variant="h5">You are interest for &#x2192;</Typography>
                         <RadioGroup row style={{marginLeft:30}}
                             defaultValue="self"
                             value={enquiryFor}
                             onChange={e=>setEnquiryFor(e.target.value)}
                             name="radio-buttons-group"
                           >
-                        <FormControlLabel value="self" control={<Radio />} label="Self" />
+                        <FormControlLabel value="self" control={<Radio />} label="Yourself" />
                         <FormControlLabel value="other" style={{marginLeft:20}} control={<Radio />} label="Other" />
                       </RadioGroup>
                         </Grid>

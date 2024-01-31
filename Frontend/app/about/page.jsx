@@ -91,7 +91,6 @@ function About() {
         </Grid>
         <Grid item xs={12} md={6} className="center" sx={{flexDirection:"column"}}>
         <Typography color="#00a2c2" sx={{paddingBottom:"2rem",fontFamily:"Adequate,Helvetica Neue,Helvetica,\"sans-serif\"",fontSize:"2rem"}}>“It's like home to me.”</Typography>
-        <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>- A Resident of Oasis Home.</Typography>
           </Grid>
         <Grid item xs={12} md={9}>
         <Typography color="#082952" sx={{paddingBottom:"2rem",marginTop:"60px", fontFamily:"Adequate,Helvetica Neue,Helvetica,\"sans-serif\"",fontSize:"2rem"}}>An Intimate Community</Typography>
@@ -113,9 +112,9 @@ function About() {
         <Grid item xs={12} md={6}>
         <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"36px"}, fontFamily: 'Adequate,Helvetica Neue,Helvetica,\"sans-serif\"'}}>Respect, Care and Joy</Typography>
           <ul style={{ listStyle:"none",marginLeft:"10px"}}>
-            <li className="ChoiceList"><Typography variant="subtitle1">Respect: We respect your wishes in crafting your living plan here. From engaging activities to learning opportunities, we support your active lifestyle.</Typography></li>
-            <li className="ChoiceList"><Typography variant="subtitle1">Care: We provide the care that you need: from assistance with daily chores to medications and physical activities.</Typography></li>
-            <li className="ChoiceList"><Typography variant="subtitle1">Joy: We seek to bring joy into your life in ways small and large: from a simple culinary delight to engaging with family and friends.</Typography></li>
+            <li className="ChoiceList"><Typography variant="subtitle1"><strong>Respect: </strong> We respect your wishes in crafting your living plan here. From engaging activities to learning opportunities, we support your active lifestyle.</Typography></li><br/>
+            <li className="ChoiceList"><Typography variant="subtitle1"><strong>Care: </strong>We provide the care that you need: from assistance with daily chores to medications and physical activities.</Typography></li><br/>
+            <li className="ChoiceList"><Typography variant="subtitle1"><strong>Joy: </strong>We seek to bring joy into your life in ways small and large: from a simple culinary delight to engaging with family and friends.</Typography></li>
           </ul>
         </Grid>
         <Grid item xs={12}><Divider sx={{marginTop:"30px"}}/></Grid>

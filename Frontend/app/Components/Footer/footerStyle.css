@@ -72,8 +72,8 @@
 }
 
 #gMap{
-    width:400px;
-    height:300px;
+    min-width:400px;
+    min-height:300px;
     border: 0;
 }
 /* Mobile */

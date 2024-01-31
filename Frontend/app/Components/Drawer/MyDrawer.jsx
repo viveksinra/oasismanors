@@ -3,12 +3,12 @@ import "./drawerStyle.css";
 import {Typography,Avatar,List,ListSubheader,ListItemButton,ListItemIcon,ListItemText, Divider  } from '@mui/material/';
 import { useState } from "react";
 import Link from 'next/link';
-import { FcPicture,FcHome, FcKindle,FcStackOfPhotos,FcCurrencyExchange,FcInvite} from "react-icons/fc";
+import { FcCloseUpMode,FcHome, FcKindle,FcStackOfPhotos,FcInvite,FcOvertime,FcMindMap,FcPaid   } from "react-icons/fc";
 import { authService } from "../../services";
 
 const MyDrawer = ({handleDrawer}) => {
 
-const list1 = [{title:"Home",icon:<FcHome/>, link:"/"},{title:"About Us",icon:<FcKindle/>, link:"/about"},{title:"Our Amenities",icon:<FcStackOfPhotos/>, link:"/amenities"},{title:"Gallery",icon:<FcPicture/>, link:"/gallery"},{title:"Pricing",icon:<FcCurrencyExchange/>, link:"/pricing"},{title:"Contact",icon:<FcInvite/>, link:"/contact"}]
+const list1 = [{title:"Home",icon:<FcHome/>, link:"/"},{title:"About Us",icon:<FcKindle/>, link:"/about"},{title:"Amenities",icon:<FcStackOfPhotos/>, link:"/amenities"},{title:"Care",icon:<FcCloseUpMode />, link:"/lifestyle/care"},{title:"Cuisine",icon:<FcPaid/>, link:"/lifestyle/cuisine"},{title:"Joy in Living",icon:<FcMindMap />, link:"/lifestyle"},{title:"Events",icon:<FcOvertime />, link:"/lifestyle/events"},{title:"Contact",icon:<FcInvite/>, link:"/contact"}]
   return (
     <div>
       <div id="topDrawer" style={{width:260}}>

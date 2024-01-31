@@ -25,8 +25,8 @@ const tabsStyle = {
 function MyApp() {  
   // const {state, dispatch} = useContext(MainContext)
   const [value, setValue] = React.useState(0);
-  const [hero,setHero] = useState({btn:"Show Gallery",link:"/about/gallery",text:"Bring out the best in you.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1706128914/Oasis2_clq4l3.webp"})
-  const [allItems] = useState([{btn:"Amenities",link:"/amenities",text:"Live life on your terms.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1706128914/Oasis1_rwtkv6.webp"},{btn:"Show Gallery",link:"/about/gallery",text:"Bring out the best in you.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1706128914/Oasis2_clq4l3.webp"},{btn:"Our Meal",link:"/amenities/menu",text:"Feel right at home.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1706128914/Oasis3_biy68f.webp"},{btn:"Supportive Services",link:"/lifestyle",text:"Support you can count on.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1706128915/Oasis4_anftz6.webp"}])
+  const [hero,setHero] = useState({btn:"Assisted Living",link:"/lifestyle/care",text:"We provide the care that you need.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1706128914/Oasis2_clq4l3.webp"})
+  const [allItems] = useState([{btn:"Amenities",link:"/amenities",text:"We respect your wishes in crafting your living plan here.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1706128914/Oasis1_rwtkv6.webp"},{btn:"Assisted Living",link:"/lifestyle/care",text:"We provide the care that you need.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1706128914/Oasis2_clq4l3.webp"},{btn:"Joy in Living",link:"/lifestyle",text:"We seek to bring joy into your life in ways small and large.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1706128914/Oasis3_biy68f.webp"},{btn:"Supportive Services",link:"/about/gallery",text:"Support you can count on.",bgImg:"https://res.cloudinary.com/oasismanors/image/upload/v1706128915/Oasis4_anftz6.webp"}])
 
   useEffect(() => {
     const interval = setInterval(() => {  //assign interval to a variable to clear it.
@@ -59,9 +59,9 @@ function MyApp() {
           <Container maxWidth="xl">
             <Grid sx={{backgroundColor:"rgba(0, 0, 0, 0.1)",width:"max-content",padding:"1rem",borderRadius:"10px"}}>
             <Tabs textColor="inherit" value={value}  onChange={(e,v)=>{setValue(v);setHero(allItems[v])}} aria-label="basic tabs example">
-            <Tab sx={tabsStyle} label="Choice."/>
-            <Tab sx={tabsStyle} label="Creativity."/>
-            <Tab sx={tabsStyle} label="Connection."/>
+            <Tab sx={tabsStyle} label="Respect."/>
+            <Tab sx={tabsStyle} label="Care."/>
+            <Tab sx={tabsStyle} label="Joy."/>
             <Tab sx={tabsStyle} label="Confidence."/>
           </Tabs>
           <h4 id="heroText">{hero.text}</h4>

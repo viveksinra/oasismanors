@@ -53,15 +53,15 @@ export const NewFooter = () => {
             <Grid item xs={12} md={4}>
               <div style={{background:"#fff",maxWidth:"fit-content",borderRadius:"20px"}}>
               <Link href="/">
-                <img src="https://res.cloudinary.com/qualifier/image/upload/v1705684670/OasisLogo_kngpov.svg" style={{height:"101px"}} alt="Oasis Manor" />
+                <img src="https://res.cloudinary.com/qualifier/image/upload/v1705684670/OasisLogo_kngpov.svg" style={{height:"101px",maxWidth:"100%"}} alt="Oasis Manor" />
               </Link>
               </div>
          
               <Typography sx={{fontSize:"20px",lineHeight:"30px",fontWeight:200,marginTop:"20px", marginBottom:"28px",fontFamily:"Acumin-Pro,Helvetica Neue,Helvetica,\"sans-serif\""}}>As the only Life Plan community in the Sylmar, Oasis Homes provides an active campus-like experience with a true neighborhood feel.</Typography>
               <Link href="/contact"> <button id="footerBtn">Schedule a Visit</button></Link>  
             </Grid>
-            <Grid item xs={12} md={1}/>
-            <Grid item xs={12} md={2}>
+            {/* <Grid item xs={12} md={1}/> */}
+            {/* <Grid item xs={12} md={2}>
               <Link href="/" className="footerTitle">Communities</Link>
               <ul>
                 <li><Link href="/">A Siwa Oasis</Link></li>
@@ -69,23 +69,27 @@ export const NewFooter = () => {
                 <li><Link href="/">A Timia Oasis</Link></li>
                 <li><Link href="/">An Ubari Oasis</Link></li>
               </ul>
-            </Grid>
-            <Grid item xs={12} md={2}>
-              <Link className="footerTitle" href="/">Legacy</Link>
+            </Grid> */}
+            <Grid item xs={12} md={2} sx={{display:"flex", alignItems:"center", flexDirection:"column"}}>
+              <Link className="footerTitle" href="/">Quick Links</Link>
             <ul>
-                <li><Link href="/">History of Helping</Link></li>
-                <li><Link href="/">Financial Strength</Link></li>
-                <li><Link href="/">Board of Directors</Link></li>
-                <li><Link href="/">Careers & Volunteers</Link></li>
+                <li><Link href="/about">Oasis Gateway</Link></li>
+                <li><Link href="/about/gallery">Gallery</Link></li>
+                <li><Link href="/amenities">Amenities</Link></li>
+                <li><Link href="/contact/careers">Careers </Link></li>
               </ul>
             </Grid>
-            <Grid item xs={12} md={3}><Link className="footerTitle" href="/">Contact Us</Link>
+            <Grid item xs={12} md={2}><Link className="footerTitle" href="/">Contact Us</Link>
             <ul>
                 <li><Link href="tel:310-995-4859">(310) 995-4859</Link></li>
                 <li>15116 Roxford St,</li>
                 <li>Sylmar, CA 91342</li>
               </ul>
             </Grid>
+            <Grid item xs={12} md={4}>
+            <iframe id="gMap" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3295.231870214196!2d-118.46234489999999!3d34.3191139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c28fbaeb322379%3A0x5c9008cd907803f4!2sOasis%20Homes!5e0!3m2!1sen!2sin!4v1706639991361!5m2!1sen!2sin" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </Grid>
+          
             <Grid item xs={12} sx={{marginTop:"90px"}}>
               <Typography color="#8bcbd2" sx={{fontSize:{xs:"14px",md:"20px"},marginBottom:"20px", lineHeight:"1.2", fontWeight:300, fontFamily: "Adequate,Helvetica,\"sans-serif\""}}>Oasis Homes is a RCFE Senior Living Community. </Typography>
               <Divider sx={{background:"#8bcbd2",height:"1px"}}/>
@@ -98,12 +102,11 @@ export const NewFooter = () => {
               <Grid container>
                 <Grid item xs={12} md={6}>
                   <Typography variant="caption" sx={{fontFamily:"Acumin-Pro,Helvetica Neue,Helvetica,\"sans-serif\"",lineHeight:1.4}} >Oasis Homes, Sylmar RCFE 191-603774, COA 257
-                    ©2024 <br/> Episcopal Communities & Services. All Rights Reserved. A website by Softechinfra.</Typography>
+                    ©2024 All Rights Reserved. <br/> A website by <Link target='_blank' href="https://beta.Softechinfra.com">Softechinfra.</Link> </Typography>
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <ul style={{display:"flex",justifyContent:"flex-end"}}>
-                    <li><Link style={{fontSize:"1rem",padding:"0px 14px",borderRight:"1px solid #8bcbd2"}} href="/">Press</Link></li>
-                    <li><Link style={{padding:"0px 14px", fontSize:"1rem",borderRight:"1px solid #8bcbd2",lineHeight:1.2,}} href="/">Financial Strength</Link></li>
+                    <li><Link style={{fontSize:"1rem",padding:"0px 14px",borderRight:"1px solid #8bcbd2"}} href="/">Terms & Conditions</Link></li>
                     <li><Link style={{padding:"0px 14px",fontSize:"1rem",borderRight:"1px solid #8bcbd2",lineHeight:1.2}} href="/">Privacy Policy</Link></li>
                     <li><Link style={{padding:"0px 14px",fontSize:"1rem",lineHeight:1.2,}} href="/">Sitemap</Link></li>
                   </ul>

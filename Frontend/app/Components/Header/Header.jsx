@@ -2,7 +2,7 @@
 import MainContext from '../Context/MainContext';
 import { useState,Suspense,useContext } from "react";
 import "./headerStyle.css";
-import {Container,Box,CssBaseline, Hidden,AppBar,Toolbar, useScrollTrigger,SwipeableDrawer } from '@mui/material/';
+import {Container,Box,CssBaseline, Hidden,AppBar,Toolbar, useScrollTrigger,SwipeableDrawer, IconButton } from '@mui/material/';
 import Link from 'next/link';
 import { FcMenu,FcPhone } from 'react-icons/fc';
 import MyDrawer from "../Drawer/MyDrawer";
@@ -45,8 +45,11 @@ const Header = ( { children,window }) => {
         <Toolbar disableGutters>
         <div id={trigger ? "headerCompress" : "topHeader"}>
             <Container id="navContainer" >
-              <Hidden mdUp> 
-              <FcMenu style={{fontSize:25}} onClick={handleDrawer}/>
+              <Hidden mdUp>
+                <IconButton onClick={handleDrawer}>
+                <FcMenu  />
+                </IconButton> 
+            
               <div style={{flexGrow:1}}/>
               </Hidden>
               <Link href="/">
@@ -64,7 +67,12 @@ const Header = ( { children,window }) => {
                 </div>
                   </li>
                   <li ><Link href="/amenities">Amenities</Link></li>
-                  <li><Link href="/lifestyle/care">Care</Link></li>
+                  <li id="care"><Link href="/lifestyle/care">Care</Link>
+                  <div id="dropdownCare" className='dropdownMenu'>
+                  <Link href="/lifestyle/care">Assisted Living</Link>
+                  <Link href="/about/respiteCare">Respite Care</Link>
+                </div>
+                  </li>
                   <li><Link href="/lifestyle/cuisine">Cuisine</Link></li>
                   <li id="started"><Link href="/lifestyle">Joy in Living</Link></li>
                   <li><Link href="/lifestyle/events">Events</Link></li>
