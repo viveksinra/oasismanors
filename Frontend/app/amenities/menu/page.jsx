@@ -3,9 +3,10 @@ import "../amenityStle.css";
 import React, { useState,useEffect } from 'react'
 import Header from "../../Components/Header/Header";
 import { TopAbstract } from "../../MyApp";
-import {Button,Grid, Typography,Tab,Tabs,  Chip, Avatar,MobileStepper , Container, Divider,} from '@mui/material/';
-import { FcDebt,FcInternal,FcNext,FcPrevious  } from "react-icons/fc";
-import Footer from "../../Components/Footer/Footer";
+import {Button,Grid, Typography,Tab,Tabs, MobileStepper , Container, Divider,} from '@mui/material/';
+import { FcInternal,FcNext,FcPrevious  } from "react-icons/fc";
+import Enquiry from "../../Components/Enquiry/Enquiry";
+import {NewFooter} from "../../Components/Footer/Footer";
 
 
 function SimpleMenu() {
@@ -153,8 +154,9 @@ useEffect(() => {
 
 
         </Container>
-        
-    <Footer/>
+        <br/><br/>
+        <Enquiry/>
+    <NewFooter/>
     </main>
   )
 }

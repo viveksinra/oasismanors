@@ -3,11 +3,11 @@
 import React from 'react';
 import { MainProvider } from "./Components/Context/MainContext";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { green, purple } from '@mui/material/colors';
+import {blue,purple } from '@mui/material/colors';
 
 const darkTheme = createTheme({
   palette: {
-    primary: green,
+    primary: blue,
     secondary: purple,
     mode: "light",
   },

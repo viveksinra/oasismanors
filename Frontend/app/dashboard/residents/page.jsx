@@ -103,7 +103,7 @@ export function SearchArea({handleEdit}) {
       
   return (
     <main>
-      <Box sx={{background:"#fff",boxShadow:"box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;", borderRadius:"10px", width: '100%',padding:"10px", minHeight: "785px" }}>
+      <Box sx={{background:"#fff",boxShadow:"rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;", borderRadius:"10px", width: '100%',padding:"10px", minHeight: "785px" }}>
         <Grid container>
           <Grid item xs={0} md={4}/>
           <Grid item xs={12} md={4}>

@@ -60,17 +60,7 @@ export const NewFooter = () => {
               <Typography sx={{fontSize:"20px",lineHeight:"30px",fontWeight:200,marginTop:"20px", marginBottom:"28px",fontFamily:"Acumin-Pro,Helvetica Neue,Helvetica,\"sans-serif\""}}>As the only Life Plan community in the Sylmar, Oasis Homes provides an active campus-like experience with a true neighborhood feel.</Typography>
               <Link href="/contact"> <button id="footerBtn">Schedule a Visit</button></Link>  
             </Grid>
-            {/* <Grid item xs={12} md={1}/> */}
-            {/* <Grid item xs={12} md={2}>
-              <Link href="/" className="footerTitle">Communities</Link>
-              <ul>
-                <li><Link href="/">A Siwa Oasis</Link></li>
-                <li><Link href="/">A Mara Oasis</Link></li>
-                <li><Link href="/">A Timia Oasis</Link></li>
-                <li><Link href="/">An Ubari Oasis</Link></li>
-              </ul>
-            </Grid> */}
-            <Grid item xs={12} md={2} sx={{display:"flex", alignItems:"center", flexDirection:"column"}}>
+            <Grid item xs={12} md={2}>
               <Link className="footerTitle" href="/">Quick Links</Link>
             <ul>
                 <li><Link href="/about">Oasis Gateway</Link></li>
@@ -87,7 +77,7 @@ export const NewFooter = () => {
               </ul>
             </Grid>
             <Grid item xs={12} md={4}>
-            <iframe id="gMap" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3295.231870214196!2d-118.46234489999999!3d34.3191139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c28fbaeb322379%3A0x5c9008cd907803f4!2sOasis%20Homes!5e0!3m2!1sen!2sin!4v1706639991361!5m2!1sen!2sin" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe id="gMap" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3295.231870214196!2d-118.46234489999999!3d34.3191139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c28fbaeb322379%3A0x5c9008cd907803f4!2sOasis%20Homes!5e0!3m2!1sen!2sin!4v1706639991361!5m2!1sen!2sin" allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
             </Grid>
           
             <Grid item xs={12} sx={{marginTop:"90px"}}>

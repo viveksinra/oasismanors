@@ -1,14 +1,14 @@
 "use client";
 import "./amenitiesStyle.css";
 import { useState, Suspense } from 'react';
-import {Container, Divider, Grid, Typography,Hidden,Accordion,AccordionSummary,AccordionDetails,Input} from '@mui/material/';
+import {Container, Divider, Grid, Typography,Hidden,Accordion,AccordionSummary,AccordionDetails} from '@mui/material/';
 import { FcCollapse } from "react-icons/fc";
 import { BsPatchQuestionFill } from "react-icons/bs";
 
 import Link from 'next/link';
 
 function Amenities() {
-    const [amenities] = useState([{title:"Courtyard for Family-like Environment",subtitle:"We prove a large courtyard for your comfortable living.",link:"/", img:"https://res.cloudinary.com/oasismanors/image/upload/v1703589808/oasisApi/courtyard_sie00n.webp"},{title:"Swimming Pool With Heated Pool",subtitle:"Easy accessible Swimming Pool with convenient setup for elderly.",link:"/",img:"https://res.cloudinary.com/oasismanors/image/upload/v1703589808/oasisApi/swimmingPool_cwmuvr.webp"},{title:"Proper Diet & Nutrition",subtitle:"Get fresh & healthy meal every time. Check out our Sample Menu.",link:"/amenities/menu", img:"https://res.cloudinary.com/oasismanors/image/upload/v1703589807/oasisApi/properDiet_yjypj2.webp"},{title:"Golf Course Area",subtitle:"Enjoy playing Golf in Oasis Golf Course Area that provides a wide range of facilities.",link:"/", img:"https://res.cloudinary.com/oasismanors/image/upload/v1704099976/oasisApi/golf-oasis_qb7jgz.webp"},{title:"Regular Health Checkup",subtitle:"Health Checkup with diagnosis & Medicine",link:"/", img:"https://res.cloudinary.com/oasismanors/image/upload/v1703589807/oasisApi/healthCheckUp_rpxyng.webp"},{title:"Yoga & Exercise Events",subtitle:"Participate in health & cultural events",link:"/", img:"https://res.cloudinary.com/oasismanors/image/upload/v1703589807/oasisApi/yoga_kj8yxf.webp"},{title:"All Private Bedrooms",subtitle:"We offer a Separate Bathrooms with attach Bathroom, direct Backyard, Flat Screen TV and centralised AC. ",link:"/", img:"https://res.cloudinary.com/oasismanors/image/upload/v1703589806/oasisApi/bedroom_splw9e.webp"},{title:"Big Garden with Lord Buddha statue",subtitle:"Experience the natural and positive vibes with a large Gautam Buddha stone statue in our Garden.",link:"/", img:"https://res.cloudinary.com/oasismanors/image/upload/v1703589808/oasisApi/stone-gautama-buddha_elxxg5.webp"},{title:"Online Activities Tracking",subtitle:"You and your Family can track all major activities, Daily Summary Report and medical information on our Oasis web portal.",link:"/", img:"https://res.cloudinary.com/oasismanors/image/upload/v1703594840/oasisApi/image1_vo2crp.webp"}])
+    const [amenities] = useState([{title:"Central Courtyard",subtitle:"For comfortable seating and socializing.",link:"/amenities", img:"https://res.cloudinary.com/oasismanors/image/upload/v1707579232/CourtyardOasisHome_n2kjyt.jpg"},{title:"Warm Pool, Spa and Sauna",subtitle:"Easy accessible Swimming Pool with convenient setup for elderly.",link:"/amenities",img:"https://res.cloudinary.com/oasismanors/image/upload/v1707580010/jpeg-optimizer_heatedPool_q3ttkw.jpg"},{title:"Cushioned outdoor floors",subtitle:"To reduces injuries from fall.",link:"/amenities", img:"https://res.cloudinary.com/oasismanors/image/upload/v1705513450/rubber-gym-flooring_eha3up.webp"},{title:"Golf Putting Green Area",subtitle:"Enjoy playing Golf in Oasis Golf Course Area that provides a wide range of facilities.",link:"/amenities", img:"https://res.cloudinary.com/oasismanors/image/upload/v1704099976/oasisApi/golf-oasis_qb7jgz.webp"},{title:"24-Hour Security of premises",subtitle:"Full Backup generator for all buildings and equipments.",link:"/amenities", img:"https://res.cloudinary.com/oasismanors/image/upload/v1707581108/security-guard_rkdtq5.jpg"},{title:"Fitness and Yoga",subtitle:"A big and open area for all kind of health exercise.",link:"/amenities", img:"https://res.cloudinary.com/oasismanors/image/upload/v1703589807/oasisApi/yoga_kj8yxf.webp"},{title:"Private Bedrooms & Bathrooms",subtitle:"All rooms has private bath with bidet. ",link:"/amenities", img:"https://res.cloudinary.com/oasismanors/image/upload/v1703589806/oasisApi/bedroom_splw9e.webp"},{title:"Garden with Lord Buddha statue",subtitle:"Experience the natural and positive vibes with a large Gautam Buddha stone statue in our Garden.",link:"/amenities", img:"https://res.cloudinary.com/oasismanors/image/upload/v1707581766/budha_taqdfx.jpg"},{title:"Online Activities Tracking",subtitle:"You and your Family can track all major activities, Daily Summary Report and medical information on our web portal.",link:"/amenities", img:"https://res.cloudinary.com/oasismanors/image/upload/v1703594840/oasisApi/image1_vo2crp.webp"}])
     const [faq, setFaq] = useState([{ques:"What is the difference between a retirement home and a long-term care home?", ans:"People who are entering a long-term care home often require substantial medical care and/or personal living assistance. Retirement homes, on the other hand, provide residents with an age-restricted community. The two property types differ primarily in the level of care that is given. Moving into a retirement village or nursing home enables these seniors to enjoy their time without having to worry about the hassles of everyday chores."},{ques:"Are there standards that retirement homes must abide by?", ans:"Yes. The Retirement Homes Regulatory Authority (RHRA) is an organization that establishes and measures standards for retirement residences in the province. All Sharon Village Home Care properties meet or exceed these standards."},{ques:"How much does it cost to live in a retirement village?", ans:"Prices vary based on the location and the services offered. In most cases, fees are specific to the retirement residence and to the client themselves. Please contact the Sharon Village retirement residence of your choice for more information on accommodation costs."},  {ques:"What should I consider when looking for a retirement home?",ans:"This depends a lot on your personal preferences. The following is a list of criteria to consider when looking at potential retirement options:",list:[{point:"Accommodations: Consider things like wheelchair accessibility, whether or not a kitchenette is available, housekeeping and laundry services, etc."},{point:"Leisure activities: Be sure to enquire about outdoor spaces, common areas, recreational programming, onsite amenities (like a salon or spa), and worship services."},{point:"Health and assisted living services: Always be sure to check staff credentials and facility safety protocols. If you require more in-depth assisted living services, you may wish to consider one of our Long-Term Care facilities."}] }, {ques:"How do I talk to my loved one about retirement living?",ans:"It is never too soon to start this conversation with a loved one. Making the transition from independent living to a retirement community does not have to be difficult; however it will take some adjusting to. Start the conversation by asking your loved one about their future plans and needs. Be supportive and enthusiastic about their options. By keeping a positive outlook and assisting your loved one with their research and planning, you will help them feel more confident and comfortable with their decision."}, ])
     return (
     <section style={{background:"#fff"}}>
@@ -16,17 +16,18 @@ function Amenities() {
         <Suspense fallback={<h6>Loading...</h6>}>
         <Grid container spacing={2}>
          <Grid item xs={12}>
-            <Divider light> <Typography sx={{fontSize:{xs:"24px",md:"40px"},color:"seagreen", fontFamily: 'Courgette'}} align="center">Our Amentities</Typography> </Divider>
-            <Typography align='center' style={{color:"#000"}} variant="subtitle1">
+         <Typography variant='h4' align="center" sx={{fontSize:{xs:"22px",md:"36px"},fontFamily:"AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}} color="#082952">A few key highlights</Typography>
+         <center><Divider light sx={{maxWidth:"440px"}}>✼</Divider></center> 
+            {/* <Typography align='center' style={{color:"#000"}} variant="subtitle1">
             Free from the hassles of home maintenance, assisted living residents have more time to focus on living fully and meaningfully within an active community. With social events, group programs, and restaurant-style dining, residents can connect with each other and with the broader world. 
-            </Typography>
+            </Typography> */}
             <br/>
          </Grid>
          {amenities.map(a=>
             <Grid key={a.title} item xs={12} md={4}>
-                <img src={a?.img}  style={{  width: "100%",maxHeight: "250px",borderRadius: "10px",backgroundPosition:"center", backgroundRepeat: "no-repeat", backgroundSize:"cover"}} alt={a?.title} />
-                <Link href={a.link}><Typography variant='h6'style={{fontFamily: 'Courgette'}} textAlign="center" color="primary">{a.title}</Typography></Link>
-                <Typography align='center' style={{color:"#000"}} variant="body2" >
+                <img src={a?.img}  style={{width:"100%",maxHeight:"250px",borderRadius: "10px",backgroundPosition:"center", backgroundRepeat: "no-repeat", backgroundSize:"cover"}} alt={a?.title} />
+                <Link href={a.link}><Typography sx={{fontFamily:"Adequate,Helvetica Neue,Helvetica,\"sans-serif\"",fontSize:{xs:"16px",md:"18px"}}} textAlign="center" color="#082952">{a.title}</Typography></Link>
+                <Typography align='center' style={{color:"#000",fontFamily:"AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\"",fontSize:"15px"}} >
                 {a.subtitle}
              </Typography>
             </Grid>)}
@@ -39,7 +40,7 @@ function Amenities() {
             </Grid>
             <Grid item xs={12} md={6} id="textBox" className="center" sx={{flexDirection:"column"}}>
                 <br/>
-            <Typography variant='h6' textAlign="center" color="primary" sx={{fontFamily: 'Courgette'}}>Helpful Services Tailored to Your Needs</Typography>
+            <Typography variant='h6' textAlign="center" color="#003a73" sx={{fontFamily:"Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>Helpful Services Tailored to Your Needs</Typography>
             <Divider light variant="inset"/>
             <br/>
             <Typography variant="subtitle1" style={{color:"#000"}} >
@@ -48,7 +49,7 @@ function Amenities() {
             </Grid>
             <Grid item xs={12} md={6} className="center" sx={{flexDirection:"column"}}>
                 <br/>
-            <Typography variant='h6' textAlign="center" color="primary" sx={{fontFamily: 'Courgette'}}>Special Celebration & Social Events</Typography>
+            <Typography variant='h6' textAlign="center" color="#003a73" sx={{fontFamily:"Adequate,Helvetica Neue,Helvetica,\"sans-serif\""}}>Special Celebration & Social Events</Typography>
             <Divider light variant="inset"/>
             <br/>
             <Typography variant="subtitle1" style={{color:"#000"}} >
@@ -122,9 +123,10 @@ export function OurCommunity() {
   return (
     <Container maxWidth="xl">
     <Grid container>
-        <Grid item xs={12} sx={{marginTop:{xs:"80px",md:"0px"}}}>
-        <Typography variant='h4' sx={{fontSize:{xs:"24px",md:"36px"},fontFamily:"AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}  textAlign="left" color="#082952">Explore Our Community</Typography>
-        <br/>  <br/>
+        <Grid item xs={12} sx={{marginTop:{xs:"80px",md:"100px"}}}>
+        <Typography variant='h4' sx={{fontSize:{xs:"22px",md:"36px"},fontFamily:"AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\""}}  textAlign="left" color="#082952">Explore Our Community</Typography>
+        <Divider light sx={{maxWidth:"440px"}}>✼</Divider>
+        <br/>  
         </Grid>
         <Grid item xs={12} md={4} >
             <div className="communityCard">
@@ -132,28 +134,28 @@ export function OurCommunity() {
                 <video className="communityImg" style={{height:310}} src="https://www.ecsforseniors.org/wp-content/uploads/2023/03/ECS_How-We-Live_Vido.mp4" type="video/mp4/" playsInline autoPlay loop muted>
                 </video>
                 <Typography variant="h6" sx={{fontFamily:"Adequate,Helvetica,\"sans-serif\"",fontSize:"22px"}} color="#082952">How we Live</Typography>
-                <Typography variant="subtitle1" sx={{fontSize:"20px",fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,}} color="#082952">A lifestyle as rich and vibrant as you are.</Typography>
-                <br/>   <Link href="/about" className="btnLink">Oasis Gateway ➡ </Link>
+                <Typography variant="subtitle1" sx={{fontSize:{xs:"18px",md:"20px"},fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,}} color="#082952">A lifestyle as rich and vibrant as you are.</Typography>
+                 <Link href="/about" className="btnLink">Oasis Gateway ➡ </Link>
                 <br/>  <br/>  <br/>
             </div>
         </Grid>
         <Grid item xs={12} md={4}>
             <div className="communityCard">
                 <img className="abstractImg" src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/11/abstract_2.jpg" alt="abstract_1" />
-            <img className="communityImg" style={{maxHeight:"310px",minWidth:"470px"}} src="https://res.cloudinary.com/oasismanors/image/upload/v1706129397/service_wruuiz.webp" alt="abstract_2" />
+            <img className="communityImg" style={{maxHeight:"310px",minWidth:"100%"}} src="https://res.cloudinary.com/oasismanors/image/upload/v1706129397/service_wruuiz.webp" alt="abstract_2" />
             <Typography variant="h6" sx={{fontFamily:"Adequate,Helvetica,\"sans-serif\"",fontSize:"22px"}} color="#082952">Services & Amenities</Typography>
-            <Typography variant="subtitle1" sx={{fontSize:"20px",fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,}} color="#082952">All the comforts of home and so much more!</Typography>
-            <br/>  <Link href="/amenities" className="btnLink">Learn More  ➡ </Link>  
+            <Typography variant="subtitle1" sx={{fontSize:{xs:"18px",md:"20px"},fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,}} color="#082952">All the comforts of home and much more!</Typography>
+             <Link href="/amenities" className="btnLink">Learn More  ➡ </Link>  
             <br/>  <br/>  <br/>
             </div>
         </Grid>
         <Grid item xs={12} md={4}>
             <div className="communityCard">
                 <img className="abstractImg" src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2022/11/abstract_3.jpg" alt="abstract_1" />
-            <img className="communityImg" src="https://www.ecsforseniors.org/cdn-cgi/image/format=auto/wp-content/uploads/2023/03/Delectable-Dining-2-640x427.jpg" alt="abstract_2" />
+            <img className="communityImg" src="https://res.cloudinary.com/oasismanors/image/upload/v1703589807/oasisApi/properDiet_yjypj2.webp" alt="abstract_2" />
             <Typography variant="h6" sx={{fontFamily:"Adequate,Helvetica,\"sans-serif\"",fontSize:"22px"}} color="#082952">Delectable Dining</Typography>
-            <Typography variant="subtitle1" sx={{fontSize:"20px",fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,}} color="#082952">Always Fresh and Flavorful.</Typography>
-            <br/>   <Link href="/amenities/menu" className="btnLink">View Menu  ➡ </Link>
+            <Typography variant="subtitle1" sx={{fontSize:{xs:"18px",md:"20px"},fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,}} color="#082952">Always Fresh and Flavorful.</Typography>
+             <Link href="/amenities/menu" className="btnLink">View Menu  ➡ </Link>
             <br/>  <br/>  <br/>            
             </div>
         </Grid>

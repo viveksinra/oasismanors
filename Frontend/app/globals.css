@@ -168,14 +168,15 @@ a {
 .sectionMargin{
   padding-top:50px;
   padding-bottom: 50px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 .heading{
-  font-family: 'Courgette', cursive;
+  font-family: Adequate, sans-serif;
   text-align: center;
-  color: #26b20e;
-  font-size: 32px;
+  color: #003a73;
+  font-size: 28px;
   font-weight: 200;
-  font-family: "Courgette";
 }
 
 /* Prospect CSS here */
@@ -238,5 +239,7 @@ a {
   .sectionMargin{
     margin-top:10px;
     margin-bottom: 10px;
+    padding-top:20px;
+    padding-bottom: 20px;
   }
 }
