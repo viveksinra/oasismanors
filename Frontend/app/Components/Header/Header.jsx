@@ -37,7 +37,7 @@ const Header = ( { children,window }) => {
               <div style={{display:"flex"}}>
               <span style={{flexGrow:1}}/>
               <FcPhone style={{fontSize:24,marginRight:10}} />
-              <Link href="/">310-995-4859</Link>
+              <Link href="/" style={{background:"#fff",color:"#003a73"}}>310-995-4859</Link>
               </div>
             </Hidden>
         </Container>      

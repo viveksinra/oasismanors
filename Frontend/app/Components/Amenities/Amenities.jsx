@@ -62,7 +62,7 @@ function Amenities() {
         </Grid>
         </Container>
 
-    <div id="connected" className="sectionMargin">
+    {/* <div id="connected" className="sectionMargin">
     
     <Container>
         <Grid container spacing={2}>
@@ -85,9 +85,9 @@ function Amenities() {
             </Grid>
         </Grid>
     </Container>
-    </div>
+    </div> */}
     <br/>
-
+    <br/>
    <Divider light> <Typography variant='h4' sx={{fontSize:{xs:"16px",md:"22px"}}} textAlign="center" className='heading'>Your General FAQ</Typography> </Divider> 
    <br/>
    <div id="faqBg">
@@ -100,7 +100,7 @@ function Amenities() {
           aria-controls="faq-header"
           id="faq-header"
         >
-      <BsPatchQuestionFill style={{marginTop:"4px",marginRight:"8px",color:"lightseagreen"}}/> <Typography color="teal">{f?.ques}</Typography>
+      <BsPatchQuestionFill style={{marginTop:"4px",fontSize:"20px", marginRight:"8px",color:"lightseagreen"}}/> <Typography color="navy">{f?.ques}</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
