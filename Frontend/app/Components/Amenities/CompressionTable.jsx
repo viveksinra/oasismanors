@@ -14,8 +14,8 @@ function CompressionTable() {
           <TableRow sx={{background:"#ade7ff"}}>
             <TableCell sx={{minWidth:"140px"}}><Typography sx={{fontSize:{md:"20px",xs:"16px"}}}>Amenities</Typography></TableCell>
             <TableCell padding="none" sx={{minWidth:"40px"}} align="center"><Typography color="darkblue" sx={{fontSize:{md:"20px",xs:"12px"}}}>Oasis Homes</Typography></TableCell>
-            <TableCell padding="none" sx={{minWidth:"40px"}} align="center"><Typography sx={{fontSize:{md:"20px",xs:"12px"}}}>Canterbury</Typography></TableCell>
-            <TableCell padding="none" sx={{minWidth:"40px"}} align="center"><Typography sx={{fontSize:{md:"20px",xs:"12px"}}}>Sunrise</Typography></TableCell>
+            <TableCell padding="none" sx={{minWidth:"40px"}} align="center"><Typography sx={{fontSize:{md:"16px",xs:"10px"}}}>High-End Facility 1</Typography></TableCell>
+            <TableCell padding="none" sx={{minWidth:"40px"}} align="center"><Typography sx={{fontSize:{md:"16px",xs:"10px"}}}>High-End Facility 2</Typography></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

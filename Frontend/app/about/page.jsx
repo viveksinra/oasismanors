@@ -77,14 +77,14 @@ function About() {
           <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Bring your friendly pet – we love them!</Typography></li>
           <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Access personalized services like online classes and libraries.</Typography></li>
           <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Access personalized Salon and Fitness Services.</Typography></li>
-          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Personalized Meals from our in-house kitchen.</Typography></li>
+          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Personalized Meals from our restaurant-level kitchen.</Typography></li>
           <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>All meals are freshly prepared every day.</Typography></li>
           <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Personalized web portal for you and your loved ones to interact.</Typography></li>
           </ul>
           <br/>
         <Typography color="#082952" sx={{margin:"10px 0px", fontFamily:"AdequateLight,Helvetica Neue,Helvetica,\"sans-serif\"",fontSize:"2rem"}}>- Your Concierge Services</Typography>
           <ul style={{listStyleType: "circle",marginLeft:"30px"}}>
-          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Weekly housekeeping and laundry services.</Typography></li>
+          <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Headerousekeeping and laundry services.</Typography></li>
           <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Scheduled transportation to your choice destinations.</Typography></li>
           <li> <Typography color="#333" sx={{fontFamily:"acumin-pro,\"sans-serif\"", fontWeight:400,fontSize:"1.2rem"}}>Community-wide WiFi.</Typography></li>
           </ul>
