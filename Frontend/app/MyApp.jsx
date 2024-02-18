@@ -14,7 +14,6 @@ import { FcBusinessman,FcBusinesswoman,} from "react-icons/fc";
 import {authService} from "./services/index"
 import Loading from "./Components/Loading/Loading";
 import CompressionTable from "./Components/Amenities/CompressionTable";
-import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 
 const tabsStyle = {
   fontFamily: "Adequate, Helvetica Neue, Helvetica, \"sans-serif\"",
@@ -101,7 +100,7 @@ function MyApp() {
         </Grid>
           </Container>
         </Grid> 
-        <TawkMessengerReact
+        <MessengerReact
                 propertyId="65c8d7818d261e1b5f5ec45d"
                 widgetId="1hmc8jlfs"/>
         <CompressionTable/> 
