@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
 import "./enquiryStyle.css";
-import {Container, Grid, Typography,TextField,RadioGroup,FormControlLabel,Radio,Autocomplete ,Fab,MenuItem,InputAdornment,CircularProgress,Alert } from '@mui/material/';
+import {Container, Grid, Typography,TextField,RadioGroup,FormControlLabel,Radio,Autocomplete ,Fab,MenuItem,InputAdornment,CircularProgress,Alert, Divider } from '@mui/material/';
 import { allStates } from "../StaticData";
 import { FcFeedback,FcApproval } from "react-icons/fc";
 import Link from 'next/link';
@@ -77,12 +77,44 @@ const Enquiry = () => {
   return (
     <section className="enquryBg" id="enquiry">
         <Container maxWidth="xl">
-            <Grid container>
+            <Grid container spacing={2}>
                 <Grid item xs={12} lg={6}>
-          
-                <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"24px",md:"30px"},paddingTop:"100px", lineHeight:"1.2", fontWeight:300, fontFamily: "Adequate,Helvetica,\"sans-serif\""}}>Request More Information</Typography> <br/> <br/> <br/>
-                <p style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:200,fontSize:"20px",lineHeight:"2.5rem", color:"black"}}>To contact us for more information, please fill the form on the right or call us at <br/> <Link href="tel:310-995-4859"><strong>(310) 995-4859</strong></Link> </p> <br/><br/>
-
+                  <Grid container spacing={2} sx={{marginTop:{md:"50px"},width:"100%"}}>
+                    <Grid item xs={12} sx={{display:"flex",alignItems:"center",flexDirection:"column"}}>
+                    <Typography color="#082952" gutterBottom sx={{fontSize:{xs:"18px",md:"30px"}, borderLeft:"2px solid #FF5400", paddingLeft:"10px", lineHeight:"1.2", fontWeight:300, fontFamily: "Adequate,Helvetica,\"sans-serif\""}}>Request More Information</Typography> 
+                    <Typography sx={{fontSize:{xs:"14px"}}}>Have a doubt? Need some information? Choose an option to get in touch with us.</Typography>
+                    <br/> 
+                    </Grid>
+                    <Grid item xs={12} md={4} lg={12} className="center">
+                    <div className="enquiryCard">
+                    <img src="https://res.cloudinary.com/oasismanors/image/upload/v1708190817/Customer_Service_v1maqp.png" alt="CustomerCall" />
+                    <Typography gutterBottom color="#333" sx={{fontSize:"20px"}}>24hr Customer Service</Typography>
+                    <Divider light sx={{maxWidth:"200px"}}/> <br/>
+                    <Typography color="#333" sx={{fontSize:"14px"}}>Just call us on</Typography>
+                    <Link href="tel:310-995-4859"><Typography color="#007bff" sx={{fontSize:"14px"}}>(+1) 310-995-4859</Typography></Link> 
+                    </div>
+                    </Grid>
+                    <Grid item xs={12} md={4} lg={12}>
+                    <div className="enquiryCard">
+                    <img src="https://res.cloudinary.com/oasismanors/image/upload/v1708190847/Email_z6afpk.png" alt="CustomerCall" />
+                    <Typography gutterBottom color="#333" sx={{fontSize:"20px"}}>Reach us by E-mail</Typography>
+                    <Divider light sx={{maxWidth:"200px",marginBottom:"10px"}}/> 
+                    <Typography color="#333" sx={{fontSize:"14px"}}>Write to us at</Typography>
+                    <Link href="mailto:info@oasismanors.com"><Typography color="#007bff" sx={{fontSize:"14px"}}>info@oasismanors.com</Typography></Link> 
+                    <Link href="mailto:admin@oasismanors.com"><Typography color="#007bff" sx={{fontSize:"14px"}}>admin@oasismanors.com</Typography></Link> 
+                    </div>
+                    </Grid> 
+                    <Grid item xs={12} md={4} lg={12} className="center">
+                    <div className="enquiryCard">
+                    <img src="https://res.cloudinary.com/oasismanors/image/upload/v1708190871/whatsapp_nkr7x7.png" alt="CustomerCall" />
+                    <Typography gutterBottom color="#333" sx={{fontSize:"20px"}}>WhatsApp Us</Typography>
+                    <Divider light sx={{maxWidth:"200px"}}/> <br/>
+                    <Typography color="#333" sx={{fontSize:"14px"}}>Say "Hi" from registered mobile number</Typography>
+                    <Link href="https://wa.me/+13109954859?text=Hi,%20I'm%20interested%20in%20Oasis%20Homes."><Typography color="#007bff" sx={{fontSize:"14px"}}>(+1) 310-995-4859</Typography></Link> 
+                    </div>
+                    </Grid>
+                  </Grid>
+                {/* <p style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:200,fontSize:"20px",lineHeight:"2.5rem", color:"black"}}>To contact us for more information, please fill the form on the right or call us at <br/> <Link href="tel:310-995-4859"><strong>(310) 995-4859</strong></Link> </p> <br/><br/> */}
                 </Grid>
                 <Grid item xs={12} lg={6}>
                   <form onSubmit={e=>handleEnquiry(e)} id="enquiryForm">

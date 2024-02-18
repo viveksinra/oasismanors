@@ -35,9 +35,9 @@ function CompressionTable() {
           ))}
             <TableRow hover sx={{'&:last-child td, &:last-child th': { border: 0 }}}>
             <TableCell  component="th" scope="row"><Typography sx={{fontSize:{md:"18px",xs:"14px"}}}><b>Price</b> (Monthly)</Typography></TableCell>
-            <TableCell padding="none" align="center"><Typography sx={{fontSize:{md:"18px",xs:"14px"}}} color="green">$6000</Typography></TableCell>
-            <TableCell padding="none" align="center"><Typography sx={{fontSize:{md:"18px",xs:"14px"}}} color="red">$10000</Typography></TableCell>
-            <TableCell padding="none" align="center"><Typography sx={{fontSize:{md:"18px",xs:"14px"}}} color="red">$10000</Typography></TableCell>
+            <TableCell padding="none" align="center"><Typography sx={{fontSize:{md:"18px",xs:"14px"}}} color="green">$6000 +</Typography></TableCell>
+            <TableCell padding="none" align="center"><Typography sx={{fontSize:{md:"18px",xs:"12px"}}} color="red">$10000 +</Typography></TableCell>
+            <TableCell padding="none" align="center"><Typography sx={{fontSize:{md:"18px",xs:"12px"}}} color="red">$10000 +</Typography></TableCell>
             </TableRow>
         </TableBody>
       </Table>
