@@ -15,6 +15,7 @@ import {authService} from "./services/index"
 import Loading from "./Components/Loading/Loading";
 import CompressionTable from "./Components/Amenities/CompressionTable";
 import MessengerReact from '@tawk.to/tawk-messenger-react';
+
 const tabsStyle = {
   fontFamily: "Adequate, Helvetica Neue, Helvetica, \"sans-serif\"",
   fontWeight:300,
