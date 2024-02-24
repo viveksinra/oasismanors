@@ -36,7 +36,7 @@
 }
 #topHeader{
     margin-top: -20px;
-    height:fit-content;
+    /* height:fit-content; */
     width: 100%;
     position: fixed;
     z-index:9;
@@ -151,15 +151,23 @@
 
 @media only screen and (max-width: 900px) {
     #OasisLogo{
-        width: 210px;
+        width: 190px;
         height: 60px;
         transition: none;
     }
     #OasisLogoComp{
-        width: 210px;
+        width: 190px;
         transition: none;
     }
     #navContainer{
         height: 60px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    #topHeader{
+        margin-top: 0px;
+    }
+    #headerCompress{
+        margin-top: 0px;
     }
   }

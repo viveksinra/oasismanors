@@ -43,7 +43,7 @@ const list1 = [{title:"Home",icon:<FcHome/>, link:"/"},{title:"About Us",icon:<F
     </List>
      
 <br/>
-<center><button onClick={()=>handleDrawer()}>Go Back</button></center>
+  <center><button onClick={()=>handleDrawer()}>Go Back</button></center>
    </div>
   )
 }
