@@ -45,7 +45,7 @@ const validateOnCreate = async (req, res, next) => {
 
   if (!forPurInvoice) {
     return res.json({
-      message: "for Pur Invoice is required.",
+      message: "Allocate in Purchase Invoice is required.",
       variant: "error",
     });
   }
