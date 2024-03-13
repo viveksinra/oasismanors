@@ -196,9 +196,13 @@ if (req.body.employee._id) {
   if (req.body.completionNote) {
     newTask.completionNote = req.body.completionNote;
   }
-  newTask.type = "general"
+  newTask.type = "general"  
 
-  if (req.body.prospectId) {
+  if(req.body.type == "myContact"){
+    newTask.type = "myContact",
+    newTask.ledgerId = req.body.prospectId
+  } 
+  else if (req.body.prospectId) {
     if(req.body.prospectId == "general"){
       newTask.type = "general"
     }else{

@@ -96,7 +96,7 @@ function MyApp() {
             <br/><p style={{fontFamily:"acumin-pro,\"sans-serif\"",fontWeight:100,fontSize:"20px",color:"#333333"}}>Perched on a scenic bluff in the rolling hills of Sylmar, Oasis Homes, provides the setting to be as active or easygoing as you want with the confidence and peace of mind that comes from choosing a Life Plan community to call home.</p>
             </Grid>
              <Grid item xs={12} md={6} className="center">
-                <img src="https://res.cloudinary.com/oasismanors/image/upload/v1706128214/OasisHome_azsxab.webp" alt="Oasis Homes" style={{width:"100%",borderRadius:"20px",boxShadow:"rgba(0, 0, 0, 0.35) 0px 5px 15px;"}} />
+                <img src="https://res.cloudinary.com/oasismanors/image/upload/v1706128214/OasisHome_azsxab.webp" alt="Oasis Homes" style={{width:"100%",borderRadius:"20px",boxShadow:"rgba(0, 0, 0, 0.35) 0px 5px 15px"}} />
              </Grid>
         </Grid>
           </Container>

@@ -23,7 +23,7 @@ const ProTabPanel = ({value, prospectId,setProData})=>{
         case 1:
             return <HealthTab prospectId={prospectId}/>
         case 2:
-            return <ComplianceTab prospectId={prospectId}/>
+            return <ComplianceTab prospectId={prospectId} type="prospect"/>
         default:
             break;
     }
@@ -746,7 +746,7 @@ const HealthTab =({prospectId})=>{
 }
 
 
-const ComplianceTab = ({prospectId})=>{
+export const ComplianceTab = ({prospectId,type})=>{
     const snackRef = useRef();
     const [id, setId] = useState("")
     const [documentName, setFileName] = useState("");
@@ -760,7 +760,7 @@ const ComplianceTab = ({prospectId})=>{
     useEffect(() => {
         async function getData() {
           try {
-            let res = await prospectService.getCompliance(prospectId, id);
+            let res = await prospectService.getCompliance(`${type}/${prospectId}`, id);
            if(res.variant === "success"){
             setRow(res.data)
             snackRef.current.handleSnack(res);
@@ -788,7 +788,7 @@ const ComplianceTab = ({prospectId})=>{
       }
 
     useEffect(() => {
-      if(prospectId){getForms()}
+      if(prospectId && type==="prospect"){getForms()}
     }, [prospectId])
 
     const imgUpload= async (e)=>{
@@ -806,7 +806,7 @@ const ComplianceTab = ({prospectId})=>{
           if(!documentName){
             snackRef.current.handleSnack({message:"Document Name is Required.", variant:"info"}); 
           }
-            let data = {documentName,documentUrl,expiryDate,prospectId};
+            let data = {documentName,documentUrl,expiryDate,type,prospectId};
             let response;
               response = await prospectService.saveCompliance(id, data);
               if(response.variant === "success"){
@@ -822,7 +822,8 @@ const ComplianceTab = ({prospectId})=>{
     }
     return (
      <main>
-        <Grid sx={{background:"#fff", borderRadius:"10px", width: '100%' }}>
+        <Grid sx={{background:"#fff", borderRadius:"10px", width: '100%' }}> 
+        {type==="prospect" && <>
         <Divider>   <Typography color="primary" style={{fontFamily: 'Courgette'}} variant='h6' gutterBottom align='center'>All Uploaded Documents</Typography> </Divider>
       <Table size='small'> 
           <TableHead>
@@ -853,7 +854,10 @@ const ComplianceTab = ({prospectId})=>{
             </TableRow>  )}
             </TableBody>
         </Table>
+        
         <br/> <br/>
+        </> }
+        
         <Typography variant="h6" align="center" style={{fontFamily: 'Courgette'}} color="primary">Upload Other Documents</Typography>
         <br/>
     <Grid container spacing={2}>
@@ -924,23 +928,14 @@ const complianceColumn = [
         headerName: 'Last Modified',
         width: 160,
       },
-    {
-      field: 'action',
-      headerName: 'Action',
-      width: 120,
-      sortable: false,
-      renderCell: complianceAction,
-    },
+    // {
+    //   field: 'action',
+    //   headerName: 'Action',
+    //   width: 120,
+    //   sortable: false,
+    //   renderCell:  <Button onClick={()=>console.log(props)} variant="text">Delete</Button>,
+    // },
   ];
-
-  function complianceAction(props) {
-    return (
-      <ButtonGroup variant="text" aria-label="">
-        <Button onClick={()=>console.log(props)} variant="text">Edit</Button>
-        <Button onClick={()=>console.log(props)} variant="text">View</Button>
-      </ButtonGroup>
-    );
-  }
 
 
 export default ProfileTab;

@@ -121,10 +121,10 @@ export function SearchArea({handleEdit}) {
       </TableRow>
       </TableHead>
       <TableBody>
-      {rows && rows.map((r,i)=>  <TableRow key={r._id}> 
+      {rows && rows.map((r,i)=>  <TableRow hover key={r._id}> 
         <TableCell align="left" padding="none"> <Badge color="primary" variant="dot" invisible={!Boolean(r.important)}><Avatar alt={r.firstName} src={r.userImage} /> </Badge> </TableCell>
         <TableCell align="left">{`${r.firstName} ${r.lastName} `} </TableCell>
-        <TableCell align="left">{r.inquiryDate}</TableCell>
+        <TableCell align="left" sx={{minWidth:"120px"}}>{r.inquiryDate}</TableCell>
         <TableCell align="left"><Chip label={r.prospectStage} variant="outlined" size="small"  /></TableCell>      
         <TableCell align="left"><Rating value={r.prospectScore} readOnly /></TableCell>
         <TableCell align="left">{r.phone}</TableCell>

@@ -15,14 +15,13 @@ import { todayDate } from '../../Components/StaticData';
 import { prospectService,employeeService } from "../../services";
 import Search from "../../Components/Search";
 
-function TasksTab({prospectId}) {
+function TasksTab({prospectId,type}) {
   const [taskId, setTaskId] = useState("")
   const [viewTabular,toggleView] = useState(true);
-
   const entryRef = useRef();
   return (
     <main style={{marginTop:20}}> 
-      {viewTabular ? <SearchTask prospectId={prospectId}  handleEdit={(id)=>{toggleView(false); setTaskId(id)}} />  : <EntryTask taskId={taskId} setTaskId={e=>setTaskId(e)} prospectId={prospectId} ref={entryRef}/>}
+      {viewTabular ? <SearchTask prospectId={prospectId} type={type} handleEdit={(id)=>{toggleView(false); setTaskId(id)}} />  : <EntryTask taskId={taskId} type={type} setTaskId={e=>setTaskId(e)} prospectId={prospectId} ref={entryRef}/>}
       <AppBar position="fixed" sx={{ top: 'auto', bottom: 0,background:"#d6f9f7"}}>
       <Toolbar variant="dense">
         <span style={{flexGrow:0.2}}/>
@@ -47,7 +46,7 @@ function TasksTab({prospectId}) {
 
 
 
-function SearchTask({prospectId, handleEdit}) {
+function SearchTask({prospectId,type, handleEdit}) {
   const [loading, setLoading] = useState(true);
   const [taskTab, setTaskTab] = useState("Active Task");
   const [rows, setRow] = useState([]);
@@ -76,7 +75,7 @@ function SearchTask({prospectId, handleEdit}) {
 
   async function fetchAllData() {
     setLoading(true);
-    let response = await prospectService.getTask(`api/v1/enquiry/task/getTask/getDataWithPage/${prospectId}/${rowsPerPage}/${page}/${searchText}`);
+    let response = await prospectService.getTask(`api/v1/enquiry/task/getTask/getDataWithPage/${type}/${prospectId}/${rowsPerPage}/${page}/${searchText}`);
     if(response.variant === "success"){
       setLoading(false)
       setAllData(response?.data)
@@ -84,14 +83,14 @@ function SearchTask({prospectId, handleEdit}) {
   }
   useEffect(() => {
     fetchAllData()
-  }, [prospectId,rowsPerPage,page,searchText])
+  }, [prospectId,rowsPerPage,page,searchText,type])
   useEffect(() => {
     setDate(todayDate()) 
   }, [])
 
   const handleComplete = async(goal, id)=>{
     if(goal === "Complete"){
-      let taskData = {completionDate,completionTime,remark}
+      let taskData = {completionDate,completionTime,prospectId,type,remark}
       let response = await prospectService.saveTask("api/v1/enquiry/task/addTask/markComplete",completeBox?._id, taskData);
       if(response.variant === "success"){
         setCB({open:false});
@@ -292,7 +291,7 @@ const EntryTask = forwardRef((props, ref) => {
   useEffect(() => {
     async function getData() {
       try {
-       let res = await prospectService.getTask(`api/v1/enquiry/task/getTask/getAll/${props.prospectId}/${props.taskId}`);
+       let res = await prospectService.getTask(`api/v1/enquiry/task/getTask/getAll/${props.type}/${props.prospectId}/${props.taskId}`);
        if(res.variant === "success"){
         props.setTaskId(res.data._id);
         setEmployee(res.data.employee);
@@ -330,7 +329,7 @@ const EntryTask = forwardRef((props, ref) => {
  useImperativeHandle(ref, () => ({
       handleSubmit: async () => {
          try {
-          let taskData = {prospectId:props.prospectId, employee,taskType,taskDueDate,taskDueTime,task };
+          let taskData = {prospectId:props.prospectId,type:props.type,employee,taskType,taskDueDate,taskDueTime,task };
           let response = await prospectService.saveTask("api/v1/enquiry/task/addTask", props.taskId, taskData);
          if(response.variant === "success"){
            snackRef.current.handleSnack(response);
@@ -371,7 +370,7 @@ return (
               );
             }}
             value={employee}
-            renderInput={(params) => <TextField {...params} variant="standard" helperText="Master > Create Ledger > Under Group Employee" fullWidth label="Task For"/>}
+            renderInput={(params) => <TextField {...params} variant="standard" helperText="Master > Create Contact > Under Group Employee" fullWidth label="Task For"/>}
     />
     </Grid>
     <Grid item xs={12} md={3}>

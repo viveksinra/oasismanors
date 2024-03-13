@@ -2,18 +2,19 @@
 import "../../payment/paymentStyle.css";
 import React,{useEffect, useState, useRef} from 'react';
 import {allStates,allGenders} from "../../../Components/StaticData";
-import {Grid,TextField,Typography,InputAdornment,CircularProgress, Button,Input ,Avatar,List,ListItem,ListItemAvatar,ListItemText,ListItemButton,TablePagination, Divider,Tooltip, Chip,Collapse} from '@mui/material/';
+import {Grid,TextField,Typography,InputAdornment,CircularProgress, Button,Input ,Avatar,List,ListItem,ListItemAvatar,ListItemText,ListItemButton,TablePagination, Divider,Tooltip, Chip,Collapse, IconButton} from '@mui/material/';
 import {todayDate} from "../../../Components/StaticData";
 import Autocomplete from '@mui/material/Autocomplete';
 import { FcFullTrash,FcSearch } from "react-icons/fc";
 import { MdDoneAll,MdClearAll } from "react-icons/md";
 import { useImgUpload } from '@/app/hooks/auth/useImgUpload'; 
 import { ledgerService } from "../../../services/";
+import {FcLike,FcLikePlaceholder} from "react-icons/fc";
 import NoResult from "@/app/Components/NoResult/NoResult";
 import MySnackbar from "../../../Components/MySnackbar/MySnackbar";
 
 
-function Ledger() {
+function Ledger({id}) {
   const [_id, setId] = useState("");
   const [createDate, setDate] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,6 +22,7 @@ function Ledger() {
   const [ledgerImage, setImgUrl] = useState("");
   const [voucher, setVoucher] = useState("");
   const [cb, setCb] = useState("");
+  const [important, setImp] = useState(false);
   const [ledger, setLedger]= useState("");
   const [group, setGroup] = useState(null);
   const [openingBal, setOB] = useState("");
@@ -52,10 +54,12 @@ function Ledger() {
   const [totalCount,setTotalCount] = useState(0);
   const [allGroups, setAllGroups] = useState([]);
   const [result,setResult] = useState([]);
- 
+
+  
+
   const getResult = async()=>{
     setLoading(true)
-    let baseUrl = `api/v1/account/ledger/getLedger/getDataWithPage/${rowsPerPage}/${page}/${searchText}`;
+    let baseUrl = `api/v1/account/ledger/getLedger/getDataWithPage/newToOld/${rowsPerPage}/${page}/allgroup/${searchText}`;
     let res = await ledgerService.getLedger(baseUrl);
     if(res.variant === "success"){
         setLoading(false);
@@ -102,6 +106,7 @@ function Ledger() {
     setImgUrl(d? d?.ledgerImage : "");
     setVoucher(d? d?.voucher : "");
     setCb("");
+    setImp(d ? d.important : false);
     setLedger(d ? d?.ledger : "");
     setGroup(d ? d?.group : null);
     setOB(d ? d?.openingBal : "");
@@ -125,7 +130,7 @@ function Ledger() {
     setBranch(d ? d?.branch : "");
   }
   const handleSubmit = async ()=>{
-    let ledgerData = {_id,createDate,ledgerImage,voucher,cb,ledger,group,openingBal,isDr,gender,street,unit,mobile,email,zip,city,state,remark,remark,url,bankName,holderName,accountNo,Aba,swift,branch};
+    let ledgerData = {_id,createDate,ledgerImage,voucher,cb,important,ledger,group,openingBal,isDr,gender,street,unit,mobile,email,zip,city,state,remark,remark,url,bankName,holderName,accountNo,Aba,swift,branch};
     let res = await ledgerService.saveLedger(`api/v1/account/ledger/addLedger`, _id,ledgerData);
     if(res.variant === "success"){
       getResult()
@@ -133,6 +138,18 @@ function Ledger() {
       handleClear()
     }else {snackRef.current.handleSnack(res); console.log(res)}; 
   }
+  useEffect(() => {
+    if(id){
+      // Getting One Ledger Data
+    async function getOneLedgerData(){ 
+      let res = await ledgerService.getLedger(`api/v1/account/ledger/getledger/getAll/${id}`);
+      if(res.variant === "success"){
+        handleClear(res.data)
+      }else {snackRef.current.handleSnack(res); console.log(res)};    
+     }
+     getOneLedgerData()
+    }
+    }, [])
 
   async function getZIPData(){
     if(zip.length===5){
@@ -170,7 +187,7 @@ function Ledger() {
         <Grid item xs={12} md={8} sx={{background:"#fff", boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px", borderRadius:"10px", padding:"10px"}}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-            <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>{_id ? "Update Ledger" : "Create Ledger"}</Typography>
+            <Typography color="secondary" style={{fontFamily: 'Courgette'}} variant='h6' align='center'>{_id ? "Update Contact/Organisation" : "Create New Contact / Organisation"}</Typography>
             </Grid>
             <Grid item xs={12} md={4}>
               <TextField fullWidth value={createDate} sx={{maxWidth:"130px"}} onChange={e=>setDate(e.target.value)} label="Create Date" size='small' type="date" focused variant="standard" />   
@@ -185,17 +202,20 @@ function Ledger() {
             </label>
             } 
             </Grid>
-            <Grid item xs={12} md={4}>
-            {voucher && <Typography color="teal" sx={{fontFamily: 'Courgette'}} variant='body1' align='right'>Voucher No :  {voucher}</Typography>}
-            {cb && <Typography color="tomato" sx={{fontFamily: 'Courgette'}} variant='body1' align='right'>Current Balance : $  {cb}</Typography>}
+            <Grid item xs={12} md={4} sx={{display:"flex",justifyContent:"center",flexDirection:"column"}}>
+            {voucher && <Typography color="teal" sx={{fontFamily: 'Courgette'}} variant='body1' align='center'>Voucher No :  {voucher}</Typography>}
+            {cb && <Typography color="tomato" sx={{fontFamily: 'Courgette'}} variant='body1' align='center'>Current Balance : $  {cb}</Typography>}
+            <div style={{display:"flex",justifyContent:"center"}}>
+            {important ? <Tooltip arrow title="Important"> <IconButton onClick={()=>setImp(!important)}><FcLike /></IconButton></Tooltip>  : <Tooltip arrow title="Normal">  <IconButton onClick={()=>setImp(!important)}><FcLikePlaceholder/></IconButton></Tooltip> }
+            </div>
             </Grid>
             <Grid item xs={12}><br/></Grid>
             <Grid item xs={12} md={4}>
-            <TextField fullWidth value={ledger} placeholder="Enter Ledger Name..." onChange={e=>setLedger(e.target.value)} label="Ledger Name" size='small'  variant="standard" />   
+            <TextField fullWidth value={ledger} placeholder="Enter Contact / Organisation Name..." onChange={e=>setLedger(e.target.value)} label="Contact / Organisation Name" size='small'  variant="standard" />   
             </Grid>
             <Grid item xs={12} md={4}>
             <Autocomplete
-            isOptionEqualToValue={(option, value) => option._id === value._id}
+            isOptionEqualToValue={(option, value) => option?._id === value?._id}
             options={allGroups}
             onChange={(e, v) => {
             setGroup(v);
@@ -218,7 +238,7 @@ function Ledger() {
           }} />   
             </Grid>
             <Grid item xs={12} md={8}>
-            <TextField fullWidth value={remark} onChange={e=>setRemark(e.target.value)} label="Narration / Remark" placeholder="Type any Remark here..."  size='small' variant="standard" />   
+            <TextField fullWidth value={remark} onChange={e=>setRemark(e.target.value)} label="Remark" placeholder="Type any Remark here..."  size='small' variant="standard" />   
             </Grid>
             <Grid item xs={12} md={4}>
             <TextField label="Document (If Any)" size='small' disabled={loadingDoc} helperText="PDF and Image Files are allowed" inputProps={{ accept:"image/*, application/pdf" }}  InputProps={{
@@ -230,12 +250,12 @@ function Ledger() {
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={4}>
                     <Autocomplete
-                        isOptionEqualToValue={(option, value) => option.id === value.id}
+                        isOptionEqualToValue={(option, value) => option?.id === value?.id}
                         options={allGenders}
                         renderOption={(props, option) => {
                             return (
-                            <li {...props} key={option.id}>
-                                {option.label}
+                            <li {...props} key={option?.id}>
+                                {option?.label}
                             </li>
                             );
                         }}
@@ -321,7 +341,7 @@ function Ledger() {
             <Grid item xs={12} sx={{marginTop:"20px"}}>
               <Grid container justifyContent="space-between">
               <Button variant="outlined" onClick={()=>handleClear()} startIcon={<MdClearAll />}>Clear</Button>
-              <Button variant="contained" onClick={()=>handleSubmit()} startIcon={<MdDoneAll />} sx={{color:"#fff",borderRadius:"20px",padding:"0px 30px"}}>Save</Button>
+              <Button variant="contained" onClick={()=>handleSubmit()} startIcon={<MdDoneAll />} sx={{color:"#fff",borderRadius:"20px",padding:"0px 30px"}}>{_id ? "Update" : "Save"}</Button>
               <Button variant="outlined" onClick={()=>deleteData()} disabled={!_id} startIcon={<FcFullTrash />}>Delete</Button>
               </Grid>
             </Grid>

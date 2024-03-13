@@ -62,7 +62,6 @@ router.get(
   function sortByNatureOfGroup(arr) {
     // Sort the array based on the "natureOfGroup" property
     arr.sort((a, b) => {
-      console.log(a)
         const natureA = a.natureOfGroup.label.toUpperCase();
         const natureB = b.natureOfGroup.label.toUpperCase();
 

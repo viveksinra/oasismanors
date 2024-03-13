@@ -15,6 +15,10 @@ const LedgerSchema = new Schema({
     type: String,
     required:true,
   },
+  isDefault:{
+    type:Boolean,
+    default:false
+  },
   ledger: {
     type: String,
     required:true,
@@ -41,6 +45,10 @@ const LedgerSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  important: {
+    type: Boolean,
+    default: false
+  }, 
   gender: {
     label: {
       type: String,

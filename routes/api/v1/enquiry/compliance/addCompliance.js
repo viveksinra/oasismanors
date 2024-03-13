@@ -138,8 +138,15 @@ async function getComplianceObj(req,type) {
   if (req.body.expiryDate) {
     newCompliance.expiryDate = req.body.expiryDate;
   }
+
   if (req.body.prospectId) {
     newCompliance.prospectId = req.body.prospectId;
+  }
+  newCompliance.type = "general"  
+
+  if(req.body.type == "myContact"){
+    newCompliance.type = "myContact",
+    newCompliance.ledgerId = req.body.prospectId
   }
   newCompliance.lastModified = new Date();
  

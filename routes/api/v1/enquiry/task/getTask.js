@@ -4,60 +4,7 @@ const passport = require("passport");
 const Task = require("../../../../../Models/Private/Enquiry/Task");
 const { formatDateToShortMonth } = require("../../../../../utils/dateFormat");
 
-// @type    GET
-// @route   /api/v1/enquiry/task/getTask/getAll/:prospectId/:id
-// @desc    Get a task by ID
-// @access  Public
-router.get(
-  "/getAll/:prospectId/:id",
-  passport.authenticate("jwt", { session: false }),
-  async (req, res) => {
-    function convertDateFormat(dateString) {
-      const date = new Date(dateString);
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const day = String(date.getDate()).padStart(2, '0');
-      
-      return `${year}-${month}-${day}`;
-    }
 
-    try {
-      const task = await Task.findById(req.params.id).populate({
-        path: "employee._id",
-        select: "_id firstName lastName userImage",
-      });
-      
-      if (!task) {
-        return res.status(404).json({ 
-          variant: "error", 
-          message: "Task not found" 
-        });
-      }
-      
-      // Update task.taskDueDate to the new date format
-     let taskDueDate = convertDateFormat(task.taskDueDate);
-
-      // Save the updated task
-      let modifiedData = {
-        ...task.toObject(),
-        taskDueDate:taskDueDate,
-        employee: task.employee._id
-      }
-
-      res.status(200).json({ 
-        variant: "success", 
-        message: "Tasks Loaded", 
-        data: modifiedData 
-      });
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({ 
-        variant: "error", 
-        message: "Internal server error" 
-      });
-    }
-  }
-);
 
 
   
@@ -66,13 +13,19 @@ router.get(
   // @desc    Get all tasks
   // @access  Public
   router.get(
-    "/getAll/:prospectId",
+    "/getAll/:type/:prospectId",
     passport.authenticate("jwt", { session: false }),
     async (req, res) => {
       try {
         let myMatch = {prospectId: req.params.prospectId}
         if(req.params.prospectId == "general"){
           myMatch = {type: "general"}
+        }
+        if(req.params.type == "myContact"){
+          myMatch = {
+            type: "myContact",
+            ledgerId:req.params.prospectId
+          }
         }
         const myData = await Task.find(myMatch)
           .populate({
@@ -123,22 +76,85 @@ router.get(
     }
   );
   
+  // @type    GET
+// @route   /api/v1/enquiry/task/getTask/getAll/:prospectId/:id
+// @desc    Get a task by ID
+// @access  Public
+router.get(
+  "/getAll/:type/:prospectId/:id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    function convertDateFormat(dateString) {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      
+      return `${year}-${month}-${day}`;
+    }
+
+    try {
+      const task = await Task.findById(req.params.id).populate({
+        path: "employee._id",
+        select: "_id firstName lastName userImage",
+      });
+      
+      if (!task) {
+        return res.status(404).json({ 
+          variant: "error", 
+          message: "Task not found" 
+        });
+      }
+      
+      // Update task.taskDueDate to the new date format
+     let taskDueDate = convertDateFormat(task.taskDueDate);
+
+      // Save the updated task
+      let modifiedData = {
+        ...task.toObject(),
+        taskDueDate:taskDueDate,
+        employee: task.employee._id
+      }
+
+      res.status(200).json({ 
+        variant: "success", 
+        message: "Tasks Loaded", 
+        data: modifiedData 
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ 
+        variant: "error", 
+        message: "Internal server error" 
+      });
+    }
+  }
+);
   
   // @type    GET
-  // @route   /api/v1/enquiry/task/getTask/getDataWithPage/:prospectId/:limit/:PageNumber
+  // @route   /api/v1/enquiry/task/getTask/getDataWithPage/:type/:prospectId/:limit/:PageNumber
   // @desc    Get tasks with pagination
   // @access  Public
 
 
   router.get(
-    "/getDataWithPage/:prospectId/:limit/:PageNumber",
+    "/getDataWithPage/:type/:prospectId/:limit/:PageNumber",
     passport.authenticate("jwt", { session: false }),
     async(req, res) => {
       try {
         // Calculate total count if it's the first page
-      
+        let myMatch = {prospectId: req.params.prospectId}
+        if(req.params.prospectId == "general"){
+          myMatch = {type: "general"}
+        }
+        if(req.params.type == "myContact"){
+          myMatch = {
+            type: "myContact",
+            ledgerId:req.params.prospectId
+          }
+        }
 
-        let data = await getSearchFun(req,res,"get")
+        let data = await getSearchFun(req,res,myMatch,"get")
         res.status(200).json(data);
 
 
@@ -156,14 +172,41 @@ router.get(
   // @desc    Get tasks with pagination
   // @access  Public
   router.get(
-    "/getDataWithPage/:prospectId/:limit/:PageNumber/:search",
+    "/getDataWithPage/:type/:prospectId/:limit/:PageNumber/:search",
     passport.authenticate("jwt", { session: false }),
     async(req, res) => {
       try {
-    
+        
+          const searchQuery = req.params.search
+          // Calculate total count if it's the first page
+          if(req.params.prospectId == "general"){
+            myMatch = {type: "general",
+            $or: [
+              { task: { $regex: new RegExp(searchQuery, "i") } },
+              { "taskType.label": { $regex: new RegExp(searchQuery, "i") } },
+              // Add more fields as needed for searching
+            ],
+          
+          }
+          }
+          if(req.params.type == "myContact"){
+            myMatch = {
+              type: "myContact",
+              ledgerId:req.params.prospectId,
+              $or: [
+                { task: { $regex: new RegExp(searchQuery, "i") } },
+                { "taskType.label": { $regex: new RegExp(searchQuery, "i") } },
+                // Add more fields as needed for searching
+              ],
+            }
+          }
+        
 
 
-       let data = await getSearchFun(req,res,"search")
+        
+
+
+       let data = await getSearchFun(req,res,myMatch,"search")
         res.status(200).json(data);
 
       } catch (error) {
@@ -176,31 +219,11 @@ router.get(
     }
   );
 
-  const getSearchFun = async (req, type) => {
+  const getSearchFun = async (req,res,myMatch, type) => {
     try {
       const page = parseInt(req.params.PageNumber) || 1; // Get the page number from the route parameters (default to 1)
       const limit = parseInt(req.params.limit) || 10; // Number of records to retrieve per page
-      let myMatch = {
-        
-      }
-     
-      if(req.params.search){
-    const searchQuery = req.params.search
-    // Calculate total count if it's the first page
-     myMatch = {
-      $or: [
-        { task: { $regex: new RegExp(searchQuery, "i") } },
-        { "taskType.label": { $regex: new RegExp(searchQuery, "i") } },
-        // Add more fields as needed for searching
-      ],
-    }
-  }
-
-  if(req.params.prospectId == "general"){
-    myMatch.type =  "general"
-  }else {
-    myMatch.prospectId= req.params.prospectId 
-  }
+    
       const totalCount = await Task.countDocuments(myMatch);
   
       // Retrieve ledgers with pagination, populating the 'under' property
@@ -246,7 +269,7 @@ router.get(
   
       const dataToSend = {
         variant: "success",
-        message: "Group Loaded",
+        message: "Task Loaded",
         data: modifiedData,
         page: page,
         totalCount: totalCount,

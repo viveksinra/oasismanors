@@ -49,7 +49,7 @@ export const allStates= [ {label:"Alabama",id:"AL"},
 {label:"Wisconsin",id:"WI"},
 {label:"Wyoming",id:"WY"}]
 
-export const allGenders = [{label:"Female", id:"Female"},{label:"Male", id:"Male"},{label:"Non-Binary", id:"Non-Binary"},{label:"Transgender Male", id:"TransgenderMale"},{label:"Transgender Female", id:"TransgenderFemale"}]
+export const allGenders = [{label:"Female", id:"Female"},{label:"Male", id:"Male"},{label:"Non-Binary", id:"Non-Binary"},{label:"Transgender Male", id:"TransgenderMale"},{label:"Transgender Female", id:"TransgenderFemale"},{label:"Other", id:"Other"}]
 
 
 export const allRelation = [{label:"Friend",id:"friend"},{label:"Father",id:"father"},{label:"Mother",id:"mother"},{label:"Brother",id:"brother"},{label:"Sister",id:"sister"},{label:"Cousin",id:"cousin"},{label:"Physician",id:"physician"},{label:"Mental Health Provider",id:"mentalHealthProvider"},{label:"Dentist",id:"dentist"}, {label:"Others",id:"others"}]

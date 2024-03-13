@@ -17,7 +17,16 @@ const ComplianceSchema = new Schema({
   prospectId:{
     type: Schema.Types.ObjectId,
    ref: "myProspect",
-   required:true
+  },
+  type: {
+    type: String,
+    required:true,
+    enum:["prospect","general","myContact"]
+  },
+  // when type == myContact, then we required ledgerId
+  ledgerId:{
+    type: Schema.Types.ObjectId,
+   ref: "myLedger",
   },
   // Default for all
  communityId: {

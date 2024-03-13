@@ -10,9 +10,13 @@ const NoteSchema = new Schema({
   type: {
     type: String,
     required:true,
-    enum:["prospect","general"]
+    enum:["prospect","general","myContact"]
   },
-
+  // when type == myContact, then we required ledgerId
+  ledgerId:{
+    type: Schema.Types.ObjectId,
+   ref: "myLedger",
+  },
   prospectId:{
     type: Schema.Types.ObjectId,
    ref: "myProspect",

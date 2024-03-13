@@ -38,6 +38,7 @@ import {
   FcRightUp,
   FcDataRecovery,
   FcExpand,
+  FcAddressBook,
   FcCollapse,
   FcPlus,
   FcLeftDown,
@@ -125,6 +126,13 @@ const DrawerData = ({ open, setMobileOpen }) => {
       active: false,
       link: "/dashboard/employee",
       icon: <FcBusinessman />,
+      
+    },
+    {
+      title: "My Contacts",
+      active: false,
+      link: "/dashboard/mycontacts",
+      icon: <FcAddressBook  />,
     },
     {
       title: "All Forms",
@@ -161,13 +169,13 @@ const DrawerData = ({ open, setMobileOpen }) => {
   ]);
   const [masterList, setMasterList] = useState([
     {
-      title: "Create Ledger",
+      title: "Create New Contact",
       active: false,
       link: "/dashboard/master/ledger",
       icon: <FcPlus />,
     },
     {
-      title: "Create Group",
+      title: "Create Contact Group",
       active: false,
       link: "/dashboard/master/group",
       icon: <FcPlus />,

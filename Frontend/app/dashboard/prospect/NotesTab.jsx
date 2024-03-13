@@ -1,6 +1,6 @@
 'use client';
 import React,{useState,forwardRef,useImperativeHandle,useEffect,useRef} from 'react'
-import {Grid, AppBar,Toolbar,Box,Typography,TextField, Button,Tooltip,ButtonGroup,InputAdornment,CircularProgress} from '@mui/material/';
+import {Grid, AppBar,Toolbar,Box,Typography,TextField, Button,Tooltip,ButtonGroup,CircularProgress} from '@mui/material/';
 import {FaUserPlus,FaRegEdit } from "react-icons/fa";
 import {FiFileMinus,FiCheck } from "react-icons/fi";
 import {FcFullTrash } from "react-icons/fc";
@@ -12,13 +12,13 @@ import { prospectService } from "../../services";
 import MySnackbar from "../../Components/MySnackbar/MySnackbar";
 
 
-function NotesTab({prospectId}) {
+function NotesTab({prospectId,type}) {
   const [viewTabular,toggleView] = useState(true);
   const [noteId, setNoteId] = useState("")
   const entryRef = useRef();
   return (
     <main style={{marginTop:20}}> 
-      {viewTabular ? <SearchTask prospectId={prospectId}  handleEdit={(id)=>{toggleView(false); setNoteId(id)}} />  : <EntryNotes setNoteId={e=>setNoteId(e)} noteId={noteId} prospectId={prospectId}  ref={entryRef}/>}
+      {viewTabular ? <SearchTask prospectId={prospectId} type={type} handleEdit={(id)=>{toggleView(false); setNoteId(id)}} />  : <EntryNotes setNoteId={e=>setNoteId(e)} noteId={noteId} prospectId={prospectId} type={type} ref={entryRef}/>}
       <AppBar position="fixed" sx={{ top: 'auto', bottom: 0,background:"#d6f9f7"}}>
       <Toolbar variant="dense">
         <span style={{flexGrow:0.2}}/>
@@ -43,13 +43,13 @@ function NotesTab({prospectId}) {
 
 
 
-function SearchTask({prospectId, handleEdit}) {
+function SearchTask({prospectId, type, handleEdit}) {
   const [rows, setRow] = useState([]);
   const snackRef = useRef();
   const [loading, setLoading] = useState(false);
   async function fetchAllData() {
     setLoading(true)
-    let response = await prospectService.getNote(prospectId, "");
+    let response = await prospectService.getNote(`${type}/${prospectId}`, "");
     if(response.variant === "success"){
       setRow(response?.data)
       setLoading(false)
@@ -139,7 +139,7 @@ const EntryNotes = forwardRef((props, ref) => {
   useEffect(() => {
     async function getData() {
       try {
-        let res = await prospectService.getNote(props.prospectId, props.noteId);
+        let res = await prospectService.getNote(`${props.type}/${props.prospectId}`, props.noteId);
        if(res.variant === "success"){
         setNotes(res.data.notes);
         props.setNoteId(res.data._id)
@@ -157,7 +157,7 @@ const EntryNotes = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
       handleSubmit: async () => {
          try {
-          let notesData = { prospectId:props.prospectId, notes };
+          let notesData = { prospectId:props.prospectId,type:props.type, notes };
           let response = await prospectService.saveNote(props.noteId, notesData);
          if(response.variant === "success"){
            snackRef.current.handleSnack(response);

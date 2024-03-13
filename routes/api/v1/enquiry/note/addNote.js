@@ -115,31 +115,28 @@ console.log(error)
 );
 
 async function getNoteObj(req,type) {
-  let newNote = {  
-
-  };
-  if(type == "create"){
-   
-  } 
-
-
+  let newNote = { };
+  if(type == "create"){ } 
   newNote.user=  req.user.id;
-
 // Check and assign values for each parameter based on their type
-
-  
   if (req.body.notes) {
     newNote.notes = req.body.notes;
   }
-  newNote.type = "general"
+  newNote.type = "general"  
 
-  if (req.body.prospectId) {
+  if(req.body.type == "myContact"){
+    newNote.type = "myContact",
+    newNote.ledgerId = req.body.prospectId
+  } 
+  else if (req.body.prospectId) {
     if(req.body.prospectId == "general"){
       newNote.type = "general"
     }else{
     newNote.prospectId = req.body.prospectId;
     newNote.type = "prospect";
   }}
+
+
   newNote.lastModified = new Date();
  
   return newNote;

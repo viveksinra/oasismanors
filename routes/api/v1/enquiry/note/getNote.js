@@ -8,7 +8,7 @@ const Note = require("../../../../../Models/Private/Enquiry/Note");
 // @desc    Get a note by ID
 // @access  Public
 router.get(
-    "/getAll/:prospectId/:id",
+    "/getAll/:type/:prospectId/:id",
     passport.authenticate("jwt", { session: false }),
     async (req, res) => {
 
@@ -38,10 +38,9 @@ res.status(200).json({ variant: "success", message: "Note Loaded", data: note })
   // @desc    Get all notes
   // @access  Public
   router.get(
-    "/getAll/:prospectId",
+    "/getAll/:type/:prospectId",
     passport.authenticate("jwt", { session: false }),
-    async (req, res) => {
-     
+    async (req, res) => {     
       try {
         function changeFormat(dateStr) {
           const date = new Date(dateStr);
@@ -49,13 +48,18 @@ res.status(200).json({ variant: "success", message: "Note Loaded", data: note })
             year: "numeric",
             month: "long",
             day: "numeric",
-          });
-  
+          });  
           return formattedDate;
         }
         let myMatch = {prospectId: req.params.prospectId}
         if(req.params.prospectId == "general"){
           myMatch = {type: "general"}
+        }
+        if(req.params.type == "myContact"){
+          myMatch = {
+            type: "myContact",
+            ledgerId:req.params.prospectId
+          }
         }
 
         const myData = await Note.find(myMatch)

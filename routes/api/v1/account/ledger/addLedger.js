@@ -161,6 +161,9 @@ if (req.body.openingBal !== undefined) {
 if (req.body.isDr !== undefined) {
   newLedger.isDr = req.body.isDr;
 }
+if (req.body.important !== undefined) {
+  newLedger.important = req.body.important;
+}
 
 if (req.body.gender) {
   newLedger.gender = {}

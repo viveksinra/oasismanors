@@ -18,11 +18,27 @@ const validateOnCreate = async (req, res, next) => {
   }
 
       //   Check if the required fields are present
-      if (!req.body.prospectId ) {
+    
+      if (!req.body.type ) {
         return res.status(406).json({
-          message: "Prospect Id is required fields.",
+          message: "Type is required field.",
           variant: "error",
         });  
+      } else {
+        if(req.body.type == "prospect")
+       { if (!req.body.prospectId ) {
+          return res.status(406).json({
+            message: "Prospect Id is required fields.",
+            variant: "error",
+          });  } }
+          else if(req.body.type == "myContact"){
+            if (!req.body.prospectId ) {
+              return res.status(406).json({
+                message: "ledger Id is required fields.",
+                variant: "error",
+              });  } 
+          }
+        
       }
 
   next();

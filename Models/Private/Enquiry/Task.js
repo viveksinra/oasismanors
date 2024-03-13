@@ -67,10 +67,14 @@ const TaskSchema = new Schema({
     type: Schema.Types.ObjectId,
    ref: "myProspect",
   },
+  ledgerId:{
+    type: Schema.Types.ObjectId,
+   ref: "myLedger",
+  },
   type: {
     type: String,
     required:true,
-    enum:["prospect","general"]
+    enum:["prospect","general","myContact"]
   },
   // Default for all
  communityId: {

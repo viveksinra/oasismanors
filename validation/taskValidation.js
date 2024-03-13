@@ -1,14 +1,13 @@
 
 const validateOnCreate = async (req, res, next) => {
 
-//   Check if the required fields are present
-  if (!req.body.prospectId ) {
-    if(req.body.prospectId != "general"){
-    return res.status(406).json({
-      message: "Prospect Id is required fields.",
-      variant: "error",
-    });  }
-  }
+    //   Check if the required fields are present
+    if (!req.body.prospectId ) {      
+      return res.status(406).json({
+        message: "Prospect Id is required fields.",
+        variant: "error",
+      });  
+    }
   if (!req.body.task ) {
     return res.status(406).json({
       message: "task is required fields.",

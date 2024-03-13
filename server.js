@@ -108,6 +108,8 @@ const getComplianceDocs = require("./routes/api/v1/common/complianceDocs/getComp
 // Community
 const addCommunity = require("./routes/api/v1/main/community/addCommunity");
 const getCommunity = require("./routes/api/v1/main/community/getCommunity");
+// Other
+const createDefaultApi = require("./routes/api/v1/other/defaultMaker/createDefaultApi");
 
 
 //passport 
@@ -247,6 +249,10 @@ app.use("/api/v1/common/complianceDocs/getComplianceDocs", getComplianceDocs);
 // Community
 app.use("/api/v1/main/community/addCommunity", addCommunity);
 app.use("/api/v1/main/community/getCommunity", getCommunity);
+// Other
+app.use("/api/v1/other/defaultMaker/createDefaultApi", createDefaultApi);
+
+
 
 app.get("/*", function(req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"), function(

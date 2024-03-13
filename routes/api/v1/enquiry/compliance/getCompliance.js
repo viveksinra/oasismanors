@@ -3,42 +3,14 @@ const router = express.Router();
 const passport = require("passport");
 const Compliance = require("../../../../../Models/Private/Enquiry/Compliance");
 
-// @type    GET
-// @route   /api/v1/enquiry/compliance/getCompliance/getAll/:prospectId/:id
-// @desc    Get a compliance by ID
-// @access  Public
-router.get(
-    "/getAll/:prospectId/:id",
-    passport.authenticate("jwt", { session: false }),
-    async (req, res) => {
 
-      try {
-        const compliance = await Compliance.findById(req.params.id);
-if (!compliance) {
-  return res
-    .status(404)
-    .json({ 
-      variant: "error", 
-      message: "Compliance not found" });
-}
-res.status(200).json({ variant: "success", message: "Compliance Loaded", data: compliance });
-      } catch (error) {
-        console.log(error)
-        res
-          .status(500)
-          .json({ 
-            variant: "error", 
-            message: "Internal server error" + error.message});
-      }
-    }
-  );
   
   // @type    GET
   // @route   /api/v1/enquiry/compliance/getCompliance/getAll/:prospectId
   // @desc    Get all compliances
   // @access  Public
   router.get(
-    "/getAll/:prospectId",
+    "/getAll/:type/:prospectId",
     passport.authenticate("jwt", { session: false }),
     async (req, res) => {
      
@@ -53,8 +25,17 @@ res.status(200).json({ variant: "success", message: "Compliance Loaded", data: c
   
           return formattedDate;
         }
-
-        const myData = await Compliance.find({prospectId: req.params.prospectId})
+        let myMatch = {prospectId: req.params.prospectId}
+        if(req.params.prospectId == "general"){
+          myMatch = {type: "general"}
+        }
+        if(req.params.type == "myContact"){
+          myMatch = {
+            type: "myContact",
+            ledgerId:req.params.prospectId
+          }
+        }
+        const myData = await Compliance.find(myMatch)
         const modifiedData = myData.map((compliance) => {
           const formattedComplianceDate = changeFormat(compliance.date);
           const formatedLastModified = changeFormat(compliance.lastModified);
@@ -76,6 +57,35 @@ res.status(200).json({ variant: "success", message: "Compliance Loaded", data: c
     }
   );
   
+  // @type    GET
+// @route   /api/v1/enquiry/compliance/getCompliance/getAll/:prospectId/:id
+// @desc    Get a compliance by ID
+// @access  Public
+router.get(
+  "/getAll/:type/:prospectId/:id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+
+    try {
+      const compliance = await Compliance.findById(req.params.id);
+if (!compliance) {
+return res
+  .status(404)
+  .json({ 
+    variant: "error", 
+    message: "Compliance not found" });
+}
+res.status(200).json({ variant: "success", message: "Compliance Loaded", data: compliance });
+    } catch (error) {
+      console.log(error)
+      res
+        .status(500)
+        .json({ 
+          variant: "error", 
+          message: "Internal server error" + error.message});
+    }
+  }
+);
   
   
   // @type    GET
