@@ -7,7 +7,7 @@ import { FcFeedback,FcApproval } from "react-icons/fc";
 import Link from 'next/link';
 import {authService} from "../../services/index";
 import axios from "axios";
-
+import { sendGAEvent } from '@next/third-parties/google'
 
 const Enquiry = () => {
   const [enquiryFor, setEnquiryFor]=useState("self");
@@ -55,6 +55,8 @@ const Enquiry = () => {
       if(res.variant ==="success"){
         setSubmitted(true);
         setEnquiryFor("self");
+        sendGAEvent({ event: 'buttonClicked', value: 'AW-11484382430/-hgOCIbS7p0ZEN6Jl-Qq' })
+
         setFName("");
         setLName("");
         setEmail("");
