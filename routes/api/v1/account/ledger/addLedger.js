@@ -7,6 +7,7 @@ const Ledger = require("../../../../../Models/Private/Account/Ledger");
 const {
   validateOnCreate,
   validateOnUpdate,
+  validateOnDelete,
 } = require("../../../../../validation/account/ledgerValidation");
 
 // @type    POST
@@ -92,6 +93,7 @@ console.log(error)
 // @access  Public
 router.delete(
   "/deleteOne/:id",
+  validateOnDelete,
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     try {

@@ -48,6 +48,18 @@ const validateOnCreate = async (req, res, next) => {
       
     next();
   };
+  const validateOnDelete = async (req, res, next) => {
   
-  module.exports = { validateOnCreate, validateOnUpdate };
+    const myLedger = await Ledger.findOne({_id:req.params.id});
+    if (myLedger.isDefault) {
+      return res.json({
+        message: "Default Ledger can't be deleted",
+        variant: "error",
+      });  
+    }
+      
+    next();
+  };
+  
+  module.exports = { validateOnCreate, validateOnUpdate,validateOnDelete };
   

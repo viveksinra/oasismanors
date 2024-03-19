@@ -5,6 +5,7 @@ import LayoutWrapper from './LayoutWrapper';
 import  './globals.css';
 import Head from 'next/head';
 import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleTagManager } from '@next/third-parties/google'
 
 export const metadata = {
   title: 'Oasis Homes - Assisted Living Facility at 15116 Roxford St, Sylmar, CA 91342',
@@ -14,23 +15,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-   {/* <Head>
-   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PCF4DTEW86"></script>
-  <script>
-  dangerouslySetInnerHTML={{__html: `
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-PCF4DTEW86');
-  `}}
-  </script>
-    </Head> */}
+   <Head>
+   {/* <!-- Global site tag (gtag.js) - Google AdWords: 11484382430 --> */}
+
+    </Head>
       <body>
         <LayoutWrapper> 
           {children}
         </LayoutWrapper>
       </body>
-      <GoogleAnalytics gaId="G-PCF4DTEW86" />
+      <GoogleTagManager gtmId="GTM-XYZ" />
+      <GoogleAnalytics gaId="AW-11484382430" />
     </html>
   );
 }
