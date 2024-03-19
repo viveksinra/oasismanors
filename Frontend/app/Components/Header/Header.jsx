@@ -50,10 +50,7 @@ const Header = ( { children,window }) => {
            <ul> 
             <li style={{borderLeft:"none"}}><Link style={{margin:"0px 5px 0px 0px",padding:"0px 10px 0px 0px"}} href="/login">Resident Portal</Link></li>
             <li><Link style={{margin:"0px 5px",padding:"0px 10px"}} href="/contact/careers">Careers</Link></li>
-            <li><Link style={{margin:"0px 0px 0px 5px",padding:"0px 0px 0px 10px"}} href="tel:310-995-4859" onClick={(event) => {
-  event.preventDefault();
-  sendGAEvent({ event: 'phoneCall', value: 'AW-11484382430/Sm9oCInSS7p0ZEN6Jl-Qq' });
-}}>310-995-4859</Link></li>
+            <li><Link style={{margin:"0px 0px 0px 5px",padding:"0px 0px 0px 10px"}} href="tel:310-995-4859" >310-995-4859</Link></li>
            </ul>
             </div>
             </Container>   

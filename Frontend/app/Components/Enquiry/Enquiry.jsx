@@ -55,7 +55,6 @@ const Enquiry = () => {
       if(res.variant ==="success"){
         setSubmitted(true);
         setEnquiryFor("self");
-        sendGAEvent({ event: 'buttonClicked', value: 'AW-11484382430/-hgOCIbS7p0ZEN6Jl-Qq' })
 
         setFName("");
         setLName("");
